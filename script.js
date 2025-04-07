@@ -127,7 +127,7 @@ function addToHistory(message, type = 'info') {
 function openBookLink(bookName) {
     const url = bookLinks[bookName];
     if (url) {
-        window.open(url, url.startsWith('https://againte.gratis') ? '' : '_blank');
+        window.open(url, url.startsWith('https://againte.gratis') ? '_self' : '_blank');
         addToHistory(`> 🌐 переход: ${bookName} → ${url}`);
     } else {
         errorMessage.textContent = `❌ Ссылка не найдена`;
