@@ -75,14 +75,23 @@ function clearAllTimers() {
     activeTimers = [];
 }
 
-function skipLoadingSequence() {
+function skipLoadingSequence(reason = 'click') {
     if (isLoadingSequence) {
-        clearAllTimers();
+        // Сначала отключаем флаг загрузки, чтобы предотвратить повторные вызовы
         isLoadingSequence = false;
+        
+        // Затем очищаем таймеры и выполняем остальные действия
+        clearAllTimers();
         echoLine.style.opacity = 1;
         initialSequenceComplete = true;
         listMenu();
-        addToHistory('> загрузка пропущена');
+        
+        // Логируем причину пропуска загрузки
+        if (reason === 'escape') {
+            addToHistory('> загрузка пропущена по клавише Escape');
+        } else {
+            addToHistory('> загрузка пропущена по клику');
+        }
     }
 }
 
@@ -246,7 +255,7 @@ function initPage() {
         if (state === 0 && !initialSequenceComplete) {
             startLoadingSequence();
         } else if (isLoadingSequence) {
-            skipLoadingSequence();
+            skipLoadingSequence('click');
         }
     });
     
@@ -269,7 +278,7 @@ function initPage() {
         }
         
         if (isLoadingSequence && event.key === 'Escape') {
-            skipLoadingSequence();
+            skipLoadingSequence('escape');
             event.preventDefault();
         }
     });
