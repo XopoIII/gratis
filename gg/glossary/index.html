@@ -5,34 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Словарь MadMarks — GG</title>
   <style>
-	html, body {
-		margin: 0;
-		padding: 0;
-		height: 100%;
-		font-family: 'Courier New', monospace;
-		background: #111;
-		color: #fff;
-		overflow-x: hidden;
-		-webkit-tap-highlight-color: transparent;
-		position: relative;
-	}
-	body::before {
-		content: '';
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
-		pointer-events: none;
-		opacity: 0.02;
-		z-index: 1;
-	}
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Courier New', monospace;
+        background: #111;
+        color: #fff;
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+    }
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+        pointer-events: none;
+        opacity: 0.02;
+        z-index: 1;
+    }
 
     .container {
-		max-width: 1100px;
-		margin: 20px auto;
-		padding: 20px;
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 20px;
     }
 
     h1 {
@@ -42,8 +42,8 @@
 
     .entry {
       margin-bottom: 16px;
-	  text-align: left;
-	  line-height: 1.6;
+      text-align: left;
+      line-height: 1.6;
     }
 
     .term {
@@ -86,6 +86,59 @@
       color: #000;
     }
   </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DefinedTermSet",
+      "name": "Словарь MadMarks",
+      "description": "Словарь терминов из книги GG от лица MadMarks. Пояснения игрового сленга и терминов киберспорта.",
+      "inDefinedTermSet": "https://your-site.gg/gg-glossary",
+      "hasDefinedTerm": [
+        { "@type": "DefinedTerm", "name": "AWP / авп", "description": "Большая снайперка. Громкая, медленная, но если попал — ваншот." },
+        { "@type": "DefinedTerm", "name": "Дигл", "description": "Мощный пистолет. Если попал — праздник. Если нет — смотри демку, брат." },
+        { "@type": "DefinedTerm", "name": "Глоки / USP", "description": "Стартовые пистолеты. Годно только в упор. Или если ты Зевс." },
+        { "@type": "DefinedTerm", "name": "Галил", "description": "Автомат террористов. Дёшево, сердито. Иногда спасает жопу." },
+        { "@type": "DefinedTerm", "name": "Флешка", "description": "Белый экран и разочарование. Лучше кинуть — чем словить." },
+        { "@type": "DefinedTerm", "name": "Смок / молик / утилиты", "description": "Гранаты, что делают магию. Кто кидает правильно — живёт. Остальные ослепляют тиммейтов." },
+
+        { "@type": "DefinedTerm", "name": "Клатч", "description": "Один против всех. Затащил — герой. Нет — ну ты старался." },
+        { "@type": "DefinedTerm", "name": "Ретейк", "description": "Выбивание точки после установки бомбы. Как в кино. Только ты умираешь первым." },
+        { "@type": "DefinedTerm", "name": "Экзекьют / фейк", "description": "Массовый заход на точку. Или фальшивый, чтоб отвлечь." },
+        { "@type": "DefinedTerm", "name": "Агрессивный пик", "description": "Выглянул первый. Если выжил — молодец. Если нет — 'зачем пикал, долбоёб?'" },
+        { "@type": "DefinedTerm", "name": "Пик / пикнуть", "description": "Выглядываешь. Получаешь. Или даёшь. Кто быстрее — тот и прав." },
+        { "@type": "DefinedTerm", "name": "Чекать", "description": "Выглядывать аккуратно, чтобы не схлопотать ваншот." },
+        { "@type": "DefinedTerm", "name": "Аим / флик / префаер", "description": "Точность, рефлекс, стрельба по предчувствию. Всё, что делает игру игрой." },
+
+        { "@type": "DefinedTerm", "name": "Раунд / матчпоинт / карта / счёт", "description": "Структура матча. Кто ведёт счёт — ведёт и игру." },
+        { "@type": "DefinedTerm", "name": "Пистолетка", "description": "Первый раунд. Маленькие пушки, большие нервы." },
+        { "@type": "DefinedTerm", "name": "Фризтайм", "description": "Пауза перед мясом. Вдох, закуп, поехали." },
+        { "@type": "DefinedTerm", "name": "Сейв / сейвить", "description": "Когда умирает надежда, но девайс ещё можно унести." },
+        { "@type": "DefinedTerm", "name": "Взять паузу / тайм-аут", "description": "Момент выдоха. Или крика в микрофон." },
+
+        { "@type": "DefinedTerm", "name": "Открывашка", "description": "Первый, кто входит. Если не умер — уже герой." },
+        { "@type": "DefinedTerm", "name": "Капитан", "description": "Рулит, строит, орёт. Без него — хаос. С ним — страта." },
+        { "@type": "DefinedTerm", "name": "Лёркер", "description": "Обходит в тыл. Иногда гений, иногда овощ." },
+        { "@type": "DefinedTerm", "name": "Солист / соло-плей", "description": "Когда на команду пофиг. Или когда ты МэдМаркс." },
+        { "@type": "DefinedTerm", "name": "Универсальный игрок", "description": "Заполняет дыры. Без понтов, но вечно нужный." },
+
+        { "@type": "DefinedTerm", "name": "Тильт / тильтует", "description": "Когда всё бесит и прицел плавает." },
+        { "@type": "DefinedTerm", "name": "Минус клава", "description": "Закономерный итог клатча. Эмоции сильнее пластика." },
+        { "@type": "DefinedTerm", "name": "Курьер", "description": "Лучший тиммейт в реальной жизни. Принёс еду, ушёл молча." },
+        { "@type": "DefinedTerm", "name": "Пицца после клатча", "description": "Вкус победы. Лучше только трофей." },
+        { "@type": "DefinedTerm", "name": "GG / GOAT", "description": "Финал и вершина. Проиграл — GG. Затащил — GOAT." },
+
+        { "@type": "DefinedTerm", "name": "Мейджор / финал мейджора", "description": "Высшая лига. Олимп. Или бездна." },
+        { "@type": "DefinedTerm", "name": "BO3 / BO5 / veto", "description": "Форматы матчей. Стратегия уже до первой пули." },
+        { "@type": "DefinedTerm", "name": "Контракт / переход", "description": "Превращение задрота в про. Или в товар." },
+        { "@type": "DefinedTerm", "name": "IEM Cologne", "description": "Вершина кибера. Победа тут — билет в бессмертие." },
+        { "@type": "DefinedTerm", "name": "Демка / разбор / скримы", "description": "Повторы и тренировки. Смотреть больно, но надо." },
+
+        { "@type": "DefinedTerm", "name": "ВХ / чит / программа / система", "description": "Грязная сторона сцены. Кто-то врёт, кто-то палится, кто-то выигрывает." },
+        { "@type": "DefinedTerm", "name": "Система Wolf'а", "description": "“Аналитика”, если ты веришь. Читы, если ты честный." },
+        { "@type": "DefinedTerm", "name": "Аналитические инструменты", "description": "Прикрытие. Но работает. Пока тебя не спалили." }
+      ]
+    }
+    </script>
 </head>
 <body>
   <div class="container">
