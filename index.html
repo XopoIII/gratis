@@ -23,6 +23,27 @@
             color: #fff;
             overflow: hidden;
             -webkit-tap-highlight-color: transparent; /* Убираем подсветку при тапе на мобильных */
+            position: relative;
+        }
+        
+        /* Фоновый шум */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: -1;
+            animation: subtleFlicker 4s infinite alternate;
+        }
+        
+        @keyframes subtleFlicker {
+            0%, 100% { opacity: 0.03; }
+            50% { opacity: 0.05; }
         }
 
         /* Основной контейнер */
@@ -62,13 +83,33 @@
 
         /* Навигационная панель с кнопкой назад и сообщениями */
         #nav-container {
+            max-width: 500px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 90%;
             margin-top: 20px;
             min-height: 30px;
-            max-width: 500px;
+        }
+        
+        /* Контейнер для истории взаимодействий */
+        #history-log {
+            font-size: 0.8em;
+            color: #444;
+            white-space: pre-wrap;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            max-height: 50px;
+            overflow-y: auto;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+            font-family: 'Courier New', monospace;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
         }
         
         #back-nav {
@@ -223,19 +264,29 @@
             <div id="error-message"></div>
         </div>
         <div id="echo-line"></div>
+        <div id="history-log"></div>
     </div>
 
     <script>
         // Кэширование DOM-элементов для повышения производительности
         const echoLine = document.getElementById("echo-line");
         const errorMessage = document.getElementById("error-message");
+        const historyLog = document.getElementById("history-log");
         
         // Состояние приложения
         let state = 0;
         let initialSequenceComplete = false;
+        let username = "integrant"; // Имя пользователя для персонализации
         
         // Очистка таймеров при необходимости
         let activeTimers = [];
+        
+        // Типы ошибок и их цвета
+        const ERROR_TYPES = {
+            CRITICAL: '#ff0055',
+            WARNING: '#ffaa00',
+            INFO: '#44aaff'
+        };
         
         // Данные
         const booksMain = [
@@ -300,7 +351,7 @@
         /**
          * Анимированный вывод текста по символам
          */
-        function typeMessage(text, callback) {
+        function typeMessage(text, callback, speed = 80) {
             // Очищаем предыдущие таймеры, чтобы избежать конфликтов
             clearAllTimers();
             
@@ -312,7 +363,9 @@
                 if (index < text.length) {
                     echoLine.textContent += text.charAt(index);
                     index++;
-                    safeSetTimeout(typeChar, 100);
+                    // Случайная задержка для более естественного эффекта печати
+                    const randomSpeed = speed + Math.floor(Math.random() * 40 - 20);
+                    safeSetTimeout(typeChar, randomSpeed);
                 } else if (callback) {
                     safeSetTimeout(callback, 500);
                 }
@@ -320,43 +373,27 @@
             
             typeChar();
         }
-
+        
         /**
-         * Отображение главного меню
+         * Добавляет запись в лог истории
          */
-        function listMenu() {
-            let menuHTML = "[ Выберите раздел ]<br>";
-            menuHTML += "<div class='menu-item' onclick='listBooks()'>↳ [ 1 ] Книги</div>";
-            menuHTML += "<div class='menu-item' onclick='listSocials()'>↳ [ 2 ] Соцсети</div>";
+        function addToHistory(message, type = 'info') {
+            if (!historyLog.style.opacity || historyLog.style.opacity === '0') {
+                historyLog.style.opacity = 1;
+            }
             
-            echoLine.innerHTML = menuHTML;
-            state = 10;
+            const timestamp = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const entryColor = type === 'error' ? '#ff5555' : (type === 'warning' ? '#ffaa00' : '#666');
+            
+            const logEntry = document.createElement('div');
+            logEntry.style.color = entryColor;
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            
+            historyLog.appendChild(logEntry);
+            historyLog.scrollTop = historyLog.scrollHeight;
         }
 
-        /**
-         * Отображение списка книг
-         */
-        function listBooks() {
-            // Показываем кнопку назад
-            document.getElementById('back-nav').style.opacity = 1;
-            
-            let output = "<div style='margin-bottom: 10px'><strong># Книги:</strong></div>";
-            
-            booksMain.forEach(book => {
-                const escapedBook = escapeHtml(book);
-                output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
-            });
-            
-            output += "<div style='margin: 10px 0'><strong># В соавторстве с Антон Хорш:</strong></div>";
-            
-            booksCoauthor.forEach(book => {
-                const escapedBook = escapeHtml(book);
-                output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
-            });
-            
-            echoLine.innerHTML = output;
-            state = 11;
-        }
+
 
         /**
          * Отображение списка соцсетей
@@ -371,14 +408,39 @@
             
             echoLine.innerHTML = output;
             state = 12;
+            
+            // Добавляем запись в лог
+            addToHistory('> открыт раздел: Соцсети');
+        }
+
+        /**
+         * Отображение главного меню
+         */
+        function listMenu() {
+            let menuHTML = "[ Выберите раздел ]<br>";
+            menuHTML += "<div class='menu-item' onclick='listBooks()'>↳ [ 1 ] Книги</div>";
+            menuHTML += "<div class='menu-item' onclick='listSocials()'>↳ [ 2 ] Соцсети</div>";
+            
+            echoLine.innerHTML = menuHTML;
+            state = 10;
+            
+            // Добавляем запись в лог только если это не начальная загрузка
+            if (initialSequenceComplete) {
+                addToHistory('> отображено главное меню');
+            }
         }
 
         /**
          * Отображение ошибки при попытке открыть книгу
          */
         function showBookError(bookName) {
+            // Используем критический тип ошибки (красный)
             errorMessage.textContent = `❌ Ошибка доступа к книге`;
+            errorMessage.style.color = ERROR_TYPES.CRITICAL;
             errorMessage.style.opacity = 1;
+            
+            // Добавляем запись в лог
+            addToHistory(`> попытка доступа: ${bookName} ❌ ошибка: доступ временно закрыт`, 'error');
             
             // Скрываем сообщение через 2 секунды
             safeSetTimeout(() => {
@@ -393,8 +455,13 @@
          * Отображение ошибки при попытке перейти в соцсеть
          */
         function showSocialError(socialName) {
+            // Используем тип ошибки предупреждение (оранжевый)
             errorMessage.textContent = `❌ Ошибка перехода`;
+            errorMessage.style.color = ERROR_TYPES.WARNING;
             errorMessage.style.opacity = 1;
+            
+            // Добавляем запись в лог
+            addToHistory(`> попытка перехода: ${socialName} ❌ ошибка: сервис недоступен`, 'warning');
             
             // Скрываем сообщение через 2 секунды
             safeSetTimeout(() => {
@@ -412,6 +479,10 @@
             if (state === 11 || state === 12) {
                 // Скрываем кнопку назад при возврате в главное меню
                 document.getElementById('back-nav').style.opacity = 0;
+                
+                // Добавляем запись в лог
+                addToHistory('> возврат к главному меню');
+                
                 listMenu();
             }
         }
@@ -448,6 +519,34 @@
         window.showBookError = showBookError;
         window.showSocialError = showSocialError;
 
+        /**
+         * Отображение списка книг
+         */
+        function listBooks() {
+            // Показываем кнопку назад
+            document.getElementById('back-nav').style.opacity = 1;
+            
+            let output = "<div style='margin-bottom: 10px'><strong># Книги:</strong></div>";
+            
+            booksMain.forEach(book => {
+                const escapedBook = escapeHtml(book);
+                output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
+            });
+            
+            output += "<div style='margin: 10px 0'><strong># В соавторстве с Антон Хорш:</strong></div>";
+            
+            booksCoauthor.forEach(book => {
+                const escapedBook = escapeHtml(book);
+                output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
+            });
+            
+            echoLine.innerHTML = output;
+            state = 11;
+            
+            // Добавляем запись в лог
+            addToHistory('> открыт раздел: Книги');
+        }
+        
         // Инициализация страницы
         function initPage() {
             safeSetTimeout(() => {
@@ -459,8 +558,24 @@
             document.body.addEventListener("click", () => {
                 if (state === 0 && !initialSequenceComplete) {
                     initialSequenceComplete = true;
+                    
+                    // Начинаем последовательность инициализации
                     typeMessage(">> signal accepted.", () => {
-                        listMenu();
+                        typeMessage(">> initializing interface...", () => {
+                            safeSetTimeout(() => {
+                                typeMessage(">> идентификация: посетитель", () => {
+                                    safeSetTimeout(() => {
+                                        typeMessage(`:: инициализация завершена — добро пожаловать, ${username}`, () => {
+                                            safeSetTimeout(() => {
+                                                listMenu();
+                                                // Добавляем первую запись в лог
+                                                addToHistory('> сессия началась');
+                                            }, 500);
+                                        });
+                                    }, 800);
+                                });
+                            }, 1200);
+                        });
                     });
                 }
             });
