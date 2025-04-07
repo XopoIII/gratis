@@ -9,8 +9,6 @@ const bookLinks = {
     "Биокибернетический ренессанс": "https://author.today/work/428222",
     "Когда миры забывают моё имя": "https://author.today/work/427592",
     "Пропавшие вчера: Болото": "https://author.today/work/427953",
-    "Волшебная мандаринка Вон": "https://author.today/work/423308",
-    "Волшебная мандаринка Вон: Приключения в Таиланде": "https://author.today/work/424891",
 };
 
 const echoLine = document.getElementById("echo-line");
@@ -43,9 +41,7 @@ const booksMain = [
 const booksCoauthor = [
     "С ручкой поневоле",
     "Андо",
-    "Пропавшие вчера: Болото",
-    "Волшебная мандаринка Вон",
-    "Волшебная мандаринка Вон: Приключения в Таиланде"
+    "Пропавшие вчера: Болото"
 ];
 
 function escapeHtml(text) {
@@ -77,16 +73,12 @@ function clearAllTimers() {
 
 function skipLoadingSequence(reason = 'click') {
     if (isLoadingSequence) {
-        // Сначала отключаем флаг загрузки, чтобы предотвратить повторные вызовы
         isLoadingSequence = false;
-        
-        // Затем очищаем таймеры и выполняем остальные действия
         clearAllTimers();
         echoLine.style.opacity = 1;
         initialSequenceComplete = true;
         listMenu();
         
-        // Логируем причину пропуска загрузки
         if (reason === 'escape') {
             addToHistory('> загрузка пропущена по клавише Escape');
         } else {
