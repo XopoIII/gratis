@@ -1,6 +1,6 @@
 // Команды терминала
 const terminalCommands = {
-    'help': 'Доступные команды: help, whoami, ls, cat, grep, clear, achievements, play, exit',
+    'help': 'Доступные команды: help, glossary, ls, cat, grep, clear, play, exit',
     'ls': 'contract_infernity.pdf  GhostKiller_stats.csv  Wolf_analysis.txt  configs/  demos/',
     'clear': '',
     'cat contract_infernity.pdf': 'ERROR: Невозможно отобразить бинарный файл contract_infernity.pdf',
@@ -182,6 +182,11 @@ function addToHistory(message, type = 'info') {
 
 // Обработка введенной команды в терминале
 function processCommand(cmd) {
+	cmd = cmd.toLowerCase();
+	if (cmd === "glossary") {
+		window.location.href = "/gg/glossary";
+		return;
+	}
     const terminalContent = document.getElementById('terminal-content');
     
     // Добавляем введенную команду в терминал
