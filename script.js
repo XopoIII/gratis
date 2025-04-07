@@ -136,7 +136,7 @@ function openBookLink(bookName) {
     const url = bookLinks[bookName];
     if (url) {
         window.open(url, '_blank');
-        addToHistory(`> переход: ${bookName} ✅`);
+        addToHistory(`> 🌐 переход: ${bookName} → ${url}`);
     } else {
         errorMessage.textContent = `❌ Ссылка не найдена`;
         errorMessage.style.color = ERROR_TYPES.CRITICAL;
