@@ -4,7 +4,7 @@ const bookLinks = {
     "Dev Build: Версия 0.0.1": "https://author.today/work/435212",
     "С ручкой поневоле": "https://author.today/work/432204",
     "Андо": "https://author.today/work/428774",
-    "GG": "https://author.today/work/430273",
+    "GG": "https://againte.gratis/gg/",
     "Ланцелот Лепёшкин и тайны Тьмумерии": "https://author.today/work/433674",
     "Биокибернетический ренессанс": "https://author.today/work/428222",
     "Когда миры забывают моё имя": "https://author.today/work/427592",
@@ -127,7 +127,7 @@ function addToHistory(message, type = 'info') {
 function openBookLink(bookName) {
     const url = bookLinks[bookName];
     if (url) {
-        window.open(url, '_blank');
+        window.open(url, url.startsWith('https://againte.gratis') ? '' : '_blank');
         addToHistory(`> 🌐 переход: ${bookName} → ${url}`);
     } else {
         errorMessage.textContent = `❌ Ссылка не найдена`;
