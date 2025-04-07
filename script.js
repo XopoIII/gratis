@@ -145,9 +145,10 @@ function openBookLink(bookName) {
 function listSocials() {
     backNav.style.opacity = 1;
     
-    let output = "<div style='margin-bottom: 10px'><strong># Соцсети:</strong></div>";
+    let output = "<div class='content-container'><div style='margin-bottom: 10px'><strong># Соцсети:</strong></div>";
     output += "<div class='social-item' onclick='showSocialError(\"ВКонтакте\")'>- ВКонтакте</div>";
     output += "<div class='social-item' onclick='showSocialError(\"Telegram\")'>- Telegram</div>";
+    output += "</div>";
     
     echoLine.innerHTML = output;
     state = 12;
@@ -156,9 +157,10 @@ function listSocials() {
 }
 
 function listMenu() {
-    let menuHTML = "[ Выберите раздел ]<br>";
-    menuHTML += "<div class='menu-item' onclick='listBooks()'>↳ [ 1 ] Книги</div>";
+    let menuHTML = "<div class='menu-container'>[ Выберите раздел ]<br><br>";
+    menuHTML += "<div class='menu-item' onclick='listBooks()'>↳ [ 1 ] Книги&nbsp;&nbsp;</div>";
     menuHTML += "<div class='menu-item' onclick='listSocials()'>↳ [ 2 ] Соцсети</div>";
+    menuHTML += "</div>";
     
     echoLine.innerHTML = menuHTML;
     state = 10;
@@ -194,7 +196,7 @@ function handleBack() {
 function listBooks() {
     backNav.style.opacity = 1;
     
-    let output = "<div style='margin-bottom: 10px'><strong># Книги:</strong></div>";
+    let output = "<div class='content-container'><div style='margin-bottom: 10px'><strong># Книги:</strong></div>";
     
     booksMain.forEach(book => {
         const escapedBook = escapeHtml(book);
@@ -207,6 +209,8 @@ function listBooks() {
         const escapedBook = escapeHtml(book);
         output += `<div class='book-item' onclick='openBookLink("${escapedBook}")'> - ${escapedBook}</div>`;
     });
+    
+    output += "</div>";
     
     echoLine.innerHTML = output;
     state = 11;
