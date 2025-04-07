@@ -1,3 +1,39 @@
+const bookLinks = {
+    "Δ.E.F.I.R. Фаза 1: Замедление": "https://author.today/work/436551",
+    "Шай'ри": "https://author.today/work/435263",
+    "Dev Build: Версия 0.0.1": "https://author.today/work/435212",
+    "С ручкой поневоле": "https://author.today/work/432204",
+    "Андо": "https://author.today/work/428774",
+    "GG": "https://author.today/work/430273",
+    "Ланцелот Лепёшкин и тайны Тьмумерии": "https://author.today/work/433674",
+    "Биокибернетический ренессанс": "https://author.today/work/428222",
+    "Когда миры забывают моё имя": "https://author.today/work/427592",
+    "Пропавшие вчера: Болото": "https://author.today/work/427953",
+    "Волшебная мандаринка Вон": "https://author.today/work/423308",
+    "Волшебная мандаринка Вон: Приключения в Таиланде": "https://author.today/work/424891",
+};
+
+
+function openBookLink(bookName) {
+	console.log(bookName)
+    const url = bookLinks[bookName];
+    if (url) {
+        window.open(url, '_blank');
+        addToHistory(`> переход: ${bookName} ✅`);
+    } else {
+        errorMessage.textContent = `❌ Ссылка не найдена`;
+        errorMessage.style.color = ERROR_TYPES.CRITICAL;
+        errorMessage.style.opacity = 1;
+        addToHistory(`> попытка: ${bookName} ❌ ссылка отсутствует`, 'error');
+
+        safeSetTimeout(() => {
+            errorMessage.style.opacity = 0;
+            safeSetTimeout(() => errorMessage.textContent = "", 300);
+        }, 2000);
+    }
+}
+
+
 // Кэширование DOM-элементов для повышения производительности
 const echoLine = document.getElementById("echo-line");
 const errorMessage = document.getElementById("error-message");
@@ -161,27 +197,6 @@ function listMenu() {
 }
 
 /**
- * Отображение ошибки при попытке открыть книгу
- */
-function showBookError(bookName) {
-    // Используем критический тип ошибки (красный)
-    errorMessage.textContent = `❌ Ошибка доступа к книге`;
-    errorMessage.style.color = ERROR_TYPES.CRITICAL;
-    errorMessage.style.opacity = 1;
-    
-    // Добавляем запись в лог
-    addToHistory(`> попытка доступа: ${bookName} ❌ ошибка: доступ временно закрыт`, 'error');
-    
-    // Скрываем сообщение через 2 секунды
-    safeSetTimeout(() => {
-        errorMessage.style.opacity = 0;
-        safeSetTimeout(() => {
-            errorMessage.textContent = "";
-        }, 300);
-    }, 2000);
-}
-
-/**
  * Отображение ошибки при попытке перейти в соцсеть
  */
 function showSocialError(socialName) {
@@ -246,7 +261,7 @@ document.addEventListener('keydown', (event) => {
 window.listBooks = listBooks;
 window.listSocials = listSocials;
 window.handleBack = handleBack;
-window.showBookError = showBookError;
+window.openBookLink = openBookLink;
 window.showSocialError = showSocialError;
 
 /**
@@ -260,14 +275,14 @@ function listBooks() {
     
     booksMain.forEach(book => {
         const escapedBook = escapeHtml(book);
-        output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
+        output += `<div class='book-item' onclick='openBookLink("${escapedBook}")'> - ${escapedBook}</div>`;
     });
     
     output += "<div style='margin: 10px 0'><strong># В соавторстве с Антон Хорш:</strong></div>";
     
     booksCoauthor.forEach(book => {
         const escapedBook = escapeHtml(book);
-        output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
+        output += `<div class='book-item' onclick='openBookLink("${escapedBook}")'> - ${escapedBook}</div>`;
     });
     
     echoLine.innerHTML = output;
