@@ -35,41 +35,6 @@ const kdData = [
     { chapter: 7, kd: 2.4 }
 ];
 
-// Создание графика K/D
-function createKDGraph() {
-    const graph = document.querySelector('.kd-graph');
-    if (!graph) return; // Проверка на существование элемента
-    
-    const graphWidth = graph.clientWidth - 60; // Учитываем отступы
-    const barWidth = Math.min(30, (graphWidth / kdData.length) - 10);
-    const spacing = (graphWidth - (barWidth * kdData.length)) / (kdData.length - 1);
-    
-    kdData.forEach((data, index) => {
-        const barHeight = Math.min(150, data.kd * 50); // Максимальная высота 150px
-        const barLeft = 40 + (index * (barWidth + spacing));
-        
-        const bar = document.createElement('div');
-        bar.className = 'kd-bar';
-        bar.style.left = `${barLeft}px`;
-        bar.style.width = `${barWidth}px`;
-        bar.style.height = `${barHeight}px`;
-        
-        const label = document.createElement('div');
-        label.className = 'kd-label';
-        label.style.left = `${barLeft}px`;
-        label.textContent = `Г${data.chapter}`;
-        
-        const value = document.createElement('div');
-        value.className = 'kd-value';
-        value.style.left = `${barLeft}px`;
-        value.textContent = data.kd.toFixed(1);
-        
-        graph.appendChild(bar);
-        graph.appendChild(label);
-        graph.appendChild(value);
-    });
-}
-
 // Обновление статистики игрока
 function updateStats() {
     // Случайное изменение HP
@@ -133,13 +98,27 @@ function addChatMessage() {
     if (!matchChat || !isChatVisible) return;
     
     const messages = [
-        { name: 'Wolf', text: 'Rush B dont stop', type: 'other' },
-        { name: 'GhostKiller', text: 'Nice try noobs', type: 'enemy' },
-        { name: 'Stinger', text: 'omg so lucky', type: 'other' },
-        { name: 'MadMarks', text: 'заткнитесь и играйте', type: 'mad' },
-        { name: 'Alt', text: 'one flanking from CT', type: 'other' },
-        { name: 'ZywOo', text: 'ez for me', type: 'enemy' },
-        { name: 'MadMarks', text: '1vs3 no problem', type: 'mad' }
+		{ name: 'Wolf', text: 'Rush B dont stop', type: 'other' },
+		{ name: 'GhostKiller', text: 'Nice try noobs', type: 'enemy' },
+		{ name: 'Stinger', text: 'omg so lucky', type: 'other' },
+		{ name: 'MadMarks', text: 'заткнитесь и играйте', type: 'mad' },
+		{ name: 'Alt', text: 'one flanking from CT', type: 'other' },
+		{ name: 'ZywOo', text: 'ez for me', type: 'enemy' },
+		{ name: 'MadMarks', text: '1vs3 no problem', type: 'mad' },
+		{ name: 'Stinger', text: 'bro they wallbangin', type: 'other' },
+		{ name: 'MadMarks', text: 'это называется "чтение игры", не ной', type: 'mad' },
+		{ name: 'Alt', text: 'planting B', type: 'other' },
+		{ name: 'Wolf', text: 'flash A', type: 'enemy' },
+		{ name: 'MadMarks', text: 'B чисто, ставь' , type: 'mad' },
+		{ name: 'GhostKiller', text: 'go save, noobs', type: 'enemy' },
+		{ name: 'Stinger', text: 'lmao toxic', type: 'other' },
+		{ name: 'MadMarks', text: 'я токсичный, потому что вы овощи', type: 'mad' },
+		{ name: 'Alt', text: 'last mid', type: 'other' },
+		{ name: 'MadMarks', text: 'ща покажу магию' , type: 'mad' },
+		{ name: 'MadMarks', text: '*one tap*', type: 'mad' },
+		{ name: 'Stinger', text: 'wtf', type: 'other' },
+		{ name: 'GhostKiller', text: 'reported', type: 'enemy' },
+		{ name: 'MadMarks', text: 'в очередь, детка', type: 'mad' }
     ];
     
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -417,11 +396,6 @@ function initPage() {
     
     // Запуск изменения названий команд
     setTimeout(changeTeamNames, 15000);
-    
-    // Создание графика K/D, если элемент существует
-    if (document.querySelector('.kd-graph')) {
-        createKDGraph();
-    }
     
     // Привязываем функции к глобальному объекту window для доступа из HTML
     window.showTerminal = showTerminal;
