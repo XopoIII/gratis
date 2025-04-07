@@ -2,7 +2,7 @@
 <html id="html-lang" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#111111">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">agaINTE GRAtis</title>
@@ -13,6 +13,7 @@
     <meta property="og:description" id="og-description" content="agaINTE GRAtis">
     <meta property="og:type" content="website">
     <style>
+        /* Сброс и базовые стили */
         html, body {
             margin: 0;
             padding: 0;
@@ -21,8 +22,10 @@
             background: #111;
             color: #fff;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent; /* Убираем подсветку при тапе на мобильных */
         }
 
+        /* Основной контейнер */
         .section {
             display: flex;
             flex-direction: column;
@@ -33,18 +36,22 @@
             position: relative;
             z-index: 2;
             text-align: center;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
+        /* Заголовок и основные элементы */
         #author-name {
             font-size: 2.5em;
             font-weight: bold;
             position: relative;
             animation: pulse 2.5s infinite ease-in-out;
+            margin-bottom: 10px;
         }
 
         #author-name::after {
             content: '_';
-            animation: blink 1s step-start infinite;
+            animation: blink 1.2s step-start infinite;
         }
 
         #email {
@@ -53,6 +60,112 @@
             color: #aaa;
         }
 
+        /* Навигационная панель с кнопкой назад и сообщениями */
+        #nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin-top: 20px;
+            min-height: 30px;
+            max-width: 500px;
+        }
+        
+        #back-nav {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+            color: #888;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            text-align: left;
+            flex: 0 0 auto;
+        }
+        
+        #back-nav:hover, #back-nav:active {
+            color: #fff;
+            transform: translateX(-3px);
+        }
+        
+        #error-message {
+            color: #ff5555;
+            font-size: 1em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: right;
+            flex: 1 1 auto;
+            padding-left: 20px;
+        }
+        
+        /* Блок для основного контента */
+        #echo-line {
+            font-size: 1em;
+            margin-top: 15px;
+            color: #666;
+            white-space: pre-wrap;
+            max-width: 90%;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            min-height: 120px;
+            overflow-y: auto;
+            max-height: 60vh; /* Ограничиваем максимальную высоту */
+        }
+
+        /* Стили для элементов меню и интерактивных элементов */
+        .hidden {
+            display: none;
+        }
+
+        .clickable {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .menu-item {
+            cursor: pointer;
+            padding: 8px 5px;
+            margin: 3px 0;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .menu-item:hover, .menu-item:active {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transform: translateX(3px);
+        }
+
+        /* Удалили стили для .back-button, так как теперь используется #back-nav */
+
+        .book-item {
+            cursor: pointer;
+            padding: 5px;
+            margin: 3px 0;
+            transition: all 0.2s ease;
+        }
+        
+        .book-item:hover, .book-item:active {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transform: translateX(3px);
+        }
+
+        .social-item {
+            cursor: pointer;
+            padding: 5px;
+            margin: 3px 0;
+            transition: all 0.2s ease;
+        }
+        
+        .social-item:hover, .social-item:active {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transform: translateX(3px);
+        }
+
+        /* Анимации */
         @keyframes blink {
             50% {
                 opacity: 0;
@@ -61,31 +174,310 @@
 
         @keyframes pulse {
             0%, 100% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+                text-shadow: 0 0 4px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.15);
             }
             50% {
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.4);
             }
         }
 
-        .noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mNk+M9Qz0AEYBxVSFIFAOLmAjbD+niLAAAAAElFTkSuQmCC');
-            opacity: 0.03;
-            z-index: 1;
-            pointer-events: none;
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 600px) {
+            #author-name {
+                font-size: 2em;
+            }
+            
+            #email {
+                font-size: 1em;
+            }
+            
+            #echo-line {
+                font-size: 0.9em;
+                margin-top: 10px;
+                max-width: 95%;
+            }
+            
+            #nav-container {
+                width: 95%;
+            }
+            
+            .menu-item, .book-item, .social-item {
+                padding: 10px 5px;
+            }
+        }
+
+        @media (max-height: 500px) {
+            #echo-line {
+                min-height: 100px;
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="noise"></div>
     <div id="landing" class="section">
         <div id="author-name">agaINTE GRAtis</div>
         <div id="email">echo@againte.gratis</div>
+        <div id="nav-container">
+            <div id="back-nav" onclick="handleBack()">↶ Назад</div>
+            <div id="error-message"></div>
+        </div>
+        <div id="echo-line"></div>
     </div>
+
+    <script>
+        // Кэширование DOM-элементов для повышения производительности
+        const echoLine = document.getElementById("echo-line");
+        const errorMessage = document.getElementById("error-message");
+        
+        // Состояние приложения
+        let state = 0;
+        let initialSequenceComplete = false;
+        
+        // Очистка таймеров при необходимости
+        let activeTimers = [];
+        
+        // Данные
+        const booksMain = [
+            "Δ.E.F.I.R. Фаза 1: Замедление",
+            "Шай'ри",
+            "Dev Build: Версия 0.0.1",
+            "GG",
+            "Ланцелот Лепёшкин и тайны Тьмумерии",
+            "Биокибернетический ренессанс",
+            "Когда миры забывают моё имя"
+        ];
+
+        const booksCoauthor = [
+            "С ручкой поневоле",
+            "Андо",
+            "Пропавшие вчера: Болото",
+            "Волшебная мандаринка Вон",
+            "Волшебная мандаринка Вон: Приключения в Таиланде"
+        ];
+
+        /**
+         * Функция для безопасного создания HTML-строк
+         * Предотвращает XSS-атаки при вставке пользовательских данных
+         */
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        /**
+         * Управление таймерами для предотвращения утечек памяти
+         */
+        function safeSetTimeout(callback, delay) {
+            const timerId = setTimeout(() => {
+                // Удаляем таймер из списка активных таймеров
+                const index = activeTimers.indexOf(timerId);
+                if (index > -1) {
+                    activeTimers.splice(index, 1);
+                }
+                // Выполняем колбэк
+                callback();
+            }, delay);
+            
+            // Добавляем таймер в список активных таймеров
+            activeTimers.push(timerId);
+            
+            return timerId;
+        }
+
+        /**
+         * Очистка всех активных таймеров
+         */
+        function clearAllTimers() {
+            activeTimers.forEach(timerId => clearTimeout(timerId));
+            activeTimers = [];
+        }
+
+        /**
+         * Анимированный вывод текста по символам
+         */
+        function typeMessage(text, callback) {
+            // Очищаем предыдущие таймеры, чтобы избежать конфликтов
+            clearAllTimers();
+            
+            echoLine.style.opacity = 1;
+            echoLine.textContent = "";
+            let index = 0;
+            
+            function typeChar() {
+                if (index < text.length) {
+                    echoLine.textContent += text.charAt(index);
+                    index++;
+                    safeSetTimeout(typeChar, 100);
+                } else if (callback) {
+                    safeSetTimeout(callback, 500);
+                }
+            }
+            
+            typeChar();
+        }
+
+        /**
+         * Отображение главного меню
+         */
+        function listMenu() {
+            let menuHTML = "[ Выберите раздел ]<br>";
+            menuHTML += "<div class='menu-item' onclick='listBooks()'>↳ [ 1 ] Книги</div>";
+            menuHTML += "<div class='menu-item' onclick='listSocials()'>↳ [ 2 ] Соцсети</div>";
+            
+            echoLine.innerHTML = menuHTML;
+            state = 10;
+        }
+
+        /**
+         * Отображение списка книг
+         */
+        function listBooks() {
+            // Показываем кнопку назад
+            document.getElementById('back-nav').style.opacity = 1;
+            
+            let output = "<div style='margin-bottom: 10px'><strong># Книги:</strong></div>";
+            
+            booksMain.forEach(book => {
+                const escapedBook = escapeHtml(book);
+                output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
+            });
+            
+            output += "<div style='margin: 10px 0'><strong># В соавторстве с Антон Хорш:</strong></div>";
+            
+            booksCoauthor.forEach(book => {
+                const escapedBook = escapeHtml(book);
+                output += `<div class='book-item' onclick='showBookError("${escapedBook}")'> - ${escapedBook}</div>`;
+            });
+            
+            echoLine.innerHTML = output;
+            state = 11;
+        }
+
+        /**
+         * Отображение списка соцсетей
+         */
+        function listSocials() {
+            // Показываем кнопку назад
+            document.getElementById('back-nav').style.opacity = 1;
+            
+            let output = "<div style='margin-bottom: 10px'><strong># Соцсети:</strong></div>";
+            output += "<div class='social-item' onclick='showSocialError(\"ВКонтакте\")'>- ВКонтакте</div>";
+            output += "<div class='social-item' onclick='showSocialError(\"Telegram\")'>- Telegram</div>";
+            
+            echoLine.innerHTML = output;
+            state = 12;
+        }
+
+        /**
+         * Отображение ошибки при попытке открыть книгу
+         */
+        function showBookError(bookName) {
+            errorMessage.textContent = `❌ Ошибка доступа к книге`;
+            errorMessage.style.opacity = 1;
+            
+            // Скрываем сообщение через 2 секунды
+            safeSetTimeout(() => {
+                errorMessage.style.opacity = 0;
+                safeSetTimeout(() => {
+                    errorMessage.textContent = "";
+                }, 300);
+            }, 2000);
+        }
+
+        /**
+         * Отображение ошибки при попытке перейти в соцсеть
+         */
+        function showSocialError(socialName) {
+            errorMessage.textContent = `❌ Ошибка перехода`;
+            errorMessage.style.opacity = 1;
+            
+            // Скрываем сообщение через 2 секунды
+            safeSetTimeout(() => {
+                errorMessage.style.opacity = 0;
+                safeSetTimeout(() => {
+                    errorMessage.textContent = "";
+                }, 300);
+            }, 2000);
+        }
+
+        /**
+         * Обработчик кнопки "Назад"
+         */
+        function handleBack() {
+            if (state === 11 || state === 12) {
+                // Скрываем кнопку назад при возврате в главное меню
+                document.getElementById('back-nav').style.opacity = 0;
+                listMenu();
+            }
+        }
+
+        // Пасхалки и другие интерактивные элементы могут быть добавлены здесь
+        
+        // Определение обработчика клавиатуры
+        document.addEventListener('keydown', (event) => {
+            // Обработка нажатия клавиши Escape для возвращения в главное меню
+            if (event.key === 'Escape' && (state === 11 || state === 12)) {
+                handleBack();
+            }
+            
+            // Обработка цифровых клавиш для быстрой навигации
+            if (state === 10) {
+                if (event.key === '1') {
+                    listBooks();
+                } else if (event.key === '2') {
+                    listSocials();
+                }
+            }
+            
+            // Обработка клавиши Backspace как альтернативы кнопке "Назад"
+            if (event.key === 'Backspace' && (state === 11 || state === 12)) {
+                handleBack();
+                event.preventDefault(); // Предотвращаем навигацию браузера назад
+            }
+        });
+
+        // Делаем функции доступными глобально для использования в onclick
+        window.listBooks = listBooks;
+        window.listSocials = listSocials;
+        window.handleBack = handleBack;
+        window.showBookError = showBookError;
+        window.showSocialError = showSocialError;
+
+        // Инициализация страницы
+        function initPage() {
+            safeSetTimeout(() => {
+                echoLine.style.opacity = 1;
+                echoLine.textContent = ":: awaiting signal...";
+            }, 1000);
+            
+            // Обработчик клика для начала взаимодействия
+            document.body.addEventListener("click", () => {
+                if (state === 0 && !initialSequenceComplete) {
+                    initialSequenceComplete = true;
+                    typeMessage(">> signal accepted.", () => {
+                        listMenu();
+                    });
+                }
+            });
+            
+            // Очистка при выходе со страницы
+            window.addEventListener('beforeunload', () => {
+                clearAllTimers();
+            });
+        }
+        
+        // Запускаем инициализацию после загрузки DOM
+        document.addEventListener('DOMContentLoaded', initPage);
+        
+        // Запускаем инициализацию непосредственно, если DOM уже загружен
+        if (document.readyState === 'interactive' || document.readyState === 'complete') {
+            initPage();
+        }
+    </script>
 </body>
 </html>
