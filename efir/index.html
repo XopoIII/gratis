@@ -8,17 +8,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="cover.jpg" as="image">
+    <link rel="preload" href="grayzone.jpg" as="image">
+    <link rel="preload" href="omega.jpg" as="image">
+    <link rel="preload" href="redzone.jpg" as="image">
+    <link rel="preload" href="alex.jpg" as="image">
+    <link rel="preload" href="eva.jpg" as="image">
+    <link rel="preload" href="fire.jpg" as="image">
+    <meta property="og:title" content="Δ.E.F.I.R. Фаза 1: Замедление | Агатис Интегра">
+    <meta property="og:description" content="Погрузитесь в мир Δ.E.F.I.R, где реальность расслаивается, а время становится оружием">
+    <meta property="og:image" content="https://againte.gratis/efir/cover.jpg">
+    <meta property="og:url" content="https://againte.gratis/efir/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
     <link href="style.css" rel="stylesheet"/>
+    <link rel="icon" href="https://againte.gratis/favicon32.png" type="image/png">
 </head>
-<body>
-    <!-- Слои эфирных частиц для создания эффекта глубины -->
+<body class="corruption-ready">
     <div class="particles-container">
         <div class="particles" id="particles-back"></div>
         <div class="particles" id="particles-mid"></div>
         <div class="particles" id="particles-front"></div>
     </div>
     
-    <!-- TM-7 Интерфейс (плавающий элемент с системными сообщениями) -->
     <div class="tm7-interface" id="tm7Interface">
         <div class="tm7-message" id="tm7Message">
             <div class="tm7-message-header">[ИМПЛ/TM-7]:</div>
@@ -26,12 +38,10 @@
         </div>
     </div>
     
-    <!-- Эфирные разрывы (случайные визуальные глитчи) -->
     <div class="reality-breach" id="realityBreach"></div>
     
-    <!-- Главная навигация -->
     <nav class="nav">
-        <button class="nav-toggle">
+        <button class="nav-toggle" aria-label="Открыть меню">
             <span class="nav-toggle-text">МЕНЮ_TM-7</span>
             <div class="nav-toggle-icon">
                 <span></span><span></span><span></span>
@@ -45,12 +55,13 @@
                 <a href="#characters" class="nav-link" data-section="Персонажи">Персонажи</a>
                 <a href="#terminology" class="nav-link" data-section="Терминология">Терминология</a>
                 <a href="#memory" class="nav-link" data-section="Фрагменты памяти">Фрагменты памяти</a>
+                <a href="https://againte.gratis/efir/stories/" class="nav-link external" data-section="Мини-рассказы">Мини-рассказы</a>
+                <a href="https://againte.gratis/efir/termlog/" class="nav-link external" data-section="Терм лог">Терм лог</a>
                 <a href="https://author.today/work/436551" class="nav-link external" data-section="Читать книгу">Читать книгу</a>
             </div>
         </div>
     </nav>
     
-    <!-- Герой-секция -->
     <section class="hero" id="hero">
         <div class="hero-glitch-overlay"></div>
         <div class="hero-content">
@@ -62,12 +73,9 @@
                 <span class="hero-cta-glitch"></span>
             </a>
         </div>
-        <div class="hero-echo-phrases" id="heroEchoPhrases">
-            <!-- Здесь будут появляться эфирные фразы из книги -->
-        </div>
+        <div class="hero-echo-phrases" id="heroEchoPhrases"></div>
     </section>
     
-    <!-- О книге -->
     <section class="section about" id="about">
         <div class="section-background"></div>
         <div class="container">
@@ -81,8 +89,6 @@
                     <p class="about-description">Восемь секунд на выдохе. В прицеле — затылок охранника с татуировкой штрих-кода. Дождь барабанит по обшивке воздуховода.</p>
                     <p class="about-description">Алекс Северов — один из лучших наемников Серой зоны, выполняющий заказы благодаря уникальному импланту <span class="highlight-term" data-term="TM-7">TM-7</span> и способности "<span class="highlight-term" data-term="ЗАМЕДЛЕНИЕ">Замедление</span>". Но его последнее задание становится началом кошмара: встреча с собственным двойником, загадочные сообщения от женщины по имени Ева и неясные, фрагментарные воспоминания о катастрофе, которую он не должен помнить.</p>
                     <p class="about-description">В мире, где <span class="highlight-term" data-term="Δ.E.F.I.R">эфирная энергия</span> изменила законы реальности, Алексу предстоит узнать жестокую правду о собственном прошлом, разгадать тайну проекта "Ева" и выяснить, кем на самом деле является его двойник с пулевым отверстием во лбу.</p>
-                    
-                    <!-- TM-7 Интерфейс (статический) -->
                     <div class="tm7-status">
                         <div class="tm7-status-header">[ИМПЛ/TM-7]:</div>
                         <div class="tm7-status-content">
@@ -103,7 +109,6 @@
         </div>
     </section>
     
-    <!-- Мир Δ.E.F.I.R -->
     <section class="section world" id="world">
         <div class="section-background"></div>
         <div class="container">
@@ -113,17 +118,16 @@
             </div>
             <div class="world-content">
                 <div class="world-map" id="worldMap">
-                    <!-- Интерактивная карта мира с локациями -->
                     <div class="world-map-overlay"></div>
-                    <div class="world-marker" data-location="grey-zone"></div>
-                    <div class="world-marker" data-location="omega-base"></div>
-                    <div class="world-marker" data-location="red-zone"></div>
+                    <div class="world-marker" data-location="grey-zone" title="Серая зона"></div>
+                    <div class="world-marker" data-location="omega-base" title="База 'Омега'"></div>
+                    <div class="world-marker" data-location="red-zone" title="Красная зона"></div>
                 </div>
                 
                 <div class="locations">
                     <div class="location-card" data-location="grey-zone">
                         <div class="location-image-container">
-                            <img src="grayzone.jpg" alt="Серая зона" class="location-image">
+                            <img src="grayzone.jpg" alt="Серая зона - территория наемников и нелегальных технологий" class="location-image">
                             <div class="location-effect grey-zone-effect"></div>
                         </div>
                         <div class="location-content">
@@ -137,7 +141,7 @@
                     
                     <div class="location-card" data-location="omega-base">
                         <div class="location-image-container">
-                            <img src="omega.jpg" alt="База Омега" class="location-image">
+                            <img src="omega.jpg" alt="База Омега - заброшенный исследовательский комплекс" class="location-image">
                             <div class="location-effect omega-effect"></div>
                         </div>
                         <div class="location-content">
@@ -151,7 +155,7 @@
                     
                     <div class="location-card" data-location="red-zone">
                         <div class="location-image-container">
-                            <img src="redzone.jpg" alt="Красная зона" class="location-image">
+                            <img src="redzone.jpg" alt="Красная зона - территория критического проникновения Δ.E.F.I.R" class="location-image">
                             <div class="location-effect red-zone-effect"></div>
                         </div>
                         <div class="location-content">
@@ -167,7 +171,6 @@
         </div>
     </section>
     
-    <!-- Персонажи -->
     <section class="section characters" id="characters">
         <div class="section-background"></div>
         <div class="container">
@@ -226,7 +229,6 @@
         </div>
     </section>
     
-    <!-- Терминология -->
     <section class="section terminology" id="terminology">
         <div class="section-background"></div>
         <div class="container">
@@ -301,7 +303,6 @@
                     <div class="term-hidden-text">ДОСТУП К ЗАСЕКРЕЧЕННЫМ ДАННЫМ</div>
                 </div>
                 
-                <!-- Скрытый термин, доступный только при взаимодействии -->
                 <div class="term-item hidden" data-term="АРХИВАРИУСЫ">
                     <div class="term-name">
                         <div class="term-indicator"></div>
@@ -316,7 +317,6 @@
         </div>
     </section>
     
-    <!-- Фрагменты памяти -->
     <section class="section memory" id="memory">
         <div class="section-background"></div>
         <div class="container">
@@ -347,6 +347,13 @@
                         <div class="fragment-echo"></div>
                     </div>
                     
+                    <div class="fragment eva-log">
+                        <div class="fragment-title">[ЖУРНАЛ EVA // 0.4.3β]:</div>
+						<div class="fragment-quote">"Слияние возможно только при потере центра."</div>
+						<div class="fragment-context">Лог от Евы, оставленный в лаборатории. Намекает на необходимость отказа от собственного "Я" при синхронизации с Δ.E.F.I.R.</div>
+                        <div class="fragment-echo"></div>
+                    </div>
+					
                     <div class="fragment">
                         <div class="fragment-title">[АРХИВАРИУС]:</div>
                         <div class="fragment-quote">"Они стирают всё, что помнит неверно."</div>
@@ -358,7 +365,6 @@
         </div>
     </section>
     
-    <!-- Футер -->
     <footer class="footer">
         <div class="footer-glitch"></div>
         <div class="container">
@@ -368,8 +374,10 @@
                     <div class="footer-create" id="footerCreate">Собрано вручную. Проверено Архивариусом.</div>
                 </div>
                 <div class="footer-links">
-                    <a href="https://author.today/u/agatisintegra" class="footer-link">Автор.Тудей</a>
+                    <a href="https://author.today/u/agatisintegra" class="footer-link">Author.Today</a>
                     <a href="https://author.today/work/436551" class="footer-link">Δ.E.F.I.R. Фаза 1: Замедление</a>
+                    <a href="https://againte.gratis/efir/stories/" class="footer-link">Мини-рассказы</a>
+                    <a href="https://againte.gratis/efir/termlog/" class="footer-link">Терм лог</a>
                     <a href="https://againte.gratis" class="footer-link">Вернуться на главную</a>
                 </div>
             </div>
@@ -380,7 +388,6 @@
                 <div class="footer-timestamp" id="footerTimestamp">// ВРЕМЕННАЯ МЕТКА: ИНИЦИАЛИЗАЦИЯ... //</div>
             </div>
             
-            <!-- Пасхалка в футере -->
             <div class="easter-egg" id="easterEgg">
                 <div class="easter-egg-trigger">Δ</div>
                 <div class="easter-egg-content">
@@ -394,12 +401,8 @@
         </div>
     </footer>
     
-    <!-- Архивариус (скрытый элемент, периодически появляющийся и исчезающий) -->
     <div class="archivist" id="archivist"></div>
-    
-    <!-- Временной курсор (следует за курсором пользователя с эффектом замедления) -->
     <div class="time-cursor" id="timeCursor"></div>
-    
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,9 +1,4 @@
-/* ==========================================================================
-   Основные переменные и настройки
-   ========================================================================== */
-
 :root {
-    /* Основные цвета */
     --dark-blue: #101a29;
     --midnight-black: #0d0d15;
     --ethereal-blue: #4aa8ff;
@@ -13,27 +8,17 @@
     --blue-violet: #34317d;
     --red-breach: #ff3a5a;
     --green-stable: #36ce7a;
-    
-    /* Градиенты */
     --gradient-dark: linear-gradient(135deg, var(--midnight-black), var(--dark-blue));
     --gradient-primary: linear-gradient(135deg, var(--ethereal-blue), var(--blue-violet));
     --gradient-golden: linear-gradient(135deg, var(--golden), #cb9842);
-    
-    /* Тени */
     --shadow-normal: 0 10px 30px rgba(0, 0, 0, 0.3);
     --shadow-glow: 0 0 20px rgba(74, 168, 255, 0.3);
     --shadow-red-glow: 0 0 20px rgba(255, 58, 90, 0.3);
-    
-    /* Шрифты */
     --body-font: 'Montserrat', sans-serif;
     --mono-font: 'JetBrains Mono', monospace;
-    
-    /* Анимация */
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
     --transition-slow: 0.6s ease;
-    
-    /* Z-индексы */
     --z-background: -10;
     --z-normal: 1;
     --z-elevated: 10;
@@ -41,17 +26,11 @@
     --z-modal: 1000;
     --z-highest: 10000;
 }
-
-/* ==========================================================================
-   Сброс и общие стили
-   ========================================================================== */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     background-color: var(--midnight-black);
     color: var(--silver-gray);
@@ -60,29 +39,21 @@ body {
     overflow-x: hidden;
     position: relative;
 }
-
 a {
     text-decoration: none;
     color: inherit;
     transition: color var(--transition-normal);
 }
-
 img {
     max-width: 100%;
     height: auto;
 }
-
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
 }
-
-/* ==========================================================================
-   Эффекты частиц и эфирных элементов
-   ========================================================================== */
-
 .particles-container {
     position: fixed;
     top: 0;
@@ -98,7 +69,6 @@ img {
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0.7;
 }
 
 #particles-back {
@@ -125,8 +95,6 @@ img {
     background: rgba(255, 58, 90, 0.1);
     mix-blend-mode: overlay;
 }
-
-/* Анимации частиц */
 @keyframes float-particle {
     0%, 100% { transform: translateY(0) translateX(0); }
     25% { transform: translateY(-10px) translateX(5px); }
@@ -140,48 +108,34 @@ img {
 }
 
 @keyframes glitch-small {
-    0%, 100% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
+    0% { transform: translate(0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(-2px, -2px); }
+    75% { transform: translate(2px, 2px); }
+    100% { transform: translate(0); }
 }
 
 @keyframes glitch-large {
-    0%, 100% { transform: translate(0); opacity: 1; }
-    10% { transform: translate(-5px, 5px); opacity: 0.8; }
-    20% { transform: translate(5px, -5px); opacity: 0.9; }
-    30% { transform: translate(-5px, -5px); opacity: 0.8; }
-    40% { transform: translate(5px, 5px); opacity: 0.9; }
-    50% { transform: translate(-5px, 5px); opacity: 0.8; }
-    60% { transform: translate(5px, -5px); opacity: 0.9; }
-    70% { transform: translate(-5px, -5px); opacity: 0.8; }
+    0% { transform: translate(0); opacity: 1; }
+    20% { transform: translate(-5px, 5px); opacity: 0.8; }
+    40% { transform: translate(5px, -5px); opacity: 0.9; }
+    60% { transform: translate(-5px, -5px); opacity: 0.8; }
     80% { transform: translate(5px, 5px); opacity: 0.9; }
-    90% { transform: translate(-5px, 5px); opacity: 0.8; }
+    100% { transform: translate(0); opacity: 1; }
 }
 
 @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    10% { opacity: 0.8; }
-    20% { opacity: 0.9; }
-    30% { opacity: 0.7; }
-    40% { opacity: 0.8; }
+    0% { opacity: 1; }
+    25% { opacity: 0.8; }
     50% { opacity: 1; }
-    60% { opacity: 0.9; }
-    70% { opacity: 0.7; }
-    80% { opacity: 0.8; }
-    90% { opacity: 0.9; }
+    75% { opacity: 0.7; }
+    100% { opacity: 1; }
 }
 
 @keyframes scan-line {
     0% { transform: translateY(-100%); }
     100% { transform: translateY(100%); }
 }
-
-/* ==========================================================================
-   TM-7 Интерфейс (плавающий элемент с системными сообщениями)
-   ========================================================================== */
-
 .tm7-interface {
     position: fixed;
     bottom: 30px;
@@ -193,6 +147,7 @@ img {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity var(--transition-normal), transform var(--transition-normal);
+    will-change: opacity, transform;
 }
 
 .tm7-interface.active {
@@ -237,12 +192,8 @@ img {
     height: 150px;
     background: linear-gradient(90deg, transparent, rgba(74, 168, 255, 0.04), transparent);
     animation: scan-line 5s linear infinite;
+    will-change: transform;
 }
-
-/* ==========================================================================
-   Навигация
-   ========================================================================== */
-
 .nav {
     position: fixed;
     top: 30px;
@@ -306,6 +257,7 @@ img {
     visibility: hidden;
     transition: transform var(--transition-normal), opacity var(--transition-normal), visibility var(--transition-normal);
     overflow: hidden;
+    will-change: transform, opacity, visibility;
 }
 
 .nav-menu.active {
@@ -324,6 +276,7 @@ img {
     z-index: 1;
     animation: scan-line 2s linear infinite;
     opacity: 0.7;
+    will-change: transform;
 }
 
 .nav-menu-inner {
@@ -355,6 +308,7 @@ img {
     transform: translateX(-5px);
     transition: transform var(--transition-normal);
     opacity: 0;
+    will-change: transform, opacity;
 }
 
 .nav-link:hover {
@@ -376,10 +330,6 @@ img {
     border-color: var(--ethereal-blue);
     box-shadow: 0 0 10px rgba(74, 168, 255, 0.2);
 }
-
-/* ==========================================================================
-   Герой секция
-   ========================================================================== */
 
 .hero {
     min-height: 100vh;
@@ -434,29 +384,26 @@ img {
     text-shadow: 0 0 20px rgba(74, 168, 255, 0.5);
 }
 
-.hero-delta::before {
+.hero-delta::before, .hero-delta::after {
     content: attr(data-text);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    color: var(--red-breach);
     opacity: 0.4;
+    will-change: transform;
+}
+
+.hero-delta::before {
+    color: var(--red-breach);
     transform: translateX(-3px);
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     animation: glitch-small 5s infinite alternate;
 }
 
 .hero-delta::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     color: var(--ethereal-blue-dark);
-    opacity: 0.4;
     transform: translateX(3px);
     clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
     animation: glitch-small 7s infinite alternate-reverse;
@@ -483,6 +430,7 @@ img {
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     animation: glitch-small 3s infinite;
     animation-delay: 1s;
+    will-change: transform;
 }
 
 .hero-subtitle {
@@ -503,6 +451,7 @@ img {
     opacity: 0.3;
     z-index: -1;
     animation: pulse 4s infinite;
+    will-change: opacity, transform;
 }
 
 .hero-cta {
@@ -520,6 +469,7 @@ img {
     border: none;
     cursor: pointer;
     box-shadow: 0 5px 20px rgba(74, 168, 255, 0.3);
+    will-change: transform, box-shadow;
 }
 
 .hero-cta::before {
@@ -531,6 +481,7 @@ img {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: all 0.5s ease;
+    will-change: transform;
 }
 
 .hero-cta:hover {
@@ -575,17 +526,13 @@ img {
     white-space: nowrap;
     transform: translateY(20px);
     transition: opacity var(--transition-slow), transform var(--transition-slow);
+    will-change: opacity, transform;
 }
 
 .echo-phrase.visible {
     opacity: 0.15;
     transform: translateY(0);
 }
-
-/* ==========================================================================
-   Общие стили секций
-   ========================================================================== */
-
 .section {
     padding: 100px 0;
     position: relative;
@@ -680,16 +627,12 @@ img {
     height: 100%;
     background: linear-gradient(90deg, transparent, white, transparent);
     animation: slide-right 2s infinite;
+    will-change: transform;
 }
 
 @keyframes slide-right {
     100% { left: 100%; }
 }
-
-/* ==========================================================================
-   Секция "О книге"
-   ========================================================================== */
-
 .about-content {
     display: flex;
     justify-content: space-between;
@@ -739,6 +682,7 @@ img {
     transform: scaleX(0);
     transform-origin: right;
     transition: transform var(--transition-normal);
+    will-change: transform;
 }
 
 .highlight-term:hover::after {
@@ -766,6 +710,7 @@ img {
     transition: all var(--transition-slow);
     transform: perspective(1000px) rotateY(5deg);
     filter: brightness(0.95);
+    will-change: transform, filter, box-shadow;
 }
 
 .book-cover:hover {
@@ -815,6 +760,15 @@ img {
     position: relative;
 }
 
+#authorizationLine {
+    cursor: pointer;
+    transition: color var(--transition-normal);
+}
+
+#authorizationLine:hover {
+    color: var(--golden);
+}
+
 .tm7-status-cursor {
     position: absolute;
     bottom: 15px;
@@ -823,6 +777,7 @@ img {
     height: 16px;
     background-color: var(--ethereal-blue);
     animation: blink 1s infinite;
+    will-change: opacity;
 }
 
 @keyframes blink {
@@ -850,12 +805,8 @@ img {
     height: 150px;
     background: linear-gradient(90deg, transparent, rgba(74, 168, 255, 0.04), transparent);
     animation: scan-line 5s linear infinite;
+    will-change: transform;
 }
-
-/* ==========================================================================
-   Секция "Мир Δ.E.F.I.R"
-   ========================================================================== */
-
 .world-content {
     position: relative;
     z-index: var(--z-normal);
@@ -894,6 +845,7 @@ img {
     cursor: pointer;
     transform: translate(-50%, -50%);
     transition: all var(--transition-normal);
+    will-change: transform, box-shadow;
 }
 
 .world-marker[data-location="grey-zone"] {
@@ -938,12 +890,24 @@ img {
     backdrop-filter: blur(5px);
     border: 1px solid rgba(74, 168, 255, 0.1);
     transform: translateY(0);
+    will-change: transform, box-shadow, border-color;
 }
 
 .location-card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-glow);
     border-color: rgba(74, 168, 255, 0.3);
+}
+
+.location-card.highlighted {
+	border-color: var(--golden);
+	box-shadow: 0 0 20px rgba(231, 192, 107, 0.4);
+	animation: pulse-highlight 1s ease;
+}
+
+@keyframes pulse-highlight {
+    0%, 100% { box-shadow: 0 0 20px rgba(231, 192, 107, 0.4); }
+    50% { box-shadow: 0 0 30px rgba(231, 192, 107, 0.7); }
 }
 
 .location-image-container {
@@ -960,6 +924,7 @@ img {
     opacity: 0.8;
     transition: all var(--transition-normal);
     filter: saturate(0.8) contrast(1.1);
+    will-change: transform, opacity, filter;
 }
 
 .location-effect {
@@ -1012,6 +977,7 @@ img {
     opacity: 0;
     transform: translateX(-10px);
     transition: all var(--transition-normal);
+    will-change: opacity, transform;
 }
 
 .location-card:hover .location-memory {
@@ -1028,11 +994,6 @@ img {
     opacity: 0.9;
     filter: saturate(1.2) contrast(1.2);
 }
-
-/* ==========================================================================
-   Секция "Персонажи"
-   ========================================================================== */
-
 .characters-content {
     position: relative;
     z-index: var(--z-normal);
@@ -1059,6 +1020,7 @@ img {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    will-change: transform, box-shadow, border-color;
 }
 
 .character-card:hover {
@@ -1102,6 +1064,7 @@ img {
     background-position: center;
     transition: all var(--transition-normal);
     filter: grayscale(0.3) contrast(1.1);
+    will-change: transform, filter;
 }
 
 .character-portrait-image.alex {
@@ -1193,6 +1156,7 @@ img {
     opacity: 0;
     transform: translateY(10px);
     transition: all var(--transition-normal);
+    will-change: opacity, transform;
 }
 
 .character-card.alexei .character-quote {
@@ -1214,11 +1178,6 @@ img {
     opacity: 1;
     transform: translateY(0);
 }
-
-/* ==========================================================================
-   Секция "Терминология"
-   ========================================================================== */
-
 .term-list {
     background: rgba(16, 26, 41, 0.7);
     border-radius: 15px;
@@ -1260,6 +1219,7 @@ img {
     opacity: 0.5;
     animation: scan-line 15s infinite linear;
     pointer-events: none;
+    will-change: transform;
 }
 
 .term-item {
@@ -1269,12 +1229,22 @@ img {
     transition: all var(--transition-normal);
     border-radius: 8px;
     padding: 5px;
+    will-change: transform, background, box-shadow;
 }
 
 .term-item:hover {
     background: rgba(74, 168, 255, 0.05);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-3px);
+}
+
+.term-item.highlighted {
+    background: rgba(74, 168, 255, 0.1);
+    animation: pulse-highlight 2s ease;
+}
+
+.term-item.pulse-highlight {
+    animation: pulse-highlight 2s ease;
 }
 
 .term-name {
@@ -1319,6 +1289,7 @@ img {
     border-radius: 50%;
     opacity: 0.3;
     animation: pulse 2s infinite;
+    will-change: opacity, transform;
 }
 
 .term-description {
@@ -1396,6 +1367,7 @@ img {
     padding: 0;
     opacity: 0;
     pointer-events: none;
+    transition: all var(--transition-normal);
 }
 
 .term-item.hidden.active {
@@ -1405,11 +1377,6 @@ img {
     opacity: 1;
     pointer-events: all;
 }
-
-/* ==========================================================================
-   Секция "Фрагменты памяти"
-   ========================================================================== */
-
 .memory-content {
     position: relative;
     z-index: var(--z-normal);
@@ -1433,6 +1400,7 @@ img {
     border: 1px solid rgba(74, 168, 255, 0.1);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    will-change: transform, background, border-color, box-shadow;
 }
 
 .fragment:hover {
@@ -1451,6 +1419,27 @@ img {
     width: 3px;
     background: var(--ethereal-blue);
     opacity: 0.7;
+}
+
+.eva-log {
+	background: rgba(22, 30, 40, 0.9);
+	box-shadow: 0 0 20px rgba(230, 198, 103, 0.1);
+}
+
+.fragment.eva-log::before {
+    background: #e6c667;
+}
+
+.fragment.eva-log:hover {
+    background: rgba(16, 26, 41, 0.9);
+    transform: translateX(5px);
+    box-shadow: 0 0 20px rgba(230, 198, 103, 0.25);
+}
+
+.eva-log .fragment-title {
+	font-family: var(--mono-font);
+	color: #e6c667;
+	margin-bottom: 10px;
 }
 
 .fragment-title {
@@ -1490,6 +1479,7 @@ img {
     background: linear-gradient(90deg, transparent, rgba(74, 168, 255, 0.05), transparent);
     opacity: 0;
     pointer-events: none;
+    will-change: opacity;
 }
 
 .fragment:hover .fragment-echo {
@@ -1501,11 +1491,6 @@ img {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-/* ==========================================================================
-   Футер
-   ========================================================================== */
-
 .footer {
     background-color: var(--midnight-black);
     padding: 60px 0;
@@ -1558,6 +1543,7 @@ img {
 
 .footer-create {
 	opacity: 0;
+	transition: opacity var(--transition-normal);
 }
 
 .footer-create.active {
@@ -1573,6 +1559,7 @@ img {
     opacity: 0.3;
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     animation: glitch-small 5s infinite alternate-reverse;
+    will-change: transform;
 }
 
 .footer-links {
@@ -1599,6 +1586,7 @@ img {
     transform: scaleX(0);
     transform-origin: right;
     transition: transform var(--transition-normal);
+    will-change: transform;
 }
 
 .footer-link:hover {
@@ -1622,6 +1610,7 @@ img {
     transition: all var(--transition-normal);
     text-decoration: none;
     font-size: 16px;
+    will-change: transform, background, color, box-shadow;
 }
 
 .social-icon:hover {
@@ -1661,13 +1650,12 @@ img {
 
 .footer-protocol {
 	opacity: 0;
+	transition: opacity var(--transition-normal);
 }
 
 .footer-protocol.active {
 	opacity: 0.5;
 }
-
-/* Пасхалка в футере */
 .easter-egg {
     position: absolute;
     bottom: 20px;
@@ -1691,6 +1679,7 @@ img {
     border-radius: 50%;
     background: rgba(74, 168, 255, 0.1);
     transition: all var(--transition-normal);
+    will-change: background, box-shadow;
 }
 
 .easter-egg:hover {
@@ -1716,6 +1705,7 @@ img {
     visibility: hidden;
     transition: all var(--transition-normal);
     backdrop-filter: blur(5px);
+    will-change: transform, opacity, visibility;
 }
 
 .easter-egg.active .easter-egg-content {
@@ -1744,12 +1734,6 @@ img {
     text-align: right;
     margin-top: 10px;
 }
-
-/* ==========================================================================
-   Дополнительные эффекты и элементы
-   ========================================================================== */
-
-/* Архивариус (скрытый элемент) */
 .archivist {
     position: fixed;
     width: 40px;
@@ -1761,9 +1745,8 @@ img {
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-normal);
+    will-change: opacity, left, top;
 }
-
-/* Временной курсор */
 .time-cursor {
     position: fixed;
     width: 30px;
@@ -1775,11 +1758,23 @@ img {
     z-index: var(--z-highest);
     opacity: 0;
     transition: all 0.15s ease;
+    will-change: transform, border, box-shadow, opacity, left, top;
 }
 
-/* ==========================================================================
-   Анимации и эффекты
-   ========================================================================== */
+body.corrupted .tm7-interface {
+	filter: hue-rotate(160deg) blur(0.5px);
+	animation: glitch-color 1s infinite alternate;
+}
+
+@keyframes glitch-color {
+	0% { opacity: 0.95; }
+	100% { opacity: 1; transform: skewX(0.5deg); }
+}
+
+body.corrupted .hero-subtitle {
+	text-shadow: 0 0 4px #f00, 0 0 10px #0ff;
+	transform: scale(1.01);
+}
 
 @keyframes reveal {
     0% { opacity: 0; transform: translateY(20px); }
@@ -1795,16 +1790,6 @@ img {
     0% { background-position: 0% 0%; }
     100% { background-position: 100% 0%; }
 }
-
-@keyframes text-cycle {
-    0%, 20% { opacity: 1; }
-    25%, 95% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/* ==========================================================================
-   Медиа-запросы
-   ========================================================================== */
 
 @media screen and (max-width: 1024px) {
     .section-title {
