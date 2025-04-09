@@ -120,9 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Создание частиц
     function createParticles() {
         const particleConfigs = [
-            { id: 'particles-back', count: 30, minSize: 1, maxSize: 2, speed: 8, opacity: 0.3 },
-            { id: 'particles-mid', count: 25, minSize: 1, maxSize: 3, speed: 6, opacity: 0.5 },
-            { id: 'particles-front', count: 15, minSize: 2, maxSize: 4, speed: 4, opacity: 0.7 }
+            { id: 'particles-back', count: 20, minSize: 1, maxSize: 2, speed: 8, opacity: 0.3 },
+            { id: 'particles-mid', count: 20, minSize: 1, maxSize: 3, speed: 6, opacity: 0.5 },
+            { id: 'particles-front', count: 10, minSize: 2, maxSize: 4, speed: 4, opacity: 0.7 }
         ];
         
         const colors = ['#4aa8ff', '#34317d', '#e7c06b'];
@@ -177,28 +177,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         function startTm7Messages() {
             const showRandomMessage = () => {
-                const isWarning = Math.random() < 0.15; // 15% шанс предупреждения
+                const isWarning = Math.random() < 0.15;
                 const message = isWarning 
                     ? utils.getRandomItem(tm7Warnings) 
                     : utils.getRandomItem(tm7Messages);
                 showTm7Message(message, isWarning ? 4000 : 6000);
                 
-                // Используем переменное время для следующего сообщения
                 const nextTimeout = utils.getRandomNumber(20000, 60000); // 20-60 секунд
                 setTimeout(showRandomMessage, nextTimeout);
             };
             
-            // Начальное сообщение с задержкой
             setTimeout(() => {
                 showTm7Message('СИСТЕМА TM-7 ИНИЦИАЛИЗИРОВАНА', 5000);
                 setTimeout(showRandomMessage, 10000);
             }, 2000);
         }
         
-        // Инициализация TM-7 сообщений
-        startTm7Messages();
-        
-        // Линия авторизации кликабельна
         const authorizationLine = document.getElementById('authorizationLine');
         if (authorizationLine) {
             authorizationLine.addEventListener('click', async () => {
@@ -210,6 +204,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+	
+	function clearAllTimers() {
+		let id = window.setTimeout(() => {}, 0);
+		while (id--) window.clearTimeout(id);
+	}
+
+	document.addEventListener('visibilitychange', () => {
+		if (document.hidden) clearAllTimers();
+		else initTm7Interface();
+	});
     
     // Эхо фразы в герое
     function initEchoPhrases() {
@@ -229,54 +233,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Курсор времени
     function initTimeCursor() {
-        const timeCursor = document.getElementById('timeCursor');
-        if (!timeCursor) return;
-        
-        // Оптимизированное отслеживание движения мыши с throttle
-        let lastMoveTime = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            const now = Date.now();
-            // Ограничиваем частоту обновления до ~60 кадров в секунду
-            if (now - lastMoveTime < 16) return;
-            
-            lastMoveTime = now;
-            timeCursor.style.left = `${e.clientX}px`;
-            timeCursor.style.top = `${e.clientY}px`;
-            
-            if (timeCursor.style.opacity !== '1') {
-                timeCursor.style.opacity = '1';
-            }
-        });
-        
-        // Скрываем курсор при неактивности
-        let cursorTimeout;
-        document.addEventListener('mousemove', () => {
-            if (cursorTimeout) {
-                clearTimeout(cursorTimeout);
-            }
-            
-            cursorTimeout = setTimeout(() => {
-                timeCursor.style.opacity = '0';
-            }, 5000);
-        });
-        
-        // Эффекты наведения для интерактивных элементов
-        const interactiveElements = document.querySelectorAll('a, button, .fragment, .character-card, .location-card, .term-item');
-        
-        interactiveElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                timeCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.7)';
-                timeCursor.style.boxShadow = '0 0 10px rgba(74, 168, 255, 0.3)';
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                timeCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.3)';
-                timeCursor.style.boxShadow = 'none';
-            });
-        });
+		const throttle = (fn, wait) => {
+			let lastTime = 0;
+			return (...args) => {
+				const now = Date.now();
+				if (now - lastTime >= wait) {
+					fn(...args);
+					lastTime = now;
+				}
+			};
+		};
+
+		document.addEventListener('mousemove', throttle(e => {
+			const cursor = document.getElementById('timeCursor');
+			cursor.style.left = `${e.clientX}px`;
+			cursor.style.top = `${e.clientY}px`;
+		}, 30));
     }
     
     // Инициализация фрагментов памяти
@@ -604,6 +576,27 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Инициализируем все функции
     function initializeEverything() {
+		const observerOptions = { threshold: 0.1 };
+
+		const observer = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				entry.target.classList.toggle('animate', entry.isIntersecting);
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.echo-phrase, .location-card, .character-card, .fragment, .term-item').forEach(elem => {
+			observer.observe(elem);
+		});
+		
+		let particlesTimer;
+		window.addEventListener('scroll', () => {
+			clearTimeout(particlesTimer);
+			document.querySelector('.particles-container').style.opacity = '0';
+			particlesTimer = setTimeout(() => {
+				document.querySelector('.particles-container').style.opacity = '1';
+			}, 150);
+		});
+		
         createParticles();
         initNavigation();
         initTm7Interface();
