@@ -192,6 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(showRandomMessage, 10000);
             }, 2000);
         }
+		
+		startTm7Messages();
         
         const authorizationLine = document.getElementById('authorizationLine');
         if (authorizationLine) {
