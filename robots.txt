@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /favicon32.png
+Allow: /
+
+Sitemap: https://againte.gratis/sitemap.xml
