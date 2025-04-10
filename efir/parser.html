@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Δ.E.F.I.R Term Parser</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #111; color: #eee; }
+    input, button { padding: 0.5rem; margin: 1rem 0; }
+    textarea { width: 100%; height: 200px; margin-top: 1rem; background: #222; color: #0f0; white-space: pre; }
+  </style>
+</head>
+<body>
+  <h1>📘 Δ.E.F.I.R Term Parser</h1>
+  <input type="file" id="fileInput" accept=".txt">
+  <button onclick="handleFile()">📥 Загрузить и обработать</button>
+  <button onclick="downloadJson()">💾 Скачать JSON</button>
+  <textarea id="output" readonly placeholder="JSON появится здесь..."></textarea>
+
+  <script>
+    let parsedJson = '';
+
+    function handleFile() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        parsedJson = parseTermLog(reader.result);
+        document.getElementById('output').value = parsedJson;
+      };
+      reader.readAsText(file);
+    }
+
+    function downloadJson() {
+      if (!parsedJson) return;
+      const blob = new Blob([parsedJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'defir_log.json';
+      link.click();
+    }
+
+    function parseTermLog(text) {
+      const termLog = [];
+      const realityAnalysis = [];
+      const entries = text.split(/(?=^>\s*ТЕРМИН_|^▌Δ\.1\.REALITY_ANALYSIS)/gm);
+
+      const getBlock = (block, label) => {
+        const regex = new RegExp(`■ ${label}:[\s\S]*?(?=^\s*■ |^\s*> |^\s*▌|$)`, 'gm');
+        const match = block.match(regex);
+        if (!match) return null;
+        return match[0].split(':').slice(1).join(':').trim().replace(/\r/g, '').replace(/\n/g, ' ');
+      };
+
+      const getList = (block, label) => {
+        const regex = new RegExp(`■ ${label}:[\s\S]*?(?=^\s*■ |^\s*> |^\s*▌|$)`, 'gm');
+        const match = block.match(regex);
+        if (!match) return [];
+        return [...match[0].matchAll(/- (.+)/g)].map(m => m[1].trim());
+      };
+
+      const getQuotes = (block, label) => {
+        const regex = new RegExp(`■ ${label}:[\s\S]*?(?=^\s*■ |^\s*> |^\s*▌|$)`, 'gm');
+        const match = block.match(regex);
+        if (!match) return [];
+        return [...match[0].matchAll(/"(.+?)"/g)].map(m => m[1]);
+      };
+
+      entries.forEach(block => {
+        const termMatch = block.match(/ТЕРМИН_(\d+): «(.+?)»/);
+        if (termMatch) {
+          const id = termMatch[1];
+          const name = termMatch[2];
+
+          const obj = {
+            id,
+            name,
+            category: 'standard',
+            description: getBlock(block, 'Описание'),
+            fieldDesignation: getBlock(block, 'Полевое обозначение'),
+            status: getBlock(block, 'Состояние'),
+            risks: getList(block, 'Сопутствующие риски'),
+            anomalies: getList(block, 'Наблюдаемые аномалии'),
+            functions: getList(block, 'Функции'),
+            gradations: getList(block, 'Градации'),
+            characteristics: getList(block, 'Характеристики'),
+            properties: getList(block, 'Свойства'),
+            comments: getQuotes(block, 'Комментарий'),
+            notes: getQuotes(block, 'Примечание')
+          };
+
+          const known = Object.keys(obj).concat(['id', 'name', 'category']);
+          const extraMatches = [...block.matchAll(/^■ ([^:\n]+):\s+([\s\S]*?)(?=^\s*■ |^\s*> |^\s*▌|$)/gm)];
+          extraMatches.forEach(([, key, value]) => {
+            if (!known.includes(key.trim())) {
+              if (!obj.extraFields) obj.extraFields = {};
+              obj.extraFields[key.trim()] = value.trim().replace(/\r/g, '').replace(/\n/g, ' ');
+            }
+          });
+
+          for (const key in obj) if (!obj[key] || (Array.isArray(obj[key]) && !obj[key].length)) delete obj[key];
+          termLog.push(obj);
+        }
+
+        const anomalyMatch = block.match(/REALITY_ANALYSIS[\s\S]*?ИДЕНТИФИКАТОР: (.+)/);
+        if (anomalyMatch) {
+          const id = anomalyMatch[1].trim();
+
+          const getField = label => {
+            const match = block.match(new RegExp(`▌${label}: (.+)`));
+            return match ? match[1].trim() : null;
+          };
+
+          const obj = {
+            id,
+            status: getField('СТАТУС'),
+            object: getField('ОБЪЕКТ'),
+            timepoint: getField('МЕТКА ВРЕМЕНИ'),
+            event: getBlock(block, 'Событие'),
+            systemVersion: getBlock(block, 'Версия системы'),
+            notes: getQuotes(block, 'Примечание'),
+            recommendations: getList(block, 'Рекомендации'),
+            classification: getBlock(block, 'Классификация'),
+            hypothesis: getBlock(block, 'Гипотеза системы'),
+            directive: getBlock(block, 'Директива')
+          };
+
+          const known = Object.keys(obj).concat(['id']);
+          const extraMatches = [...block.matchAll(/^■ ([^:\n]+):\s+([\s\S]*?)(?=^\s*■ |^\s*> |^\s*▌|$)/gm)];
+          extraMatches.forEach(([, key, value]) => {
+            if (!known.includes(key.trim())) {
+              if (!obj.extraFields) obj.extraFields = {};
+              obj.extraFields[key.trim()] = value.trim().replace(/\r/g, '').replace(/\n/g, ' ');
+            }
+          });
+
+          for (const key in obj) if (!obj[key] || (Array.isArray(obj[key]) && !obj[key].length)) delete obj[key];
+          realityAnalysis.push(obj);
+        }
+      });
+
+      return JSON.stringify({ termLog, realityAnalysis }, null, 2);
+    }
+  </script>
+</body>
+</html>
