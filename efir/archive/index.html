@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Терм лог Δ.E.F.I.R. | Агатис Интегра</title>
+    <meta name="description" content="Терм лог проекта Δ.E.F.I.R — система доступа к терминологии мира, где реальность расслаивается, а время становится оружием">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://againte.gratis/favicon32.png" type="image/png">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body class="termlog-page">
+    <header class="header">
+        <div class="container header-container">
+            <a href="https://againte.gratis/efir/" class="header-link header-link-left">
+                <span class="icon">←</span>
+                <span>Вернуться на главную <strong>Δ.E.F.I.R.</strong></span>
+            </a>
+            <a href="https://againte.gratis" class="header-link header-link-right">
+                <span>Вернуться на главную <strong>agaINTE GRAtis</strong></span>
+                <span class="icon">→</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="termlog-header">
+        <div class="container">
+            <h1 class="termlog-title"><span class="delta">Δ</span>.E.F.I.R. ТЕРМ ЛОГ</h1>
+            <p class="termlog-subtitle">Система доступа к терминологии проекта и аномальным инцидентам</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchInput" placeholder="Поиск термина...">
+                <div class="search-icon">⌕</div>
+            </div>
+            
+            <div class="categories-container">
+                <button class="category-button active" data-category="all">Все записи</button>
+                <button class="category-button" data-category="standard">Стандартные термины</button>
+                <button class="category-button anomaly" data-category="anomaly">Аномальные инциденты</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="terms-section">
+        <div class="container">
+            <div class="terms-list-container">
+                <div class="terms-list" id="termsList">
+                    <!-- Список терминов будет загружен через JavaScript -->
+                </div>
+                <div class="terms-container" id="termsContainer">
+                    <!-- Карточки терминов будут загружены через JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="term-details-modal" id="termModal">
+        <div class="term-modal-content">
+            <div class="term-modal-header">
+                <h2 class="term-modal-title" id="modalTitle">Загрузка...</h2>
+                <button class="term-modal-close" id="modalClose">×</button>
+            </div>
+            <div class="term-modal-body" id="modalBody">
+                <!-- Подробности термина будут здесь -->
+            </div>
+        </div>
+    </div>
+
+    <div class="time-cursor" id="timeCursor"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
