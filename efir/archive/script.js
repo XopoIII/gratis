@@ -25,10 +25,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Функция для форматирования ID термина
+    function formatTermId(id, isAnomaly = false) {
+        if (isAnomaly) {
+            return id; // Для аномалий оставляем оригинальный ID (например, "Δ-PHANTOM-01")
+        } else {
+            return `ТЕРМИН_${id.padStart(3, '0')}`; // Для обычных терминов добавляем префикс
+        }
+    }
+    
+    // Распознавание ID термина из поискового запроса
+    function extractTermIdFromSearch(query) {
+        // Проверяем, соответствует ли запрос формату "ТЕРМИН_XXX"
+        const termMatch = query.match(/ТЕРМИН_(\d+)/i);
+        if (termMatch && termMatch[1]) {
+            return termMatch[1]; // Возвращаем только цифровую часть
+        }
+        return null;
+    }
+    
     // Рендеринг списка всех терминов
     function renderTermList() {
         const termsList = document.getElementById('termsList');
         termsList.innerHTML = '';
+        
+        // Проверяем, есть ли в поисковом запросе формат ТЕРМИН_XXX
+        const searchedTermId = extractTermIdFromSearch(searchQuery);
         
         // Фильтрация по категории и поисковому запросу
         const displayTerms = filteredTerms.filter(term => {
@@ -41,14 +63,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Фильтр по поисковому запросу
             if (searchQuery) {
                 const query = searchQuery.toLowerCase();
+                
+                // Если ищем по формату ТЕРМИН_XXX
+                if (searchedTermId) {
+                    return term.id === searchedTermId;
+                }
+                
                 const nameMatch = term.name && term.name.toLowerCase().includes(query);
                 const objectMatch = term.object && term.object.toLowerCase().includes(query);
+                const idMatch = term.id.toLowerCase().includes(query);
                 const descMatch = term.extraFields && term.extraFields.Описание && 
                                  term.extraFields.Описание.toLowerCase().includes(query);
                 const eventMatch = term.extraFields && term.extraFields.Событие && 
                                   term.extraFields.Событие.toLowerCase().includes(query);
                 
-                return nameMatch || objectMatch || descMatch || eventMatch;
+                return nameMatch || objectMatch || idMatch || descMatch || eventMatch;
             }
             
             return true;
@@ -69,8 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
             termItem.className = `term-list-item ${isAnomaly ? 'anomaly' : ''}`;
             termItem.dataset.id = term.id;
             
+            const formattedId = formatTermId(term.id, isAnomaly);
+            
             termItem.innerHTML = `
-                <span class="term-list-id">${term.id}</span>
+                <span class="term-list-id">${formattedId}</span>
                 <span class="term-list-name">${isAnomaly ? term.object : term.name}</span>
             `;
             
@@ -94,6 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const termsContainer = document.getElementById('termsContainer');
         termsContainer.innerHTML = '';
         
+        // Проверяем, есть ли в поисковом запросе формат ТЕРМИН_XXX
+        const searchedTermId = extractTermIdFromSearch(searchQuery);
+        
         // Используем те же фильтры, что и для списка
         const displayTerms = filteredTerms.filter(term => {
             if (activeCategory !== 'all') {
@@ -103,14 +137,21 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (searchQuery) {
                 const query = searchQuery.toLowerCase();
+                
+                // Если ищем по формату ТЕРМИН_XXX
+                if (searchedTermId) {
+                    return term.id === searchedTermId;
+                }
+                
                 const nameMatch = term.name && term.name.toLowerCase().includes(query);
                 const objectMatch = term.object && term.object.toLowerCase().includes(query);
+                const idMatch = term.id.toLowerCase().includes(query);
                 const descMatch = term.extraFields && term.extraFields.Описание && 
                                  term.extraFields.Описание.toLowerCase().includes(query);
                 const eventMatch = term.extraFields && term.extraFields.Событие && 
                                   term.extraFields.Событие.toLowerCase().includes(query);
                 
-                return nameMatch || objectMatch || descMatch || eventMatch;
+                return nameMatch || objectMatch || idMatch || descMatch || eventMatch;
             }
             
             return true;
@@ -133,6 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
             termCard.className = `term-card ${isAnomaly ? 'anomaly' : ''}`;
             termCard.dataset.id = term.id;
             
+            // Форматируем ID
+            const formattedId = formatTermId(term.id, isAnomaly);
+            
             // Описание для отображения (первые 100 символов)
             let description = '';
             if (isAnomaly) {
@@ -151,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class="term-card-title">${isAnomaly ? term.object : term.name}</h3>
                 </div>
                 <div class="term-card-content">
-                    <div class="term-card-id">${term.id}</div>
+                    <div class="term-card-id">${formattedId}</div>
                     <p class="term-card-description">${description}</p>
                     <div class="term-card-footer">
                         <span class="term-card-status">${isAnomaly ? term.status : term.category}</span>
@@ -187,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('modalBody');
         
         const isAnomaly = term.type === 'anomaly';
+        const formattedId = formatTermId(term.id, isAnomaly);
         
         // Заголовок
         modalTitle.textContent = isAnomaly ? term.object : term.name;
@@ -194,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Формирование контента
         let content = `
             <div class="term-details-header">
-                <div class="term-details-id">${term.id}</div>
+                <div class="term-details-id">${formattedId}</div>
                 <div class="term-details-status ${isAnomaly ? 'anomaly' : ''}">${isAnomaly ? term.status : term.category}</div>
                 ${isAnomaly ? `<div class="term-details-timepoint">${term.timepoint}</div>` : ''}
             </div>
@@ -228,6 +273,17 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('active');
     }
     
+    // Очистка поискового поля
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        searchQuery = '';
+        renderTermList();
+        renderTerms();
+        
+        // Скрываем кнопку очистки
+        document.getElementById('clearSearchBtn').style.display = 'none';
+    }
+    
     // Обработка изменения категории
     function handleCategoryChange(e) {
         const button = e.target;
@@ -255,6 +311,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function handleSearch() {
         searchQuery = document.getElementById('searchInput').value.trim();
+        
+        // Показываем или скрываем кнопку очистки поиска
+        const clearBtn = document.getElementById('clearSearchBtn');
+        if (searchQuery) {
+            clearBtn.style.display = 'block';
+        } else {
+            clearBtn.style.display = 'none';
+        }
+        
         renderTermList();
         renderTerms();
     }
@@ -295,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Эффект наведения на интерактивные элементы
         document.addEventListener('mouseenter', e => {
-            if (e.target.matches('.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close')) {
+            if (e.target.matches('.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close, #clearSearchBtn')) {
                 timeCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
                 timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.7)';
                 timeCursor.style.boxShadow = '0 0 10px rgba(74, 168, 255, 0.3)';
@@ -303,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, true);
         
         document.addEventListener('mouseleave', e => {
-            if (e.target.matches('.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close')) {
+            if (e.target.matches('.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close, #clearSearchBtn')) {
                 timeCursor.style.transform = 'translate(-50%, -50%) scale(1)';
                 timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.3)';
                 timeCursor.style.boxShadow = 'none';
@@ -311,8 +376,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, true);
     }
     
+    // Добавление кнопки очистки поиска
+    function addClearSearchButton() {
+        const searchContainer = document.querySelector('.search-container');
+        
+        // Создаем кнопку
+        const clearButton = document.createElement('button');
+        clearButton.id = 'clearSearchBtn';
+        clearButton.className = 'clear-search-btn';
+        clearButton.innerHTML = '×';
+        clearButton.style.display = 'none'; // Изначально скрыта
+        
+        // Добавляем в контейнер
+        searchContainer.appendChild(clearButton);
+        
+        // Добавляем обработчик события
+        clearButton.addEventListener('click', clearSearch);
+    }
+    
     // Инициализация всех компонентов
     function init() {
+        // Добавляем кнопку очистки поиска
+        addClearSearchButton();
+        
         // Загружаем данные
         loadTermLogData();
         
