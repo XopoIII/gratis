@@ -1,6 +1,6 @@
 const bookLinks = {
     "Δ.E.F.I.R. Фаза 1: Замедление": "https://againte.gratis/efir",
-    "Шай'ри": "https://author.today/work/435263",
+    "Шай'ри": "https://againte.gratis/shayri",
     "Dev Build: Версия 0.0.1": "https://author.today/work/435212",
     "С ручкой поневоле": "https://author.today/work/432204",
     "Андо": "https://author.today/work/428774",
