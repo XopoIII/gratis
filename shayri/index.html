@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шай'ри - Книга о магическом существе и его хранительнице</title>
+    <link rel="icon" href="favicon32.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Фоновые элементы с улучшенным параллакс-эффектом -->
+    <div class="background">
+		<div class="stars-layer"></div>
+		<!-- Оставляем только один слой тумана вместо двух -->
+		<div class="fog-layer combined-fog"></div>
+		<div class="particles-container"></div>
+		<!-- Сокращаем количество энергетических линий -->
+		<div class="energy-lines">
+			<div class="energy-line" style="top: 30%; transform: rotate(2deg);"></div>
+			<div class="energy-line" style="top: 70%; transform: rotate(-2deg);"></div>
+		</div>
+	</div>
+
+    <!-- Улучшенная навигация с подсказками -->
+    <nav class="navigation">
+        <div class="nav-item active" data-section="header" data-tooltip="В начало">
+            <div class="nav-indicator"></div>
+        </div>
+        <div class="nav-item" data-section="about" data-tooltip="О книге">
+            <div class="nav-indicator"></div>
+        </div>
+        <div class="nav-item" data-section="world" data-tooltip="Мир Шай'ри">
+            <div class="nav-indicator"></div>
+        </div>
+        <div class="nav-item" data-section="characters" data-tooltip="Персонажи">
+            <div class="nav-indicator"></div>
+        </div>
+        <div class="nav-item" data-section="gallery" data-tooltip="Галерея">
+            <div class="nav-indicator"></div>
+        </div>
+        <div class="nav-item" data-section="prophecy" data-tooltip="Пророчество">
+            <div class="nav-indicator"></div>
+        </div>
+        <div class="nav-item" data-section="buy" data-tooltip="Читать книгу">
+            <div class="nav-indicator"></div>
+        </div>
+    </nav>
+
+    <!-- Шапка с улучшенной анимацией -->
+    <header id="header" class="section">
+        <div class="title-container">
+            <h1 class="title">Шай'ри</h1>
+        </div>
+        <div class="subtitle">Начало великого путешествия</div>
+        <div class="author">Агатис Интегра</div>
+		<div class="crystal" id="hero-crystal"></div>
+        <a href="#about" class="scroll-down">
+            <span>Узнать больше</span>
+            <div class="arrow"></div>
+        </a>
+    </header>
+
+    <!-- Раздел О книге с улучшенным форматированием -->
+    <section id="about" class="section">
+        <div class="section-divider">
+            <div class="fog fog-1"></div>
+            <div class="fog fog-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="section-intro">
+                <p class="magical-phrase">«Мир изменится, когда ты откроешь эту книгу...»</p>
+            </div>
+            
+            <h2 class="section-title">О книге <span class="crystal-icon"></span></h2>
+            
+            <div class="book-info">
+                <div class="book-cover">
+                    <img src="cover.jpg" alt="Обложка книги Шай'ри">
+                    <div class="book-frame"></div>
+                </div>
+                
+                <div class="book-description">
+                    <p class="empathic-text emphasis-paragraph">Каэла — опытная охотница, привыкшая выполнять контракты без лишних вопросов. Но все меняется, когда она принимает заказ поймать загадочное существо бирюзового цвета, замеченное в восточной части Леса Дальних Ветвей.</p>
+                    
+                    <p>Найдя создание в пещере среди корней исполинского дерева, Каэла сталкивается с невероятным: существо обладает разумом и может передавать образы прямо в её сознание.</p>
+                    
+                    <p class="empathic-text">Вместо того чтобы доставить свою добычу заказчикам — таинственной организации «Созерцатели» — охотница решает освободить Моро, как она называет существо. Это решение запускает цепь событий, которые раскроют тайны прошлого самой Каэлы и выведут её на след древнего заговора, угрожающего всему миру.</p>
+                    
+                    <div class="mental-image-quote">
+                        <blockquote id="moro-thought">
+                            <p>"Мы связаны больше, чем ты можешь представить, Каэла. Наша встреча была предопределена задолго до нашего рождения."</p>
+                            <cite>— Мысленный образ от Моро</cite>
+                        </blockquote>
+                    </div>
+                    
+                    <div class="book-features">
+                        <div class="feature">
+                            <span class="feature-icon magic"><div class="feature-icon-glow"></div></span>
+                            <span class="feature-text">Уникальный магический мир</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon adventure"><div class="feature-icon-glow"></div></span>
+                            <span class="feature-text">Захватывающие приключения</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon mystery"><div class="feature-icon-glow"></div></span>
+                            <span class="feature-text">Древние тайны и пророчества</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#buy" class="cta-button">Открыть кристалл</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел Мир Шай'ри с интерактивной картой -->
+    <section id="world" class="section">
+        <div class="section-divider">
+            <div class="fog fog-1"></div>
+            <div class="fog fog-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="section-intro">
+                <p class="magical-phrase">«Слушай зов леса, чувствуй дыхание магии...»</p>
+            </div>
+            
+            <h2 class="section-title">Мир Шай'ри <span class="crystal-icon"></span></h2>
+            
+            <div class="lore-blocks">
+                <div class="lore-block">
+                    <h3>Лес Дальних Ветвей</h3>
+                    <p>Древний лес с исполинскими деревьями, где обитают загадочные существа и скрываются древние тайны. Здесь Каэла встретила Моро и началась их история.</p>
+                    <div class="lore-decoration"></div>
+                </div>
+				
+                <div class="lore-block">
+                    <h3>Аквилон</h3>
+                    <p>Крупнейший город региона, где находится Гильдия Охотников и таинственная Башня Исследований «Созерцателей».</p>
+                    <div class="lore-decoration"></div>
+                </div>
+				
+                <div class="lore-block">
+                    <h3>Туманные Пустоши</h3>
+                    <p>Искаженное пространство, где реальность нестабильна. Одно из последствий древней катастрофы — Раскола.</p>
+                    <div class="lore-decoration"></div>
+                </div>
+				
+                <div class="lore-block">
+                    <h3>Святилище Первых Шай'ри</h3>
+                    <p>Легендарное место, где хранятся секреты древней расы хранителей порталов. Конечная цель путешествия Каэлы и Моро.</p>
+                    <div class="lore-decoration"></div>
+                </div>
+				
+                <div class="lore-block">
+                    <h3>Город Шай'ри</h3>
+                    <p>Древний город Шай'ри, исчезнувший во время Раскола. Находится на границе миров, скрытый от обычных глаз.</p>
+                    <div class="lore-decoration"></div>
+                </div>
+				
+                <div class="lore-block">
+                    <h3>Раскол</h3>
+                    <p>Магическая катастрофа, случившаяся пятьсот лет назад, когда границы между мирами были разорваны. Привела к появлению монстров и аномалий.</p>
+                    <div class="lore-decoration"></div>
+                </div>
+                
+                <div class="lore-block">
+                    <h3>Шай'ри</h3>
+                    <p>Древняя раса существ, способных создавать порталы между мирами и контролировать потоки магической энергии. Практически исчезли после Раскола.</p>
+                    <div class="lore-decoration"></div>
+                </div>
+                
+                <div class="lore-block">
+                    <h3>Хранители Равновесия</h3>
+                    <p>Тайный орден, скрывающийся за фасадом организации «Созерцатели». Преследуют свои цели, связанные с контролем над магией.</p>
+                    <div class="lore-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел Персонажи с улучшенной интерактивностью -->
+    <section id="characters" class="section">
+        <div class="section-divider">
+            <div class="fog fog-1"></div>
+            <div class="fog fog-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="section-intro">
+                <p class="magical-phrase">«За каждой историей стоят те, кто её создаёт...»</p>
+            </div>
+            
+            <h2 class="section-title">Персонажи <span class="crystal-icon"></span></h2>
+            
+            <div class="characters-container">
+                <div class="character-card" id="kaela-card">
+                    <div class="character-portrait kaela-portrait">
+                        <div class="character-aura"></div>
+                    </div>
+                    <div class="character-info">
+                        <h3>Каэла</h3>
+                        <p>Опытная охотница с таинственным прошлым. Обладает редким эмпатическим даром, позволяющим ей понимать существ без слов. Решительная и независимая, она не доверяет никому, кроме себя самой — пока не встречает Моро.</p>
+                        <div class="character-quote">«Работа есть работа. Ничего личного.»</div>
+                        <div class="character-abilities">
+                            <span class="ability" data-tooltip="Эмпатия: способность чувствовать эмоции других существ">Эмпатия</span>
+                            <span class="ability" data-tooltip="Мастерство охоты: выслеживание, ловушки, выживание">Охота</span>
+                            <span class="ability" data-tooltip="Ближний бой: владение ножами и короткими клинками">Бой</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-card" id="moro-card">
+                    <div class="character-portrait moro-portrait">
+                        <div class="character-aura moro-aura"></div>
+                    </div>
+                    <div class="character-info">
+                        <h3>Моро</h3>
+                        <p>Последний представитель древней расы Шай'ри. Мощное существо с бирюзовой шерстью, крыльями и способностью передавать мысли-образы. Носит магический кристалл, источник своей силы и хранилище памяти предков.</p>
+                        <div class="character-quote">«Мо-ро...»</div>
+                        <div class="character-abilities">
+                            <span class="ability" data-tooltip="Телепатия: передача образов и эмоций">Телепатия</span>
+                            <span class="ability" data-tooltip="Порталы: создание проходов между точками пространства">Порталы</span>
+                            <span class="ability" data-tooltip="Магия Кристалла: управление энергией Шай'ри">Кристалл</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-card" id="toren-card">
+                    <div class="character-portrait toren-portrait">
+                        <div class="character-aura"></div>
+                    </div>
+                    <div class="character-info">
+                        <h3>Мастер Торен</h3>
+                        <p>Наставник Каэлы, старый охотник, владеющий боевой магией. Хранитель древних знаний о Шай'ри и других вымерших расах. Заменил Каэле отца после гибели её родителей.</p>
+                        <div class="character-quote">«Охотник даже на пенсии остается охотником.»</div>
+                        <div class="character-abilities">
+                            <span class="ability" data-tooltip="Боевая магия: использование стихий в бою">Магия</span>
+                            <span class="ability" data-tooltip="Знания: история, мифы, древние тексты">Знания</span>
+                            <span class="ability" data-tooltip="Наставничество: обучение молодых охотников">Мудрость</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-card" id="liria-card">
+                    <div class="character-portrait liria-portrait">
+                        <div class="character-aura"></div>
+                    </div>
+                    <div class="character-info">
+                        <h3>Лирия</h3>
+                        <p>Бывшая подруга Каэлы, ставшая охотницей на монстров после трагедии, унесшей жизни её семьи. Присоединилась к «Хранителям Равновесия», веря в их благородную цель.</p>
+                        <div class="character-quote">«Моя ненависть — это всё, что у меня осталось.»</div>
+                        <div class="character-abilities">
+                            <span class="ability" data-tooltip="Выслеживание: поиск существ и людей по следам">Следопыт</span>
+                            <span class="ability" data-tooltip="Дальний бой: мастерское владение луком">Лучница</span>
+                            <span class="ability" data-tooltip="Тактика: планирование и исполнение сложных операций">Тактик</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел Галерея с улучшенными визуальными эффектами -->
+    <section id="gallery" class="section">
+        <div class="section-divider">
+            <div class="fog fog-1"></div>
+            <div class="fog fog-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="section-intro">
+                <p class="magical-phrase">«Картины, запечатлевшие магию иных миров...»</p>
+            </div>
+            
+            <h2 class="section-title">Галерея <span class="crystal-icon"></span></h2>
+            
+            <div class="gallery-tabs">
+                <div class="gallery-tab active" data-tab="creatures">Существа</div>
+                <div class="gallery-tab" data-tab="locations">Локации</div>
+                <div class="gallery-tab" data-tab="artifacts">Артефакты</div>
+            </div>
+            
+            <div class="gallery-content">
+                <div class="gallery-panel active" id="creatures-panel">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Корнеласка</h3>
+                                <p>Монстр, соединивший в себе дикую ярость зверя и неумолимую силу растений. Обитает в Лесу Дальних Ветвей.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Шипорылы</h3>
+                                <p>Опасные хищники, напоминающие древних ящеров с бронированными пластинами и ядовитыми жалами. Охотятся стаями.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Памятевор</h3>
+                                <p>Существо, обитающее в Туманных Пустошах, питающееся болью воспоминаний и принимающее облик тех, кого его жертва потеряла.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-panel" id="locations-panel">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Город Шай'ри</h3>
+                                <p>Древний город с хрустальными башнями, парящий над водой. Исчез во время Раскола, застряв между измерениями.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Туманные Пустоши</h3>
+                                <p>Искаженная реальность, где время и пространство нестабильны. Наполнена множеством карманных измерений и аномалий.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Башня Исследований</h3>
+                                <p>Штаб-квартира «Созерцателей» в Аквилоне. За её стенами проводятся эксперименты над магическими существами.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-panel" id="artifacts-panel">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Кристалл Шай'ри</h3>
+                                <p>Источник силы существ Шай'ри, хранилище коллективной памяти расы и ключ к контролю над порталами между мирами.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Эмпатический кулон</h3>
+                                <p>Артефакт матери Каэлы, усиливающий её врожденный дар эмпатии и позволяющий глубже понимать Моро.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                            <div class="gallery-overlay">
+                                <h3>Амулет Хранителей</h3>
+                                <p>Символ ордена «Хранителей Равновесия», искаженный символ пространственной магии, позволяющий отслеживать носителя.</p>
+                            </div>
+                            <div class="magic-frame"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Раздел Пророчество -->
+    <section id="prophecy" class="section">
+        <div class="section-divider">
+            <div class="fog fog-1"></div>
+            <div class="fog fog-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="section-intro">
+                <p class="magical-phrase">«Слова, сказанные в древности, определяют судьбы сегодня...»</p>
+            </div>
+            
+            <h2 class="section-title">Пророчество <span class="crystal-icon"></span></h2>
+            
+            <div class="prophecy-container">
+                <div class="ancient-scroll">
+                    <div class="scroll-glow"></div>
+                    <div class="scroll-content">
+                        <div class="scroll-text">
+                            <p class="prophecy-text">«Когда миры будут на грани слияния, явится Последний Ключ — Шай'ри, несущий память всех ушедших. И рядом с ним будет Проводник Сердец — существо другой природы, способное направлять его силу. Вместе они решат судьбу миров: исцеление или окончательный распад».</p>
+                            <p class="prophecy-text hidden-text">«Там, где сходятся тени и свет, где нет ни дня, ни ночи, они найдут истину о Расколе и о тех, кто стоял за ним. И выбор их будет выбором для всех миров».</p>
+                        </div>
+                        <div class="runes">
+                            <div class="rune" data-rune="portal"></div>
+                            <div class="rune" data-rune="key"></div>
+                            <div class="rune" data-rune="balance"></div>
+                            <div class="rune" data-rune="guardian"></div>
+                            <div class="rune" data-rune="path"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prophecy-details">
+                    <div class="detail-block">
+                        <h3>Последний Ключ</h3>
+                        <p>Согласно древним текстам, Последний Ключ — это Шай'ри, несущий в своем кристалле память всех предков. Способен открывать проходы между мирами и исцелять разрывы в ткани реальности.</p>
+                    </div>
+                    
+                    <div class="detail-block">
+                        <h3>Проводник Сердец</h3>
+                        <p>Человек с редким даром эмпатии, способный направлять силу Шай'ри и устанавливать мост между разными видами существ. Без Проводника сила Ключа может стать разрушительной.</p>
+                    </div>
+                    
+                    <div class="detail-block">
+                        <h3>Выбор</h3>
+                        <p>Пророчество говорит о выборе между исцелением миров и их окончательным распадом. Этот выбор должны сделать Ключ и Проводник вместе, и от него зависит судьба всех существ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция для чтения книги (была Buy) -->
+    <section id="buy" class="section">
+        <div class="section-divider">
+            <div class="fog fog-1"></div>
+            <div class="fog fog-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="section-intro">
+                <p class="magical-phrase">«Ты готов присоединиться к нам? Путешествие ждёт...»</p>
+            </div>
+            
+            <h2 class="section-title">Начать путешествие <span class="crystal-icon"></span></h2>
+            
+            <div class="book-portal">
+                <div class="book-options">
+                    <div class="book-preview">
+                        <div class="book-3d">
+                            <div class="book-cover-3d">
+                                <img src="cover.jpg" alt="3D обложка книги Шай'ри">
+                            </div>
+                            <div class="book-side"></div>
+                            <div class="book-back"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="read-options">
+                        <h3>Готовы погрузиться в мир Шай'ри?</h3>
+                        <p>Начните захватывающее путешествие с Каэлой и Моро через магический мир, полный загадок, опасностей и древних тайн.</p>
+                        
+                        <a href="https://author.today/work/435263" class="read-button primary">Начать читать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секретный отрывок книги (скрыт по умолчанию) -->
+    <div class="secret-excerpt">
+        <div class="excerpt-close">&times;</div>
+        <h3>Отрывок из книги</h3>
+        <div class="excerpt-content">
+            <p>Каэла замерла на толстой ветке древнего дерева, слившись с его корой так идеально, что даже птицы, вернувшиеся на соседние сучья, не замечали человеческого присутствия. Два часа она не шевелилась — только янтарные глаза изредка моргали, внимательно изучая прогалину внизу. Утренний туман медленно рассеивался, обнажая тропу, по которой, согласно сведениям, полученным в городе, должен был пройти корнеласка — чудовище, соединившее в себе дикую ярость зверя и неумолимую силу растений.</p>
+            <p>Каэла слегка повела плечом, разминая затёкшие мышцы. Костяшки пальцев, сжимавших лук, побелели, но её дыхание оставалось ровным и глубоким. В Туманной Пустоши нельзя позволять себе нервничать — монстры чуют страх, как дикие псы чуют кровь.</p>
+            
+            <div class="excerpt-image-container">
+                <div class="excerpt-image"></div>
+                <div class="image-caption">Каэла в ожидании добычи</div>
+            </div>
+            
+            <p>Земля задрожала. Сначала едва заметно, потом сильнее. С ближайшего дерева сорвалась стайка шепталок — крошечных летающих существ с полупрозрачными крыльями. Они пронеслись над головой Каэлы, тревожно щебеча.</p>
+            <p class="shimmers-text">«Идёт, идёт, большой и страшный», — донеслись до неё обрывки их мыслей.</p>
+        </div>
+    </div>
+
+    <!-- Интерактивный дневник Каэлы (новая фича) -->
+    <div class="kaela-journal">
+        <div class="journal-close">&times;</div>
+        <div class="journal-pages">
+            <div class="journal-page current-page">
+                <div class="journal-date">12 день месяца Туманов</div>
+                <div class="journal-entry">
+                    <p>Сегодня заключила контракт с «Созерцателями». 500 золотых за поимку живым существа бирюзового цвета из Леса Дальних Ветвей. Цена слишком высока для обычного зверя. Что-то здесь не так...</p>
+                    <div class="journal-sketch" id="sketch-contract"></div>
+                </div>
+            </div>
+            <div class="journal-page">
+                <div class="journal-date">15 день месяца Туманов</div>
+                <div class="journal-entry">
+                    <p>Нашла его. Невероятно. Он разумен и каким-то образом может передавать образы прямо в сознание. Его кристалл светится, когда он это делает. Назвала его Моро — он словно отзывается на это имя.</p>
+                    <div class="journal-sketch" id="sketch-moro"></div>
+                </div>
+            </div>
+            <div class="journal-page">
+                <div class="journal-date">16 день месяца Туманов</div>
+                <div class="journal-entry">
+                    <p>Решение принято. Я не могу отдать его «Созерцателям». Сегодня впервые за много лет нарушу контракт. Мы бежим. Надеюсь, моё убежище в горах достаточно надёжно...</p>
+                    <div class="journal-sketch" id="sketch-escape"></div>
+                </div>
+            </div>
+        </div>
+        <div class="journal-nav">
+            <div class="journal-prev">←</div>
+            <div class="journal-next">→</div>
+        </div>
+    </div>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>Шай'ри</h3>
+                    <p>Книга от автора Агатис Интегра</p>
+                </div>
+                
+                <div class="footer-column links">
+                    <h3 class="logo-text">Полезное</h3>
+					<p id="watchers-link">Аналитический центр "Созерцатели"</p>
+					<p id="prophecy-link">Пророчество Шай'ри</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="logo-text">agaINTE GRAtis</h3>
+					<p><a href="https://againte.gratis/" >Вернуться на главную</a></p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 Агатис Интегра. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрытый секрет (улучшенная пасхалка) -->
+    <div class="hidden-secret">
+        <div class="secret-close">&times;</div>
+        <div class="secret-portal">
+            <div class="portal-rings">
+                <div class="portal-ring"></div>
+                <div class="portal-ring"></div>
+                <div class="portal-ring"></div>
+            </div>
+            <div class="secret-content">
+                <h3>Пророчество Шай'ри</h3>
+                <div class="animated-runes">
+                    <div class="rune-circle"></div>
+                </div>
+                <p class="prophecy-text">«Когда миры будут на грани слияния, явится Последний Ключ — Шай'ри, несущий память всех ушедших. И рядом с ним будет Проводник Сердец — существо другой природы, способное направлять его силу. Вместе они решат судьбу миров: исцеление или окончательный распад».</p>
+                <div class="secret-message hidden">
+                    <p class="hidden-text">«Истинная цель "Созерцателей" — не закрыть, а контролировать разрывы между мирами. Кристаллы Шай'ри — ключи к этой власти. Берегись тех, кто говорит о равновесии, но жаждет контроля.»</p>
+                    <div class="signature">— Из записей, найденных в потайном хранилище Аквилона</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрытый интерфейс "Созерцателей" (еще одна пасхалка) -->
+	<div class="watchers-interface hidden">
+		<div class="interface-header">
+			<div class="interface-logo"></div>
+			<div class="interface-title">АНАЛИТИЧЕСКИЙ ЦЕНТР "СОЗЕРЦАТЕЛИ"</div>
+			<div class="interface-close">&times;</div>
+		</div>
+		<div class="interface-content">
+			<div class="interface-sidebar">
+				<div class="sidebar-option active" data-panel="shay-1">ДАННЫЕ ОБЪЕКТА "ШАЙ-1"</div>
+				<div class="sidebar-option" data-panel="last-key">ОПЕРАЦИЯ "ПОСЛЕДНИЙ КЛЮЧ"</div>
+				<div class="sidebar-option" data-panel="threat-level">УРОВЕНЬ УГРОЗЫ</div>
+				<div class="sidebar-option" data-panel="restricted">ДОСТУП ЗАПРЕЩЕН</div>
+			</div>
+			<div class="interface-main">
+				<!-- Панель с данными ШАЙ-1 (Моро) -->
+				<div class="data-block active" id="panel-shay-1">
+					<div class="data-header">ОБЪЕКТ: ШАЙ-1 (КОДОВОЕ ИМЯ "МОРО")</div>
+					<div class="data-content">
+						<div class="data-image"></div>
+						<div class="data-text">
+							<p>СТАТУС: В розыске</p>
+							<p>КЛАССИФИКАЦИЯ: Последний из рода Шай'ри</p>
+							<p>ОСОБЕННОСТИ: Носитель первичного кристалла</p>
+							<p>ОПАСНОСТЬ: Высшая категория</p>
+							<p>ПРИМЕЧАНИЕ: Предположительно сформировал связь с объектом "ПРОВОДНИК-7" (Каэла). Захват обоих объектов обязателен для завершения проекта "РАВНОВЕСИЕ".</p>
+						</div>
+					</div>
+					<div class="classified-stamp">СОВЕРШЕННО СЕКРЕТНО</div>
+				</div>
+				
+				<!-- Панель с данными операции "Последний ключ" -->
+				<div class="data-block" id="panel-last-key">
+					<div class="data-header">ОПЕРАЦИЯ: "ПОСЛЕДНИЙ КЛЮЧ"</div>
+					<div class="data-content">
+						<div class="data-image operation-image"></div>
+						<div class="data-text">
+							<p>СТАТУС: Активна</p>
+							<p>ПРИОРИТЕТ: Максимальный</p>
+							<p>ЗАДЕЙСТВОВАНО: 12 оперативных групп</p>
+							<p>ЦЕЛЬ: Захват последнего Шай'ри и его кристалла</p>
+							<p>ТЕКУЩЕЕ СОСТОЯНИЕ: Потеря контакта с группой "Альфа-7" под командованием магистра Ульриха. Высока вероятность вмешательства Торена из клана Северного Ветра. Его устранение является приоритетной задачей.</p>
+							<p>ПРИМЕЧАНИЕ: По древним текстам, кристалл последнего Шай'ри содержит полную память расы. Его активация в Святилище Первых потенциально может восстановить порталы и нарушить планы Совета.</p>
+						</div>
+					</div>
+					<div class="classified-stamp">СОВЕРШЕННО СЕКРЕТНО</div>
+				</div>
+				
+				<!-- Панель с уровнем угрозы -->
+				<div class="data-block" id="panel-threat-level">
+					<div class="data-header">УРОВЕНЬ УГРОЗЫ: КРИТИЧЕСКИЙ</div>
+					<div class="data-content">
+						<div class="threat-meter">
+							<div class="threat-bar"></div>
+							<div class="threat-marker" style="left: 90%;">!</div>
+						</div>
+						<div class="data-text">
+							<p>ПРОГНОЗ: Негативный</p>
+							<p>ВЕРОЯТНОСТЬ ВОССТАНОВЛЕНИЯ ГОРОДА ШАЙ'РИ: 68% при текущих условиях</p>
+							<p>ВЕРОЯТНОСТЬ АКТИВАЦИИ ДРЕВНИХ ПОРТАЛОВ: 75% при соединении Проводника и Ключа</p>
+							<p>РЕКОМЕНДАЦИИ: 
+							   <br>1. Немедленная ликвидация Проводника
+							   <br>2. Извлечение кристалла из Шай'ри
+							   <br>3. Уничтожение всех материалов о пророчестве
+							</p>
+							<p>ВНИМАНИЕ: Время до предполагаемого прибытия объектов в Святилище — 5 дней. Требуется немедленное развертывание всех доступных сил.</p>
+						</div>
+					</div>
+					<div class="classified-stamp danger-stamp">ВЫСШИЙ УРОВЕНЬ СЕКРЕТНОСТИ</div>
+				</div>
+				
+				<!-- Панель с запрещенным доступом -->
+				<div class="data-block" id="panel-restricted">
+					<div class="data-header">ДОСТУП ЗАПРЕЩЕН</div>
+					<div class="data-content restricted-content">
+						<div class="access-denied">
+							<div class="lock-icon"></div>
+							<p>ТРЕБУЕТСЯ РАЗРЕШЕНИЕ ВЕРХОВНОГО КРУГА</p>
+							<p>ДАННЫЕ О ПРОЕКТЕ "РАСКОЛ" ДОСТУПНЫ ТОЛЬКО ЧЛЕНАМ СОВЕТА</p>
+							<div class="access-code">
+								<input type="password" placeholder="КОД ДОСТУПА" class="code-input">
+								<button class="code-submit">ВВОД</button>
+							</div>
+							<p class="access-error">НЕВЕРНЫЙ КОД. ПОПЫТКА ЗАПИСАНА.</p>
+						</div>
+					</div>
+					<div class="classified-stamp danger-stamp">ДОСТУП ОГРАНИЧЕН</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
