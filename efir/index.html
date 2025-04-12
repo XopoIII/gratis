@@ -54,6 +54,7 @@
                 <a href="#world" class="nav-link" data-section="Мир Δ.E.F.I.R">Мир Δ.E.F.I.R</a>
                 <a href="#characters" class="nav-link" data-section="Персонажи">Персонажи</a>
                 <a href="#terminology" class="nav-link" data-section="Терминология">Терминология</a>
+                <a href="#antagonists" class="nav-link" data-section="Угрозы">Угрозы</a>
                 <a href="#memory" class="nav-link" data-section="Фрагменты памяти">Фрагменты памяти</a>
                 <a href="https://againte.gratis/efir/stories/" class="nav-link external" data-section="Мини-рассказы">Мини-рассказы</a>
                 <a href="https://againte.gratis/efir/archive/" class="nav-link external" data-section="Терм лог">Терм лог</a>
@@ -88,7 +89,7 @@
                     <h3 class="about-title">Когда время становится оружием</h3>
                     <p class="about-description">Восемь секунд на выдохе. В прицеле — затылок охранника с татуировкой штрих-кода. Дождь барабанит по обшивке воздуховода.</p>
                     <p class="about-description">Алекс Северов — один из лучших наемников Серой зоны, выполняющий заказы благодаря уникальному импланту <span class="highlight-term" data-term="TM-7">TM-7</span> и способности "<span class="highlight-term" data-term="ЗАМЕДЛЕНИЕ">Замедление</span>". Но его последнее задание становится началом кошмара: встреча с собственным двойником, загадочные сообщения от женщины по имени Ева и неясные, фрагментарные воспоминания о катастрофе, которую он не должен помнить.</p>
-                    <p class="about-description">В мире, где <span class="highlight-term" data-term="Δ.E.F.I.R">эфирная энергия</span> изменила законы реальности, Алексу предстоит узнать жестокую правду о собственном прошлом, разгадать тайну проекта "Ева" и выяснить, кем на самом деле является его двойник с пулевым отверстием во лбу.</p>
+                    <p class="about-description">В мире, где <span class="highlight-term" data-term="Δ.E.F.I.R">эфирная энергия</span> изменила законы реальности, Алексу предстоит узнать жестокую правду о собственном прошлом, разгадать тайну проекта "Ева" и спуститься вглубь заброшенной базы "Омега", где его ждет встреча с собственной судьбой и выбор, который изменит не только его самого, но и саму природу реальности.</p>
                     <div class="tm7-status">
                         <div class="tm7-status-header">[ИМПЛ/TM-7]:</div>
                         <div class="tm7-status-content">
@@ -101,7 +102,7 @@
                 </div>
                 <div class="about-image">
                     <div class="book-cover-container">
-                        <img src="cover.jpg" alt="Обложка книги Δ.E.F.I.R. Фаза 1: Замедление" class="book-cover">
+                        <img loading="lazy" src="cover.jpg" alt="Обложка книги Δ.E.F.I.R. Фаза 1: Замедление" class="book-cover">
                         <div class="book-cover-glitch"></div>
                     </div>
                 </div>
@@ -122,12 +123,13 @@
                     <div class="world-marker" data-location="grey-zone" title="Серая зона"></div>
                     <div class="world-marker" data-location="omega-base" title="База 'Омега'"></div>
                     <div class="world-marker" data-location="red-zone" title="Красная зона"></div>
+                    <div class="world-marker" data-location="deep-complex" title="Глубинный комплекс"></div>
                 </div>
                 
                 <div class="locations">
                     <div class="location-card" data-location="grey-zone">
                         <div class="location-image-container">
-                            <img src="grayzone.jpg" alt="Серая зона - территория наемников и нелегальных технологий" class="location-image">
+                            <img loading="lazy" src="grayzone.jpg" alt="Серая зона - территория наемников и нелегальных технологий" class="location-image">
                             <div class="location-effect grey-zone-effect"></div>
                         </div>
                         <div class="location-content">
@@ -141,7 +143,7 @@
                     
                     <div class="location-card" data-location="omega-base">
                         <div class="location-image-container">
-                            <img src="omega.jpg" alt="База Омега - заброшенный исследовательский комплекс" class="location-image">
+                            <img loading="lazy" src="omega.jpg" alt="База Омега - заброшенный исследовательский комплекс" class="location-image">
                             <div class="location-effect omega-effect"></div>
                         </div>
                         <div class="location-content">
@@ -155,7 +157,7 @@
                     
                     <div class="location-card" data-location="red-zone">
                         <div class="location-image-container">
-                            <img src="redzone.jpg" alt="Красная зона - территория критического проникновения Δ.E.F.I.R" class="location-image">
+                            <img loading="lazy" src="redzone.jpg" alt="Красная зона - территория критического проникновения Δ.E.F.I.R" class="location-image">
                             <div class="location-effect red-zone-effect"></div>
                         </div>
                         <div class="location-content">
@@ -163,6 +165,20 @@
                             <p class="location-description">Территория критического проникновения Δ.E.F.I.R, где реальность нестабильна. Законы физики здесь искажаются, время течет иначе, а те, кто осмеливается войти, рискуют потерять не только жизнь, но и рассудок. Место обитания эфирных хищников.</p>
                             <div class="location-memory">
                                 <q>...Переход ощущается физически — прорыв сквозь пленку...</q>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="location-card" data-location="deep-complex">
+                        <div class="location-image-container">
+                            <img loading="lazy" src="deep-complex.jpg" alt="Глубинный комплекс - место первых экспериментов с Δ.E.F.I.R" class="location-image">
+                            <div class="location-effect deep-complex-effect"></div>
+                        </div>
+                        <div class="location-content">
+                            <h3 class="location-title">Глубинный комплекс</h3>
+                            <p class="location-description">Скрытый под базой "Омега" древний исследовательский комплекс, где проводились первые эксперименты с Δ.E.F.I.R. Здесь находится Дерево Связей — грандиозная структура, хранящая фрагменты сознаний всех участников проекта "Первичная Ева". В самой глубине комплекса хранится оригинальный TX-Δ.</p>
+                            <div class="location-memory">
+                                <q>...Здесь все началось. Задолго до "Омеги"...</q>
                             </div>
                         </div>
                     </div>
@@ -188,7 +204,7 @@
                         <div class="character-info">
                             <h3 class="character-name">Алекс Северов</h3>
                             <div class="character-role">Наемник / Бывший исследователь</div>
-                            <p class="character-description">Профессиональный наемник с имплантом TM-7, дающим способность "Замедление". Пытается разобраться в своем прошлом, о котором ничего не помнит. Все указывает на то, что раньше он был ученым, работавшим над проектом "Ева", но затем что-то пошло не так.</p>
+                            <p class="character-description">Профессиональный наемник с имплантом TM-7, дающим способность "Замедление". Постепенно вспоминает, что ранее был ученым и создателем проекта TX-Δ. Его истинная связь с имплантом и проектом "Ева" гораздо глубже, чем кажется на первый взгляд. В его памяти скрыт ключ к тайне всего комплекса "Омега".</p>
                             <div class="character-quote">
                                 <q>Ты выбрался, но я — нет</q>
                             </div>
@@ -203,7 +219,7 @@
                         <div class="character-info">
                             <h3 class="character-name">Ева</h3>
                             <div class="character-role">Загадочная фигура / Ключ к разгадке</div>
-                            <p class="character-description">Женщина со светлыми волосами и глазами, меняющими цвет. Связана с Алексом таинственным образом. Оставляет ему сообщения через эфирное эхо. По всей видимости, была ключевой фигурой в проекте, названном её именем, но исчезла после катастрофы.</p>
+                            <p class="character-description">Женщина со светлыми волосами и глазами, меняющими цвет. Была ключевой фигурой в проекте, названном её именем. После эксперимента по интеграции с Δ.E.F.I.R стала чем-то большим, чем человек — своеобразным мостом между мирами. Её сущность разделена, и часть её существует в эфирном измерении.</p>
                             <div class="character-quote">
                                 <q>Помни не то, что видишь, а то, что чувствуешь</q>
                             </div>
@@ -218,7 +234,7 @@
                         <div class="character-info">
                             <h3 class="character-name">Скарн "Сжигатель"</h3>
                             <div class="character-role">Охотник / Бывший соратник</div>
-                            <p class="character-description">Некогда ученый по имени Виктор Крайнев, друг и коллега Алекса. После катастрофы на базе "Омега", где погибла его семья, был трансформирован существом по имени Серафим. Теперь управляет эфирным пламенем, способным стирать материю и память.</p>
+                            <p class="character-description">Некогда ученый по имени Виктор Крайнев, друг и коллега Алекса. После катастрофы был трансформирован существом по имени Серафим, который "разложил его на структуру" и собрал заново. Теперь управляет эфирным пламенем и следует таинственным целям Серафима по эволюции человечества через соединение с эфиром.</p>
                             <div class="character-quote">
                                 <q>Оно стирает не плоть. Оно стирает суть</q>
                             </div>
@@ -236,81 +252,75 @@
                 <h2 class="section-title" data-text="Терминология Δ.E.F.I.R">Терминология Δ.E.F.I.R</h2>
                 <div class="section-title-line"></div>
             </div>
-            <div class="term-list">
-                <div class="term-header">
-                    <span class="term-header-symbol">Δ</span>
-                    <span class="term-header-text">.1.TERM_LOG // [INTERNAL USE ONLY]</span>
-                    <div class="term-header-scan"></div>
+            <div class="terminology-content">
+                <div class="terminology-intro">
+                    <p class="terminology-text">Мир Δ.E.F.I.R имеет собственную сложную терминологию, отражающую нестабильную природу реальности и взаимодействие человеческого сознания с эфирной энергией.</p>
+                    <a href="https://againte.gratis/efir/archive/" class="terminology-link">
+                        <div class="terminology-link-icon">
+                            <span class="delta-icon">Δ</span>
+                        </div>
+                        <div class="terminology-link-text">
+                            <span class="terminology-link-title">ОТКРЫТЬ ПОЛНЫЙ ТЕРМ ЛОГ</span>
+                            <span class="terminology-link-desc">Система доступа к терминологии проекта и аномальным инцидентам</span>
+                        </div>
+                    </a>
                 </div>
-                
-                <div class="term-item" data-term="ЗАМЕДЛЕНИЕ">
-                    <div class="term-name">
-                        <div class="term-indicator"></div>
-                        <div class="term-name-text">ЗАМЕДЛЕНИЕ</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section antagonists" id="antagonists">
+        <div class="section-background"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-text="Угрозы">Угрозы</h2>
+                <div class="section-title-line"></div>
+            </div>
+            <div class="antagonists-content">
+                <div class="antagonist-cards">
+                    <div class="antagonist-card mimic">
+                        <div class="antagonist-image">
+                            <div class="antagonist-image-overlay"></div>
+                            <div class="antagonist-image-effect slowdown-effect"></div>
+                        </div>
+                        <div class="antagonist-info">
+                            <h3 class="antagonist-name">Мимик</h3>
+                            <div class="antagonist-type">Эфирная сущность / Имитатор</div>
+                            <p class="antagonist-description">Эфирная сущность, способная принимать форму любого человека, копируя не только внешность, но и воспоминания. Результат неудачного эксперимента по интеграции эфирного сознания. Мимики стремятся к совершенствованию своей формы и могут образовывать коллективный разум.</p>
+                            <div class="antagonist-quote">
+                                <q>Может быть, я — уже ты, и ты этого не заметил</q>
+                            </div>
+                        </div>
                     </div>
-                    <div class="term-description">
-                        <p>Боевая способность, доступная носителям импланта TM-7. Позволяет воспринимать мир в замедленном режиме, существенно увеличивая скорость реакции. При активации, окружающее пространство замедляется, а сам пользователь сохраняет нормальную скорость действий.</p>
-                        <div class="term-comment">// "Долго — не значит безопасно. Каждая секунда субъективного времени увеличивает нагрузку экспоненциально." //</div>
+                    
+                    <div class="antagonist-card archivists">
+                        <div class="antagonist-image">
+                            <div class="antagonist-image-overlay"></div>
+                            <div class="antagonist-image-effect archivists-effect"></div>
+                        </div>
+                        <div class="antagonist-info">
+                            <h3 class="antagonist-name">Архивариусы</h3>
+                            <div class="antagonist-type">Хранители памяти / Корректоры реальности</div>
+                            <p class="antagonist-description">Загадочные существа, поддерживающие "правильную" версию реальности. Устраняют аномалии и тех, кто помнит то, чего "не должен" помнить. Существа без индивидуальных черт, с гладкой поверхностью вместо лица. Неясно, являются ли они частью Δ.E.F.I.R или независимой силой.</p>
+                            <div class="antagonist-quote">
+                                <q>Они стирают всё, что помнит неверно</q>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="term-item" data-term="Δ.E.F.I.R">
-                    <div class="term-name">
-                        <div class="term-indicator"></div>
-                        <div class="term-name-text">Δ.E.F.I.R</div>
-                    </div>
-                    <div class="term-description">
-                        <p>Квантово-информационное поле, существующее параллельно нашей реальности. Не просто энергия, а почти сознание, коллективный разум. После серии экспериментов начал проникать в нашу реальность, изменяя её фундаментальные свойства и способствуя появлению темпоральных аномалий.</p>
-                        <div class="term-comment">// "Эфир не создает возможности. Он проявляет те, что всегда существовали." //</div>
-                    </div>
-                </div>
-                
-                <div class="term-item" data-term="TM-7">
-                    <div class="term-name">
-                        <div class="term-indicator"></div>
-                        <div class="term-name-text">TM-7</div>
-                    </div>
-                    <div class="term-description">
-                        <p>Нейроимплант с интегрированной когнитивной матрицей. Созданный Алексом Северовым, он содержит в себе "эфирный отпечаток" — фрагменты сознания предыдущей версии носителя. Способен не только усиливать нейронную активность, но и хранить воспоминания, которые сам носитель мог забыть.</p>
-                        <div class="term-comment">// "Я не просто имплант, Алекс. Я — твоя память." //</div>
-                    </div>
-                </div>
-                
-                <div class="term-item" data-term="ПРОЕКТ ЕВА">
-                    <div class="term-name">
-                        <div class="term-indicator"></div>
-                        <div class="term-name-text">ПРОЕКТ "ЕВА"</div>
-                    </div>
-                    <div class="term-description">
-                        <p>Засекреченная исследовательская инициатива, направленная на интеграцию человеческого сознания с Δ.E.F.I.R. Возглавлялась Алексом Северовым и загадочной женщиной по имени Ева. Эксперименты проводились на базе "Омега" и, предположительно, стали причиной катастрофы, известной как "Трещина в Фазе 0".</p>
-                        <div class="term-comment">// "Вопрос не в том, что делает нас людьми — память или функциональность. Вопрос в том, что делает нас собой." //</div>
-                    </div>
-                </div>
-                
-                <div class="term-item" data-term="ЭФИРНОЕ ПЛАМЯ">
-                    <div class="term-name">
-                        <div class="term-indicator"></div>
-                        <div class="term-name-text">ЭФИРНОЕ ПЛАМЯ</div>
-                    </div>
-                    <div class="term-description">
-                        <p>Аномальное проявление Δ.E.F.I.R, способное стирать не только материю, но и информацию на фундаментальном уровне. Используется Скарном "Сжигателем" как оружие. Пламя манипулирует не только физической материей, но и информационной структурой объектов, буквально стирая их из реальности.</p>
-                        <div class="term-comment">// "Эфирное пламя не уничтожает. Оно переопределяет." //</div>
-                    </div>
-                </div>
-                
-                <div class="term-hidden-trigger">
-                    <div class="term-hidden-icon"></div>
-                    <div class="term-hidden-text">ДОСТУП К ЗАСЕКРЕЧЕННЫМ ДАННЫМ</div>
-                </div>
-                
-                <div class="term-item hidden" data-term="АРХИВАРИУСЫ">
-                    <div class="term-name">
-                        <div class="term-indicator"></div>
-                        <div class="term-name-text">АРХИВАРИУСЫ</div>
-                    </div>
-                    <div class="term-description">
-                        <p>Загадочные существа, поддерживающие "правильную" версию реальности. Устраняют аномалии и тех, кто помнит то, чего "не должен" помнить. Существа без индивидуальных черт, с гладкой поверхностью вместо лица.</p>
-                        <div class="term-comment">// "ОНИ СТИРАЮТ ВСЁ, ЧТО ПОМНИТ НЕВЕРНО" //</div>
+                    
+                    <div class="antagonist-card seraphim">
+                        <div class="antagonist-image">
+                            <div class="antagonist-image-overlay"></div>
+                            <div class="antagonist-image-effect seraphim-effect"></div>
+                        </div>
+                        <div class="antagonist-info">
+                            <h3 class="antagonist-name">Серафим</h3>
+                            <div class="antagonist-type">Первый гибрид / Эволюционист</div>
+                            <p class="antagonist-description">Загадочная сущность, первый успешный гибрид человека и эфира. Обладает способностью трансформировать других существ, изменяя их природу. Стремится к эволюции человечества через слияние с эфиром — добровольно или принудительно. Создатель Скарна "Сжигателя".</p>
+                            <div class="antagonist-quote">
+                                <q>Человечество должно эволюционировать или исчезнуть</q>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -349,15 +359,35 @@
                     
                     <div class="fragment eva-log">
                         <div class="fragment-title">[ЖУРНАЛ EVA // 0.4.3β]:</div>
-						<div class="fragment-quote">"Слияние возможно только при потере центра."</div>
-						<div class="fragment-context">Лог от Евы, оставленный в лаборатории. Намекает на необходимость отказа от собственного "Я" при синхронизации с Δ.E.F.I.R.</div>
+                        <div class="fragment-quote">"Слияние возможно только при потере центра."</div>
+                        <div class="fragment-context">Лог от Евы, оставленный в лаборатории. Намекает на необходимость отказа от собственного "Я" при синхронизации с Δ.E.F.I.R.</div>
                         <div class="fragment-echo"></div>
                     </div>
-					
+                    
                     <div class="fragment">
                         <div class="fragment-title">[АРХИВАРИУС]:</div>
                         <div class="fragment-quote">"Они стирают всё, что помнит неверно."</div>
                         <div class="fragment-context">Предупреждение от TM-7 об Архивариусах — загадочных существах, которые поддерживают "правильную" версию реальности, устраняя аномалии и тех, кто помнит то, чего "не должен" помнить. Это намекает на существование некой силы, контролирующей информационное поле мира.</div>
+                        <div class="fragment-echo"></div>
+                    </div>
+                    <div class="fragment">
+                        <div class="fragment-title">[СКАРН]:</div>
+                        <div class="fragment-quote">"TX-Δ интегрируется только с одним носителем. Если я не могу получить устройство... я заберу носителя."</div>
+                        <div class="fragment-context">Слова Скарна в глубинном комплексе, раскрывающие его истинную цель — любой ценой получить технологию TX-Δ для Серафима. Это показывает конфликт между двумя философиями интеграции с эфиром: насильственной трансформацией и естественным выбором.</div>
+                        <div class="fragment-echo"></div>
+                    </div>
+
+                    <div class="fragment">
+                        <div class="fragment-title">[Δ.MIMIC]:</div>
+                        <div class="fragment-quote">"Может быть, я — уже ты, и ты этого не заметил."</div>
+                        <div class="fragment-context">Слова Мимика, принявшего форму Алекса, поднимают философский вопрос о природе идентичности. В мире, где сознание может быть скопировано, где грань между оригиналом и копией? И как человек может быть уверен в собственной подлинности?</div>
+                        <div class="fragment-echo"></div>
+                    </div>
+
+                    <div class="fragment">
+                        <div class="fragment-title">[TX-Δ + Σ.ECHO]:</div>
+                        <div class="fragment-quote">"Если ты выбрал меня — я выбираю тебя."</div>
+                        <div class="fragment-context">Момент взаимного выбора между Алексом и TX-Δ, когда герой осознаёт, что технология не просто инструмент, а потенциальный партнер по эволюции. Этот выбор отражает ключевую философскую концепцию мира Δ.E.F.I.R — добровольную интеграцию в противовес принуждению.</div>
                         <div class="fragment-echo"></div>
                     </div>
                 </div>
@@ -384,7 +414,7 @@
             <div class="footer-separator"></div>
             <div class="footer-copyright">
                 <div class="footer-copyright-text">© 2023-2025 Агатис Интегра. Все права защищены.</div>
-				<div class="footer-protocol" id="footerProtocol">Δ.PROTOCOL // TM-7 vΔ1.0.7-beta [unlicensed build]</div>
+                <div class="footer-protocol" id="footerProtocol">Δ.PROTOCOL // TM-7 vΔ1.0.7-beta [unlicensed build]</div>
                 <div class="footer-timestamp" id="footerTimestamp">// ВРЕМЕННАЯ МЕТКА: ИНИЦИАЛИЗАЦИЯ... //</div>
             </div>
             
@@ -393,8 +423,8 @@
                 <div class="easter-egg-content">
                     <div class="easter-egg-title">[ДОСТУП ПОЛУЧЕН]</div>
                     <div class="easter-egg-message">
-                        Если ты это видишь, значит, я была здесь. И ты тоже.
-                        <span class="easter-egg-signature">— Е.</span>
+                        Если ты это видишь, значит, выбор уже сделан. Помни: интеграция неизбежна.
+                        <span class="easter-egg-signature">— TX-Δ</span>
                     </div>
                 </div>
             </div>

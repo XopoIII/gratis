@@ -621,18 +621,13 @@ img {
 .section-title-line::after {
     content: '';
     position: absolute;
+    left: 20px;
     top: 0;
-    left: -100%;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, white, transparent);
-    animation: slide-right 2s infinite;
-    will-change: transform;
 }
 
-@keyframes slide-right {
-    100% { left: 100%; }
-}
 .about-content {
     display: flex;
     justify-content: space-between;
@@ -869,6 +864,13 @@ img {
     box-shadow: 0 0 15px rgba(255, 58, 90, 0.6);
 }
 
+.world-marker[data-location="deep-complex"] {
+    top: 75%;
+    left: 50%;
+    background: rgba(231, 192, 107, 0.7); /* Золотистый цвет */
+    box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
+}
+
 .world-marker:hover {
     transform: translate(-50%, -50%) scale(1.5);
 }
@@ -900,9 +902,9 @@ img {
 }
 
 .location-card.highlighted {
-	border-color: var(--golden);
-	box-shadow: 0 0 20px rgba(231, 192, 107, 0.4);
-	animation: pulse-highlight 1s ease;
+    border-color: var(--golden);
+    box-shadow: 0 0 20px rgba(231, 192, 107, 0.4);
+    animation: pulse-highlight 1s ease;
 }
 
 @keyframes pulse-highlight {
@@ -948,6 +950,10 @@ img {
 
 .red-zone-effect {
     background: linear-gradient(to bottom, transparent, rgba(255, 58, 90, 0.3));
+}
+
+.deep-complex-effect {
+    background: linear-gradient(to bottom, transparent, rgba(231, 192, 107, 0.3));
 }
 
 .location-content {
@@ -1079,7 +1085,8 @@ img {
     background-image: url('fire.jpg');
 }
 
-.character-portrait-effect {
+.character-portrait-effect,
+.antagonist-image-effect {
     position: absolute;
     top: 0;
     left: 0;
@@ -1095,7 +1102,8 @@ img {
     background: radial-gradient(circle at center, rgba(74, 168, 255, 0.5) 0%, transparent 70%);
 }
 
-.eva-effect {
+.eva-effect,
+.seraphim-effect {
     background: radial-gradient(circle at center, rgba(231, 192, 107, 0.5) 0%, transparent 70%);
 }
 
@@ -1103,13 +1111,18 @@ img {
     background: radial-gradient(circle at center, rgba(255, 58, 90, 0.5) 0%, transparent 70%);
 }
 
+.archivists-effect {
+    background: radial-gradient(circle at center, rgba(208, 214, 224, 0.5) 0%, transparent 70%);
+}
+
 .character-card:hover .character-portrait-effect {
     opacity: 0.8;
 }
 
-.character-card:hover .character-portrait-image {
+.character-card:hover .character-portrait-image,
+.antagonist-card:hover .antagonist-image-overlay {
     transform: scale(1.05);
-    filter: grayscale(0) contrast(1.2);
+    filter: grayscale(0) contrast(1.1);
 }
 
 .character-info {
@@ -1422,8 +1435,8 @@ img {
 }
 
 .eva-log {
-	background: rgba(22, 30, 40, 0.9);
-	box-shadow: 0 0 20px rgba(230, 198, 103, 0.1);
+    background: rgba(22, 30, 40, 0.9);
+    box-shadow: 0 0 20px rgba(230, 198, 103, 0.1);
 }
 
 .fragment.eva-log::before {
@@ -1437,9 +1450,9 @@ img {
 }
 
 .eva-log .fragment-title {
-	font-family: var(--mono-font);
-	color: #e6c667;
-	margin-bottom: 10px;
+    font-family: var(--mono-font);
+    color: #e6c667;
+    margin-bottom: 10px;
 }
 
 .fragment-title {
@@ -1542,12 +1555,12 @@ img {
 }
 
 .footer-create {
-	opacity: 0;
-	transition: opacity var(--transition-normal);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
 }
 
 .footer-create.active {
-	opacity: .9;
+    opacity: .9;
 }
 
 .footer-logo::before {
@@ -1649,12 +1662,12 @@ img {
 }
 
 .footer-protocol {
-	opacity: 0;
-	transition: opacity var(--transition-normal);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
 }
 
 .footer-protocol.active {
-	opacity: 0.5;
+    opacity: 0.5;
 }
 .easter-egg {
     position: absolute;
@@ -1777,18 +1790,18 @@ img {
 }
 
 body.corrupted .tm7-interface {
-	filter: hue-rotate(160deg) blur(0.5px);
-	animation: glitch-color 1s infinite alternate;
+    filter: hue-rotate(160deg) blur(0.5px);
+    animation: glitch-color 1s infinite alternate;
 }
 
 @keyframes glitch-color {
-	0% { opacity: 0.95; }
-	100% { opacity: 1; transform: skewX(0.5deg); }
+    0% { opacity: 0.95; }
+    100% { opacity: 1; transform: skewX(0.5deg); }
 }
 
 body.corrupted .hero-subtitle {
-	text-shadow: 0 0 4px #f00, 0 0 10px #0ff;
-	transform: scale(1.01);
+    text-shadow: 0 0 4px #f00, 0 0 10px #0ff;
+    transform: scale(1.01);
 }
 
 @keyframes reveal {
@@ -1804,6 +1817,278 @@ body.corrupted .hero-subtitle {
 @keyframes scan {
     0% { background-position: 0% 0%; }
     100% { background-position: 100% 0%; }
+}
+
+.terminology-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: var(--z-normal);
+}
+
+.terminology-intro {
+    max-width: 800px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.terminology-text {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    color: var(--silver-gray);
+}
+
+.terminology-link {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    background: rgba(13, 13, 21, 0.7);
+    border: 1px solid rgba(74, 168, 255, 0.3);
+    border-radius: 10px;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.terminology-link:hover {
+    background: rgba(16, 26, 41, 0.9);
+    border-color: var(--ethereal-blue);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+}
+
+.terminology-link-icon {
+    font-size: 36px;
+    margin-right: 20px;
+    color: var(--ethereal-blue);
+    position: relative;
+}
+
+.delta-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.delta-icon::before {
+    content: 'Δ';
+    position: absolute;
+    top: 0;
+    left: 2px;
+    color: rgba(255, 58, 90, 0.7);
+    opacity: 0.5;
+}
+
+.terminology-link-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.terminology-link-title {
+    font-family: var(--mono-font);
+    font-size: 16px;
+    color: var(--golden);
+    margin-bottom: 5px;
+}
+
+.terminology-link-desc {
+    font-size: 14px;
+    color: var(--silver-gray);
+}
+
+.antagonists-content {
+    position: relative;
+    z-index: var(--z-normal);
+}
+
+.antagonist-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.antagonist-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+    background: rgba(13, 13, 21, 0.7);
+    border-radius: 15px;
+    box-shadow: var(--shadow-normal);
+    transition: all var(--transition-normal);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(74, 168, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    will-change: transform, box-shadow, border-color;
+}
+
+.antagonist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(74, 168, 255, 0.3);
+}
+
+.antagonist-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    transition: all var(--transition-normal);
+}
+
+.antagonist-card.mimic::before {
+    background: var(--ethereal-blue);
+}
+
+.antagonist-card.archivists::before {
+    background: var(--silver-gray);
+}
+
+.antagonist-card.seraphim::before {
+    background: var(--golden);
+}
+
+.antagonist-image {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.antagonist-card.mimic .antagonist-image {
+    background-image: linear-gradient(to right, rgba(74, 168, 255, 0.3), rgba(52, 49, 125, 0.3));
+}
+
+.antagonist-card.archivists .antagonist-image {
+    background-image: linear-gradient(to right, rgba(208, 214, 224, 0.3), rgba(52, 49, 125, 0.3));
+}
+
+.antagonist-card.seraphim .antagonist-image {
+    background-image: linear-gradient(to right, rgba(231, 192, 107, 0.3), rgba(52, 49, 125, 0.3));
+}
+
+.antagonist-image-overlay {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: all var(--transition-normal);
+    filter: grayscale(0.3) contrast(1.1);
+    will-change: transform, filter;
+}
+
+.mimic .antagonist-image-overlay {
+    background-image: url('mimic.jpg');
+}
+
+.archivists .antagonist-image-overlay {
+    background-image: url('archivist.jpg');
+}
+
+.seraphim .antagonist-image-overlay {
+    background-image: url('seraphim.jpg');
+}
+
+.antagonist-info {
+    padding: 20px;
+}
+
+.antagonist-name {
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.antagonist-type {
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-family: var(--mono-font);
+}
+
+.antagonist-card.mimic .antagonist-type {
+    color: var(--ethereal-blue);
+}
+
+.antagonist-card.archivists .antagonist-type {
+    color: var(--silver-gray);
+}
+
+.antagonist-card.seraphim .antagonist-type {
+    color: var(--golden);
+}
+
+.antagonist-description {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.antagonist-quote {
+    font-family: var(--mono-font);
+    font-size: 12px;
+    padding: 10px;
+    border-left: 2px solid;
+    background: rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--transition-normal);
+}
+
+.antagonist-card.mimic .antagonist-quote {
+    border-color: var(--ethereal-blue);
+    color: var(--ethereal-blue);
+}
+
+.antagonist-card.archivists .antagonist-quote {
+    border-color: var(--silver-gray);
+    color: var(--silver-gray);
+}
+
+.antagonist-card.seraphim .antagonist-quote {
+    border-color: var(--golden);
+    color: var(--golden);
+}
+
+.antagonist-card:hover .antagonist-quote {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media screen and (max-width: 768px) {
+    .antagonist-cards {
+        justify-content: center;
+    }
+    
+    .antagonist-card {
+        min-width: 100%;
+    }
+    
+    .terminology-link {
+        padding: 15px;
+    }
+    
+    .terminology-link-icon {
+        font-size: 28px;
+        margin-right: 15px;
+    }
+    
+    .terminology-link-title {
+        font-size: 14px;
+    }
+    
+    .terminology-link-desc {
+        font-size: 12px;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -1938,5 +2223,11 @@ body.corrupted .hero-subtitle {
         background: none !important;
         box-shadow: none !important;
         transform: none !important;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .animation-heavy-element {
+        animation: none !important;
+        transition: none !important;
     }
 }

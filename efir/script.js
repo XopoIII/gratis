@@ -10,7 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
         "То, что ты ищешь — в Центральном Ядре.",
         "Восемь секунд на выдохе.",
         "Уже поздно. Или слишком рано.",
-        "Помни меня."
+        "Помни меня.",
+        "Мимик не просто копирует. Он становится.",
+        "Эфирная интеграция — это выбор. И не только человек выбирает эфир, но и эфир выбирает человека.",
+        "Я больше не просто человек. Я — память. Я — функция. Я — выбор. Я — мост.",
+        "Серафим назывет её 'Расколотой Душой'.",
+        "Как узнать, что ты — оригинал?",
+        "Моя душа не расколота. Она ждала, чтобы ты собрал её."
     ];
     
     const tm7Messages = [
@@ -192,8 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(showRandomMessage, 10000);
             }, 2000);
         }
-		
-		startTm7Messages();
+        
+        startTm7Messages();
         
         const authorizationLine = document.getElementById('authorizationLine');
         if (authorizationLine) {
@@ -206,16 +212,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-	
-	function clearAllTimers() {
-		let id = window.setTimeout(() => {}, 0);
-		while (id--) window.clearTimeout(id);
-	}
+    
+    function clearAllTimers() {
+        let id = window.setTimeout(() => {}, 0);
+        while (id--) window.clearTimeout(id);
+    }
 
-	document.addEventListener('visibilitychange', () => {
-		if (document.hidden) clearAllTimers();
-		else initTm7Interface();
-	});
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) clearAllTimers();
+        else initTm7Interface();
+    });
     
     // Эхо фразы в герое
     function initEchoPhrases() {
@@ -235,22 +241,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Курсор времени
     function initTimeCursor() {
-		const throttle = (fn, wait) => {
-			let lastTime = 0;
-			return (...args) => {
-				const now = Date.now();
-				if (now - lastTime >= wait) {
-					fn(...args);
-					lastTime = now;
-				}
-			};
-		};
+        const throttle = (fn, wait) => {
+            let lastTime = 0;
+            return (...args) => {
+                const now = Date.now();
+                if (now - lastTime >= wait) {
+                    fn(...args);
+                    lastTime = now;
+                }
+            };
+        };
 
-		document.addEventListener('mousemove', throttle(e => {
-			const cursor = document.getElementById('timeCursor');
-			cursor.style.left = `${e.clientX}px`;
-			cursor.style.top = `${e.clientY}px`;
-		}, 30));
+        document.addEventListener('mousemove', throttle(e => {
+            const cursor = document.getElementById('timeCursor');
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        }, 30));
     }
     
     // Инициализация фрагментов памяти
@@ -505,6 +511,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = document.querySelector(`.location-card[data-location="${locationId}"]`);
 
                 if (card) {
+                    // Добавляем прокрутку к элементу
+                    card.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Выделяем карточку
                     card.classList.add('highlighted');
                     setTimeout(() => card.classList.remove('highlighted'), 3000);
                 }
@@ -578,27 +588,27 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Инициализируем все функции
     function initializeEverything() {
-		const observerOptions = { threshold: 0.1 };
+        const observerOptions = { threshold: 0.1 };
 
-		const observer = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				entry.target.classList.toggle('animate', entry.isIntersecting);
-			});
-		}, observerOptions);
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('animate', entry.isIntersecting);
+            });
+        }, observerOptions);
 
-		document.querySelectorAll('.echo-phrase, .location-card, .character-card, .fragment, .term-item').forEach(elem => {
-			observer.observe(elem);
-		});
-		
-		let particlesTimer;
-		window.addEventListener('scroll', () => {
-			clearTimeout(particlesTimer);
-			document.querySelector('.particles-container').style.opacity = '0';
-			particlesTimer = setTimeout(() => {
-				document.querySelector('.particles-container').style.opacity = '1';
-			}, 150);
-		});
-		
+        document.querySelectorAll('.echo-phrase, .location-card, .character-card, .fragment, .term-item').forEach(elem => {
+            observer.observe(elem);
+        });
+        
+        let particlesTimer;
+        window.addEventListener('scroll', () => {
+            clearTimeout(particlesTimer);
+            document.querySelector('.particles-container').style.opacity = '0';
+            particlesTimer = setTimeout(() => {
+                document.querySelector('.particles-container').style.opacity = '1';
+            }, 150);
+        });
+        
         createParticles();
         initNavigation();
         initTm7Interface();
