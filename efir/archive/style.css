@@ -822,8 +822,7 @@ img {
 .category-button,
 .header-link,
 .search-box,
-.clear-search-btn,
-.back-to-top {
+.clear-search-btn{
     position: relative;
 }
 
