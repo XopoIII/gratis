@@ -86,7 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Создание списка терминов
         if (displayTerms.length === 0) {
-            termsList.innerHTML = '<div class="no-terms-message">Соответствующих записей не найдено</div>';
+            termsContainer.innerHTML = `
+                <div class="no-terms-message">
+                    <p>Соответствующих записей не найдено.</p>
+                    <p>Категория: ${activeCategory}, Поиск: "${searchQuery}"</p>
+                    <p>Попробуйте изменить параметры поиска.</p>
+                </div>
+            `;
             return;
         }
         
@@ -125,9 +131,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderTerms() {
         const termsContainer = document.getElementById('termsContainer');
         termsContainer.innerHTML = '';
+    
+        console.log('Активная категория:', activeCategory);
+        console.log('Поисковый запрос:', searchQuery);
         
         // Проверяем, есть ли в поисковом запросе формат ТЕРМИН_XXX
         const searchedTermId = extractTermIdFromSearch(searchQuery);
+    
+        // Проверяем до фильтрации, сколько элементов есть для каждого типа
+        const anomalyCount = filteredTerms.filter(term => term.type === 'anomaly').length;
+        const termCount = filteredTerms.filter(term => term.type === 'term').length;
+        console.log('Всего аномалий:', anomalyCount);
+        console.log('Всего терминов:', termCount);
         
         // Используем те же фильтры, что и для списка
         const displayTerms = filteredTerms.filter(term => {
@@ -157,6 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             return true;
         });
+
+        console.log('После фильтрации осталось элементов:', displayTerms.length);
         
         // Создание карточек терминов
         if (displayTerms.length === 0) {
@@ -316,14 +333,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!button.classList.contains('category-button')) return;
         
         // Обновление активной категории
-        document.querySelectorAll('.category-button').forEach(btn => {
-            btn.classList.remove('active');
+        document.querySelectorAll('.category-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.category-button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                activeCategory = this.dataset.category;
+                console.log('Категория изменена на:', activeCategory);
+                
+                renderTermList();
+                renderTerms();
+                updateFilterStatus(); // Если есть такая функция
+            });
         });
-        button.classList.add('active');
-        
-        activeCategory = button.dataset.category;
-        renderTermList();
-        renderTerms();
     }
     
     // Обработка поискового запроса с debounce
