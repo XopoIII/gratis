@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchQuery = '';
     let scrollPosition = 0; // Добавляем переменную для хранения позиции скролла
     
+    // Сначала добавляем кнопку очистки поиска
+    addClearSearchButton();
+    
     async function loadTermLogData() {
         try {
             const response = await fetch('termlog.json');
@@ -309,9 +312,13 @@ document.addEventListener('DOMContentLoaded', () => {
         searchQuery = '';
         renderTermList();
         renderTerms();
+        updateFilterStatus();
         
         // Скрываем кнопку очистки
-        document.getElementById('clearSearchBtn').style.display = 'none';
+        const clearBtn = document.getElementById('clearSearchBtn');
+        if (clearBtn) {
+            clearBtn.style.display = 'none';
+        }
     }
     
     // Обработка изменения категории
@@ -344,14 +351,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Показываем или скрываем кнопку очистки поиска
         const clearBtn = document.getElementById('clearSearchBtn');
-        if (searchQuery) {
-            clearBtn.style.display = 'block';
-        } else {
-            clearBtn.style.display = 'none';
+        if (clearBtn) {
+            if (searchQuery) {
+                clearBtn.style.display = 'block';
+            } else {
+                clearBtn.style.display = 'none';
+            }
         }
         
         renderTermList();
         renderTerms();
+        updateFilterStatus();
     }
     
     const debouncedSearch = debounce(handleSearch);
@@ -426,6 +436,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Добавление кнопки очистки поиска
     function addClearSearchButton() {
         const searchContainer = document.querySelector('.search-container');
+        if (!searchContainer) return;
+        
+        // Удаляем существующую кнопку, если она уже есть
+        const existingButton = document.getElementById('clearSearchBtn');
+        if (existingButton) {
+            existingButton.remove();
+        }
         
         // Создаем кнопку
         const clearButton = document.createElement('button');
@@ -433,17 +450,27 @@ document.addEventListener('DOMContentLoaded', () => {
         clearButton.className = 'clear-search-btn';
         clearButton.innerHTML = '×';
         clearButton.style.display = 'none'; // Изначально скрыта
+        clearButton.setAttribute('data-tooltip', 'Очистить поиск');
+        clearButton.setAttribute('type', 'button'); // Важно, чтобы не срабатывал сабмит формы
         
         // Добавляем в контейнер
         searchContainer.appendChild(clearButton);
         
         // Добавляем обработчик события
-        clearButton.addEventListener('click', clearSearch);
+        clearButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Предотвращаем отправку формы
+            e.stopPropagation(); // Останавливаем всплытие события
+            clearSearch();
+        });
     }
     
     // Добавление индикатора загрузки
     function addLoadingIndicator() {
         const container = document.querySelector('.terms-section .container');
+        if (!container) return;
+        
+        // Проверяем, не существует ли уже индикатор загрузки
+        if (document.getElementById('loadingIndicator')) return;
         
         // Создаем индикатор загрузки
         const loadingIndicator = document.createElement('div');
@@ -521,10 +548,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Применяем эффект тени к шапке при скролле
             const header = document.querySelector('.header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
             }
         });
         
@@ -540,6 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для добавления скелетон-эффекта при загрузке
     function addSkeletonLoader() {
         const termsContainer = document.getElementById('termsContainer');
+        if (!termsContainer) return;
         
         // Очищаем контейнер
         termsContainer.innerHTML = '';
@@ -645,7 +675,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.setAttribute('data-tooltip', tooltipText);
             }
         });
-        
         // Добавляем подсказку к полю поиска
         const searchBox = document.getElementById('searchInput');
         if (searchBox && !searchBox.hasAttribute('data-tooltip')) {
@@ -657,13 +686,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (clearBtn && !clearBtn.hasAttribute('data-tooltip')) {
             clearBtn.setAttribute('data-tooltip', 'Очистить поиск');
         }
+        
+        // Добавляем подсказку к кнопке "Наверх"
+        const backToTopBtn = document.getElementById('backToTop');
+        if (backToTopBtn && !backToTopBtn.hasAttribute('data-tooltip')) {
+            backToTopBtn.setAttribute('data-tooltip', 'Наверх');
+        }
     }
     
     // Инициализация всех компонентов
     function init() {
-        // Добавляем кнопку очистки поиска
-        addClearSearchButton();
-        
         // Добавляем индикатор загрузки
         addLoadingIndicator();
         
@@ -674,16 +706,32 @@ document.addEventListener('DOMContentLoaded', () => {
         loadTermLogData();
         
         // Инициализируем обработчики событий
-        document.querySelector('.categories-container').addEventListener('click', handleCategoryChange);
-        document.getElementById('searchInput').addEventListener('input', debouncedSearch);
-        document.getElementById('modalClose').addEventListener('click', closeTermDetails);
+        const categoriesContainer = document.querySelector('.categories-container');
+        if (categoriesContainer) {
+            categoriesContainer.addEventListener('click', handleCategoryChange);
+        }
+        
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', debouncedSearch);
+            
+            // Установка начального состояния кнопки очистки в зависимости от содержимого поля
+            if (searchInput.value.trim()) {
+                const clearBtn = document.getElementById('clearSearchBtn');
+                if (clearBtn) {
+                    clearBtn.style.display = 'block';
+                }
+                searchQuery = searchInput.value.trim();
+            }
+        }
+        
+        const modalClose = document.getElementById('modalClose');
+        if (modalClose) {
+            modalClose.addEventListener('click', closeTermDetails);
+        }
         
         // Обновляем статус фильтра при изменении поискового запроса
-        const originalHandleSearch = handleSearch;
-        handleSearch = function() {
-            originalHandleSearch();
-            updateFilterStatus();
-        };
+        updateFilterStatus();
         
         // Инициализируем управление кнопкой возврата наверх
         handleBackToTopButton();
@@ -694,15 +742,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Добавляем подсказки к элементам управления
         addTooltipsToControls();
         
-        // Инициализируем начальный статус фильтра
-        updateFilterStatus();
-        
         // Закрытие модального окна при клике вне его области
-        document.getElementById('termModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeTermDetails();
-            }
-        });
+        const termModal = document.getElementById('termModal');
+        if (termModal) {
+            termModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeTermDetails();
+                }
+            });
+        }
         
         // Закрытие по клавише Escape
         document.addEventListener('keydown', function(e) {
@@ -722,13 +770,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Обработчик для класса modal-open
         const modalElement = document.getElementById('termModal');
-        modalElement.addEventListener('transitionend', function() {
-            if (this.classList.contains('active')) {
-                document.body.classList.add('modal-open');
-            } else {
-                document.body.classList.remove('modal-open');
-            }
-        });
+        if (modalElement) {
+            modalElement.addEventListener('transitionend', function() {
+                if (this.classList.contains('active')) {
+                    document.body.classList.add('modal-open');
+                } else {
+                    document.body.classList.remove('modal-open');
+                }
+            });
+        }
     }
 
     // Запускаем инициализацию
