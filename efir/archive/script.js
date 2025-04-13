@@ -351,6 +351,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const debouncedSearch = debounce(handleSearch);
+
+    function elementMatches(element, selector) {
+        if (!element || element.nodeType !== 1) return false; // Проверяем, является ли элемент DOM-элементом
+        
+        // Используем встроенный метод matches, если он доступен
+        if (element.matches) return element.matches(selector);
+        
+        // Полифиллы для разных браузеров
+        if (element.msMatchesSelector) return element.msMatchesSelector(selector);
+        if (element.webkitMatchesSelector) return element.webkitMatchesSelector(selector);
+        if (element.mozMatchesSelector) return element.mozMatchesSelector(selector);
+        
+        // Если ничего не сработало, используем более универсальный подход
+        const matches = (element.document || element.ownerDocument).querySelectorAll(selector);
+        let i = matches.length;
+        while (--i >= 0 && matches.item(i) !== element) {}
+        return i > -1;
+    }
     
     // Курсор времени
     function initTimeCursor() {
@@ -384,17 +402,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 5000);
         });
         
-        // Эффект наведения на интерактивные элементы
         document.addEventListener('mouseenter', e => {
-            if (e.target.matches('.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close, #clearSearchBtn')) {
+            if (elementMatches(e.target, '.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close, #clearSearchBtn')) {
                 timeCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
                 timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.7)';
                 timeCursor.style.boxShadow = '0 0 10px rgba(74, 168, 255, 0.3)';
             }
         }, true);
-        
+
         document.addEventListener('mouseleave', e => {
-            if (e.target.matches('.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close, #clearSearchBtn')) {
+            if (elementMatches(e.target, '.term-card, .term-list-item, .category-button, .search-box, .header-link, .term-modal-close, #clearSearchBtn')) {
                 timeCursor.style.transform = 'translate(-50%, -50%) scale(1)';
                 timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.3)';
                 timeCursor.style.boxShadow = 'none';
