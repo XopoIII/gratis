@@ -31,26 +31,45 @@
             <p class="termlog-subtitle">Система доступа к терминологии проекта и аномальным инцидентам</p>
             
             <div class="search-container">
-				<input type="text" class="search-box" id="searchInput" placeholder="Поиск термина...">
-				<div class="search-icon">⌕</div>
-			</div>
+                <input type="text" class="search-box" id="searchInput" placeholder="Поиск термина..." data-tooltip="Поиск по имени, ID или описанию">
+                <div class="search-icon">⌕</div>
+            </div>
             
             <div class="categories-container">
-                <button class="category-button active" data-category="all">Все записи</button>
-                <button class="category-button" data-category="standard">Стандартные термины</button>
-                <button class="category-button anomaly" data-category="anomaly">Аномальные инциденты</button>
+                <button class="category-button active" data-category="all" data-tooltip="Показать все записи">Все записи</button>
+                <button class="category-button" data-category="standard" data-tooltip="Только стандартные термины">Стандартные термины</button>
+                <button class="category-button anomaly" data-category="anomaly" data-tooltip="Только аномальные инциденты">Аномальные инциденты</button>
+            </div>
+            
+            <div class="filter-status-container">
+                <div class="filter-status" id="filterStatus">Показаны все термины</div>
             </div>
         </div>
     </section>
 
     <section class="terms-section">
         <div class="container">
+            <div class="breadcrumbs">
+                <div class="breadcrumb-item">
+                    <a href="https://againte.gratis" class="breadcrumb-link">agaINTE GRAtis</a>
+                </div>
+                <div class="breadcrumb-item">
+                    <a href="https://againte.gratis/efir/" class="breadcrumb-link">Δ.E.F.I.R.</a>
+                </div>
+                <div class="breadcrumb-item">
+                    <span class="breadcrumb-current">Терм лог</span>
+                </div>
+            </div>
             <div class="terms-list-container">
                 <div class="terms-list" id="termsList">
                     <!-- Список терминов будет загружен через JavaScript -->
+                    <button class="terms-list-close" id="termsListClose">×</button>
                 </div>
-                <div class="terms-container" id="termsContainer">
-                    <!-- Карточки терминов будут загружены через JavaScript -->
+                <div class="terms-content">
+                    <button class="terms-list-toggle" id="termsListToggle">Показать список терминов</button>
+                    <div class="terms-container" id="termsContainer">
+                        <!-- Карточки терминов будут загружены через JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,6 +88,7 @@
     </div>
 
     <div class="time-cursor" id="timeCursor"></div>
+    <div class="back-to-top" id="backToTop" data-tooltip="Наверх">↑</div>
 
     <script src="script.js"></script>
 </body>
