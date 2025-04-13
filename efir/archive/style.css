@@ -148,12 +148,15 @@ img {
 .search-container {
     max-width: 600px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
     position: relative;
 }
 
 .search-box {
-    width: 100%;
     padding: 15px 20px;
+    width: 100%;
+    padding-right: 75px;
     font-family: var(--mono-font);
     font-size: 16px;
     color: white;
@@ -177,6 +180,7 @@ img {
     color: var(--ethereal-blue);
     pointer-events: none;
     font-size: 18px;
+    z-index: 1;
 }
 
 .categories-container {
@@ -371,7 +375,7 @@ img {
 
 .clear-search-btn {
     position: absolute;
-    top: 50%;
+    top: 27px;
     right: 45px;
     transform: translateY(-50%);
     background: none;
@@ -388,6 +392,8 @@ img {
     transition: all var(--transition-fast);
     opacity: 0.7;
     z-index: 2;
+    padding: 0;
+    line-height: 1;
 }
 
 .clear-search-btn:hover {
@@ -820,8 +826,7 @@ img {
 /* Подсказки при наведении для элементов управления */
 .category-button,
 .header-link,
-.search-box,
-.clear-search-btn{
+.search-box {
     position: relative;
 }
 
@@ -844,7 +849,7 @@ img {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: var(--z-overlay);
+    z-index: var(--z-highest);
     border: 1px solid rgba(74, 168, 255, 0.2);
     pointer-events: none;
 }
@@ -924,6 +929,11 @@ img {
     background: rgba(16, 26, 41, 0.4);
     display: inline-block;
     transition: all 0.3s ease;
+    border: 1px solid rgba(74, 168, 255, 0.2);
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .filter-status-container {
@@ -1160,6 +1170,15 @@ img {
 }
 
 @media screen and (max-width: 768px) {
+    .filter-status {
+        max-width: 100%;
+        white-space: normal;
+    }
+    
+    .search-box {
+        padding: 12px 15px;
+        padding-right: 70px;
+    }
     .terms-container {
         grid-template-columns: 1fr;
     }
