@@ -221,38 +221,7 @@ function initCharactersInteraction() {
             const aura = this.querySelector('.character-aura');
             if (aura) aura.style.opacity = '0';
         });
-        
-        // Добавляем всплывающие подсказки к способностям
-        const abilities = character.querySelectorAll('.ability');
-        abilities.forEach(ability => {
-            ability.addEventListener('mouseenter', function() {
-                if (this.querySelector('.ability-tooltip')) return;
-                
-                const tooltip = document.createElement('div');
-                tooltip.className = 'ability-tooltip';
-                tooltip.textContent = this.getAttribute('data-tooltip');
-                tooltip.style.cssText = 'position:absolute;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);background:rgba(15,43,61,0.9);color:white;padding:5px 10px;border-radius:5px;font-size:12px;white-space:nowrap;z-index:100;box-shadow:var(--shadow-sm);pointer-events:none;';
-                
-                this.appendChild(tooltip);
-            });
-            
-            ability.addEventListener('mouseleave', function() {
-                const tooltip = this.querySelector('.ability-tooltip');
-                if (tooltip) tooltip.remove();
-            });
-        });
     });
-    
-    // Упрощенная анимация для Моро при клике
-    const moroCard = document.getElementById('moro-card');
-    if (moroCard) {
-        moroCard.addEventListener('click', function() {
-            const excerptElement = document.querySelector('.secret-excerpt');
-            if (excerptElement) {
-                excerptElement.classList.add('visible');
-            }
-        });
-    }
 }
 
 // Инициализация пасхалок через элементы футера
@@ -284,48 +253,6 @@ function initPashalkas() {
         excerptClose.addEventListener('click', function() {
             secretExcerpt.classList.remove('visible');
         });
-    }
-    
-    // Инициализация дневника
-    const kaelaCard = document.getElementById('kaela-card');
-    const journal = document.querySelector('.kaela-journal');
-    
-    if (kaelaCard && journal) {
-        kaelaCard.addEventListener('click', function() {
-            journal.classList.add('visible');
-        });
-        
-        // Закрытие дневника
-        const journalClose = journal.querySelector('.journal-close');
-        if (journalClose) {
-            journalClose.addEventListener('click', function() {
-                journal.classList.remove('visible');
-            });
-        }
-        
-        // Простая навигация по страницам дневника
-        const journalPages = journal.querySelectorAll('.journal-page');
-        const journalPrev = journal.querySelector('.journal-prev');
-        const journalNext = journal.querySelector('.journal-next');
-        let currentPage = 0;
-        
-        if (journalPrev && journalNext) {
-            journalPrev.addEventListener('click', function() {
-                if (currentPage > 0) {
-                    journalPages[currentPage].classList.remove('current-page');
-                    currentPage--;
-                    journalPages[currentPage].classList.add('current-page');
-                }
-            });
-            
-            journalNext.addEventListener('click', function() {
-                if (currentPage < journalPages.length - 1) {
-                    journalPages[currentPage].classList.remove('current-page');
-                    currentPage++;
-                    journalPages[currentPage].classList.add('current-page');
-                }
-            });
-        }
     }
     
     // Инициализация рун (упрощенная версия)

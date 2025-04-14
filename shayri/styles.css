@@ -41,7 +41,7 @@
     
     /* Магические эффекты */
     --magic-glow: 0 0 15px 3px rgba(78, 205, 196, 0.6);
-	--magic-glow-light: 0 0 5px 1px rgba(78, 205, 196, 0.4);
+    --magic-glow-light: 0 0 5px 1px rgba(78, 205, 196, 0.4);
     --magic-border: 1px solid rgba(78, 205, 196, 0.4);
     --magic-pulse: pulse 3s infinite ease-in-out;
 }
@@ -272,7 +272,7 @@ img {
     height: 100%;
     z-index: -7;
     pointer-events: none;
-	will-change: transform;
+    will-change: transform;
 }
 
 .particle {
@@ -425,13 +425,21 @@ header {
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.author {
-    font-size: 1.2rem;
-    color: var(--color-primary);
-    font-style: italic;
-    margin-bottom: 60px;
-    opacity: 0.9;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+.character {
+    position: absolute;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.character.shadow {
+    width: 200px;
+    height: 200px;
+    left: 20px;
+    bottom: 20px;
+    background-image: url('shadow250.png');
+    z-index: 2;
+    opacity: .2;
 }
 
 .crystal {
@@ -439,8 +447,8 @@ header {
     height:30px;
     background-color: var(--color-primary);
     position: absolute;
-    left: 45%;
-    top: 50%;
+    left: 40%;
+    top: 54%;
     border-radius: 5px;
     transform: rotate(45deg);
     box-shadow: 0 0 20px 5px var(--color-primary);
@@ -849,7 +857,7 @@ header {
 /* Улучшенная секция персонажей */
 .characters-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
     margin-top: 30px;
 }
@@ -911,19 +919,23 @@ header {
 }
 
 .kaela-portrait {
-    background-image: url('https://via.placeholder.com/250x250');
+    background-image: url('kaela.jpg');
 }
 
 .moro-portrait {
-    background-image: url('https://via.placeholder.com/250x250');
+    background-image: url('moro.jpg');
 }
 
 .toren-portrait {
-    background-image: url('https://via.placeholder.com/250x250');
+    background-image: url('toren.jpg');
 }
 
 .liria-portrait {
-    background-image: url('https://via.placeholder.com/250x250');
+    background-image: url('liria.jpg');
+}
+
+.shaen-portrait {
+    background-image: url('shaen.jpg');
 }
 
 .character-info {
@@ -985,6 +997,7 @@ header {
     flex-wrap: wrap;
     gap: 8px;
     margin-top: auto;
+    position: relative;
 }
 
 .ability {
@@ -995,6 +1008,8 @@ header {
     border: 1px solid rgba(78, 205, 196, 0.3);
     cursor: help;
     transition: var(--transition-fast);
+    position: relative;
+    z-index: 122222;
 }
 
 .ability:hover {
@@ -1002,20 +1017,50 @@ header {
     border-color: rgba(78, 205, 196, 0.6);
 }
 
+.ability[data-tooltip] {
+    position: initial;
+}
+
 .ability[data-tooltip]:hover::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) translateY(100%);
-    background: rgba(15, 43, 61, 0.9);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 5;
+    bottom: calc(100% + 15px); /* Располагаем выше всех кнопок */
+    left: 0; /* Привязываем к левому краю блока character-abilities */
+    width: 100%; /* На всю ширину родительского контейнера */
+    background: rgba(15, 43, 61, 0.95);
+    color: var(--color-light);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: normal; /* Разрешаем перенос строк */
+    z-index: 1000; /* Увеличиваем z-index чтобы подсказка была поверх всех элементов */
     pointer-events: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    line-height: 1.5;
+    border: 1px solid rgba(78, 205, 196, 0.4);
+    transform: none; /* Убираем transform, так как привязываем к левому краю */
+}
+
+/* Добавляем треугольник снизу подсказки */
+.ability[data-tooltip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(15, 43, 61, 0.95) transparent transparent transparent;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Выделение активной кнопки при появлении подсказки */
+.ability[data-tooltip]:hover {
+    background: rgba(78, 205, 196, 0.3);
+    border-color: rgba(78, 205, 196, 0.8);
+    color: var(--color-primary-light);
 }
 
 /* Улучшенная галерея */
@@ -1125,7 +1170,7 @@ header {
 }
 
 .gallery-item:hover .gallery-overlay {
-	transform: translateY(0);
+    transform: translateY(0);
 }
 
 .gallery-item:hover .magic-frame {
@@ -1156,7 +1201,7 @@ header {
     width: 100%;
     max-width: 800px;
     padding: 40px 60px;
-	background-color: rgba(15, 43, 61, 0.4);
+    background-color: rgba(15, 43, 61, 0.4);
     border-radius: 10px;
     position: relative;
     box-shadow: var(--shadow-lg);
@@ -1184,9 +1229,9 @@ header {
 
 .scroll-text {
     font-family: var(--font-heading);
-	padding: 1.5rem 1.5rem 0 1.5rem;
+    padding: 1.5rem 1.5rem 0 1.5rem;
     text-align: center;
-	background: rgba(15, 43, 61, 0.7);
+    background: rgba(15, 43, 61, 0.7);
     border-radius: 10px;
     padding: 1.5rem 1.5rem 0 1.5rem;
 }
@@ -1209,7 +1254,7 @@ header {
     opacity: 1;
     height: auto;
     margin-top: 20px;
-	padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .runes {
@@ -2025,7 +2070,7 @@ header {
 }
 
 .data-block {
-	display: none;
+    display: none;
     background: rgba(15, 43, 61, 0.7);
     border: 1px solid rgba(78, 205, 196, 0.3);
     border-radius: 5px;
@@ -2192,7 +2237,7 @@ header {
 .data-content {
     display: flex;
     gap: 20px;
-	flex-direction: column;
+    flex-direction: column;
 }
 
 .data-image {
@@ -2339,8 +2384,8 @@ header {
     .crystal, .cover-glow, .title, .crystal-icon, .feature-icon-glow, .energy-line {
         animation-duration: 5s !important;
     }
-	
-	.stars-layer {
+    
+    .stars-layer {
         background-size: 100px 100px; /* Уменьшаем количество звезд */
         opacity: 0.1;
         animation: stars-move 300s linear infinite; /* Замедляем анимацию */
@@ -2358,10 +2403,6 @@ header {
 }
 
 @media (max-width: 480px) {
-    .title {
-        font-size: 3rem;
-    }
-    
     .section {
         padding: 50px 0;
     }
@@ -2526,7 +2567,7 @@ header {
     align-items: center;
     justify-content: center;
     transition: opacity 0.5s ease, visibility 0.5s ease;
-	will-change: opacity;
+    will-change: opacity;
 }
 
 .page-loading.loaded {
@@ -2539,8 +2580,8 @@ header {
     height: 50px;
     background-color: var(--color-primary);
     transform: rotate(45deg);
-	border-radius: 5px;
-	box-shadow: 0 0 20px 5px var(--color-primary);
+    border-radius: 5px;
+    box-shadow: 0 0 20px 5px var(--color-primary);
     animation: loading-pulse 2s infinite ease-in-out;
 }
 
