@@ -421,6 +421,7 @@ img {
     margin-top: auto;
     border-top: 1px solid rgba(74, 168, 255, 0.1);
     padding-top: 10px;
+	gap: 10px;
 }
 
 .term-card.anomaly .term-card-footer {
@@ -445,6 +446,7 @@ img {
     font-size: 13px;
     color: var(--silver-gray);
     transition: all var(--transition-normal);
+	white-space: nowrap;
 }
 
 .term-card:hover .term-card-link {
@@ -954,12 +956,13 @@ img {
         left: 0;
         width: 85%;
         height: 100%;
-        z-index: var(--z-overlay);
+        z-index: var(--z-modal);
         max-height: none;
         border-radius: 0;
         border-right: 1px solid rgba(74, 168, 255, 0.2);
         transform: translateX(-100%);
         transition: transform 0.3s ease;
+		background: rgba(16, 26, 41, 0.9);
     }
     
     .terms-list.mobile-visible.active {
