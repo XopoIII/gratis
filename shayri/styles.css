@@ -2240,12 +2240,18 @@ header {
     flex-direction: column;
 }
 
+.data-content.row {
+    flex-direction: row;
+}
+
 .data-image {
     width: 150px;
     height: 150px;
-    background-image: url('https://via.placeholder.com/150');
-    background-size: cover;
     border: 1px solid rgba(78, 205, 196, 0.5);
+}
+
+.data-image.h225 {
+    height: 225px;
 }
 
 .data-text {
