@@ -2345,6 +2345,13 @@ header {
 }
 
 @media (max-width: 768px) {
+	.characters-portrait {
+		width: 200px;
+		height: 200px;
+		bottom: 110px;
+		left: calc(50% - 100px);
+	}
+
     .title {
         font-size: 4rem;
     }
