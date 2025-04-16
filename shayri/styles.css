@@ -432,31 +432,30 @@ header {
     background-repeat: no-repeat;
 }
 
-.character.shadow {
-    width: 200px;
+.characters-portrait {
+    width: 300px;
     height: 200px;
     left: 20px;
     bottom: 20px;
-    background-image: url(shadow250.png);
+    background-image: url('kaela-moro-portrait.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
     z-index: 2;
-    opacity: 0.2;
+    opacity: 0.8;
     animation: floatFade 4s ease-in-out infinite;
     pointer-events: none;
-    filter: grayscale(100%) contrast(1.1);
 }
 
 @keyframes floatFade {
     0%, 100% {
         transform: translateY(0px);
-        opacity: 0.2;
+        opacity: 0.8;
     }
     50% {
         transform: translateY(-4px);
-        opacity: 0.4;
+        opacity: 1;
     }
 }
 
