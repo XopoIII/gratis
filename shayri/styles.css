@@ -437,9 +437,27 @@ header {
     height: 200px;
     left: 20px;
     bottom: 20px;
-    background-image: url('shadow250.png');
+    background-image: url(shadow250.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
     z-index: 2;
-    opacity: .2;
+    opacity: 0.2;
+    animation: floatFade 4s ease-in-out infinite;
+    pointer-events: none;
+    filter: grayscale(100%) contrast(1.1);
+}
+
+@keyframes floatFade {
+    0%, 100% {
+        transform: translateY(0px);
+        opacity: 0.2;
+    }
+    50% {
+        transform: translateY(-4px);
+        opacity: 0.4;
+    }
 }
 
 .crystal {
@@ -478,7 +496,11 @@ header {
     color: var(--color-light);
     cursor: pointer;
     transition: var(--transition-medium);
-    z-index: 5;
+    z-index: 20;
+}
+
+.scroll-down * {
+    pointer-events: none;
 }
 
 .scroll-down:hover {

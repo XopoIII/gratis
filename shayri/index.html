@@ -11,45 +11,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Фоновые элементы с улучшенным параллакс-эффектом -->
     <div class="background">
         <div class="stars-layer"></div>
-        <!-- Оставляем только один слой тумана вместо двух -->
         <div class="fog-layer combined-fog"></div>
         <div class="particles-container"></div>
-        <!-- Сокращаем количество энергетических линий -->
         <div class="energy-lines">
             <div class="energy-line" style="top: 30%; transform: rotate(2deg);"></div>
             <div class="energy-line" style="top: 70%; transform: rotate(-2deg);"></div>
         </div>
     </div>
 
-    <!-- Улучшенная навигация с подсказками -->
     <nav class="navigation">
-        <div class="nav-item active" data-section="header" data-tooltip="В начало">
+        <a class="nav-item active" href="#header" data-tooltip="В начало">
             <div class="nav-indicator"></div>
-        </div>
-        <div class="nav-item" data-section="about" data-tooltip="О книге">
+        </a>
+        <a class="nav-item"  href="#about" data-tooltip="О книге">
             <div class="nav-indicator"></div>
-        </div>
-        <div class="nav-item" data-section="world" data-tooltip="Мир Шай'ри">
+        </a>
+        <a class="nav-item"  href="#world" data-tooltip="Мир Шай'ри">
             <div class="nav-indicator"></div>
-        </div>
-        <div class="nav-item" data-section="characters" data-tooltip="Персонажи">
+        </a>
+        <a class="nav-item"  href="#characters" data-tooltip="Персонажи">
             <div class="nav-indicator"></div>
-        </div>
-        <div class="nav-item" data-section="gallery" data-tooltip="Галерея">
+        </a>
+        <a class="nav-item"  href="#gallery" data-tooltip="Галерея">
             <div class="nav-indicator"></div>
-        </div>
-        <div class="nav-item" data-section="prophecy" data-tooltip="Пророчество">
+        </a>
+        <a class="nav-item"  href="#prophecy" data-tooltip="Пророчество">
             <div class="nav-indicator"></div>
-        </div>
-        <div class="nav-item" data-section="buy" data-tooltip="Читать книгу">
+        </a>
+        <a class="nav-item"  href="#buy" data-tooltip="Читать книгу">
             <div class="nav-indicator"></div>
-        </div>
+        </a>
     </nav>
 
-    <!-- Шапка с улучшенной анимацией -->
     <header id="header" class="section">
         <div class="title-container">
             <h1 class="title">Шай'ри</h1>
@@ -64,14 +59,13 @@
         </a>
     </header>
 
-    <!-- Раздел О книге с улучшенным форматированием -->
-    <section id="about" class="section">
+    <section class="section">
         <div class="section-divider">
             <div class="fog fog-1"></div>
             <div class="fog fog-2"></div>
         </div>
         
-        <div class="container">
+        <div class="container" id="about">
             <div class="section-intro">
                 <p class="magical-phrase">«Мир изменится, когда ты откроешь эту книгу...»</p>
             </div>
@@ -119,14 +113,13 @@
         </div>
     </section>
 
-    <!-- Раздел Мир Шай'ри с интерактивной картой -->
-    <section id="world" class="section">
+    <section class="section">
         <div class="section-divider">
             <div class="fog fog-1"></div>
             <div class="fog fog-2"></div>
         </div>
         
-        <div class="container">
+        <div class="container" id="world">
             <div class="section-intro">
                 <p class="magical-phrase">«Слушай зов леса, чувствуй дыхание магии...»</p>
             </div>
@@ -185,14 +178,13 @@
         </div>
     </section>
 
-    <!-- Раздел Персонажи с улучшенной интерактивностью -->
-    <section id="characters" class="section">
+    <section class="section">
         <div class="section-divider">
             <div class="fog fog-1"></div>
             <div class="fog fog-2"></div>
         </div>
         
-        <div class="container">
+        <div class="container" id="characters">
             <div class="section-intro">
                 <p class="magical-phrase">«За каждой историей стоят те, кто её создаёт...»</p>
             </div>
@@ -284,14 +276,13 @@
         </div>
     </section>
 
-    <!-- Раздел Галерея с улучшенными визуальными эффектами -->
-    <section id="gallery" class="section">
+    <section class="section">
         <div class="section-divider">
             <div class="fog fog-1"></div>
             <div class="fog fog-2"></div>
         </div>
         
-        <div class="container">
+        <div class="container" id="gallery">
             <div class="section-intro">
                 <p class="magical-phrase">«Картины, запечатлевшие магию иных миров...»</p>
             </div>
@@ -404,14 +395,13 @@
         </div>
     </section>
     
-    <!-- Раздел Пророчество -->
-    <section id="prophecy" class="section">
+    <section class="section">
         <div class="section-divider">
             <div class="fog fog-1"></div>
             <div class="fog fog-2"></div>
         </div>
         
-        <div class="container">
+        <div class="container" id="prophecy">
             <div class="section-intro">
                 <p class="magical-phrase">«Слова, сказанные в древности, определяют судьбы сегодня...»</p>
             </div>
@@ -456,14 +446,13 @@
         </div>
     </section>
 
-    <!-- Секция для чтения книги (была Buy) -->
-    <section id="buy" class="section">
+    <section class="section">
         <div class="section-divider">
             <div class="fog fog-1"></div>
             <div class="fog fog-2"></div>
         </div>
         
-        <div class="container">
+        <div class="container" id="buy">
             <div class="section-intro">
                 <p class="magical-phrase">«Ты готов присоединиться к нам? Путешествие ждёт...»</p>
             </div>
@@ -493,7 +482,6 @@
         </div>
     </section>
 
-    <!-- Подвал сайта -->
     <footer class="footer">
         <div class="container">
             <div class="footer-columns">
@@ -520,7 +508,6 @@
         </div>
     </footer>
 
-    <!-- Скрытый секрет (улучшенная пасхалка) -->
     <div class="hidden-secret">
         <div class="secret-close">&times;</div>
         <div class="secret-portal">
@@ -543,7 +530,6 @@
         </div>
     </div>
 
-    <!-- Скрытый интерфейс "Созерцателей" (еще одна пасхалка) -->
     <div class="watchers-interface hidden">
         <div class="interface-header">
             <div class="interface-logo"></div>
@@ -558,7 +544,6 @@
                 <div class="sidebar-option" data-panel="restricted">ДОСТУП ЗАПРЕЩЕН</div>
             </div>
             <div class="interface-main">
-                <!-- Панель с данными ШАЙ-1 (Моро) -->
                 <div class="data-block active" id="panel-shay-1">
                     <div class="data-header">ОБЪЕКТ: ШАЙ-1 (КОДОВОЕ ИМЯ "МОРО")</div>
                     <div class="data-content row">
@@ -574,7 +559,6 @@
                     <div class="classified-stamp">СОВЕРШЕННО СЕКРЕТНО</div>
                 </div>
                 
-                <!-- Панель с данными операции "Последний ключ" -->
                 <div class="data-block" id="panel-last-key">
                     <div class="data-header">ОПЕРАЦИЯ: "ПОСЛЕДНИЙ КЛЮЧ"</div>
                     <div class="data-content row">
@@ -591,7 +575,6 @@
                     <div class="classified-stamp">СОВЕРШЕННО СЕКРЕТНО</div>
                 </div>
                 
-                <!-- Панель с уровнем угрозы -->
                 <div class="data-block" id="panel-threat-level">
                     <div class="data-header">УРОВЕНЬ УГРОЗЫ: КРИТИЧЕСКИЙ</div>
                     <div class="data-content">
@@ -614,7 +597,6 @@
                     <div class="classified-stamp danger-stamp">ВЫСШИЙ УРОВЕНЬ СЕКРЕТНОСТИ</div>
                 </div>
                 
-                <!-- Панель с запрещенным доступом -->
                 <div class="data-block" id="panel-restricted">
                     <div class="data-header">ДОСТУП ЗАПРЕЩЕН</div>
                     <div class="data-content restricted-content">

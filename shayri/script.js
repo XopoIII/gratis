@@ -128,22 +128,6 @@ function initNavigation() {
     const navItems = document.querySelectorAll('.nav-item');
     const sections = document.querySelectorAll('.section');
     
-    // Обработчик клика по элементу навигации
-    navItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const targetId = this.getAttribute('data-section');
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                // Используем более простой эффект перехода
-                window.scrollTo({
-                    top: targetSection.offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
     // Обновление активного элемента навигации при прокрутке с помощью Intersection Observer
     const observerOptions = {
         rootMargin: '-20% 0px -80% 0px'
@@ -167,23 +151,6 @@ function initNavigation() {
     sections.forEach(section => {
         observer.observe(section);
     });
-    
-    // Обработчик для кнопки прокрутки вниз
-    const scrollDown = document.querySelector('.scroll-down');
-    if (scrollDown) {
-        scrollDown.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    }
 }
 
 // Функция инициализации табов галереи
@@ -429,15 +396,5 @@ function initHoverEffects() {
             this.style.boxShadow = '';
             this.style.transform = 'translateY(0)';
         });
-    });
-}
-
-// Вспомогательная функция для плавной прокрутки к элементу (оптимизированная)
-function scrollToElement(element) {
-    if (!element) return;
-    
-    window.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
     });
 }
