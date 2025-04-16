@@ -433,9 +433,9 @@ header {
 }
 
 .characters-portrait {
-    width: 300px;
-    height: 200px;
-    left: 20px;
+    width: 250px;
+    height: 250px;
+    left: 0px;
     bottom: 20px;
     background-image: url('kaela-moro-portrait.png');
     background-size: contain;
