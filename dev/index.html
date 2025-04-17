@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon32.png" type="image/png">
     <title>Dev Build: Версия 0.0.1 | Агатис Интегра</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="canonical" href="https://againte.gratis/dev/">
+    
+    <!-- CSS файлы, разделенные по функциональности -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/debug.css">
+    
     <meta name="description" content="Инди-разработчица Скай создает амбициозную RPG с открытым миром. Однажды ночью, после критического сбоя, она оказывается внутри собственной недоделанной игры...">
 </head>
 <body>
@@ -32,60 +43,67 @@
         <!-- Фон с кодом -->
         <div class="code-background"></div>
         
-        <!-- Хедер с персонажами -->
-        <header>
-            <div class="logo">
-                <span class="dev-text">DEV BUILD:</span>
-                <span class="version-text">Версия 0.0.1</span>
-            </div>
-            <div class="character-container">
-                <img src="sky-pixel.png" alt="Скай и Пиксель" class="characters">
-                <div class="character-tooltip">
-                    <p>Привет, Создатель! Готов исследовать Coreworld?</p>
-                    <span class="debug-text">[COMMENT: Пиксель всё ещё не знает, что он умеет телепортироваться]</span>
+        <div class="creator-book-container">
+            <!-- Статус-бары -->
+            <div class="status-bars">
+                <div class="health-container">
+                    <span class="status-label">ЗДОРОВЬЕ:</span>
+                    <div class="health-bar">
+                        <div class="health-fill"></div>
+                    </div>
+                    <span class="health-value">20/25</span>
+                </div>
+                <div class="mana-container">
+                    <span class="status-label">МАНА:</span>
+                    <div class="mana-bar">
+                        <div class="mana-fill"></div>
+                    </div>
+                    <span class="mana-value">28/30</span>
+                </div>
+                <div class="anomaly-container">
+                    <span class="status-label">АНОМАЛИЯ:</span>
+                    <div class="anomaly-bar">
+                        <div class="anomaly-fill"></div>
+                    </div>
+                    <span class="anomaly-value">4%</span>
                 </div>
             </div>
-        </header>
-        
-        <!-- Статус и уровень аномалии -->
-        <div class="status-bar">
-            <div class="health-container">
-                <span class="status-label">ЗДОРОВЬЕ:</span>
-                <div class="health-bar">
-                    <div class="health-fill"></div>
+            
+            <!-- Команды книги -->
+            <nav class="creator-book" role="navigation" aria-label="Главное меню">
+                <div>
+                    <div class="creator-book-header">
+                        <div class="logo-title">
+                            <span class="dev-text">DEV BUILD:</span>
+                            <span class="version-text">Версия 0.0.1</span>
+                        </div>
+                        <div class="book-block">
+                            <div class="book-title" id="menu-title">== КНИГА СОЗДАТЕЛЯ ==</div>
+                            <div class="book-status" aria-live="polite">Версия: 0.0.1 (dev build) | АВТОНОМНЫЙ РЕЖИМ</div>
+                        </div>
+                        <div class="character-portrait">
+                            <img src="images/sky-pixel.png" alt="Скай и Пиксель" class="character-icon">
+                        </div>
+                    </div>
+                    
+                    <!-- Мобильное меню -->
+                    <button id="menu-toggle" class="menu-toggle" aria-label="Открыть/закрыть меню">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
                 </div>
-                <span class="health-value">20/25</span>
-            </div>
-            <div class="mana-container">
-                <span class="status-label">МАНА:</span>
-                <div class="mana-bar">
-                    <div class="mana-fill"></div>
+                <div class="command-list" role="menubar" aria-labelledby="menu-title">
+                    <div class="command-item active" data-section="description" role="menuitem" tabindex="0">/описание</div>
+                    <div class="command-item" data-section="characters" role="menuitem" tabindex="0">/персонажи</div>
+                    <div class="command-item" data-section="locations" role="menuitem" tabindex="0">/локации</div>
+                    <div class="command-item" data-section="buy" role="menuitem" tabindex="0">/читать</div>
+                    <div class="command-item restricted" data-section="edit" role="menuitem" tabindex="-1">/изменить</div>
+                    <div class="command-item" id="handbook-button" data-section="handbook" role="menuitem" tabindex="0">/справочник</div>
+                    <div class="debug-toggle" id="debug-mode" tabindex="0" role="button" aria-pressed="false">[ДЕБАГ_РЕЖИМ]</div>
                 </div>
-                <span class="mana-value">28/30</span>
-            </div>
-            <div class="anomaly-container">
-                <span class="status-label">УРОВЕНЬ АНОМАЛИИ:</span>
-                <div class="anomaly-bar">
-                    <div class="anomaly-fill"></div>
-                </div>
-                <span class="anomaly-value">4%</span>
-            </div>
+            </nav>
         </div>
-        
-        <!-- Книга Создателя (меню) -->
-        <nav class="creator-book">
-            <div class="book-title">== КНИГА СОЗДАТЕЛЯ ==</div>
-            <div class="book-status">Версия: 0.0.1 (dev build) | АВТОНОМНЫЙ РЕЖИМ</div>
-            <div class="command-list">
-                <div class="command-item active" data-section="description">/описание</div>
-                <div class="command-item" data-section="characters">/персонажи</div>
-                <div class="command-item" data-section="locations">/локации</div>
-                <div class="command-item" data-section="buy">/купить</div>
-                <div class="command-item restricted" data-section="edit">/изменить</div>
-                <div class="command-item" id="handbook-button" data-section="handbook">/справочник</div>
-                <div class="debug-toggle" id="debug-mode">[ДЕБАГ_РЕЖИМ]</div>
-            </div>
-        </nav>
         
         <!-- Секции контента -->
         <main>
@@ -93,7 +111,7 @@
             <section id="description" class="content-section active">
                 <div class="content-container">
                     <div class="book-cover">
-                        <img src="cover.jpg" alt="Обложка книги Dev Build: Версия 0.0.1" class="cover-image">
+                        <img src="images/cover.jpg" alt="Обложка книги Dev Build: Версия 0.0.1" class="cover-image">
                         <div class="cover-overlay"></div>
                     </div>
                     <div class="book-description">
@@ -122,7 +140,7 @@
                     <!-- Скай -->
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="sky.jpg" alt="Скай Рэй">
+                            <img src="images/sky.jpg" alt="Скай Рэй">
                             <div class="character-tag">[ПРОТАГОНИСТ | СОЗДАТЕЛЬ | АНОМАЛИЯ]</div>
                         </div>
                         <div class="character-info">
@@ -135,7 +153,7 @@
                     <!-- Пиксель -->
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="pixel.jpg" alt="Пиксель">
+                            <img src="images/pixel.jpg" alt="Пиксель">
                             <div class="character-tag">[КОМПАНЬОН | ХРАНИТЕЛЬ | ???]</div>
                         </div>
                         <div class="character-info">
@@ -148,7 +166,7 @@
                     <!-- Хранитель Поляны -->
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="keeper.jpg" alt="Хранитель Поляны">
+                            <img src="images/keeper.jpg" alt="Хранитель Поляны">
                             <div class="character-tag">[NPC | КВЕСТОДАТЕЛЬ | ВЫСОКИЙ_ПРИОРИТЕТ]</div>
                         </div>
                         <div class="character-info">
@@ -161,7 +179,7 @@
                     <!-- Художник -->
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="artist.jpg" alt="Художник">
+                            <img src="images/artist.jpg" alt="Художник">
                             <div class="character-tag">[NPC_ХУДОЖНИК | ЭСТЕТИЧЕСКАЯ_ФУНКЦИЯ]</div>
                         </div>
                         <div class="character-info">
@@ -174,7 +192,7 @@
                     <!-- Шу -->
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="shu.jpg" alt="Шу">
+                            <img src="images/shu.jpg" alt="Шу">
                             <div class="character-tag">[ХРАНИТЕЛЬ_ЗНАНИЯ | КВЕСТОДАТЕЛЬ]</div>
                         </div>
                         <div class="character-info">
@@ -187,7 +205,7 @@
                     <!-- Программист -->
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="programmer.jpg" alt="Программист">
+                            <img src="images/programmer.jpg" alt="Программист">
                             <div class="character-tag">[СИСТЕМНАЯ_ФУНКЦИЯ | РЕГУЛЯЦИЯ_МИРА]</div>
                         </div>
                         <div class="character-info">
@@ -208,7 +226,7 @@
                         <div class="loading-spinner"></div>
                     </div>
                     <div class="world-map" id="world-map">
-                        <img src="coreworld-map.jpg" alt="Карта мира Coreworld" class="map-image">
+                        <img src="images/coreworld-map.jpg" alt="Карта мира Coreworld" class="map-image">
                         
                         <!-- Интерактивные точки на карте -->
                         <div class="map-point" data-location="meadow" style="top: 30%; left: 20%;">
@@ -273,32 +291,22 @@
                             <div class="format-icon paper-icon"></div>
                             <h3>Бумажная версия</h3>
                             <p>Держите в руках настоящую книгу с уникальным дизайном и дополнительными материалами.</p>
-                            <div class="price">799 ₽</div>
-                            <button class="buy-button">Купить</button>
+                            <div class="price">0 ₽</div>
+                            <button class="buy-button">Скоро</button>
                         </div>
                         <div class="format-card">
                             <div class="format-icon ebook-icon"></div>
                             <h3>Электронная версия</h3>
-                            <p>Читайте на любом устройстве. Включает расширенные сноски из Справочника Игрока.</p>
-                            <div class="price">449 ₽</div>
-                            <button class="buy-button">Купить</button>
+                            <p>Читайте на сайте Author.Today</p>
+                            <div class="price">Бесплатно</div>
+                            <button class="buy-button">Читать</button>
                         </div>
                         <div class="format-card">
                             <div class="format-icon audio-icon"></div>
                             <h3>Аудиокнига</h3>
                             <p>Погрузитесь в атмосферу Coreworld с профессиональным озвучиванием и звуковыми эффектами.</p>
-                            <div class="price">649 ₽</div>
-                            <button class="buy-button">Купить</button>
-                        </div>
-                    </div>
-                    <div class="store-links">
-                        <h3>Где купить:</h3>
-                        <div class="store-container">
-                            <a href="#" class="store-link">Магазин "Агатис Интегра"</a>
-                            <a href="#" class="store-link">Литрес</a>
-                            <a href="#" class="store-link">Лабиринт</a>
-                            <a href="#" class="store-link">Читай-город</a>
-                            <a href="#" class="store-link">Bookmate</a>
+                            <div class="price">0 ₽</div>
+                            <button class="buy-button">Скоро</button>
                         </div>
                     </div>
                 </div>
@@ -318,10 +326,17 @@
             </section>
         </main>
         
-        <!-- Скрытый ввод команд -->
-        <div class="command-input-container">
-            <input type="text" id="command-input" placeholder="Введите команду..." aria-label="Поле для ввода команд">
+         <!-- Консоль команд (плавающая кнопка) -->
+        <div class="console-trigger">
+            <button id="console-button" aria-label="Открыть консоль">
+                <i class="terminal-icon">_></i>
+            </button>
+        </div>
+        
+        <!-- Поле ввода команд (скрытое по умолчанию) -->
+        <div class="command-input-container" id="command-container">
             <div class="input-prompt">&gt;&gt;</div>
+            <input type="text" id="command-input" placeholder="Введите команду..." aria-label="Поле для ввода команд">
         </div>
         
         <!-- Модальное окно для справочника -->
@@ -333,7 +348,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="loading-container">
-                        <div class="progress-bar">
+                        <div class="progress-bar full">
                             <div class="progress-fill" style="width: 24%"></div>
                         </div>
                         <p class="loading-text">[ИНТЕРАКТИВНАЯ СПРАВКА НАХОДИТСЯ В РАЗРАБОТКЕ]</p>
@@ -369,23 +384,22 @@
         </div>
         
         <!-- Всплывающие сообщения -->
-        <div id="toast-container" class="toast-container"></div>
+        <div id="toast-container" class="toast-container" aria-live="polite"></div>
         
-        <!-- Футер -->
         <footer>
             <div class="footer-content">
-                <div class="footer-logo">Агатис Интегра</div>
-                <div class="footer-links">
-                    <a href="#">Главная</a>
-                    <a href="#">Книги</a>
-                    <a href="#">О нас</a>
-                    <a href="#">Контакты</a>
-                </div>
-                <div class="footer-copyright">© 2023 Агатис Интегра | [ВЕРСИЯ: 0.0.1]</div>
+                <div class="footer-logo"><a href="https://againte.gratis/" target="_blank">agaINTE GRAtis</a></div>
+                <div class="footer-copyright">© 2025 | [ВЕРСИЯ: 0.0.1]</div>
             </div>
         </footer>
     </div>
     
-    <script src="script.js"></script>
+    <!-- Подключение JavaScript файлов разделенных по функциональности -->
+    <script src="js/core.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/commands.js"></script>
+    <script src="js/modals.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/debug.js"></script>
 </body>
 </html>
