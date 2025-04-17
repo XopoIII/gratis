@@ -1,0 +1,177 @@
+/* Файл анимаций */
+
+/* Glitch эффект */
+@keyframes glitch {
+    0% {
+        text-shadow: none;
+        transform: skewX(0);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        text-shadow: 2px 0 var(--glitch-1), -2px 0 var(--glitch-2);
+        transform: skewX(5deg);
+        filter: hue-rotate(90deg);
+    }
+    50% {
+        text-shadow: -2px 0 var(--glitch-3), 2px 0 var(--glitch-1);
+        transform: skewX(-5deg);
+        filter: hue-rotate(180deg);
+    }
+    75% {
+        text-shadow: 2px 0 var(--glitch-2), -2px 0 var(--glitch-3);
+        transform: skewX(5deg);
+        filter: hue-rotate(270deg);
+    }
+    100% {
+        text-shadow: none;
+        transform: skewX(0);
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Анимация спиннера загрузки */
+@keyframes loading-spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Пульсация элементов */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* Анимация прогресс-бара */
+@keyframes progress-animation {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+/* Мерцание элементов */
+@keyframes flicker {
+    0% { opacity: 1; }
+    25% { opacity: 0.8; }
+    50% { opacity: 0.4; }
+    75% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* Эффект печатной машинки */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Мигающий курсор */
+@keyframes blink {
+    50% { border-color: transparent }
+}
+
+/* Плавное появление */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Плавное исчезновение */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Плавное появление снизу */
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Плавное появление сверху */
+@keyframes slideInFromTop {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Эффект парения */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Появление с масштабированием */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Анимация падения символов (для матрицы) */
+@keyframes matrixFall {
+    0% {
+        transform: translateY(-100vh);
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* Анимация телепортации */
+@keyframes teleport {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -300%) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Глитч-текст в модальном окне секретов */
+.glitch-text {
+    font-family: var(--font-code);
+    font-size: 18px;
+    color: var(--anomaly-color);
+    animation: glitch 2s infinite;
+}
+
+/* Применения анимаций к элементам */
+.command-item.glitching {
+    animation: glitch 0.3s forwards;
+}
+
+.map-point .point-marker {
+    animation: pulse 2s infinite;
+}
+
+.loading-spinner, .spinner {
+    animation: loading-spinner 1s linear infinite;
+}
+
+.progress-fill {
+    animation: progress-animation 8s ease-in-out forwards;
+}
+
+.blink-text {
+    animation: blink 1s infinite;
+}
+
+/* Оптимизация анимаций */
+.glitching, .point-marker, .loading-spinner {
+    will-change: transform;
+}
