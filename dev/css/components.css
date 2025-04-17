@@ -238,8 +238,8 @@
 
 .location-info {
     position: absolute;
-    top: 20px;
-    left: -10px;
+    top: -50px;
+    left: -150px;
     width: 300px;
     background-color: rgba(12, 16, 21, 0.9);
     border: 1px solid var(--accent-color);
