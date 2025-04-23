@@ -689,27 +689,6 @@ img {
     opacity: 1;
 }
 
-/* Стили для скроллбара */
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(16, 26, 41, 0.7);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(74, 168, 255, 0.2);
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(74, 168, 255, 0.3);
-}
-
 /* Стиль для выделенной категории в списке (более заметный) */
 .term-list-item.active {
     background: rgba(74, 168, 255, 0.2);
