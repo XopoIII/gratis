@@ -600,15 +600,6 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(elem);
         });
         
-        let particlesTimer;
-        window.addEventListener('scroll', () => {
-            clearTimeout(particlesTimer);
-            document.querySelector('.particles-container').style.opacity = '0';
-            particlesTimer = setTimeout(() => {
-                document.querySelector('.particles-container').style.opacity = '1';
-            }, 150);
-        });
-        
         createParticles();
         initNavigation();
         initTm7Interface();

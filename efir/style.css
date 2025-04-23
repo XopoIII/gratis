@@ -54,34 +54,6 @@ img {
     padding: 0 20px;
     position: relative;
 }
-.particles-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: var(--z-background);
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-#particles-back {
-    opacity: 0.3;
-}
-
-#particles-mid {
-    opacity: 0.5;
-}
-
-#particles-front {
-    opacity: 0.7;
-}
 
 .reality-breach {
     position: fixed;
