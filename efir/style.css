@@ -839,8 +839,29 @@ img {
 .world-marker[data-location="deep-complex"] {
     top: 75%;
     left: 50%;
-    background: rgba(231, 192, 107, 0.7); /* Золотистый цвет */
+    background: rgba(231, 192, 107, 0.7);
     box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
+}
+
+.world-marker[data-location="hive"] {
+    top: 65%;
+    left: 45%;
+    background: rgba(231, 192, 107, 0.7);
+    box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
+}
+
+.world-marker[data-location="station"] {
+    top: 25%;
+    left: 80%;
+    background: rgba(74, 168, 255, 0.7);
+    box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
+}
+
+.world-marker[data-location="solonovs-bunker"] {
+    top: 40%;
+    left: 85%;
+    background: rgba(52, 49, 125, 0.7);
+    box-shadow: 0 0 15px rgba(52, 49, 125, 0.6);
 }
 
 .world-marker:hover {
@@ -897,7 +918,7 @@ img {
     object-fit: cover;
     opacity: 0.8;
     transition: all var(--transition-normal);
-    filter: saturate(0.8) contrast(1.1);
+    filter: saturate(0.8) contrast(1);
     will-change: transform, opacity, filter;
 }
 
@@ -926,6 +947,18 @@ img {
 
 .deep-complex-effect {
     background: linear-gradient(to bottom, transparent, rgba(231, 192, 107, 0.3));
+}
+
+.hive-effect {
+    background: linear-gradient(to bottom, transparent, rgba(231, 192, 107, 0.3));
+}
+
+.station-effect {
+    background: linear-gradient(to bottom, transparent, rgba(74, 168, 255, 0.3), rgba(231, 192, 107, 0.2));
+}
+
+.bunker-effect {
+    background: linear-gradient(to bottom, transparent, rgba(52, 49, 125, 0.3));
 }
 
 .location-content {
@@ -970,7 +1003,7 @@ img {
 .location-card:hover .location-image {
     transform: scale(1.05);
     opacity: 0.9;
-    filter: saturate(1.2) contrast(1.2);
+    filter: saturate(1.1) contrast(0.95);
 }
 .characters-content {
     position: relative;
@@ -1027,6 +1060,48 @@ img {
 
 .character-card.skarn::before {
     background: var(--red-breach);
+}
+
+.character-card.solonovs::before {
+    background: var(--blue-violet);
+}
+
+.character-card.nick::before {
+    background: var(--golden);
+}
+
+.character-portrait-image.solonovs {
+    background-image: url('solonovs.jpg');
+}
+
+.character-portrait-image.nick {
+    background-image: url('nick.jpg');
+}
+
+.solonovs-effect {
+    background: radial-gradient(circle at center, rgba(52, 49, 125, 0.5) 0%, transparent 70%);
+}
+
+.nick-effect {
+    background: radial-gradient(circle at center, rgba(231, 192, 107, 0.5) 0%, transparent 70%);
+}
+
+.character-card.solonovs .character-role {
+    color: var(--blue-violet);
+}
+
+.character-card.nick .character-role {
+    color: var(--golden);
+}
+
+.character-card.solonovs .character-quote {
+    border-color: var(--blue-violet);
+    color: var(--blue-violet);
+}
+
+.character-card.nick .character-quote {
+    border-color: var(--golden);
+    color: var(--golden);
 }
 
 .character-portrait {
@@ -1094,7 +1169,7 @@ img {
 .character-card:hover .character-portrait-image,
 .antagonist-card:hover .antagonist-image-overlay {
     transform: scale(1.05);
-    filter: grayscale(0) contrast(1.1);
+    filter: grayscale(0) contrast(0.99);
 }
 
 .character-info {
@@ -1928,6 +2003,50 @@ body.corrupted .hero-subtitle {
     background: var(--golden);
 }
 
+.antagonist-card.devourer::before {
+    background: linear-gradient(var(--red-breach), var(--blue-violet));
+}
+
+.antagonist-card.hounds::before {
+    background: var(--ethereal-blue-dark);
+}
+
+.devourer .antagonist-image-overlay {
+    background-image: url('devourer.jpg');
+}
+
+.hounds .antagonist-image-overlay {
+    background-image: url('hounds.jpg');
+}
+
+.devourer-effect {
+    background: radial-gradient(circle at center, rgba(255, 58, 90, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
+}
+
+.hounds-effect {
+    background: radial-gradient(circle at center, rgba(74, 168, 255, 0.4) 0%, transparent 70%);
+}
+
+.antagonist-card.devourer .antagonist-type {
+    background: linear-gradient(90deg, var(--red-breach), var(--blue-violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.antagonist-card.hounds .antagonist-type {
+    color: var(--ethereal-blue-dark);
+}
+
+.antagonist-card.devourer .antagonist-quote {
+    border-color: var(--red-breach);
+    color: var(--red-breach);
+}
+
+.antagonist-card.hounds .antagonist-quote {
+    border-color: var(--ethereal-blue-dark);
+    color: var(--ethereal-blue-dark);
+}
+
 .antagonist-image {
     height: 180px;
     position: relative;
@@ -1967,6 +2086,7 @@ body.corrupted .hero-subtitle {
 }
 
 .seraphim .antagonist-image-overlay {
+    background-image: url('seraphim.jpg');
 }
 
 .antagonist-info {
@@ -2033,6 +2153,7 @@ body.corrupted .hero-subtitle {
 .antagonist-card:hover .antagonist-quote {
     opacity: 1;
     transform: translateY(0);
+	word-wrap: break-word;
 }
 
 @media screen and (max-width: 768px) {

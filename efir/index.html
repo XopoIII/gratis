@@ -118,6 +118,9 @@
                     <div class="world-marker" data-location="omega-base" title="База 'Омега'"></div>
                     <div class="world-marker" data-location="red-zone" title="Красная зона"></div>
                     <div class="world-marker" data-location="deep-complex" title="Глубинный комплекс"></div>
+					<div class="world-marker" data-location="hive" title="Гнездо"></div>
+					<div class="world-marker" data-location="station" title="Перевалочная Станция"></div>
+					<div class="world-marker" data-location="solonovs-bunker" title="Убежище Солонова"></div>
                 </div>
                 
                 <div class="locations">
@@ -176,6 +179,48 @@
                             </div>
                         </div>
                     </div>
+					
+					<div class="location-card" data-location="hive">
+						<div class="location-image-container">
+							<img loading="lazy" src="hive.jpg" alt="Гнездо - коллективный эфирный организм, хранящий фрагменты поглощенных сознаний" class="location-image">
+							<div class="location-effect hive-effect"></div>
+						</div>
+						<div class="location-content">
+							<h3 class="location-title">Гнездо</h3>
+							<p class="location-description">Сложная биоморфная структура, формируемая коллективом эфирных паразитов, соединенных в единую информационную экосистему. Функционирует как живой архив, хранящий фрагменты сознания всех поглощенных существ. Гнездо обладает коллективным разумом, способным к целенаправленным действиям и примитивной коммуникации.</p>
+							<div class="location-memory">
+								<q>...Они не боятся одиночества. Они боятся быть забытыми...</q>
+							</div>
+						</div>
+					</div>
+
+					<div class="location-card" data-location="station">
+						<div class="location-image-container">
+							<img loading="lazy" src="station.jpg" alt="Перевалочная Станция - торговый хаб в Дальней Пустоши с нестабильной гравитацией" class="location-image">
+							<div class="location-effect station-effect"></div>
+						</div>
+						<div class="location-content">
+							<h3 class="location-title">Перевалочная Станция</h3>
+							<p class="location-description">Уникальная постоянная структура в Дальней Пустоши Красной зоны, функционирующая как торговый хаб и нейтральная территория. Многоуровневый комплекс с вертикальной ориентацией, где гравитация и пространственные параметры варьируются от уровня к уровню. Контролируется Стражами Перекрёстка и Консорциумом.</p>
+							<div class="location-memory">
+								<q>...Перевалочная Станция — не просто место торговли, а живой организм, дышащий эфиром...</q>
+							</div>
+						</div>
+					</div>
+
+					<div class="location-card" data-location="solonovs-bunker">
+						<div class="location-image-container">
+							<img loading="lazy" src="bunker.jpg" alt="Убежище Солонова - бункер со сложной системой эфирных стабилизаторов" class="location-image">
+							<div class="location-effect bunker-effect"></div>
+						</div>
+						<div class="location-content">
+							<h3 class="location-title">Убежище Солонова</h3>
+							<p class="location-description">Скрытый бункер вблизи Дальней Пустоши, созданный доктором Солоновым. Оснащен сложнейшей системой эфирных якорей и стабилизаторов, защищающих от внешних вмешательств и сканирования. Внутри находится лаборатория с уникальным эфирным компасом, настроенным на эфирную сигнатуру Евы.</p>
+							<div class="location-memory">
+								<q>...Единственное по-настоящему безопасное место на тысячу километров вокруг...</q>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
@@ -195,14 +240,14 @@
                             <div class="character-portrait-image alex"></div>
                             <div class="character-portrait-effect slowdown-effect"></div>
                         </div>
-                        <div class="character-info">
-                            <h3 class="character-name">Алекс Северов</h3>
-                            <div class="character-role">Наемник / Бывший исследователь</div>
-                            <p class="character-description">Профессиональный наемник с имплантом TM-7, дающим способность "Замедление". Постепенно вспоминает, что ранее был ученым и создателем проекта TX-Δ. Его истинная связь с имплантом и проектом "Ева" гораздо глубже, чем кажется на первый взгляд. В его памяти скрыт ключ к тайне всего комплекса "Омега".</p>
-                            <div class="character-quote">
-                                <q>Ты выбрался, но я — нет</q>
-                            </div>
-                        </div>
+						<div class="character-info">
+							<h3 class="character-name">Алекс Северов</h3>
+							<div class="character-role">Наемник / Бывший исследователь / TX-Δ носитель</div>
+							<p class="character-description">Профессиональный наемник с имплантом TM-7, дающим способность "Замедление". После интеграции с TX-Δ обретает новые способности: эфирное зрение, создание эфирных следов, постепенно вспоминая, что ранее был создателем проекта TX-Δ и имел глубокую связь с Евой. Носит медальон — эмоциональный якорь, связывающий его с утраченной памятью.</p>
+							<div class="character-quote">
+								<q>Ты выбрался, но я — нет</q>
+							</div>
+						</div>
                     </div>
                     
                     <div class="character-card eva">
@@ -234,6 +279,36 @@
                             </div>
                         </div>
                     </div>
+					
+					<div class="character-card solonovs">
+						<div class="character-portrait">
+							<div class="character-portrait-image solonovs"></div>
+							<div class="character-portrait-effect solonovs-effect"></div>
+						</div>
+						<div class="character-info">
+							<h3 class="character-name">Доктор Александр Солонов</h3>
+							<div class="character-role">Ученый-отшельник / Создатель стабилизаторов</div>
+							<p class="character-description">Выдающийся ученый в области эфирной инженерии, один из ключевых разработчиков технологии TX-серии. После Инцидента на базе "Омега" считался пропавшим без вести. Солонов обладает даром видеть фрагменты возможных будущих. Живет в уединенном бункере, где продолжает свои исследования и поддерживает связь с эфирной проекцией своей покойной жены.</p>
+							<div class="character-quote">
+								<q>Я видел будущее, Северов. И оно... не оставляет места для надежды</q>
+							</div>
+						</div>
+					</div>
+
+					<div class="character-card nick">
+						<div class="character-portrait">
+							<div class="character-portrait-image nick"></div>
+							<div class="character-portrait-effect nick-effect"></div>
+						</div>
+						<div class="character-info">
+							<h3 class="character-name">Ник</h3>
+							<div class="character-role">Эфирный сирота / Проводник</div>
+							<p class="character-description">Мальчик с природной эфирной чувствительностью, родившийся от матери с эфирными модификациями. Его золотистые глаза способны видеть эфирные потоки без технических усилений. Ник функционирует как живой эфирный якорь, стабилизирующий нестабильные структуры вокруг себя. Стал учеником доктора Солонова, который видит в нем наследника своих знаний.</p>
+							<div class="character-quote">
+								<q>Я иногда слышу такие связи. Они звучат как... музыка</q>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
@@ -316,6 +391,36 @@
                             </div>
                         </div>
                     </div>
+					
+					<div class="antagonist-card devourer">
+						<div class="antagonist-image">
+							<div class="antagonist-image-overlay"></div>
+							<div class="antagonist-image-effect devourer-effect"></div>
+						</div>
+						<div class="antagonist-info">
+							<h3 class="antagonist-name">Пожиратель</h3>
+							<div class="antagonist-type">Коллекционер сущностей / Эфирная аномалия</div>
+							<p class="antagonist-description">Результат катастрофического сбоя при ранних экспериментах с TX-Δ. Не просто существо, а коллективный конструкт из фрагментов поглощённых сознаний. Его текучая форма постоянно меняется, адаптируясь под окружение. Охотится за носителями эфирных модификаций, особенно за технологиями TX-серии, которые считает "утраченными частями" себя.</p>
+							<div class="antagonist-quote">
+								<q>Мы.были.тобой...часть.нас...фрагмент.твоей.памяти...</q>
+							</div>
+						</div>
+					</div>
+
+					<div class="antagonist-card hounds">
+						<div class="antagonist-image">
+							<div class="antagonist-image-overlay"></div>
+							<div class="antagonist-image-effect hounds-effect"></div>
+						</div>
+						<div class="antagonist-info">
+							<h3 class="antagonist-name">Гончие</h3>
+							<div class="antagonist-type">Эфирные хищники / Охотники за памятью</div>
+							<p class="antagonist-description">Эфирные создания, способные чувствовать следы воспоминаний и эмоций. Охотятся группами, выслеживая тех, кто пытается восстановить стертую память или скрыть свои воспоминания. Их тела состоят из полупрозрачной эфирной материи, способной частично проникать через физические барьеры. Особенно активны в Красной зоне.</p>
+							<div class="antagonist-quote">
+								<q>Они не просто охотятся. Они распознают. Узнают. Каждый фрагмент твоей памяти</q>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
@@ -384,6 +489,27 @@
                         <div class="fragment-context">Момент взаимного выбора между Алексом и TX-Δ, когда герой осознаёт, что технология не просто инструмент, а потенциальный партнер по эволюции. Этот выбор отражает ключевую философскую концепцию мира Δ.E.F.I.R — добровольную интеграцию в противовес принуждению.</div>
                         <div class="fragment-echo"></div>
                     </div>
+					
+					<div class="fragment">
+						<div class="fragment-title">[TX-Δ.SYNC]:</div>
+						<div class="fragment-quote">"Ты теперь больше, чем человек, Алекс. И в то же время — более человечен, чем когда-либо."</div>
+						<div class="fragment-context">Сообщение TX-Δ после полной интеграции с Алексом, отражающее парадоксальную трансформацию главного героя — одновременное расширение и углубление его человечности.</div>
+						<div class="fragment-echo"></div>
+					</div>
+
+					<div class="fragment">
+						<div class="fragment-title">[Δ.ECHO/МОРТИМЕР]:</div>
+						<div class="fragment-quote">"TX-Δ был создан, чтобы исцелять расколотое сознание. Парадоксально, но он делает это через контролируемое когнитивное расслоение."</div>
+						<div class="fragment-context">Слова доктора Мортимера, эхо-фрагмента из Гнезда, объясняющие истинную природу TX-Δ: временный распад ради более глубокого единства.</div>
+						<div class="fragment-echo"></div>
+					</div>
+
+					<div class="fragment">
+						<div class="fragment-title">[СОЛОНОВ]:</div>
+						<div class="fragment-quote">"Найди Еву. И помни: граница между спасителем и разрушителем тоньше, чем ты думаешь."</div>
+						<div class="fragment-context">Предупреждение доктора Солонова Алексу перед отправлением к координатам "Пропавшего Разлома", намекающее на двойственную природу миссии Алекса.</div>
+						<div class="fragment-echo"></div>
+					</div>
                 </div>
             </div>
         </div>
