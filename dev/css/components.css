@@ -2,16 +2,16 @@
 
 /* Секция описания */
 .book-cover {
-    flex: 0 0 300px;
+    flex: 0 0 317px;
     position: relative;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     border-radius: var(--border-radius);
     overflow: hidden;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transition: transform 1s ease, box-shadow 0.5s ease;
 }
 
 .book-cover:hover {
-    transform: translateY(-10px) rotateY(10deg);
+	transform: scale(1.05);
     box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.7);
 }
 
