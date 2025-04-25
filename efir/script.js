@@ -1,4 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // ==========================================
+    // УТИЛИТЫ
+    // ==========================================
+    const utils = {
+        getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        },
+        
+        getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        
+        delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        },
+        
+        async typeText(text, element, speed = 30) {
+            element.textContent = '';
+            for (let i = 0; i < text.length; i++) {
+                element.textContent += text[i];
+                await utils.delay(speed);
+            }
+        },
+        
+        // Функция для тротлинга выполнения функций
+        throttle(fn, wait) {
+            let lastTime = 0;
+            return function(...args) {
+                const now = Date.now();
+                if (now - lastTime >= wait) {
+                    fn(...args);
+                    lastTime = now;
+                }
+            };
+        }
+    };
+    
+    // ==========================================
+    // ДАННЫЕ
+    // ==========================================
     const echoQuotes = [
         "Помни не то, что видишь, а то, что чувствуешь.",
         "Ты выбрался, но я — нет.",
@@ -45,30 +85,29 @@ document.addEventListener('DOMContentLoaded', () => {
         "АРХИВАРИУС [ПРИБЛИЖАЕТСЯ]"
     ];
     
-    // Утилиты
-    const utils = {
-        getRandomItem(array) {
-            return array[Math.floor(Math.random() * array.length)];
-        },
-        
-        getRandomNumber(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        },
-        
-        delay(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        },
-        
-        async typeText(text, element, speed = 30) {
-            element.textContent = '';
-            for (let i = 0; i < text.length; i++) {
-                element.textContent += text[i];
-                await utils.delay(speed);
-            }
-        }
+    // Кэширование часто используемых элементов DOM
+    const DOM = {
+        tm7Interface: document.getElementById('tm7Interface'),
+        tm7MessageContent: document.getElementById('tm7MessageContent'),
+        navMenu: document.getElementById('navMenu'),
+        heroEchoPhrases: document.getElementById('heroEchoPhrases'),
+        archivist: document.getElementById('archivist'),
+        footerTimestamp: document.getElementById('footerTimestamp'),
+        timeCursor: document.getElementById('timeCursor'),
+        footerProtocol: document.getElementById('footerProtocol'),
+        footerCreate: document.getElementById('footerCreate'),
+        easterEgg: document.getElementById('easterEgg'),
+        realityBreach: document.getElementById('realityBreach'),
+        heroGlitch: document.querySelector('.hero-glitch-overlay'),
+        bookCoverGlitch: document.querySelector('.book-cover-glitch'),
+        ctaGlitch: document.querySelector('.hero-cta-glitch'),
+        footerGlitch: document.querySelector('.footer-glitch'),
+        authorizationLine: document.getElementById('authorizationLine')
     };
     
-    // Создание эхо-фраз
+    // ==========================================
+    // СОЗДАНИЕ ЭХО-ФРАЗ
+    // ==========================================
     function createEchoPhrase(quote, container) {
         const phrase = document.createElement('div');
         phrase.className = 'echo-phrase';
@@ -88,26 +127,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000 + utils.getRandomNumber(1000, 3000));
     }
     
-    // Навигация
+    // ==========================================
+    // НАВИГАЦИЯ (Оптимизирована)
+    // ==========================================
     function initNavigation() {
         const navToggle = document.querySelector('.nav-toggle');
-        const navMenu = document.getElementById('navMenu');
         
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-        
-        document.addEventListener('click', (event) => {
-            if (!event.target.closest('.nav') && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
+        // Делегирование событий для навигационных ссылок
+        document.body.addEventListener('click', function(e) {
+            // Обработка клика на переключатель меню
+            if (e.target.closest('.nav-toggle')) {
+                DOM.navMenu.classList.toggle('active');
+                return;
             }
-        });
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            
+            // Закрытие меню при клике вне его
+            if (!e.target.closest('.nav') && DOM.navMenu.classList.contains('active')) {
+                DOM.navMenu.classList.remove('active');
+                return;
+            }
+            
+            // Обработка клика на навигационные ссылки
+            const navLink = e.target.closest('a[href^="#"]');
+            if (navLink) {
                 e.preventDefault();
                 
-                const targetId = this.getAttribute('href');
+                const targetId = navLink.getAttribute('href');
                 if (targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
@@ -117,79 +162,40 @@ document.addEventListener('DOMContentLoaded', () => {
                         behavior: 'smooth'
                     });
                     
-                    navMenu.classList.remove('active');
+                    DOM.navMenu.classList.remove('active');
                 }
-            });
-        });
-    }
-    
-    // Создание частиц
-    function createParticles() {
-        const particleConfigs = [
-            { id: 'particles-back', count: 20, minSize: 1, maxSize: 2, speed: 8, opacity: 0.3 },
-            { id: 'particles-mid', count: 20, minSize: 1, maxSize: 3, speed: 6, opacity: 0.5 },
-            { id: 'particles-front', count: 10, minSize: 2, maxSize: 4, speed: 4, opacity: 0.7 }
-        ];
-        
-        const colors = ['#4aa8ff', '#34317d', '#e7c06b'];
-        
-        particleConfigs.forEach(config => {
-            const container = document.getElementById(config.id);
-            if (!container) return;
-            
-            for (let i = 0; i < config.count; i++) {
-                const particle = document.createElement('div');
-                
-                const size = utils.getRandomNumber(config.minSize, config.maxSize);
-                const color = utils.getRandomItem(colors);
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const opacity = Math.random() * 0.5 + 0.1;
-                const delay = Math.random() * 5;
-                const duration = Math.random() * 10 + config.speed;
-                
-                particle.style.position = 'absolute';
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.background = color;
-                particle.style.borderRadius = '50%';
-                particle.style.left = `${x}%`;
-                particle.style.top = `${y}%`;
-                particle.style.opacity = opacity;
-                particle.style.animation = `float-particle ${duration}s infinite ${delay}s`;
-                particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
-                
-                container.appendChild(particle);
             }
         });
     }
     
-    // TM-7 интерфейс
+    // ==========================================
+    // TM-7 ИНТЕРФЕЙС (Оптимизирован)
+    // ==========================================
     function initTm7Interface() {
-        const tm7Interface = document.getElementById('tm7Interface');
-        const tm7MessageElement = document.getElementById('tm7MessageContent');
         let tm7MessageTimer;
         
         async function showTm7Message(message, duration = 5000) {
             if (tm7MessageTimer) {
                 clearTimeout(tm7MessageTimer);
             }
-            tm7Interface.classList.add('active');
-            await utils.typeText(message, tm7MessageElement, 20);
+            DOM.tm7Interface.classList.add('active');
+            await utils.typeText(message, DOM.tm7MessageContent, 20);
             tm7MessageTimer = setTimeout(() => {
-                tm7Interface.classList.remove('active');
+                DOM.tm7Interface.classList.remove('active');
             }, duration);
         }
         
         function startTm7Messages() {
             const showRandomMessage = () => {
-                const isWarning = Math.random() < 0.15;
+                // Уменьшена вероятность предупреждений с 0.15 до 0.1
+                const isWarning = Math.random() < 0.1;
                 const message = isWarning 
                     ? utils.getRandomItem(tm7Warnings) 
                     : utils.getRandomItem(tm7Messages);
                 showTm7Message(message, isWarning ? 4000 : 6000);
                 
-                const nextTimeout = utils.getRandomNumber(20000, 60000); // 20-60 секунд
+                // Увеличен интервал появления сообщений до 30-90 секунд
+                const nextTimeout = utils.getRandomNumber(30000, 90000);
                 setTimeout(showRandomMessage, nextTimeout);
             };
             
@@ -201,91 +207,184 @@ document.addEventListener('DOMContentLoaded', () => {
         
         startTm7Messages();
         
-        const authorizationLine = document.getElementById('authorizationLine');
-        if (authorizationLine) {
-            authorizationLine.addEventListener('click', async () => {
-                authorizationLine.textContent = 'АВТОРИЗАЦИЯ... ПОДТВЕРЖДЕНА';
+        // Обработка авторизации (объединено в один обработчик)
+        if (DOM.authorizationLine) {
+            DOM.authorizationLine.addEventListener('click', async () => {
+                DOM.authorizationLine.textContent = 'АВТОРИЗАЦИЯ... ПОДТВЕРЖДЕНА';
                 await utils.delay(1500);
-                authorizationLine.textContent = 'СКАНИРОВАНИЕ НАЧАТО...';
+                DOM.authorizationLine.textContent = 'СКАНИРОВАНИЕ НАЧАТО...';
                 await utils.delay(2000);
-                authorizationLine.textContent = 'ОБЪЕКТ: АЛЕКС СЕВЕРОВ [ВЕРИФИЦИРОВАН]';
+                DOM.authorizationLine.textContent = 'ОБЪЕКТ: АЛЕКС СЕВЕРОВ [ВЕРИФИЦИРОВАН]';
             });
         }
     }
     
-    function clearAllTimers() {
-        let id = window.setTimeout(() => {}, 0);
-        while (id--) window.clearTimeout(id);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) clearAllTimers();
-        else initTm7Interface();
-    });
-    
-    // Эхо фразы в герое
-    function initEchoPhrases() {
-        const heroEchoPhrases = document.getElementById('heroEchoPhrases');
-        if (!heroEchoPhrases) return;
+    // Обработка изменения видимости страницы (для оптимизации)
+    function initVisibilityHandler() {
+        let tm7InterfaceTimer;
         
-        function showRandomPhrase() {
-            const quote = utils.getRandomItem(echoQuotes);
-            createEchoPhrase(quote, heroEchoPhrases);
-            const nextTimeout = utils.getRandomNumber(8000, 15000);
-            setTimeout(showRandomPhrase, nextTimeout);
-        }
-        
-        // Начать показ фраз с небольшой задержкой
-        setTimeout(showRandomPhrase, 5000);
-    }
-    
-    // Курсор времени
-    function initTimeCursor() {
-        const throttle = (fn, wait) => {
-            let lastTime = 0;
-            return (...args) => {
-                const now = Date.now();
-                if (now - lastTime >= wait) {
-                    fn(...args);
-                    lastTime = now;
-                }
-            };
-        };
-
-        document.addEventListener('mousemove', throttle(e => {
-            const cursor = document.getElementById('timeCursor');
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-        }, 30));
-    }
-    
-    // Инициализация фрагментов памяти
-    function initMemoryFragments() {
-        const fragments = document.querySelectorAll('.fragment');
-        
-        fragments.forEach(fragment => {
-            fragment.addEventListener('click', () => {
-                fragment.classList.toggle('expanded');
-                
-                if (fragment.classList.contains('expanded')) {
-                    // Показываем сообщение TM-7 при развороте фрагмента
-                    const tm7Interface = document.getElementById('tm7Interface');
-                    const tm7MessageContent = document.getElementById('tm7MessageContent');
-                    
-                    if (tm7Interface && tm7MessageContent) {
-                        tm7Interface.classList.add('active');
-                        tm7MessageContent.textContent = 'ФРАГМЕНТ ПАМЯТИ ОБНАРУЖЕН';
-                        
-                        setTimeout(() => {
-                            tm7Interface.classList.remove('active');
-                        }, 3000);
-                    }
-                }
-            });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Очищаем только основной таймер TM-7, а не все таймеры
+                clearTimeout(tm7InterfaceTimer);
+            } else {
+                tm7InterfaceTimer = setTimeout(() => initTm7Interface(), 5000);
+            }
         });
     }
     
-    // Обработка скрытых терминов
+    // ==========================================
+    // ЭХО ФРАЗЫ (Оптимизировано)
+    // ==========================================
+    function initEchoPhrases() {
+        if (!DOM.heroEchoPhrases) return;
+        
+        let echoPhrasesTimer;
+        
+        function showRandomPhrase() {
+            const quote = utils.getRandomItem(echoQuotes);
+            createEchoPhrase(quote, DOM.heroEchoPhrases);
+            
+            // Увеличен интервал до 10-20 секунд
+            const nextTimeout = utils.getRandomNumber(10000, 20000);
+            echoPhrasesTimer = setTimeout(showRandomPhrase, nextTimeout);
+        }
+        
+        // Начать показ фраз с небольшой задержкой
+        echoPhrasesTimer = setTimeout(showRandomPhrase, 5000);
+        
+        // Остановка/запуск при изменении видимости вкладки
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearTimeout(echoPhrasesTimer);
+            } else {
+                echoPhrasesTimer = setTimeout(showRandomPhrase, 5000);
+            }
+        });
+    }
+    
+    // ==========================================
+    // КУРСОР ВРЕМЕНИ (Оптимизирован)
+    // ==========================================
+    function initTimeCursor() {
+		const timeCursor = document.getElementById('timeCursor');
+		if (!timeCursor) return;
+		
+		// Оптимизированное отслеживание движения мыши с использованием requestAnimationFrame
+		let ticking = false;
+		let lastMouseEvent = null;
+		
+		function updateCursor() {
+			if (!lastMouseEvent) return;
+			
+			timeCursor.style.left = `${lastMouseEvent.clientX}px`;
+			timeCursor.style.top = `${lastMouseEvent.clientY}px`;
+			
+			if (timeCursor.style.opacity !== '1') {
+				timeCursor.style.opacity = '1';
+			}
+			
+			ticking = false;
+		}
+		
+		document.addEventListener('mousemove', (e) => {
+			lastMouseEvent = e;
+			
+			if (!ticking) {
+				requestAnimationFrame(updateCursor);
+				ticking = true;
+			}
+		});
+		
+		// Скрываем курсор при неактивности - оптимизировано с дебаунсом
+		let cursorTimeout;
+		function resetCursorTimeout() {
+			if (cursorTimeout) {
+				clearTimeout(cursorTimeout);
+			}
+			
+			cursorTimeout = setTimeout(() => {
+				timeCursor.style.opacity = '0';
+			}, 5000);
+		}
+		
+		// Используем дебаунсированную функцию только при необходимости
+		document.addEventListener('mousemove', resetCursorTimeout);
+		
+		// Делегирование событий для эффектов наведения
+		const interactiveSelectors = 'a, button, .fragment, .character-card, .location-card, .term-item, .highlight-term, .world-marker, .easter-egg-trigger';
+		
+		// Кэширование текущего состояния курсора
+		let isOverInteractive = false;
+		
+		document.addEventListener('mouseover', (e) => {
+			const targetElement = e.target.closest(interactiveSelectors);
+			
+			// Меняем состояние только если оно реально изменилось
+			if (targetElement && !isOverInteractive) {
+				isOverInteractive = true;
+				timeCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+				timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.7)';
+				timeCursor.style.boxShadow = '0 0 10px rgba(74, 168, 255, 0.3)';
+			}
+		});
+		
+		document.addEventListener('mouseout', (e) => {
+			const targetElement = e.target.closest(interactiveSelectors);
+			const relatedTarget = e.relatedTarget?.closest(interactiveSelectors);
+			
+			// Проверяем, что мы действительно покинули интерактивный элемент
+			// и не перешли на другой интерактивный элемент
+			if (targetElement && !relatedTarget && isOverInteractive) {
+				isOverInteractive = false;
+				timeCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+				timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.3)';
+				timeCursor.style.boxShadow = 'none';
+			}
+		});
+		
+		// Очистка ресурсов при изменении видимости страницы
+		document.addEventListener('visibilitychange', () => {
+			if (document.hidden) {
+				if (cursorTimeout) {
+					clearTimeout(cursorTimeout);
+				}
+				timeCursor.style.opacity = '0';
+			} else {
+				resetCursorTimeout();
+			}
+		});
+	}
+    
+    // ==========================================
+    // ФРАГМЕНТЫ ПАМЯТИ (Делегирование событий)
+    // ==========================================
+    function initMemoryFragments() {
+        // Делегирование событий вместо множества слушателей
+        const fragmentsContainer = document.querySelector('.fragments');
+        if (!fragmentsContainer) return;
+        
+        fragmentsContainer.addEventListener('click', (e) => {
+            const fragment = e.target.closest('.fragment');
+            if (!fragment) return;
+            
+            fragment.classList.toggle('expanded');
+            
+            if (fragment.classList.contains('expanded') && DOM.tm7Interface && DOM.tm7MessageContent) {
+                // Показываем сообщение TM-7 при развороте фрагмента
+                DOM.tm7Interface.classList.add('active');
+                DOM.tm7MessageContent.textContent = 'ФРАГМЕНТ ПАМЯТИ ОБНАРУЖЕН';
+                
+                setTimeout(() => {
+                    DOM.tm7Interface.classList.remove('active');
+                }, 3000);
+            }
+        });
+    }
+    
+    // ==========================================
+    // ОБРАБОТКА СКРЫТЫХ ТЕРМИНОВ
+    // ==========================================
     function initHiddenTerms() {
         const termHiddenTrigger = document.querySelector('.term-hidden-trigger');
         const hiddenTerm = document.querySelector('.term-item.hidden');
@@ -295,15 +394,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 termHiddenTrigger.style.opacity = '1';
                 
                 // Показываем сообщение TM-7
-                const tm7Interface = document.getElementById('tm7Interface');
-                const tm7MessageContent = document.getElementById('tm7MessageContent');
-                
-                if (tm7Interface && tm7MessageContent) {
-                    tm7Interface.classList.add('active');
-                    utils.typeText('ДОСТУП К ЗАСЕКРЕЧЕННЫМ ДАННЫМ...', tm7MessageContent);
+                if (DOM.tm7Interface && DOM.tm7MessageContent) {
+                    DOM.tm7Interface.classList.add('active');
+                    utils.typeText('ДОСТУП К ЗАСЕКРЕЧЕННЫМ ДАННЫМ...', DOM.tm7MessageContent);
                     
                     setTimeout(() => {
-                        tm7Interface.classList.remove('active');
+                        DOM.tm7Interface.classList.remove('active');
                     }, 2000);
                 }
                 
@@ -319,174 +415,192 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Подсветка терминов в тексте
+    // ==========================================
+    // ПОДСВЕТКА ТЕРМИНОВ (Делегирование событий)
+    // ==========================================
     function initTermHighlighting() {
-        const highlightTerms = document.querySelectorAll('.highlight-term');
-        
-        highlightTerms.forEach(term => {
+        // Делегирование событий вместо множества слушателей
+        document.body.addEventListener('mouseover', (e) => {
+            const term = e.target.closest('.highlight-term');
+            if (!term) return;
+            
             const termName = term.getAttribute('data-term');
             if (!termName) return;
             
-            term.addEventListener('mouseenter', () => {
-                const termItem = document.querySelector(`.term-item[data-term="${termName}"]`);
-                if (termItem) {
-                    termItem.classList.add('highlighted');
-                }
-            });
+            const termItem = document.querySelector(`.term-item[data-term="${termName}"]`);
+            if (termItem) {
+                termItem.classList.add('highlighted');
+            }
+        });
+        
+        document.body.addEventListener('mouseout', (e) => {
+            const term = e.target.closest('.highlight-term');
+            if (!term) return;
             
-            term.addEventListener('mouseleave', () => {
-                const termItem = document.querySelector(`.term-item[data-term="${termName}"]`);
-                if (termItem) {
-                    termItem.classList.remove('highlighted');
-                }
-            });
+            const termName = term.getAttribute('data-term');
+            if (!termName) return;
             
-            term.addEventListener('click', (event) => {
-                event.preventDefault();
-                const termItem = document.querySelector(`.term-item[data-term="${termName}"]`);
-                const terminologySection = document.querySelector('#terminology');
+            const termItem = document.querySelector(`.term-item[data-term="${termName}"]`);
+            if (termItem) {
+                termItem.classList.remove('highlighted');
+            }
+        });
+        
+        document.body.addEventListener('click', (e) => {
+            const term = e.target.closest('.highlight-term');
+            if (!term) return;
+            
+            const termName = term.getAttribute('data-term');
+            if (!termName) return;
+            
+            const termItem = document.querySelector(`.term-item[data-term="${termName}"]`);
+            const terminologySection = document.querySelector('#terminology');
+            
+            if (termItem && terminologySection) {
+                e.preventDefault();
+                terminologySection.scrollIntoView({ behavior: 'smooth' });
                 
-                if (termItem && terminologySection) {
-                    terminologySection.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Анимируем подсветку термина после прокрутки
+                // Анимируем подсветку термина после прокрутки
+                setTimeout(() => {
+                    termItem.classList.add('pulse-highlight');
                     setTimeout(() => {
-                        termItem.classList.add('pulse-highlight');
-                        setTimeout(() => {
-                            termItem.classList.remove('pulse-highlight');
-                        }, 2000);
-                    }, 1000);
-                }
-            });
+                        termItem.classList.remove('pulse-highlight');
+                    }, 2000);
+                }, 1000);
+            }
         });
     }
     
-    // Эффекты гличей 
+    // ==========================================
+    // ЭФФЕКТЫ ГЛИЧЕЙ (Оптимизированы)
+    // ==========================================
     function initGlitchEffects() {
-        const realityBreach = document.getElementById('realityBreach');
-        const heroGlitch = document.querySelector('.hero-glitch-overlay');
-        const bookCoverGlitch = document.querySelector('.book-cover-glitch');
-        const ctaGlitch = document.querySelector('.hero-cta-glitch');
-        const footerGlitch = document.querySelector('.footer-glitch');
+        // Оптимизированная версия создания глич-эффектов
+        // Мы уменьшаем количество таймеров и создаем систему очереди эффектов
+        
+        let glitchTimer;
+        const glitchEffects = [
+            {
+                element: DOM.realityBreach,
+                type: 'opacity',
+                values: [0.7, 0, 0.5, 0],
+                durations: [150, 100, 50, 0]
+            },
+            {
+                element: DOM.heroGlitch,
+                type: 'opacity',
+                values: [0.8, 0],
+                durations: [200, 0]
+            },
+            {
+                element: DOM.bookCoverGlitch,
+                type: 'opacity',
+                values: [0.6, 0],
+                durations: [300, 0]
+            },
+            {
+                element: DOM.ctaGlitch,
+                type: 'opacity',
+                values: [0.7, 0, 0.5, 0],
+                durations: [100, 50, 100, 0]
+            },
+            {
+                element: DOM.footerGlitch,
+                type: 'opacity',
+                values: [0.3, 0],
+                durations: [200, 0]
+            }
+        ];
+        
+        async function playGlitchEffect(effect) {
+            if (!effect.element) return;
+            
+            for (let i = 0; i < effect.values.length; i++) {
+                effect.element.style[effect.type] = effect.values[i];
+                await utils.delay(effect.durations[i]);
+            }
+        }
         
         function createRandomGlitch() {
-            // Используем переменную задержку для непредсказуемых гличей
-            const nextGlitchDelay = utils.getRandomNumber(15000, 40000);
+            const glitchType = utils.getRandomNumber(0, glitchEffects.length - 1);
+            const effect = glitchEffects[glitchType];
             
-            setTimeout(async () => {
-                const glitchType = utils.getRandomNumber(1, 5);
-                
-                switch (glitchType) {
-                    case 1:
-                        if (realityBreach) {
-                            realityBreach.style.opacity = '0.7';
-                            await utils.delay(150);
-                            realityBreach.style.opacity = '0';
-                            await utils.delay(100);
-                            realityBreach.style.opacity = '0.5';
-                            await utils.delay(50);
-                            realityBreach.style.opacity = '0';
-                        }
-                        break;
-                        
-                    case 2:
-                        if (heroGlitch) {
-                            heroGlitch.style.opacity = '0.8';
-                            await utils.delay(200);
-                            heroGlitch.style.opacity = '0';
-                        }
-                        break;
-                        
-                    case 3:
-                        if (bookCoverGlitch) {
-                            bookCoverGlitch.style.opacity = '0.6';
-                            await utils.delay(300);
-                            bookCoverGlitch.style.opacity = '0';
-                        }
-                        break;
-                        
-                    case 4:
-                        if (ctaGlitch) {
-                            ctaGlitch.style.opacity = '0.7';
-                            await utils.delay(100);
-                            ctaGlitch.style.opacity = '0';
-                            await utils.delay(50);
-                            ctaGlitch.style.opacity = '0.5';
-                            await utils.delay(100);
-                            ctaGlitch.style.opacity = '0';
-                        }
-                        break;
-                        
-                    case 5: 
-                        if (footerGlitch) {
-                            footerGlitch.style.opacity = '0.3';
-                            await utils.delay(200);
-                            footerGlitch.style.opacity = '0';
-                        }
-                        break;
-                }
-                
-                createRandomGlitch();
-            }, nextGlitchDelay);
+            if (effect.element) {
+                playGlitchEffect(effect);
+            }
+            
+            // Увеличиваем минимальный интервал до 20 секунд, что снизит нагрузку
+            const nextGlitchDelay = utils.getRandomNumber(20000, 60000);
+            glitchTimer = setTimeout(createRandomGlitch, nextGlitchDelay);
         }
         
-        createRandomGlitch();
+        // Запускаем систему глич-эффектов с начальной задержкой
+        glitchTimer = setTimeout(createRandomGlitch, 10000);
+        
+        // Останавливаем/запускаем при изменении видимости вкладки
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearTimeout(glitchTimer);
+            } else {
+                glitchTimer = setTimeout(createRandomGlitch, 10000);
+            }
+        });
     }
     
-    // Пасхалка
+    // ==========================================
+    // ПАСХАЛКА (Делегирование событий)
+    // ==========================================
     function initEasterEgg() {
-        const easterEgg = document.getElementById('easterEgg');
-        const easterEggTrigger = easterEgg?.querySelector('.easter-egg-trigger');
-        const footerProtocol = document.getElementById('footerProtocol');
-        const footerCreate = document.getElementById('footerCreate');
-        
-        if (easterEggTrigger) {
-            easterEggTrigger.addEventListener('click', () => {
-                easterEgg.classList.toggle('active');
+        // Используем делегирование событий
+        document.body.addEventListener('click', (e) => {
+            const easterEggTrigger = e.target.closest('.easter-egg-trigger');
+            
+            // Клик на триггер пасхалки
+            if (easterEggTrigger && DOM.easterEgg) {
+                DOM.easterEgg.classList.toggle('active');
                 
-                if (footerProtocol) {
-                    footerProtocol.classList.toggle('active');
+                if (DOM.footerProtocol) {
+                    DOM.footerProtocol.classList.toggle('active');
                 }
                 
-                if (footerCreate) {
-                    footerCreate.classList.toggle('active');
+                if (DOM.footerCreate) {
+                    DOM.footerCreate.classList.toggle('active');
                 }
                 
-                if (easterEgg.classList.contains('active')) {
+                if (DOM.easterEgg.classList.contains('active') && DOM.tm7Interface && DOM.tm7MessageContent) {
                     // Показываем сообщение TM-7
-                    const tm7Interface = document.getElementById('tm7Interface');
-                    const tm7MessageContent = document.getElementById('tm7MessageContent');
+                    DOM.tm7Interface.classList.add('active');
+                    DOM.tm7MessageContent.textContent = 'ОБНАРУЖЕН СКРЫТЫЙ КАНАЛ СВЯЗИ';
                     
-                    if (tm7Interface && tm7MessageContent) {
-                        tm7Interface.classList.add('active');
-                        tm7MessageContent.textContent = 'ОБНАРУЖЕН СКРЫТЫЙ КАНАЛ СВЯЗИ';
-                        
-                        setTimeout(() => {
-                            tm7Interface.classList.remove('active');
-                        }, 3000);
-                    }
-                }
-            });
-        }
-        
-        document.addEventListener('click', (event) => {
-            if (easterEgg && easterEgg.classList.contains('active') && !event.target.closest('.easter-egg')) {
-                easterEgg.classList.remove('active');
-                
-                if (footerProtocol) {
-                    footerProtocol.classList.remove('active');
+                    setTimeout(() => {
+                        DOM.tm7Interface.classList.remove('active');
+                    }, 3000);
                 }
                 
-                if (footerCreate) {
-                    footerCreate.classList.remove('active');
+                return;
+            }
+            
+            // Закрытие пасхалки при клике вне её
+            if (DOM.easterEgg && DOM.easterEgg.classList.contains('active') && !e.target.closest('.easter-egg')) {
+                DOM.easterEgg.classList.remove('active');
+                
+                if (DOM.footerProtocol) {
+                    DOM.footerProtocol.classList.remove('active');
+                }
+                
+                if (DOM.footerCreate) {
+                    DOM.footerCreate.classList.remove('active');
                 }
             }
         });
     }
     
-    // Эффект коррупции для красной зоны
+    // ==========================================
+    // ЭФФЕКТ КОРРУПЦИИ (Оптимизирован)
+    // ==========================================
     function initCorruptionEffect() {
-        document.addEventListener('scroll', () => {
+        // Используем throttle для оптимизации обработки скролла
+        const throttledCheck = utils.throttle(() => {
             const redZone = document.querySelector('[data-location="red-zone"]');
             if (!redZone) return;
             
@@ -496,79 +610,97 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.body.classList.remove('corrupted');
             }
-        });
+        }, 100); // Увеличен интервал тротлинга до 100мс
+        
+        document.addEventListener('scroll', throttledCheck);
     }
     
-    // Инициализация маркеров на карте мира
+    // ==========================================
+    // МАРКЕРЫ НА КАРТЕ МИРА (Делегирование событий)
+    // ==========================================
     function initWorldMarkers() {
-        const worldMarkers = document.querySelectorAll('.world-marker');
-
-        worldMarkers.forEach(marker => {
-            marker.addEventListener('click', () => {
-                const locationId = marker.getAttribute('data-location');
-                if (!locationId) return;
+        const worldMap = document.getElementById('worldMap');
+        if (!worldMap) return;
+        
+        worldMap.addEventListener('click', (e) => {
+            const marker = e.target.closest('.world-marker');
+            if (!marker) return;
+            
+            const locationId = marker.getAttribute('data-location');
+            if (!locationId) return;
+            
+            const card = document.querySelector(`.location-card[data-location="${locationId}"]`);
+            
+            if (card) {
+                // Добавляем прокрутку к элементу
+                card.scrollIntoView({ behavior: 'smooth' });
                 
-                const card = document.querySelector(`.location-card[data-location="${locationId}"]`);
-
-                if (card) {
-                    // Добавляем прокрутку к элементу
-                    card.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Выделяем карточку
-                    card.classList.add('highlighted');
-                    setTimeout(() => card.classList.remove('highlighted'), 3000);
-                }
-            });
+                // Выделяем карточку
+                card.classList.add('highlighted');
+                setTimeout(() => card.classList.remove('highlighted'), 3000);
+            }
         });
     }
     
-    // Архивариус (случайное появление)
+    // ==========================================
+    // АРХИВАРИУС (Оптимизирован)
+    // ==========================================
     function initArchivist() {
-        const archivist = document.getElementById('archivist');
-        if (!archivist) return;
+        if (!DOM.archivist) return;
+        
+        let archivistTimer;
         
         function showArchivist() {
             const posX = utils.getRandomNumber(20, window.innerWidth - 60);
             const posY = utils.getRandomNumber(20, window.innerHeight - 80);
             
-            archivist.style.left = `${posX}px`;
-            archivist.style.top = `${posY}px`;
-            archivist.style.opacity = '0.8';
+            DOM.archivist.style.left = `${posX}px`;
+            DOM.archivist.style.top = `${posY}px`;
+            DOM.archivist.style.opacity = '0.8';
             
             setTimeout(async () => {
-                archivist.style.opacity = '0';
+                DOM.archivist.style.opacity = '0';
                 
-                // Иногда показываем сообщение TM-7 об обнаружении
-                if (Math.random() < 0.3) {
+                // Уменьшаем вероятность показа сообщения
+                if (Math.random() < 0.2) {
                     await utils.delay(500);
                     
-                    const tm7Interface = document.getElementById('tm7Interface');
-                    const tm7MessageContent = document.getElementById('tm7MessageContent');
-                    
-                    if (tm7Interface && tm7MessageContent) {
-                        tm7Interface.classList.add('active');
-                        tm7MessageContent.textContent = 'АРХИВАРИУС ОБНАРУЖЕН';
+                    if (DOM.tm7Interface && DOM.tm7MessageContent) {
+                        DOM.tm7Interface.classList.add('active');
+                        DOM.tm7MessageContent.textContent = 'АРХИВАРИУС ОБНАРУЖЕН';
                         
                         setTimeout(() => {
-                            tm7Interface.classList.remove('active');
+                            DOM.tm7Interface.classList.remove('active');
                         }, 3000);
                     }
                 }
                 
-                // Планируем следующее появление
-                const nextTimeout = utils.getRandomNumber(60000, 180000); // 1-3 минуты
-                setTimeout(showArchivist, nextTimeout);
+                // Увеличиваем интервал появления до 2-5 минут
+                const nextTimeout = utils.getRandomNumber(120000, 300000);
+                archivistTimer = setTimeout(showArchivist, nextTimeout);
             }, utils.getRandomNumber(200, 1000));
         }
         
         // Начинаем первое появление с задержкой
-        setTimeout(showArchivist, 30000);
+        archivistTimer = setTimeout(showArchivist, 30000);
+        
+        // Останавливаем/запускаем при изменении видимости вкладки
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearTimeout(archivistTimer);
+            } else {
+                archivistTimer = setTimeout(showArchivist, 30000);
+            }
+        });
     }
     
-    // Обновление временной метки в подвале
+    // ==========================================
+    // ВРЕМЕННАЯ МЕТКА В ПОДВАЛЕ (Оптимизирована)
+    // ==========================================
     function updateFooterTimestamp() {
-        const footerTimestamp = document.getElementById('footerTimestamp');
-        if (!footerTimestamp) return;
+        if (!DOM.footerTimestamp) return;
+        
+        let footerTimer;
         
         function update() {
             const now = new Date();
@@ -577,32 +709,50 @@ document.addEventListener('DOMContentLoaded', () => {
             const seconds = now.getSeconds().toString().padStart(2, '0');
             
             const timestamp = `// ВРЕМЕННАЯ МЕТКА: ${hours}:${minutes}:${seconds} //`;
-            footerTimestamp.textContent = timestamp;
+            DOM.footerTimestamp.textContent = timestamp;
             
-            // Обновляем каждую секунду
-            setTimeout(update, 1000);
+            // Обновляем каждые 3 секунды вместо каждой секунды
+            footerTimer = setTimeout(update, 3000);
         }
         
         update();
+        
+        // Останавливаем обновление времени, когда вкладка не активна
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearTimeout(footerTimer);
+            } else {
+                update();
+            }
+        });
     }
     
-    // Инициализируем все функции
+    // ==========================================
+    // ИНИЦИАЛИЗАЦИЯ ВСЕГО
+    // ==========================================
     function initializeEverything() {
+        // Используем IntersectionObserver для анимации при прокрутке
         const observerOptions = { threshold: 0.1 };
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                entry.target.classList.toggle('animate', entry.isIntersecting);
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    // Отключаем наблюдение после активации анимации
+                    observer.unobserve(entry.target);
+                }
             });
         }, observerOptions);
 
+        // Наблюдаем за элементами, которые должны анимироваться при прокрутке
         document.querySelectorAll('.echo-phrase, .location-card, .character-card, .fragment, .term-item').forEach(elem => {
             observer.observe(elem);
         });
         
-        createParticles();
+        // Инициализация всех компонентов
         initNavigation();
         initTm7Interface();
+        initVisibilityHandler();
         initEchoPhrases();
         initTimeCursor();
         initMemoryFragments();
