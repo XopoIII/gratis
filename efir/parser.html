@@ -2,36 +2,91 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Δ.E.F.I.R Term Parser</title>
+  <title>Простой Δ.E.F.I.R Parser</title>
   <style>
-    body { font-family: sans-serif; padding: 2rem; background: #111; color: #eee; }
-    input, button { padding: 0.5rem; margin: 1rem 0; }
-    textarea { width: 100%; height: 200px; margin-top: 1rem; background: #222; color: #0f0; white-space: pre; }
+    body { 
+      font-family: monospace; 
+      padding: 1.5rem; 
+      background: #111; 
+      color: #eee; 
+    }
+    h1 { color: #0f0; }
+    input, button { 
+      padding: 0.6rem; 
+      margin: 0.5rem 0; 
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    button {
+      background: #004400;
+      cursor: pointer;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    textarea { 
+      width: 100%; 
+      height: 400px;
+      background: #222; 
+      color: #0f0; 
+      white-space: pre;
+      font-family: monospace;
+      border: 1px solid #444;
+      padding: 0.5rem;
+    }
   </style>
 </head>
 <body>
-  <h1>📘 Δ.E.F.I.R Term Parser</h1>
-  <input type="file" id="fileInput" accept=".txt">
-  <button onclick="handleFile()">📥 Загрузить и обработать</button>
-  <button onclick="downloadJson()">💾 Скачать JSON</button>
-  <textarea id="output" readonly placeholder="JSON появится здесь..."></textarea>
+  <h1>Простой Δ.E.F.I.R Parser</h1>
+  
+  <div class="container">
+    <div>
+      <div>
+        <input type="file" id="fileInput" accept=".txt">
+        <button onclick="handleFile()">Обработать</button>
+        <button onclick="downloadJson()">Скачать JSON</button>
+      </div>
+      <textarea id="input" placeholder="Вставьте текст или загрузите файл..."></textarea>
+    </div>
+    
+    <div>
+      <h3>Результат:</h3>
+      <textarea id="output" readonly></textarea>
+    </div>
+  </div>
 
   <script>
     let parsedJson = '';
 
     function handleFile() {
       const file = document.getElementById('fileInput').files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        parsedJson = parseTermLog(reader.result);
-        document.getElementById('output').value = parsedJson;
-      };
-      reader.readAsText(file);
+      
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          document.getElementById('input').value = reader.result;
+          parseFile(reader.result);
+        };
+        reader.readAsText(file);
+      } else {
+        const text = document.getElementById('input').value;
+        if (text.trim()) {
+          parseFile(text);
+        } else {
+          alert('Пожалуйста, загрузите файл или вставьте текст');
+        }
+      }
     }
 
     function downloadJson() {
-      if (!parsedJson) return;
+      if (!parsedJson) {
+        alert('Нет данных для скачивания');
+        return;
+      }
+      
       const blob = new Blob([parsedJson], { type: 'application/json' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
@@ -39,106 +94,117 @@
       link.click();
     }
 
-    function parseTermLog(text) {
-      const termLog = [];
-      const realityAnalysis = [];
-      const entries = text.split(/(?=^>\s*ТЕРМИН_|^▌Δ\.1\.REALITY_ANALYSIS)/gm);
-
-      const getBlock = (block, label) => {
-        const regex = new RegExp(`■ ${label}:[\s\S]*?(?=^\s*■ |^\s*> |^\s*▌|$)`, 'gm');
-        const match = block.match(regex);
-        if (!match) return null;
-        return match[0].split(':').slice(1).join(':').trim().replace(/\r/g, '').replace(/\n/g, ' ');
+    function parseFile(text) {
+      const result = {
+        termLog: [],
+        realityAnalysis: []
       };
 
-      const getList = (block, label) => {
-        const regex = new RegExp(`■ ${label}:[\s\S]*?(?=^\s*■ |^\s*> |^\s*▌|$)`, 'gm');
-        const match = block.match(regex);
-        if (!match) return [];
-        return [...match[0].matchAll(/- (.+)/g)].map(m => m[1].trim());
-      };
-
-      const getQuotes = (block, label) => {
-        const regex = new RegExp(`■ ${label}:[\s\S]*?(?=^\s*■ |^\s*> |^\s*▌|$)`, 'gm');
-        const match = block.match(regex);
-        if (!match) return [];
-        return [...match[0].matchAll(/"(.+?)"/g)].map(m => m[1]);
-      };
-
-      entries.forEach(block => {
-        const termMatch = block.match(/ТЕРМИН_(\d+): «(.+?)»/);
-        if (termMatch) {
-          const id = termMatch[1];
-          const name = termMatch[2];
-
-          const obj = {
-            id,
-            name,
-            category: 'standard',
-            description: getBlock(block, 'Описание'),
-            fieldDesignation: getBlock(block, 'Полевое обозначение'),
-            status: getBlock(block, 'Состояние'),
-            risks: getList(block, 'Сопутствующие риски'),
-            anomalies: getList(block, 'Наблюдаемые аномалии'),
-            functions: getList(block, 'Функции'),
-            gradations: getList(block, 'Градации'),
-            characteristics: getList(block, 'Характеристики'),
-            properties: getList(block, 'Свойства'),
-            comments: getQuotes(block, 'Комментарий'),
-            notes: getQuotes(block, 'Примечание')
-          };
-
-          const known = Object.keys(obj).concat(['id', 'name', 'category']);
-          const extraMatches = [...block.matchAll(/^■ ([^:\n]+):\s+([\s\S]*?)(?=^\s*■ |^\s*> |^\s*▌|$)/gm)];
-          extraMatches.forEach(([, key, value]) => {
-            if (!known.includes(key.trim())) {
-              if (!obj.extraFields) obj.extraFields = {};
-              obj.extraFields[key.trim()] = value.trim().replace(/\r/g, '').replace(/\n/g, ' ');
-            }
-          });
-
-          for (const key in obj) if (!obj[key] || (Array.isArray(obj[key]) && !obj[key].length)) delete obj[key];
-          termLog.push(obj);
+      // Поиск и обработка терминов
+      // Простое регулярное выражение для поиска шаблона "ТЕРМИН_XXX: «НАЗВАНИЕ»"
+      const termPattern = /ТЕРМИН_(\d+):[^«"]*[«"]([^«"]+)[»"]/g;
+      let termMatch;
+      
+      while ((termMatch = termPattern.exec(text)) !== null) {
+        const id = termMatch[1];
+        const name = termMatch[2].trim();
+        
+        // Создаем термин
+        const term = {
+          id,
+          name,
+          category: "standard",
+          extraFields: {}
+        };
+        
+        // Поиск всех полей для этого термина
+        // Находим блок текста после заголовка термина до следующего термина
+        const currentPos = termMatch.index + termMatch[0].length;
+        const nextTermMatch = text.substring(currentPos).match(/ТЕРМИН_\d+:|▌Δ\.1\.REALITY_ANALYSIS|▌ИДЕНТИФИКАТОР:/);
+        const blockEnd = nextTermMatch ? currentPos + nextTermMatch.index : text.length;
+        const termBlock = text.substring(termMatch.index, blockEnd);
+        
+        // Извлечение полей
+        const fieldPattern = /■\s*([^:]+):\s*([\s\S]*?)(?=■|$)/g;
+        let fieldMatch;
+        
+        while ((fieldMatch = fieldPattern.exec(termBlock)) !== null) {
+          const fieldName = fieldMatch[1].trim();
+          const fieldValue = fieldMatch[2].trim();
+          
+          if (fieldName && fieldValue) {
+            term.extraFields[fieldName] = fieldValue;
+          }
         }
-
-        const anomalyMatch = block.match(/REALITY_ANALYSIS[\s\S]*?ИДЕНТИФИКАТОР: (.+)/);
-        if (anomalyMatch) {
-          const id = anomalyMatch[1].trim();
-
-          const getField = label => {
-            const match = block.match(new RegExp(`▌${label}: (.+)`));
-            return match ? match[1].trim() : null;
-          };
-
-          const obj = {
-            id,
-            status: getField('СТАТУС'),
-            object: getField('ОБЪЕКТ'),
-            timepoint: getField('МЕТКА ВРЕМЕНИ'),
-            event: getBlock(block, 'Событие'),
-            systemVersion: getBlock(block, 'Версия системы'),
-            notes: getQuotes(block, 'Примечание'),
-            recommendations: getList(block, 'Рекомендации'),
-            classification: getBlock(block, 'Классификация'),
-            hypothesis: getBlock(block, 'Гипотеза системы'),
-            directive: getBlock(block, 'Директива')
-          };
-
-          const known = Object.keys(obj).concat(['id']);
-          const extraMatches = [...block.matchAll(/^■ ([^:\n]+):\s+([\s\S]*?)(?=^\s*■ |^\s*> |^\s*▌|$)/gm)];
-          extraMatches.forEach(([, key, value]) => {
-            if (!known.includes(key.trim())) {
-              if (!obj.extraFields) obj.extraFields = {};
-              obj.extraFields[key.trim()] = value.trim().replace(/\r/g, '').replace(/\n/g, ' ');
-            }
-          });
-
-          for (const key in obj) if (!obj[key] || (Array.isArray(obj[key]) && !obj[key].length)) delete obj[key];
-          realityAnalysis.push(obj);
+        
+        // Если нет полей, удаляем пустой объект
+        if (Object.keys(term.extraFields).length === 0) {
+          delete term.extraFields;
         }
-      });
-
-      return JSON.stringify({ termLog, realityAnalysis }, null, 2);
+        
+        result.termLog.push(term);
+      }
+      
+      // Поиск и обработка анализов реальности
+      const analysisPattern = /▌ИДЕНТИФИКАТОР:\s*(Δ-[A-ZА-Я0-9-]+)/g;
+      let analysisMatch;
+      
+      while ((analysisMatch = analysisPattern.exec(text)) !== null) {
+        const id = analysisMatch[1];
+        
+        // Создаем анализ
+        const analysis = {
+          id,
+          extraFields: {}
+        };
+        
+        // Поиск блока текста для этого анализа
+        const currentPos = analysisMatch.index;
+        const nextMatch = text.substring(currentPos + 1).match(/▌ИДЕНТИФИКАТОР:|ТЕРМИН_\d+:/);
+        const blockEnd = nextMatch ? currentPos + 1 + nextMatch.index : text.length;
+        const analysisBlock = text.substring(currentPos, blockEnd);
+        
+        // Извлечение статуса
+        const statusMatch = analysisBlock.match(/▌СТАТУС:\s*([^\n]+)/);
+        if (statusMatch) {
+          analysis.status = statusMatch[1].trim();
+        }
+        
+        // Извлечение объекта
+        const objectMatch = analysisBlock.match(/▌ОБЪЕКТ:\s*([^\n]+)/);
+        if (objectMatch) {
+          analysis.object = objectMatch[1].trim();
+        }
+        
+        // Извлечение временной метки
+        const timeMatch = analysisBlock.match(/▌(?:МЕТКА ВРЕМЕНИ|ВРЕМЕННАЯ МЕТКА):\s*([^\n]+)/);
+        if (timeMatch) {
+          analysis.timepoint = timeMatch[1].trim();
+        }
+        
+        // Извлечение полей
+        const fieldPattern = /■\s*([^:]+):\s*([\s\S]*?)(?=■|$)/g;
+        let fieldMatch;
+        
+        while ((fieldMatch = fieldPattern.exec(analysisBlock)) !== null) {
+          const fieldName = fieldMatch[1].trim();
+          const fieldValue = fieldMatch[2].trim();
+          
+          if (fieldName && fieldValue) {
+            analysis.extraFields[fieldName] = fieldValue;
+          }
+        }
+        
+        // Если нет полей, удаляем пустой объект
+        if (Object.keys(analysis.extraFields).length === 0) {
+          delete analysis.extraFields;
+        }
+        
+        result.realityAnalysis.push(analysis);
+      }
+      
+      parsedJson = JSON.stringify(result, null, 2);
+      document.getElementById('output').value = parsedJson;
     }
   </script>
 </body>
