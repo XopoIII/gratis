@@ -1,5 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
+    // Объект для хранения и управления таймерами
+    // ==========================================
+    const appTimers = {
+        echoPhrasesTimer: null,
+        tm7MessageTimer: null,
+        glitchTimer: null,
+        archivistTimer: null,
+        footerTimer: null,
+        cursorTimeout: null,
+        
+        // Метод для очистки всех таймеров
+        clearAll() {
+            for (const key in this) {
+                if (this[key] !== null && typeof this[key] !== 'function') {
+                    clearTimeout(this[key]);
+                    this[key] = null;
+                }
+            }
+        },
+        
+        // Метод для очистки конкретного таймера
+        clear(timerName) {
+            if (this[timerName]) {
+                clearTimeout(this[timerName]);
+                this[timerName] = null;
+            }
+        }
+    };
+    
+    // ==========================================
     // УТИЛИТЫ
     // ==========================================
     const utils = {
@@ -33,6 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     lastTime = now;
                 }
             };
+        },
+        
+        // Безопасная работа с DOM-элементами
+        safeDOM(element, callback) {
+            if (element && document.body.contains(element)) {
+                return callback(element);
+            }
+            return null;
+        },
+        
+        // Проверка на мобильное устройство или планшет
+        isMobileOrTablet() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   window.innerWidth <= 1024; // Дополнительная проверка на ширину экрана
         }
     };
     
@@ -109,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // СОЗДАНИЕ ЭХО-ФРАЗ
     // ==========================================
     function createEchoPhrase(quote, container) {
+        if (!utils.safeDOM(container, () => true)) return;
+        
         const phrase = document.createElement('div');
         phrase.className = 'echo-phrase';
         phrase.textContent = quote;
@@ -122,8 +168,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         setTimeout(() => {
-            phrase.classList.remove('visible');
-            setTimeout(() => phrase.remove(), 1000);
+            if (phrase && phrase.parentNode) {
+                phrase.classList.remove('visible');
+                setTimeout(() => {
+                    if (phrase && phrase.parentNode) {
+                        phrase.remove();
+                    }
+                }, 1000);
+            }
         }, 5000 + utils.getRandomNumber(1000, 3000));
     }
     
@@ -131,18 +183,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // НАВИГАЦИЯ (Оптимизирована)
     // ==========================================
     function initNavigation() {
-        const navToggle = document.querySelector('.nav-toggle');
-        
         // Делегирование событий для навигационных ссылок
         document.body.addEventListener('click', function(e) {
             // Обработка клика на переключатель меню
             if (e.target.closest('.nav-toggle')) {
-                DOM.navMenu.classList.toggle('active');
+                if (DOM.navMenu) {
+                    DOM.navMenu.classList.toggle('active');
+                }
                 return;
             }
             
             // Закрытие меню при клике вне его
-            if (!e.target.closest('.nav') && DOM.navMenu.classList.contains('active')) {
+            if (DOM.navMenu && !e.target.closest('.nav') && DOM.navMenu.classList.contains('active')) {
                 DOM.navMenu.classList.remove('active');
                 return;
             }
@@ -162,7 +214,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         behavior: 'smooth'
                     });
                     
-                    DOM.navMenu.classList.remove('active');
+                    if (DOM.navMenu) {
+                        DOM.navMenu.classList.remove('active');
+                    }
                 }
             }
         });
@@ -172,16 +226,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // TM-7 ИНТЕРФЕЙС (Оптимизирован)
     // ==========================================
     function initTm7Interface() {
-        let tm7MessageTimer;
+        if (!DOM.tm7Interface || !DOM.tm7MessageContent) return;
         
         async function showTm7Message(message, duration = 5000) {
-            if (tm7MessageTimer) {
-                clearTimeout(tm7MessageTimer);
-            }
+            appTimers.clear('tm7MessageTimer');
+            
             DOM.tm7Interface.classList.add('active');
             await utils.typeText(message, DOM.tm7MessageContent, 20);
-            tm7MessageTimer = setTimeout(() => {
-                DOM.tm7Interface.classList.remove('active');
+            
+            appTimers.tm7MessageTimer = setTimeout(() => {
+                if (DOM.tm7Interface) {
+                    DOM.tm7Interface.classList.remove('active');
+                }
             }, duration);
         }
         
@@ -196,12 +252,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Увеличен интервал появления сообщений до 30-90 секунд
                 const nextTimeout = utils.getRandomNumber(30000, 90000);
-                setTimeout(showRandomMessage, nextTimeout);
+                appTimers.tm7MessageTimer = setTimeout(showRandomMessage, nextTimeout);
             };
             
-            setTimeout(() => {
+            appTimers.tm7MessageTimer = setTimeout(() => {
                 showTm7Message('СИСТЕМА TM-7 ИНИЦИАЛИЗИРОВАНА', 5000);
-                setTimeout(showRandomMessage, 10000);
+                appTimers.tm7MessageTimer = setTimeout(showRandomMessage, 10000);
             }, 2000);
         }
         
@@ -221,14 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Обработка изменения видимости страницы (для оптимизации)
     function initVisibilityHandler() {
-        let tm7InterfaceTimer;
-        
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 // Очищаем только основной таймер TM-7, а не все таймеры
-                clearTimeout(tm7InterfaceTimer);
+                appTimers.clear('tm7MessageTimer');
             } else {
-                tm7InterfaceTimer = setTimeout(() => initTm7Interface(), 5000);
+                appTimers.tm7MessageTimer = setTimeout(() => initTm7Interface(), 5000);
             }
         });
     }
@@ -239,26 +293,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function initEchoPhrases() {
         if (!DOM.heroEchoPhrases) return;
         
-        let echoPhrasesTimer;
-        
         function showRandomPhrase() {
             const quote = utils.getRandomItem(echoQuotes);
             createEchoPhrase(quote, DOM.heroEchoPhrases);
             
             // Увеличен интервал до 10-20 секунд
             const nextTimeout = utils.getRandomNumber(10000, 20000);
-            echoPhrasesTimer = setTimeout(showRandomPhrase, nextTimeout);
+            appTimers.echoPhrasesTimer = setTimeout(showRandomPhrase, nextTimeout);
         }
         
         // Начать показ фраз с небольшой задержкой
-        echoPhrasesTimer = setTimeout(showRandomPhrase, 5000);
+        appTimers.echoPhrasesTimer = setTimeout(showRandomPhrase, 5000);
         
         // Остановка/запуск при изменении видимости вкладки
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                clearTimeout(echoPhrasesTimer);
+                appTimers.clear('echoPhrasesTimer');
             } else {
-                echoPhrasesTimer = setTimeout(showRandomPhrase, 5000);
+                if (!appTimers.echoPhrasesTimer) {
+                    appTimers.echoPhrasesTimer = setTimeout(showRandomPhrase, 5000);
+                }
             }
         });
     }
@@ -267,105 +321,102 @@ document.addEventListener('DOMContentLoaded', () => {
     // КУРСОР ВРЕМЕНИ (Оптимизирован)
     // ==========================================
     function initTimeCursor() {
-		// Проверка на мобильное устройство или планшет
-		const isMobileOrTablet = () => {
-			return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-				   window.innerWidth <= 1024; // Дополнительная проверка на ширину экрана
-		};
-		
-		// Если это мобильное устройство или планшет, не инициализируем курсор
-		if (isMobileOrTablet()) {
-			return;
-		}
-	
-		const timeCursor = document.getElementById('timeCursor');
-		if (!timeCursor) return;
-		
-		// Оптимизированное отслеживание движения мыши с использованием requestAnimationFrame
-		let ticking = false;
-		let lastMouseEvent = null;
-		
-		function updateCursor() {
-			if (!lastMouseEvent) return;
-			
-			timeCursor.style.left = `${lastMouseEvent.clientX}px`;
-			timeCursor.style.top = `${lastMouseEvent.clientY}px`;
-			
-			if (timeCursor.style.opacity !== '1') {
-				timeCursor.style.opacity = '1';
-			}
-			
-			ticking = false;
-		}
-		
-		document.addEventListener('mousemove', (e) => {
-			lastMouseEvent = e;
-			
-			if (!ticking) {
-				requestAnimationFrame(updateCursor);
-				ticking = true;
-			}
-		});
-		
-		// Скрываем курсор при неактивности - оптимизировано с дебаунсом
-		let cursorTimeout;
-		function resetCursorTimeout() {
-			if (cursorTimeout) {
-				clearTimeout(cursorTimeout);
-			}
-			
-			cursorTimeout = setTimeout(() => {
-				timeCursor.style.opacity = '0';
-			}, 5000);
-		}
-		
-		// Используем дебаунсированную функцию только при необходимости
-		document.addEventListener('mousemove', resetCursorTimeout);
-		
-		// Делегирование событий для эффектов наведения
-		const interactiveSelectors = 'a, button, .fragment, .character-card, .location-card, .term-item, .highlight-term, .world-marker, .easter-egg-trigger';
-		
-		// Кэширование текущего состояния курсора
-		let isOverInteractive = false;
-		
-		document.addEventListener('mouseover', (e) => {
-			const targetElement = e.target.closest(interactiveSelectors);
-			
-			// Меняем состояние только если оно реально изменилось
-			if (targetElement && !isOverInteractive) {
-				isOverInteractive = true;
-				timeCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-				timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.7)';
-				timeCursor.style.boxShadow = '0 0 10px rgba(74, 168, 255, 0.3)';
-			}
-		});
-		
-		document.addEventListener('mouseout', (e) => {
-			const targetElement = e.target.closest(interactiveSelectors);
-			const relatedTarget = e.relatedTarget?.closest(interactiveSelectors);
-			
-			// Проверяем, что мы действительно покинули интерактивный элемент
-			// и не перешли на другой интерактивный элемент
-			if (targetElement && !relatedTarget && isOverInteractive) {
-				isOverInteractive = false;
-				timeCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-				timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.3)';
-				timeCursor.style.boxShadow = 'none';
-			}
-		});
-		
-		// Очистка ресурсов при изменении видимости страницы
-		document.addEventListener('visibilitychange', () => {
-			if (document.hidden) {
-				if (cursorTimeout) {
-					clearTimeout(cursorTimeout);
-				}
-				timeCursor.style.opacity = '0';
-			} else {
-				resetCursorTimeout();
-			}
-		});
-	}
+        // Если это мобильное устройство или планшет, не инициализируем курсор
+        if (utils.isMobileOrTablet()) {
+            return;
+        }
+        
+        const timeCursor = document.getElementById('timeCursor');
+        if (!timeCursor) return;
+        
+        // Оптимизированное отслеживание движения мыши с использованием requestAnimationFrame
+        let ticking = false;
+        let lastMouseEvent = null;
+        
+        function updateCursor() {
+            if (!lastMouseEvent || !timeCursor) return;
+            
+            timeCursor.style.left = `${lastMouseEvent.clientX}px`;
+            timeCursor.style.top = `${lastMouseEvent.clientY}px`;
+            
+            if (timeCursor.style.opacity !== '1') {
+                timeCursor.style.opacity = '1';
+            }
+            
+            ticking = false;
+        }
+        
+        document.addEventListener('mousemove', (e) => {
+            lastMouseEvent = e;
+            
+            if (!ticking) {
+                requestAnimationFrame(updateCursor);
+                ticking = true;
+            }
+        });
+        
+        // Скрываем курсор при неактивности - оптимизировано с дебаунсом
+        function resetCursorTimeout() {
+            appTimers.clear('cursorTimeout');
+            
+            appTimers.cursorTimeout = setTimeout(() => {
+                if (timeCursor) {
+                    timeCursor.style.opacity = '0';
+                }
+            }, 5000);
+        }
+        
+        // Используем дебаунсированную функцию только при необходимости
+        document.addEventListener('mousemove', resetCursorTimeout);
+        
+        // Делегирование событий для эффектов наведения
+        const interactiveSelectors = 'a, button, .fragment, .character-card, .location-card, .term-item, .highlight-term, .world-marker, .easter-egg-trigger';
+        
+        // Кэширование текущего состояния курсора
+        let isOverInteractive = false;
+        
+        document.addEventListener('mouseover', (e) => {
+            if (!timeCursor) return;
+            
+            const targetElement = e.target.closest(interactiveSelectors);
+            
+            // Меняем состояние только если оно реально изменилось
+            if (targetElement && !isOverInteractive) {
+                isOverInteractive = true;
+                timeCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.7)';
+                timeCursor.style.boxShadow = '0 0 10px rgba(74, 168, 255, 0.3)';
+            }
+        });
+        
+        document.addEventListener('mouseout', (e) => {
+            if (!timeCursor) return;
+            
+            const targetElement = e.target.closest(interactiveSelectors);
+            const relatedTarget = e.relatedTarget?.closest(interactiveSelectors);
+            
+            // Проверяем, что мы действительно покинули интерактивный элемент
+            // и не перешли на другой интерактивный элемент
+            if (targetElement && !relatedTarget && isOverInteractive) {
+                isOverInteractive = false;
+                timeCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                timeCursor.style.border = '2px solid rgba(74, 168, 255, 0.3)';
+                timeCursor.style.boxShadow = 'none';
+            }
+        });
+        
+        // Очистка ресурсов при изменении видимости страницы
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                appTimers.clear('cursorTimeout');
+                if (timeCursor) {
+                    timeCursor.style.opacity = '0';
+                }
+            } else {
+                resetCursorTimeout();
+            }
+        });
+    }
     
     // ==========================================
     // ФРАГМЕНТЫ ПАМЯТИ (Делегирование событий)
@@ -387,7 +438,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 DOM.tm7MessageContent.textContent = 'ФРАГМЕНТ ПАМЯТИ ОБНАРУЖЕН';
                 
                 setTimeout(() => {
-                    DOM.tm7Interface.classList.remove('active');
+                    if (DOM.tm7Interface) {
+                        DOM.tm7Interface.classList.remove('active');
+                    }
                 }, 3000);
             }
         });
@@ -410,7 +463,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     utils.typeText('ДОСТУП К ЗАСЕКРЕЧЕННЫМ ДАННЫМ...', DOM.tm7MessageContent);
                     
                     setTimeout(() => {
-                        DOM.tm7Interface.classList.remove('active');
+                        if (DOM.tm7Interface) {
+                            DOM.tm7Interface.classList.remove('active');
+                        }
                     }, 2000);
                 }
                 
@@ -486,10 +541,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ЭФФЕКТЫ ГЛИЧЕЙ (Оптимизированы)
     // ==========================================
     function initGlitchEffects() {
+        // Проверяем наличие необходимых DOM-элементов
+        if (!DOM.realityBreach && !DOM.heroGlitch && !DOM.bookCoverGlitch && 
+            !DOM.ctaGlitch && !DOM.footerGlitch) {
+            return;
+        }
+        
         // Оптимизированная версия создания глич-эффектов
         // Мы уменьшаем количество таймеров и создаем систему очереди эффектов
         
-        let glitchTimer;
         const glitchEffects = [
             {
                 element: DOM.realityBreach,
@@ -521,7 +581,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 values: [0.3, 0],
                 durations: [200, 0]
             }
-        ];
+        ].filter(effect => effect.element != null); // Фильтруем эффекты с отсутствующими элементами
+        
+        // Если нет доступных эффектов, завершаем
+        if (glitchEffects.length === 0) return;
         
         async function playGlitchEffect(effect) {
             if (!effect.element) return;
@@ -536,24 +599,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const glitchType = utils.getRandomNumber(0, glitchEffects.length - 1);
             const effect = glitchEffects[glitchType];
             
-            if (effect.element) {
+            if (effect && effect.element) {
                 playGlitchEffect(effect);
             }
             
             // Увеличиваем минимальный интервал до 20 секунд, что снизит нагрузку
             const nextGlitchDelay = utils.getRandomNumber(20000, 60000);
-            glitchTimer = setTimeout(createRandomGlitch, nextGlitchDelay);
+            appTimers.glitchTimer = setTimeout(createRandomGlitch, nextGlitchDelay);
         }
         
         // Запускаем систему глич-эффектов с начальной задержкой
-        glitchTimer = setTimeout(createRandomGlitch, 10000);
+        appTimers.glitchTimer = setTimeout(createRandomGlitch, 10000);
         
         // Останавливаем/запускаем при изменении видимости вкладки
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                clearTimeout(glitchTimer);
-            } else {
-                glitchTimer = setTimeout(createRandomGlitch, 10000);
+                appTimers.clear('glitchTimer');
+            } else if (!appTimers.glitchTimer) {
+                appTimers.glitchTimer = setTimeout(createRandomGlitch, 10000);
             }
         });
     }
@@ -562,6 +625,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ПАСХАЛКА (Делегирование событий)
     // ==========================================
     function initEasterEgg() {
+        if (!DOM.easterEgg) return;
+        
         // Используем делегирование событий
         document.body.addEventListener('click', (e) => {
             const easterEggTrigger = e.target.closest('.easter-egg-trigger');
@@ -584,7 +649,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     DOM.tm7MessageContent.textContent = 'ОБНАРУЖЕН СКРЫТЫЙ КАНАЛ СВЯЗИ';
                     
                     setTimeout(() => {
-                        DOM.tm7Interface.classList.remove('active');
+                        if (DOM.tm7Interface) {
+                            DOM.tm7Interface.classList.remove('active');
+                        }
                     }, 3000);
                 }
                 
@@ -648,7 +715,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Выделяем карточку
                 card.classList.add('highlighted');
-                setTimeout(() => card.classList.remove('highlighted'), 3000);
+                setTimeout(() => {
+                    if (card) {
+                        card.classList.remove('highlighted');
+                    }
+                }, 3000);
             }
         });
     }
@@ -659,9 +730,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function initArchivist() {
         if (!DOM.archivist) return;
         
-        let archivistTimer;
-        
         function showArchivist() {
+            if (!DOM.archivist) return;
+            
             const posX = utils.getRandomNumber(20, window.innerWidth - 60);
             const posY = utils.getRandomNumber(20, window.innerHeight - 80);
             
@@ -670,6 +741,8 @@ document.addEventListener('DOMContentLoaded', () => {
             DOM.archivist.style.opacity = '0.8';
             
             setTimeout(async () => {
+                if (!DOM.archivist) return;
+                
                 DOM.archivist.style.opacity = '0';
                 
                 // Уменьшаем вероятность показа сообщения
@@ -681,26 +754,28 @@ document.addEventListener('DOMContentLoaded', () => {
                         DOM.tm7MessageContent.textContent = 'АРХИВАРИУС ОБНАРУЖЕН';
                         
                         setTimeout(() => {
-                            DOM.tm7Interface.classList.remove('active');
+                            if (DOM.tm7Interface) {
+                                DOM.tm7Interface.classList.remove('active');
+                            }
                         }, 3000);
                     }
                 }
                 
                 // Увеличиваем интервал появления до 2-5 минут
                 const nextTimeout = utils.getRandomNumber(120000, 300000);
-                archivistTimer = setTimeout(showArchivist, nextTimeout);
+                appTimers.archivistTimer = setTimeout(showArchivist, nextTimeout);
             }, utils.getRandomNumber(200, 1000));
         }
         
         // Начинаем первое появление с задержкой
-        archivistTimer = setTimeout(showArchivist, 30000);
+        appTimers.archivistTimer = setTimeout(showArchivist, 30000);
         
         // Останавливаем/запускаем при изменении видимости вкладки
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                clearTimeout(archivistTimer);
-            } else {
-                archivistTimer = setTimeout(showArchivist, 30000);
+                appTimers.clear('archivistTimer');
+            } else if (!appTimers.archivistTimer) {
+                appTimers.archivistTimer = setTimeout(showArchivist, 30000);
             }
         });
     }
@@ -711,9 +786,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateFooterTimestamp() {
         if (!DOM.footerTimestamp) return;
         
-        let footerTimer;
-        
         function update() {
+            if (!DOM.footerTimestamp) return;
+            
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
             const minutes = now.getMinutes().toString().padStart(2, '0');
@@ -723,7 +798,7 @@ document.addEventListener('DOMContentLoaded', () => {
             DOM.footerTimestamp.textContent = timestamp;
             
             // Обновляем каждые 3 секунды вместо каждой секунды
-            footerTimer = setTimeout(update, 3000);
+            appTimers.footerTimer = setTimeout(update, 3000);
         }
         
         update();
@@ -731,8 +806,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Останавливаем обновление времени, когда вкладка не активна
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                clearTimeout(footerTimer);
-            } else {
+                appTimers.clear('footerTimer');
+            } else if (!appTimers.footerTimer) {
                 update();
             }
         });
@@ -742,6 +817,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ИНИЦИАЛИЗАЦИЯ ВСЕГО
     // ==========================================
     function initializeEverything() {
+        // Сначала очищаем все существующие таймеры
+        appTimers.clearAll();
+        
         // Используем IntersectionObserver для анимации при прокрутке
         const observerOptions = { threshold: 0.1 };
 
@@ -760,6 +838,29 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(elem);
         });
         
+        // Используем MutationObserver для отслеживания изменений в DOM
+        const mutationObserver = new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+                if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
+                    // Проверяем, не был ли удален какой-либо из наших ключевых элементов
+                    mutation.removedNodes.forEach(node => {
+                        if (node.contains && (
+                            (DOM.heroEchoPhrases && node.contains(DOM.heroEchoPhrases)) ||
+                            (DOM.tm7Interface && node.contains(DOM.tm7Interface)) ||
+                            (DOM.timeCursor && node.contains(DOM.timeCursor)) ||
+                            (DOM.archivist && node.contains(DOM.archivist))
+                        )) {
+                            // Если был удален ключевой элемент, очищаем все таймеры
+                            appTimers.clearAll();
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Начинаем наблюдение за всем документом
+        mutationObserver.observe(document.body, { childList: true, subtree: true });
+        
         // Инициализация всех компонентов
         initNavigation();
         initTm7Interface();
@@ -775,6 +876,19 @@ document.addEventListener('DOMContentLoaded', () => {
         initWorldMarkers();
         initArchivist();
         updateFooterTimestamp();
+        
+        // Добавим обработчики для корректной очистки ресурсов при выгрузке страницы
+        window.addEventListener('beforeunload', () => {
+            observer.disconnect();
+            mutationObserver.disconnect();
+            appTimers.clearAll();
+        });
+        
+        window.addEventListener('unload', () => {
+            observer.disconnect();
+            mutationObserver.disconnect();
+            appTimers.clearAll();
+        });
     }
     
     // Запускаем все после загрузки DOM
