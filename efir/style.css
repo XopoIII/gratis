@@ -864,6 +864,34 @@ img {
     box-shadow: 0 0 15px rgba(52, 49, 125, 0.6);
 }
 
+.world-marker[data-location="meridian-station"] {
+    top: 45%;
+    left: 65%;
+    background: rgba(74, 168, 255, 0.7);
+    box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
+}
+
+.world-marker[data-location="screaming-faces-storm"] {
+    top: 35%;
+    left: 75%;
+    background: rgba(231, 192, 107, 0.7);
+    box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
+}
+
+.world-marker[data-location="lost-rift"] {
+    top: 55%;
+    left: 85%;
+    background: rgba(52, 49, 125, 0.7);
+    box-shadow: 0 0 15px rgba(52, 49, 125, 0.6);
+}
+
+.world-marker[data-location="keepers-village"] {
+    top: 60%;
+    left: 90%;
+    background: rgba(231, 192, 107, 0.7);
+    box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
+}
+
 .world-marker:hover {
     transform: translate(-50%, -50%) scale(1.5);
 }
@@ -959,6 +987,22 @@ img {
 
 .bunker-effect {
     background: linear-gradient(to bottom, transparent, rgba(52, 49, 125, 0.3));
+}
+
+.meridian-effect {
+    background: linear-gradient(to bottom, transparent, rgba(74, 168, 255, 0.3), rgba(231, 192, 107, 0.2));
+}
+
+.storm-effect {
+    background: radial-gradient(circle at center, rgba(231, 192, 107, 0.3) 0%, rgba(255, 58, 90, 0.2) 70%);
+}
+
+.rift-effect {
+    background: linear-gradient(to bottom, transparent, rgba(52, 49, 125, 0.3), rgba(74, 168, 255, 0.2));
+}
+
+.village-effect {
+    background: linear-gradient(to bottom, rgba(231, 192, 107, 0.2), rgba(74, 168, 255, 0.1));
 }
 
 .location-content {
@@ -1100,6 +1144,50 @@ img {
 }
 
 .character-card.nick .character-quote {
+    border-color: var(--golden);
+    color: var(--golden);
+}
+
+.character-card.mirage::before {
+    background: linear-gradient(var(--ethereal-blue), var(--blue-violet));
+}
+
+.character-card.anat::before {
+    background: var(--golden);
+}
+
+.character-portrait-image.mirage {
+    background-image: url('mirage.jpg');
+}
+
+.character-portrait-image.anat {
+    background-image: url('anat.jpg');
+}
+
+.mirage-effect {
+    background: radial-gradient(circle at center, rgba(74, 168, 255, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
+}
+
+.anat-effect {
+    background: radial-gradient(circle at center, rgba(231, 192, 107, 0.5) 0%, transparent 70%);
+}
+
+.character-card.mirage .character-role {
+    background: linear-gradient(90deg, var(--ethereal-blue), var(--blue-violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.character-card.anat .character-role {
+    color: var(--golden);
+}
+
+.character-card.mirage .character-quote {
+    border-color: var(--ethereal-blue);
+    color: var(--ethereal-blue);
+}
+
+.character-card.anat .character-quote {
     border-color: var(--golden);
     color: var(--golden);
 }

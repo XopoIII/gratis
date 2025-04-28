@@ -267,6 +267,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // КУРСОР ВРЕМЕНИ (Оптимизирован)
     // ==========================================
     function initTimeCursor() {
+		// Проверка на мобильное устройство или планшет
+		const isMobileOrTablet = () => {
+			return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+				   window.innerWidth <= 1024; // Дополнительная проверка на ширину экрана
+		};
+		
+		// Если это мобильное устройство или планшет, не инициализируем курсор
+		if (isMobileOrTablet()) {
+			return;
+		}
+	
 		const timeCursor = document.getElementById('timeCursor');
 		if (!timeCursor) return;
 		
