@@ -627,6 +627,36 @@ img {
     line-height: 1.8;
 }
 
+.about-quote {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(16, 26, 41, 0.7);
+    border-left: 3px solid var(--golden);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-quote-text {
+    font-size: 18px;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--silver-gray);
+    margin-bottom: 15px;
+}
+
+.about-quote-text q {
+    position: relative;
+    display: block;
+}
+
+.about-quote-author {
+    text-align: right;
+    font-family: var(--mono-font);
+    font-size: 14px;
+    color: var(--golden);
+}
+
 .highlight-term {
     color: var(--ethereal-blue);
     position: relative;
@@ -816,80 +846,89 @@ img {
 }
 
 .world-marker[data-location="grey-zone"] {
-    top: 40%;
-    left: 30%;
+	left: 10%;
+	top: 30%;
     background: rgba(208, 214, 224, 0.7);
     box-shadow: 0 0 10px rgba(208, 214, 224, 0.5);
 }
 
 .world-marker[data-location="omega-base"] {
-    top: 60%;
-    left: 50%;
+	left: 25%;
+	top: 20%;
     background: rgba(74, 168, 255, 0.7);
     box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
 }
 
 .world-marker[data-location="red-zone"] {
-    top: 30%;
-    left: 70%;
+	left: 40%;
+	top: 40%;
     background: rgba(255, 58, 90, 0.7);
     box-shadow: 0 0 15px rgba(255, 58, 90, 0.6);
 }
 
 .world-marker[data-location="deep-complex"] {
-    top: 75%;
-    left: 50%;
+	left: 55%;
+	top: 25%;
     background: rgba(231, 192, 107, 0.7);
     box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
 }
 
 .world-marker[data-location="hive"] {
-    top: 65%;
-    left: 45%;
+	left: 70%;
+	top: 35%;
     background: rgba(231, 192, 107, 0.7);
     box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
 }
 
 .world-marker[data-location="station"] {
-    top: 25%;
-    left: 80%;
+	left: 85%;
+	top: 20%;
     background: rgba(74, 168, 255, 0.7);
     box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
 }
 
 .world-marker[data-location="solonovs-bunker"] {
-    top: 40%;
-    left: 85%;
+	left: 5%;
+	top: 70%;
     background: rgba(52, 49, 125, 0.7);
     box-shadow: 0 0 15px rgba(52, 49, 125, 0.6);
 }
 
 .world-marker[data-location="meridian-station"] {
-    top: 45%;
-    left: 65%;
+	left: 20%;
+	top: 65%;
     background: rgba(74, 168, 255, 0.7);
     box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
 }
 
 .world-marker[data-location="screaming-faces-storm"] {
-    top: 35%;
-    left: 75%;
+	left: 35%;
+	top: 75%;
     background: rgba(231, 192, 107, 0.7);
     box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
 }
 
 .world-marker[data-location="lost-rift"] {
-    top: 55%;
-    left: 85%;
+	left: 50%;
+	top: 60%;
     background: rgba(52, 49, 125, 0.7);
     box-shadow: 0 0 15px rgba(52, 49, 125, 0.6);
 }
 
 .world-marker[data-location="keepers-village"] {
-    top: 60%;
-    left: 90%;
+	left: 65%;
+	top: 70%;
     background: rgba(231, 192, 107, 0.7);
     box-shadow: 0 0 15px rgba(231, 192, 107, 0.6);
+}
+
+.world-marker[data-location="memory-core"] {
+	left: 80%;
+	top: 65%;
+    background: rgba(74, 168, 255, 0.4);
+    background: linear-gradient(45deg, rgba(231, 192, 107, 0.7), rgba(74, 168, 255, 0.7));
+    box-shadow: 0 0 20px rgba(231, 192, 107, 0.6), 0 0 15px rgba(74, 168, 255, 0.6);
+    z-index: 5;
 }
 
 .world-marker:hover {
@@ -901,6 +940,31 @@ img {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 30px;
     margin-top: 30px;
+}
+
+.memory-core-effect {
+    background: radial-gradient(circle at center, rgba(74, 168, 255, 0.3) 0%, rgba(231, 192, 107, 0.3) 50%, rgba(52, 49, 125, 0.2) 100%);
+}
+
+.location-card[data-location="memory-core"] {
+    border-color: var(--golden);
+    box-shadow: 0 5px 20px rgba(231, 192, 107, 0.2);
+    overflow: hidden;
+}
+
+.location-card[data-location="memory-core"] .location-title {
+    color: var(--golden);
+}
+
+.location-card[data-location="memory-core"]:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(231, 192, 107, 0.3), 0 0 15px rgba(74, 168, 255, 0.2);
+}
+
+.location-card[data-location="memory-core"] .location-memory {
+    border-left: 2px solid var(--golden);
+    background: rgba(231, 192, 107, 0.05);
+    color: var(--golden);
 }
 
 .location-card {
