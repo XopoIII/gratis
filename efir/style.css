@@ -1106,8 +1106,8 @@ img {
 
 .character-card {
     flex: 1;
-    min-width: 280px;
-    max-width: 350px;
+    min-width: 350px;
+    max-width: 400px;
     background: rgba(13, 13, 21, 0.7);
     border-radius: 15px;
     box-shadow: var(--shadow-normal);
@@ -1199,14 +1199,6 @@ img {
     background: var(--golden);
 }
 
-.character-portrait-image.mirage {
-    background-image: url('mirage.jpg');
-}
-
-.character-portrait-image.anat {
-    background-image: url('anat.jpg');
-}
-
 .mirage-effect {
     background: radial-gradient(circle at center, rgba(74, 168, 255, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
 }
@@ -1236,7 +1228,6 @@ img {
 }
 
 .character-portrait {
-    height: 180px;
     position: relative;
     overflow: hidden;
 }
@@ -1249,18 +1240,6 @@ img {
     transition: all var(--transition-normal);
     filter: grayscale(0.3) contrast(1.1);
     will-change: transform, filter;
-}
-
-.character-portrait-image.alex {
-    background-image: url('alex.jpg');
-}
-
-.character-portrait-image.eva {
-    background-image: url('eva.jpg');
-}
-
-.character-portrait-image.skarn {
-    background-image: url('fire.jpg');
 }
 
 .character-portrait-effect,
@@ -2091,8 +2070,8 @@ body.corrupted .hero-subtitle {
 
 .antagonist-card {
     flex: 1;
-    min-width: 280px;
-    max-width: 350px;
+    min-width: 350px;
+    max-width: 400px;
     background: rgba(13, 13, 21, 0.7);
     border-radius: 15px;
     box-shadow: var(--shadow-normal);
@@ -2142,14 +2121,6 @@ body.corrupted .hero-subtitle {
     background: var(--ethereal-blue-dark);
 }
 
-.devourer .antagonist-image-overlay {
-    background-image: url('devourer.jpg');
-}
-
-.hounds .antagonist-image-overlay {
-    background-image: url('hounds.jpg');
-}
-
 .devourer-effect {
     background: radial-gradient(circle at center, rgba(255, 58, 90, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
 }
@@ -2179,11 +2150,8 @@ body.corrupted .hero-subtitle {
 }
 
 .antagonist-image {
-    height: 180px;
     position: relative;
     overflow: hidden;
-    background-size: cover;
-    background-position: center;
 }
 
 .antagonist-image-overlay {
@@ -2194,18 +2162,6 @@ body.corrupted .hero-subtitle {
     transition: all var(--transition-normal);
     filter: grayscale(0.3) contrast(1.1);
     will-change: transform, filter;
-}
-
-.mimic .antagonist-image-overlay {
-    background-image: url('mimic.jpg');
-}
-
-.archivists .antagonist-image-overlay {
-    background-image: url('archivist.jpg');
-}
-
-.seraphim .antagonist-image-overlay {
-    background-image: url('seraphim.jpg');
 }
 
 .antagonist-info {
