@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Простой ∇.E.F.I.R Parser</title>
+  <style>
+    body { 
+      font-family: monospace; 
+      padding: 1.5rem; 
+      background: #111; 
+      color: #eee; 
+    }
+    h1 { color: #0f0; }
+    input, button { 
+      padding: 0.6rem; 
+      margin: 0.5rem 0; 
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    button {
+      background: #004400;
+      cursor: pointer;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    textarea { 
+      width: 100%; 
+      height: 400px;
+      background: #222; 
+      color: #0f0; 
+      white-space: pre;
+      font-family: monospace;
+      border: 1px solid #444;
+      padding: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Простой ∇.E.F.I.R Parser</h1>
+  
+  <div class="container">
+    <div>
+      <div>
+        <input type="file" id="fileInput" accept=".txt">
+        <button onclick="handleFile()">Обработать</button>
+        <button onclick="downloadJson()">Скачать JSON</button>
+      </div>
+      <textarea id="input" placeholder="Вставьте текст или загрузите файл..."></textarea>
+    </div>
+    
+    <div>
+      <h3>Результат:</h3>
+      <textarea id="output" readonly></textarea>
+    </div>
+  </div>
+
+  <script>
+    let parsedJson = '';
+
+    function handleFile() {
+      const file = document.getElementById('fileInput').files[0];
+      
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          document.getElementById('input').value = reader.result;
+          parseFile(reader.result);
+        };
+        reader.readAsText(file);
+      } else {
+        const text = document.getElementById('input').value;
+        if (text.trim()) {
+          parseFile(text);
+        } else {
+          alert('Пожалуйста, загрузите файл или вставьте текст');
+        }
+      }
+    }
+
+    function downloadJson() {
+      if (!parsedJson) {
+        alert('Нет данных для скачивания');
+        return;
+      }
+      
+      const blob = new Blob([parsedJson], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'defir_log.json';
+      link.click();
+    }
+
+    function parseFile(text) {
+      const result = {
+        termLog: [],
+        realityAnalysis: []
+      };
+
+      // Поиск и обработка терминов
+      // Простое регулярное выражение для поиска шаблона "ТЕРМИН_XXX: «НАЗВАНИЕ»"
+      const termPattern = /ТЕРМИН_(\d+):[^«"]*[«"]([^«"]+)[»"]/g;
+      let termMatch;
+      
+      while ((termMatch = termPattern.exec(text)) !== null) {
+        const id = termMatch[1];
+        const name = termMatch[2].trim();
+        
+        // Создаем термин
+        const term = {
+          id,
+          name,
+          category: "standard",
+          extraFields: {}
+        };
+        
+        // Поиск всех полей для этого термина
+        // Находим блок текста после заголовка термина до следующего термина
+        const currentPos = termMatch.index + termMatch[0].length;
+        const nextTermMatch = text.substring(currentPos).match(/ТЕРМИН_\d+:|▌∇\.1\.REALITY_ANALYSIS|▌ИДЕНТИФИКАТОР:/);
+        const blockEnd = nextTermMatch ? currentPos + nextTermMatch.index : text.length;
+        const termBlock = text.substring(termMatch.index, blockEnd);
+        
+        // Извлечение полей
+        const fieldPattern = /■\s*([^:]+):\s*([\s\S]*?)(?=■|$)/g;
+        let fieldMatch;
+        
+        while ((fieldMatch = fieldPattern.exec(termBlock)) !== null) {
+          const fieldName = fieldMatch[1].trim();
+          const fieldValue = fieldMatch[2].trim();
+          
+          if (fieldName && fieldValue) {
+            term.extraFields[fieldName] = fieldValue;
+          }
+        }
+        
+        // Если нет полей, удаляем пустой объект
+        if (Object.keys(term.extraFields).length === 0) {
+          delete term.extraFields;
+        }
+        
+        result.termLog.push(term);
+      }
+      
+      // Поиск и обработка анализов реальности
+      const analysisPattern = /▌ИДЕНТИФИКАТОР:\s*(∇-[A-ZА-Я0-9-]+)/g;
+      let analysisMatch;
+      
+      while ((analysisMatch = analysisPattern.exec(text)) !== null) {
+        const id = analysisMatch[1];
+        
+        // Создаем анализ
+        const analysis = {
+          id,
+          extraFields: {}
+        };
+        
+        // Поиск блока текста для этого анализа
+        const currentPos = analysisMatch.index;
+        const nextMatch = text.substring(currentPos + 1).match(/▌ИДЕНТИФИКАТОР:|ТЕРМИН_\d+:/);
+        const blockEnd = nextMatch ? currentPos + 1 + nextMatch.index : text.length;
+        const analysisBlock = text.substring(currentPos, blockEnd);
+        
+        // Извлечение статуса
+        const statusMatch = analysisBlock.match(/▌СТАТУС:\s*([^\n]+)/);
+        if (statusMatch) {
+          analysis.status = statusMatch[1].trim();
+        }
+        
+        // Извлечение объекта
+        const objectMatch = analysisBlock.match(/▌ОБЪЕКТ:\s*([^\n]+)/);
+        if (objectMatch) {
+          analysis.object = objectMatch[1].trim();
+        }
+        
+        // Извлечение временной метки
+        const timeMatch = analysisBlock.match(/▌(?:МЕТКА ВРЕМЕНИ|ВРЕМЕННАЯ МЕТКА):\s*([^\n]+)/);
+        if (timeMatch) {
+          analysis.timepoint = timeMatch[1].trim();
+        }
+        
+        // Извлечение полей
+        const fieldPattern = /■\s*([^:]+):\s*([\s\S]*?)(?=■|$)/g;
+        let fieldMatch;
+        
+        while ((fieldMatch = fieldPattern.exec(analysisBlock)) !== null) {
+          const fieldName = fieldMatch[1].trim();
+          const fieldValue = fieldMatch[2].trim();
+          
+          if (fieldName && fieldValue) {
+            analysis.extraFields[fieldName] = fieldValue;
+          }
+        }
+        
+        // Если нет полей, удаляем пустой объект
+        if (Object.keys(analysis.extraFields).length === 0) {
+          delete analysis.extraFields;
+        }
+        
+        result.realityAnalysis.push(analysis);
+      }
+      
+      parsedJson = JSON.stringify(result, null, 2);
+      document.getElementById('output').value = parsedJson;
+    }
+  </script>
+</body>
+</html>
