@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isAnomaly) {
             return id; // Для аномалий оставляем оригинальный ID (например, "∇-PHANTOM-01")
         } else {
-            return `ТЕРМИН_${id.padStart(3, '0')}`; // Для обычных терминов добавляем префикс
+            return `∇.ТЕРМИН_${id.padStart(3, '0')}`; // Для обычных терминов добавляем префикс
         }
     }
     
