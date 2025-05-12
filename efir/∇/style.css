@@ -2040,7 +2040,7 @@ body.corrupted .hero-subtitle {
 }
 
 .delta-icon::before {
-    content: 'Δ';
+    content: '∇';
     position: absolute;
     top: 0;
     left: 2px;
