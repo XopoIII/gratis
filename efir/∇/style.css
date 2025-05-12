@@ -921,15 +921,29 @@ img {
     box-shadow: 0 0 15px rgba(255, 58, 90, 0.6);
 }
 
+.world-marker[data-location="guardians-village"] {
+	left: 45%;
+	top: 30%;
+    background: rgba(74, 168, 255, 0.7);
+    box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
+}
+
+.world-marker[data-location="scientific-node"] {
+	left: 55%;
+	top: 50%;
+    background: rgba(74, 168, 255, 0.7);
+    box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
+}
+
 .world-marker:hover {
     transform: translate(-50%, -50%) scale(1.5);
 }
 
 .locations {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 30px;
-    margin-top: 30px;
 }
 
 .memory-core-effect {
@@ -967,6 +981,8 @@ img {
     backdrop-filter: blur(5px);
     border: 1px solid rgba(74, 168, 255, 0.1);
     transform: translateY(0);
+	min-width: 350px;
+    max-width: 400px;
 }
 
 .location-card:hover {
@@ -1117,7 +1133,7 @@ img {
     transition: all var(--transition-normal);
 }
 
-.character-card.alexei::before {
+.character-card.observer::before {
     background: var(--ethereal-blue);
 }
 
@@ -1134,6 +1150,27 @@ img {
     color: var(--ethereal-blue);
 }
 
+.character-card.clara::before {
+    background: var(--ethereal-blue);
+}
+
+.character-card.clara .character-role {
+    color: var(--blue-violet);
+    color: var(--ethereal-blue);
+}
+
+.character-card.noat::before {
+    background: var(--golden);
+}
+
+.character-card.shadow::before {
+    background: var(--red-breach);
+}
+
+.character-card.noat .character-role {
+    color: var(--golden);
+}
+
 .mira-effect {
     background: radial-gradient(circle at center, rgba(74, 168, 255, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
 }
@@ -1143,7 +1180,19 @@ img {
 }
 
 .observer-effect {
+    background: radial-gradient(circle at center, rgba(74, 168, 255, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
+}
+
+.clara-effect {
+    background: radial-gradient(circle at center, rgba(74, 168, 255, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
+}
+
+.noat-effect {
     background: radial-gradient(circle at center, rgba(231, 192, 107, 0.5) 0%, transparent 70%);
+}
+
+.shadow-effect {
+    background: radial-gradient(circle at center, rgba(255, 58, 90, 0.5) 0%, transparent 70%);
 }
 
 .character-card.archaeologist .character-role {
@@ -1155,7 +1204,17 @@ img {
     color: var(--ethereal-blue);
 }
 
+.character-card.observer .character-quote {
+    border-color: var(--ethereal-blue);
+    color: var(--ethereal-blue);
+}
+
 .character-card.archaeologist .character-quote {
+    border-color: var(--golden);
+    color: var(--golden);
+}
+
+.character-card.noat .character-quote {
     border-color: var(--golden);
     color: var(--golden);
 }
@@ -1173,18 +1232,6 @@ img {
     transition: all var(--transition-normal);
     filter: grayscale(0.3) contrast(1.1);
     will-change: transform, filter;
-}
-
-.character-portrait-image.alex {
-    background-image: url('alex.jpg');
-}
-
-.character-portrait-image.eva {
-    background-image: url('eva.jpg');
-}
-
-.character-portrait-image.skarn {
-    background-image: url('fire.jpg');
 }
 
 .character-portrait-effect,
@@ -1243,15 +1290,23 @@ img {
     font-family: var(--mono-font);
 }
 
-.character-card.alexei .character-role {
+.character-card.mira .character-role {
     color: var(--ethereal-blue);
 }
 
-.character-card.eva .character-role {
+.character-card.archaeologist .character-role {
     color: var(--golden);
 }
 
-.character-card.skarn .character-role {
+.character-card.clara .character-role {
+    color: var(--ethereal-blue);
+}
+
+.character-card.observer .character-role {
+    color: var(--ethereal-blue);
+}
+
+.character-card.shadow .character-role {
     color: var(--red-breach);
 }
 
@@ -1274,17 +1329,27 @@ img {
     will-change: opacity, transform;
 }
 
-.character-card.alexei .character-quote {
+.character-card.mira .character-quote {
     border-color: var(--ethereal-blue);
     color: var(--ethereal-blue);
 }
 
-.character-card.eva .character-quote {
+.character-card.archaeologist .character-quote {
     border-color: var(--golden);
     color: var(--golden);
 }
 
-.character-card.skarn .character-quote {
+.character-card.clara .character-quote {
+    border-color: var(--ethereal-blue);
+    color: var(--ethereal-blue);
+}
+
+.character-card.observer .character-quote {
+    border-color: var(--ethereal-blue);
+    color: var(--ethereal-blue);
+}
+
+.character-card.shadow .character-quote {
     border-color: var(--red-breach);
     color: var(--red-breach);
 }
@@ -2046,10 +2111,6 @@ body.corrupted .hero-subtitle {
     transition: all var(--transition-normal);
 }
 
-.antagonist-card.devourer::before {
-    background: var(--ethereal-blue);
-}
-
 .antagonist-card.ancient_entities_rift::before {
     background: var(--silver-gray);
 }
@@ -2058,35 +2119,25 @@ body.corrupted .hero-subtitle {
     background: var(--golden);
 }
 
-.antagonist-card.devourer::before {
-    background: linear-gradient(var(--red-breach), var(--blue-violet));
+.antagonist-card.transformed::before {
+    background: var(--ethereal-blue);
 }
 
-.antagonist-card.hounds::before {
-    background: var(--ethereal-blue-dark);
+.antagonist-card.transformed .antagonist-quote {
+    border-color: var(--ethereal-blue);
+    color: var(--ethereal-blue);
 }
 
-.devourer-effect {
-    background: radial-gradient(circle at center, rgba(255, 58, 90, 0.3) 0%, rgba(52, 49, 125, 0.3) 70%);
+.antagonist-card.transformed .antagonist-type {
+    color: var(--ethereal-blue);
 }
 
 .hounds-effect {
     background: radial-gradient(circle at center, rgba(74, 168, 255, 0.4) 0%, transparent 70%);
 }
 
-.antagonist-card.devourer .antagonist-type {
-    background: linear-gradient(90deg, var(--red-breach), var(--blue-violet));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 .antagonist-card.hounds .antagonist-type {
     color: var(--ethereal-blue-dark);
-}
-
-.antagonist-card.devourer .antagonist-quote {
-    border-color: var(--red-breach);
-    color: var(--red-breach);
 }
 
 .antagonist-card.hounds .antagonist-quote {
@@ -2109,18 +2160,6 @@ body.corrupted .hero-subtitle {
     will-change: transform, filter;
 }
 
-.devourer .antagonist-image-overlay {
-    background-image: url('devourer.jpg');
-}
-
-.ancient_entities_rift .antagonist-image-overlay {
-    background-image: url('ancient_entities_rift-effect.jpg');
-}
-
-.chronovores .antagonist-image-overlay {
-    background-image: url('chronovores.jpg');
-}
-
 .antagonist-info {
     padding: 20px;
 }
@@ -2135,10 +2174,6 @@ body.corrupted .hero-subtitle {
     font-size: 14px;
     margin-bottom: 15px;
     font-family: var(--mono-font);
-}
-
-.antagonist-card.devourer .antagonist-type {
-    color: var(--ethereal-blue);
 }
 
 .antagonist-card.ancient_entities_rift .antagonist-type {
@@ -2165,11 +2200,6 @@ body.corrupted .hero-subtitle {
     opacity: 0;
     transform: translateY(10px);
     transition: all var(--transition-normal);
-}
-
-.antagonist-card.devourer .antagonist-quote {
-    border-color: var(--ethereal-blue);
-    color: var(--ethereal-blue);
 }
 
 .antagonist-card.ancient_entities_rift .antagonist-quote {
