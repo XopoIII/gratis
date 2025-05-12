@@ -914,10 +914,10 @@ img {
 }
 
 .locations {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 30px;
-    margin-top: 30px;
 }
 
 .memory-core-effect {
@@ -955,6 +955,8 @@ img {
     backdrop-filter: blur(5px);
     border: 1px solid rgba(74, 168, 255, 0.1);
     transform: translateY(0);
+	min-width: 350px;
+    max-width: 400px;
 }
 
 .location-card:hover {
