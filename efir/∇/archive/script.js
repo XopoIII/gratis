@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeCategory !== 'all') {
                 if (activeCategory === 'anomaly' && term.type !== 'anomaly') return false;
                 if (activeCategory === 'standard' && term.type !== 'term') return false;
-				if (activeCategory === 'profile' && item.type !== 'profile') return false;
+				if (activeCategory === 'profile' && term.type !== 'profile') return false;
             }
             
             // Фильтр по поисковому запросу
@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			const formattedId = formatTermId(item.id, itemType); // Передаем itemType
 
 			termItem.innerHTML = `
-				<span class="term-list-id"><span class="math-inline">\{formattedId\}</span\>
-                <span class="term-list-name">{itemType === 'term' ? item.name : item.object || item.id}</span>
+				<span class="term-list-id"><span class="math-inline">${formattedId}</span\>
+                <span class="term-list-name">${itemType === 'term' ? item.name : item.object || item.id}</span>
             `;
             
             termItem.addEventListener('click', () => {
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			termCard.innerHTML = `
 				<div class="term-card-header">
 					<div class="term-card-indicator"></div>
-					<h3 class="term-card-title"><span class="math-inline">\{title\}</h3\>
+					<h3 class="term-card-title"><span class="math-inline">${title}</h3\>
                 </div>
                 <div class="term-card-content">
                     <div class="term-card-id">${formattedId}</div>
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('.term-list-item').forEach(item => {
                     item.classList.remove('active');
                 });
-                const listItem = document.querySelector(`.term-list-item[data-id="${term.id}"]`);
+                const listItem = document.querySelector(`.term-list-item[data-id="${item.id}"]`);
                 if (listItem) {
                     listItem.classList.add('active');
                     // Прокрутить к активному элементу в списке
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 // Открыть детали термина
-                openTermDetails(term);
+                openTermDetails(item);
             });
             
             termsContainer.appendChild(termCard);
@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		if (searchQuery && activeCategory !== 'all') {
-			statusText = `Поиск: "<span class="math-inline">\{searchQuery\}" в категории "</span>{categoryName}"`;
+			statusText = `Поиск: "<span class="math-inline">${searchQuery}" в категории "</span>${categoryName}"`;
 		} else if (searchQuery) {
 			statusText = `Поиск: "${searchQuery}"`;
 		} else if (activeCategory !== 'all') {
