@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 termItem.classList.add('active');
                 
                 // Открыть детали термина
-                openTermDetails(term);
+                openTermDetails(item);
             });
             
             termsList.appendChild(termItem);
@@ -265,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		let content = `
 			<div class="term-details-header">
 				<div class="term-details-id">${formattedId}</div>
-				// Добавляем класс itemType к статусу для корректной стилизации
 				<div class="term-details-status ${itemType}">${itemType === 'term' ? item.category : item.status}</div> 
 				${itemType !== 'term' && item.timepoint ? `<div class="term-details-timepoint">${item.timepoint}</div>` : ''}
 			</div>
