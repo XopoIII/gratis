@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			termItem.innerHTML = `
 				<span class="term-list-id"><span class="math-inline">\{formattedId\}</span\>
-                <span class="term-list-name">${isAnomaly ? term.object : term.name}</span>
+                <span class="term-list-name">{itemType === 'term' ? item.name : item.object || item.id}</span>
             `;
             
             termItem.addEventListener('click', () => {
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="term-card-id">${formattedId}</div>
                     <p class="term-card-description">${description}</p>
                     <div class="term-card-footer">
-                        <span class="term-card-status">${isAnomaly ? term.status : term.category}</span>
+                        <span class="term-card-status">${statusText || itemType}</span>
                         <span class="term-card-link">Подробнее →</span>
                     </div>
                 </div>
@@ -272,10 +272,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		`;
         
         // Дополнительные поля
-        if (term.extraFields) {
+        if (item.extraFields) {
             content += '<div class="term-details-fields">';
             
-            for (const [key, value] of Object.entries(term.extraFields)) {
+            for (const [key, value] of Object.entries(item.extraFields)) {
                 if (value && value.trim()) {
                     content += `
                         <div class="term-details-field">
@@ -523,7 +523,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для обновления статуса фильтра
 	function updateFilterStatus() {
-		// ... существующий код ...
+        const statusElement = document.getElementById('filterStatus');
+        if (!statusElement) return;
+        
+        let statusText = '';
 		let categoryName = '';
 		if (activeCategory === 'anomaly') {
 			categoryName = 'аномальные инциденты';
