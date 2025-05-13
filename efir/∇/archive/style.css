@@ -25,6 +25,8 @@
     --z-overlay: 100;
     --z-modal: 1000;
     --z-highest: 10000;
+    --purple-profile: #ae81ff;
+    --shadow-purple-glow: 0 0 20px rgba(174, 129, 255, 0.3);
 }
 
 * {
@@ -920,6 +922,76 @@ img {
 .filter-status-container {
     text-align: center;
     height: 30px;
+}
+/* Кнопка категории "Профили" */
+.category-button.profile {
+    border-color: rgba(174, 129, 255, 0.3); /* Фиолетовый */
+    color: var(--purple-profile);
+}
+
+.category-button.profile:hover, .category-button.profile.active {
+    background: rgba(174, 129, 255, 0.1);
+    border-color: var(--purple-profile);
+}
+
+/* Элементы списка терминов для профилей */
+.term-list-item.profile {
+    color: var(--purple-profile);
+}
+.term-list-item.profile:hover, .term-list-item.profile.active {
+    background: rgba(174, 129, 255, 0.1);
+}
+.term-list-item.profile.active { /* Более заметное выделение активного элемента */
+    background: rgba(174, 129, 255, 0.2);
+    border-left: 3px solid var(--purple-profile);
+    padding-left: 7px; /* Компенсация для border-left */
+}
+
+
+/* Карточки для профилей */
+.term-card.profile {
+    border-color: rgba(174, 129, 255, 0.2);
+}
+.term-card.profile:hover {
+    border-color: rgba(174, 129, 255, 0.4);
+    box-shadow: var(--shadow-purple-glow);
+}
+
+/* Заголовок карточки профиля */
+.term-card.profile .term-card-header {
+    border-bottom-color: rgba(174, 129, 255, 0.2);
+}
+
+/* Индикатор карточки профиля */
+.term-card.profile .term-card-indicator {
+    background: var(--purple-profile);
+}
+
+/* ID карточки профиля */
+.term-card.profile .term-card-id {
+    color: var(--purple-profile);
+}
+
+/* Футер карточки профиля */
+.term-card.profile .term-card-footer {
+    border-top-color: rgba(174, 129, 255, 0.2);
+}
+
+/* Статус карточки профиля */
+.term-card.profile .term-card-status {
+    color: var(--purple-profile);
+    background: rgba(174, 129, 255, 0.1);
+}
+
+/* Ссылка в карточке профиля */
+.term-card.profile:hover .term-card-link {
+    color: var(--purple-profile);
+}
+
+/* Статус в модальном окне для профилей */
+.term-details-status.profile {
+    background: rgba(174, 129, 255, 0.1);
+    color: var(--purple-profile);
 }
 
 /* Улучшенные стили для списка терминов в мобильной версии */

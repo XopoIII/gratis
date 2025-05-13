@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Объединяем термины и аномалии в единый массив для отображения
             filteredTerms = [
                 ...termLogData.termLog.map(term => ({ ...term, type: 'term' })),
-                ...termLogData.realityAnalysis.map(anomaly => ({ ...anomaly, type: 'anomaly' }))
+                ...termLogData.realityAnalysis.map(anomaly => ({ ...anomaly, type: 'anomaly' })),
+				...(termLogData.subjectProfiles || []).map(profile => ({ ...profile, type: 'profile' }))
             ];
             
             renderTermList();
@@ -29,23 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Функция для форматирования ID термина
-    function formatTermId(id, isAnomaly = false) {
-        if (isAnomaly) {
-            return id; // Для аномалий оставляем оригинальный ID (например, "∇-PHANTOM-01")
-        } else {
-            return `∇.ТЕРМИН_${id.padStart(3, '0')}`; // Для обычных терминов добавляем префикс
-        }
-    }
+    function formatTermId(id, itemType = 'term') { // Добавляем itemType с значением по умолчанию
+		if (itemType === 'anomaly' || itemType === 'profile') { // Для аномалий и профилей
+			return id; 
+		} else { // Для стандартных терминов
+			return `∇.ТЕРМИН_${id.padStart(3, '0')}`;
+		}
+	}
     
-    // Распознавание ID термина из поискового запроса
-    function extractTermIdFromSearch(query) {
-        // Проверяем, соответствует ли запрос формату "ТЕРМИН_XXX"
-        const termMatch = query.match(/ТЕРМИН_(\d+)/i);
-        if (termMatch && termMatch[1]) {
-            return termMatch[1]; // Возвращаем только цифровую часть
-        }
-        return null;
-    }
+	// Функция для извлечения ID термина из поискового запроса (только для стандартных терминов)
+	function extractTermIdFromSearch(query, isStandardTerm = true) {
+		if (!isStandardTerm) return null; // ID ищем только для стандартных терминов
+
+		const termMatch = query.match(/ТЕРМИН_(\d+)/i);
+		if (termMatch && termMatch[1]) {
+			return termMatch[1];
+		}
+		// Можно добавить поиск по полному ID ∇.ТЕРМИН_XXX
+		const fullTermMatch = query.match(/∇\.ТЕРМИН_(\d+)/i);
+		 if (fullTermMatch && fullTermMatch[1]) {
+			return fullTermMatch[1];
+		}
+		return null;
+	}
     
     // Рендеринг списка всех терминов
     function renderTermList() {
@@ -61,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeCategory !== 'all') {
                 if (activeCategory === 'anomaly' && term.type !== 'anomaly') return false;
                 if (activeCategory === 'standard' && term.type !== 'term') return false;
+				if (activeCategory === 'profile' && item.type !== 'profile') return false;
             }
             
             // Фильтр по поисковому запросу
@@ -100,16 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // Сортировка терминов по ID
         displayTerms.sort((a, b) => a.id.localeCompare(b.id));
         
-        displayTerms.forEach(term => {
-            const isAnomaly = term.type === 'anomaly';
-            const termItem = document.createElement('div');
-            termItem.className = `term-list-item ${isAnomaly ? 'anomaly' : ''}`;
-            termItem.dataset.id = term.id;
-            
-            const formattedId = formatTermId(term.id, isAnomaly);
-            
-            termItem.innerHTML = `
-                <span class="term-list-id">${formattedId}</span>
+        displayTerms.forEach(item => { // Переименовал term на item
+			const itemType = item.type; // 'term', 'anomaly', или 'profile'
+			const termItem = document.createElement('div');
+			termItem.className = `term-list-item ${itemType}`; // Используем itemType для класса
+			termItem.dataset.id = item.id;
+			termItem.dataset.type = itemType; // Сохраняем тип для дальнейшего использования
+
+			// Форматируем ID в зависимости от типа
+			const formattedId = formatTermId(item.id, itemType); // Передаем itemType
+
+			termItem.innerHTML = `
+				<span class="term-list-id"><span class="math-inline">\{formattedId\}</span\>
                 <span class="term-list-name">${isAnomaly ? term.object : term.name}</span>
             `;
             
@@ -141,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeCategory !== 'all') {
                 if (activeCategory === 'anomaly' && term.type !== 'anomaly') return false;
                 if (activeCategory === 'standard' && term.type !== 'term') return false;
+				if (activeCategory === 'profile' && item.type !== 'profile') return false;
             }
             
             if (searchQuery) {
@@ -176,31 +187,37 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        displayTerms.forEach(term => {
-            const isAnomaly = term.type === 'anomaly';
-            const termCard = document.createElement('div');
-            termCard.className = `term-card ${isAnomaly ? 'anomaly' : ''}`;
-            termCard.dataset.id = term.id;
-            
-            // Форматируем ID
-            const formattedId = formatTermId(term.id, isAnomaly);
-            
-            // Описание для отображения (первые 100 символов)
-            let description = '';
-            if (isAnomaly) {
-                description = term.extraFields && term.extraFields.Событие 
-                    ? term.extraFields.Событие.substring(0, 100) + '...'
-                    : 'Нет данных';
-            } else {
-                description = term.extraFields && term.extraFields.Описание
-                    ? term.extraFields.Описание.substring(0, 100) + '...'
-                    : 'Нет данных';
-            }
-            
-            termCard.innerHTML = `
-                <div class="term-card-header">
-                    <div class="term-card-indicator"></div>
-                    <h3 class="term-card-title">${isAnomaly ? term.object : term.name}</h3>
+        displayTerms.forEach(item => { // Переименовал term на item
+			const itemType = item.type;
+			const termCard = document.createElement('div');
+			termCard.className = `term-card ${itemType}`; // Используем itemType
+			termCard.dataset.id = item.id;
+			termCard.dataset.type = itemType;
+
+			const formattedId = formatTermId(item.id, itemType); // Передаем itemType
+
+			let description = '';
+			let title = itemType === 'term' ? item.name : (item.object || item.id); // Для профилей и аномалий используем object или id как заголовок
+			let statusText = itemType === 'term' ? item.category : item.status;
+
+			if (itemType === 'profile') {
+				description = item.extraFields && item.extraFields.Происхождение
+					? item.extraFields.Происхождение.substring(0, 100) + '...'
+					: (item.extraFields.Описание ? item.extraFields.Описание.substring(0, 100) + '...' : 'Нет данных');
+			} else if (itemType === 'anomaly') {
+				description = item.extraFields && item.extraFields.Событие 
+					? item.extraFields.Событие.substring(0, 100) + '...'
+					: 'Нет данных';
+			} else { // term
+				description = item.extraFields && item.extraFields.Описание
+					? item.extraFields.Описание.substring(0, 100) + '...'
+					: 'Нет данных';
+			}
+
+			termCard.innerHTML = `
+				<div class="term-card-header">
+					<div class="term-card-indicator"></div>
+					<h3 class="term-card-title"><span class="math-inline">\{title\}</h3\>
                 </div>
                 <div class="term-card-content">
                     <div class="term-card-id">${formattedId}</div>
@@ -233,28 +250,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Открытие модального окна с деталями термина
-    function openTermDetails(term) {
-        // Сохраняем текущую позицию скролла перед открытием модального окна
-        scrollPosition = window.scrollY;
-        
-        const modal = document.getElementById('termModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        
-        const isAnomaly = term.type === 'anomaly';
-        const formattedId = formatTermId(term.id, isAnomaly);
-        
-        // Заголовок
-        modalTitle.textContent = isAnomaly ? term.object : term.name;
-        
-        // Формирование контента
-        let content = `
-            <div class="term-details-header">
-                <div class="term-details-id">${formattedId}</div>
-                <div class="term-details-status ${isAnomaly ? 'anomaly' : ''}">${isAnomaly ? term.status : term.category}</div>
-                ${isAnomaly ? `<div class="term-details-timepoint">${term.timepoint}</div>` : ''}
-            </div>
-        `;
+    function openTermDetails(item) { // Переименовал term на item
+		scrollPosition = window.scrollY;
+		
+		const modal = document.getElementById('termModal');
+		const modalTitle = document.getElementById('modalTitle');
+		const modalBody = document.getElementById('modalBody');
+		
+		const itemType = item.type;
+		const formattedId = formatTermId(item.id, itemType);
+		
+		modalTitle.textContent = itemType === 'term' ? item.name : (item.object || item.id);
+		
+		let content = `
+			<div class="term-details-header">
+				<div class="term-details-id">${formattedId}</div>
+				// Добавляем класс itemType к статусу для корректной стилизации
+				<div class="term-details-status ${itemType}">${itemType === 'term' ? item.category : item.status}</div> 
+				${itemType !== 'term' && item.timepoint ? `<div class="term-details-timepoint">${item.timepoint}</div>` : ''}
+			</div>
+		`;
         
         // Дополнительные поля
         if (term.extraFields) {
@@ -507,30 +522,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Функция для обновления статуса фильтра
-    function updateFilterStatus() {
-        const statusElement = document.getElementById('filterStatus');
-        if (!statusElement) return;
-        
-        let statusText = '';
-        
-        if (searchQuery && activeCategory !== 'all') {
-            const categoryName = activeCategory === 'anomaly' ? 'аномальные инциденты' : 'стандартные термины';
-            statusText = `Поиск: "${searchQuery}" в категории "${categoryName}"`;
-        } else if (searchQuery) {
-            statusText = `Поиск: "${searchQuery}"`;
-        } else if (activeCategory !== 'all') {
-            statusText = `Категория: ${activeCategory === 'anomaly' ? 'аномальные инциденты' : 'стандартные термины'}`;
-        } else {
-            statusText = 'Показаны все термины';
-        }
-        
-        statusElement.textContent = statusText;
-        
-        // Применяем соответствующие стили
-        statusElement.style.color = activeCategory === 'anomaly' ? 'var(--red-breach)' : 'var(--ethereal-blue)';
-        statusElement.style.background = activeCategory === 'anomaly' ? 'rgba(255, 58, 90, 0.1)' : 'rgba(74, 168, 255, 0.1)';
-        statusElement.style.borderColor = activeCategory === 'anomaly' ? 'rgba(255, 58, 90, 0.2)' : 'rgba(74, 168, 255, 0.2)';
-    }
+	function updateFilterStatus() {
+		// ... существующий код ...
+		let categoryName = '';
+		if (activeCategory === 'anomaly') {
+			categoryName = 'аномальные инциденты';
+		} else if (activeCategory === 'standard') {
+			categoryName = 'стандартные термины';
+		} else if (activeCategory === 'profile') { // НОВОЕ УСЛОВИЕ
+			categoryName = 'профили субъектов';
+		}
+
+		if (searchQuery && activeCategory !== 'all') {
+			statusText = `Поиск: "<span class="math-inline">\{searchQuery\}" в категории "</span>{categoryName}"`;
+		} else if (searchQuery) {
+			statusText = `Поиск: "${searchQuery}"`;
+		} else if (activeCategory !== 'all') {
+			statusText = `Категория: ${categoryName}`;
+		} else {
+			statusText = 'Показаны все термины';
+		}
+
+		statusElement.textContent = statusText;
+
+		// Применяем соответствующие стили
+		if (activeCategory === 'anomaly') {
+			statusElement.style.color = 'var(--red-breach)';
+			statusElement.style.background = 'rgba(255, 58, 90, 0.1)';
+			statusElement.style.borderColor = 'rgba(255, 58, 90, 0.2)';
+		} else if (activeCategory === 'profile') { // НОВОЕ УСЛОВИЕ
+			statusElement.style.color = 'var(--purple-profile)';
+			statusElement.style.background = 'rgba(174, 129, 255, 0.1)';
+			statusElement.style.borderColor = 'rgba(174, 129, 255, 0.3)';
+		} else { // standard или all
+			statusElement.style.color = 'var(--ethereal-blue)';
+			statusElement.style.background = 'rgba(74, 168, 255, 0.1)';
+			statusElement.style.borderColor = 'rgba(74, 168, 255, 0.2)';
+		}
+	}
 
     // Функция для управления кнопкой возврата наверх
     function handleBackToTopButton() {
