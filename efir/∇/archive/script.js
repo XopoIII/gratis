@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activeCategory !== 'all') {
                 if (activeCategory === 'anomaly' && term.type !== 'anomaly') return false;
                 if (activeCategory === 'standard' && term.type !== 'term') return false;
-				if (activeCategory === 'profile' && item.type !== 'profile') return false;
+				if (activeCategory === 'profile' && term.type !== 'profile') return false;
             }
             
             if (searchQuery) {
