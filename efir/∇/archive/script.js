@@ -118,10 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			// Форматируем ID в зависимости от типа
 			const formattedId = formatTermId(item.id, itemType); // Передаем itemType
 
-			termItem.innerHTML = `
-				<span class="term-list-id"><span class="math-inline">${formattedId}</span\>
-                <span class="term-list-name">${itemType === 'term' ? item.name : item.object || item.id}</span>
-            `;
+			termItem.innerHTML = `<span class="term-list-id"><span class="math-inline">${formattedId}</span></span>
+                                <span class="term-list-name">${itemType === 'term' ? item.name : item.object || item.id}</span>`;
             
             termItem.addEventListener('click', () => {
                 // Активировать текущий элемент списка
