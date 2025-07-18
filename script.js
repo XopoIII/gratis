@@ -1,15 +1,7 @@
 const bookLinks = {
     "Δ.E.F.I.R. Фаза 1: Замедление": "https://againte.gratis/efir/",
     "∇.E.F.I.R. Фаза 2: Фрактальный Разлом": "https://againte.gratis/efir/∇/",
-    "Шай'ри": "https://againte.gratis/shayri",
-    "Dev Build: Версия 0.0.1": "https://againte.gratis/dev",
     "С ручкой поневоле": "https://author.today/work/432204",
-    "Андо": "https://author.today/work/428774",
-    "GG": "https://againte.gratis/gg/",
-    "GM": "https://author.today/work/444244",
-    "Ланцелот Лепёшкин и тайны Тьмумерии": "https://author.today/work/433674",
-    "Биокибернетический ренессанс": "https://author.today/work/428222",
-    "Когда миры забывают моё имя": "https://author.today/work/427592",
     "Пропавшие вчера: Болото": "https://author.today/work/427953",
 };
 
@@ -32,19 +24,11 @@ const ERROR_TYPES = {
 
 const booksMain = [
     "Δ.E.F.I.R. Фаза 1: Замедление",
-    "∇.E.F.I.R. Фаза 2: Фрактальный Разлом",
-    "Шай'ри",
-    "Dev Build: Версия 0.0.1",
-    "GG",
-    "GM",
-    "Ланцелот Лепёшкин и тайны Тьмумерии",
-    "Биокибернетический ренессанс",
-    "Когда миры забывают моё имя"
+    "∇.E.F.I.R. Фаза 2: Фрактальный Разлом"
 ];
 
 const booksCoauthor = [
     "С ручкой поневоле",
-    "Андо",
     "Пропавшие вчера: Болото"
 ];
 
