@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАВМОР - Славянский urban horror</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Roboto:wght@300;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ice-blue: #a8d5e5;
+            --dark-ice: #2a4d6b;
+            --blood-red: #8b0000;
+            --fire-orange: #ff6b35;
+            --snow-white: #f0f8ff;
+            --death-black: #0a0a0a;
+            --card-brothers: #1a2332;
+            --card-allies: #1a1f2e;
+            --card-enemies: #0f1419;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--death-black);
+            color: var(--snow-white);
+            overflow-x: hidden;
+        }
+
+        /* Лоадер */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--death-black);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease;
+        }
+
+        .loader-snowflake {
+            width: 100px;
+            height: 100px;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hero секция */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: url('hero-bg1.png') no-repeat center center;
+            background-size: cover;
+            background-blend-mode: overlay;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .layer-snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .black-snow {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            to {
+                transform: translateY(100vh) translateX(100px) rotate(360deg);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 5;
+            position: relative;
+        }
+
+        .logo-container {
+            margin: 0 auto 2rem;
+        }
+
+        .logo-text {
+            font-family: 'Russo One', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            letter-spacing: 0.3em;
+            background: linear-gradient(to bottom, var(--ice-blue) 0%, var(--snow-white) 50%, var(--ice-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(168, 213, 229, 0.8));
+            animation: subtle-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes subtle-glow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(168, 213, 229, 0.8)); }
+            50% { filter: drop-shadow(0 0 40px rgba(168, 213, 229, 1)); }
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: fadeIn 2s forwards 1s;
+            color: var(--ice-blue);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .runic-text {
+            font-size: 1rem;
+            margin: 2rem 0;
+            opacity: 0;
+            animation: fadeIn 2s forwards 2s;
+            color: rgba(168, 213, 229, 0.6);
+            letter-spacing: 0.5em;
+        }
+
+        .hero-button {
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 2s forwards 3s;
+        }
+
+        .read-button {
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--ice-blue);
+            border: 2px solid var(--ice-blue);
+            border-radius: 30px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .read-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(168, 213, 229, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .read-button:hover {
+            color: var(--snow-white);
+            border-color: var(--snow-white);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(168, 213, 229, 0.5);
+        }
+
+        .read-button:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Общие стили для секций */
+        .section-title {
+            font-family: 'Russo One', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: 0.2em;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--ice-blue);
+            box-shadow: 0 0 20px var(--ice-blue);
+        }
+
+        /* Унифицированный стиль карточек */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            width: 350px;
+            background: var(--card-brothers);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .character-card:hover {
+            border-color: var(--ice-blue);
+        }
+
+        .character-image {
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(168, 213, 229, 0.1) 0%, var(--card-brothers) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-image img {
+            width: 100%;
+        }
+
+        .character-info {
+            padding: 30px;
+        }
+
+        .character-name {
+            font-family: 'Russo One', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--ice-blue);
+        }
+
+        .character-stats {
+            margin-bottom: 20px;
+        }
+
+        .stat-bar {
+            margin: 15px 0;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--ice-blue);
+            opacity: 0.8;
+        }
+
+        .stat-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--ice-blue) 0%, var(--snow-white) 100%);
+            box-shadow: 0 0 10px var(--ice-blue);
+        }
+
+        .character-quote {
+            font-style: italic;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        /* Секция персонажей */
+        .characters-section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            background: radial-gradient(circle at center, #0f0f0f 0%, var(--death-black) 100%);
+        }
+
+        /* Секция союзников */
+        .allies-section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #0f0f0f 0%, var(--death-black) 100%);
+        }
+
+        .ally-card {
+            width: 350px;
+            background: var(--card-allies);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .ally-card:hover {
+            border-color: var(--fire-orange);
+        }
+
+        .ally-image {
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(255, 107, 53, 0.1) 0%, var(--card-allies) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .ally-image img {
+            width: 100%;
+        }
+
+        .ally-info {
+            padding: 30px;
+        }
+
+        .ally-name {
+            font-family: 'Russo One', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--fire-orange);
+        }
+
+        .ally-description {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .ally-quote {
+            font-style: italic;
+            color: var(--ice-blue);
+            border-left: 3px solid var(--fire-orange);
+            padding-left: 20px;
+            margin-top: 20px;
+        }
+
+        /* Секция врагов */
+        .enemies-section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, var(--death-black) 0%, #1a1a1a 50%, var(--death-black) 100%);
+        }
+
+        .enemies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .enemy-card {
+            background: var(--card-enemies);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .enemy-card:hover {
+            border-color: var(--blood-red);
+        }
+
+        .enemy-image {
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(139, 0, 0, 0.1) 0%, var(--card-enemies) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            opacity: 1;
+        }
+
+        .enemy-image img {
+            width: 100%;
+        }
+
+        .enemy-info {
+            padding: 25px;
+        }
+
+        .enemy-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--blood-red);
+        }
+
+        .enemy-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .enemy-weakness {
+            margin-top: 15px;
+            color: var(--ice-blue);
+            font-size: 0.9rem;
+        }
+
+        /* Навь секция */
+        .navh-section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--death-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('navh.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: inset 0em -3em 3em var(--death-black);
+        }
+
+        .distorted-text {
+            font-family: 'Russo One', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+        }
+
+        .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" text-anchor="middle" font-size="40" fill="%23ff0000" opacity="0.1">ᚾᚨᛒᛗᛟᚱ</text></svg>') center/cover;
+            opacity: 0;
+            animation: glitchFlash 10s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glitchFlash {
+            92%, 98% { opacity: 0; }
+            93%, 97% { opacity: 1; }
+        }
+
+        /* CTA секция с огнем */
+        .cta-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: url('cta.png') no-repeat center bottom;
+            background-size: cover;
+            /* , radial-gradient(circle at bottom, #1a0a0a 0%, var(--death-black) 100%)  */
+            overflow: hidden;
+            box-shadow: inset 0em 3em 3em var(--death-black);
+        }
+
+        .fire-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+        }
+
+        .fire-particle {
+            position: absolute;
+            bottom: 0;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: fireRise ease-out infinite;
+        }
+        
+        .fire-small {
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.8) 0%, transparent 70%);
+            animation-duration: 5s;
+        }
+        
+        .fire-medium {
+            width: 21px;
+            height: 21px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.6) 0%, transparent 70%);
+            animation-duration: 6s;
+        }
+        
+        .fire-large {
+            width: 10px;
+            height: 28px;
+            background: radial-gradient(ellipse, rgba(255, 140, 0, 0.7) 0%, transparent 70%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation-duration: 7s;
+        }
+
+        @keyframes fireRise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Russo One', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+        }
+
+        .cta-button {
+            font-size: 1.5rem;
+            padding: 20px 60px;
+            background: transparent;
+            color: var(--snow-white);
+            border: 3px solid var(--ice-blue);
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: bold;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, var(--ice-blue) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+
+        .cta-button:hover {
+            color: var(--death-black);
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--ice-blue),
+                        inset 0 0 50px rgba(168, 213, 229, 0.3);
+        }
+
+        .cta-button:hover::before {
+            width: 600px;
+            height: 600px;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Анимация появления при скролле */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 3rem;
+            }
+
+            .card-container {
+                gap: 30px;
+            }
+
+            .character-card,
+            .ally-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .enemies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="icon" href="https://againte.gratis/navmor/favicon32.png" type="image/png">
+</head>
+<body>
+    <!-- Лоадер -->
+    <div class="loader" id="loader">
+        <img class="loader-snowflake" src="logo100.png" alt="Лоадер">
+    </div>
+
+    <!-- Hero секция -->
+    <section class="hero" data-section="0">
+        <div class="layer-snow" id="snowContainer"></div>
+        
+        <div class="hero-content">
+            <div class="logo-container">
+                <h1 class="logo-text">НАВМОР</h1>
+            </div>
+            <p class="tagline">Морозовы не бросают своих. Даже в аду.</p>
+            <p class="runic-text">ᚹ ᚾᚨᚹᛁ ᚹᛋᛖ ᚹᚱᚢᛏ ᛞᚨᛃᛖ ᛈᚱᚨᚹᛞᚨ</p>
+            <div class="hero-button">
+                <button class="read-button">Читать книгу</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция персонажей -->
+    <section class="characters-section" data-section="1">
+        <h2 class="section-title fade-in">БРАТЬЯ-ОХОТНИКИ</h2>
+        
+        <div class="card-container">
+            <!-- Лазарь -->
+            <div class="character-card fade-in">
+                <div class="character-image">
+                    <img src="lazarus2.png" alt="Лазарь Морозов">
+                </div>
+                <div class="character-info">
+                    <h3 class="character-name">ЛАЗАРЬ</h3>
+                    <div class="character-stats">
+                        <div class="stat-bar">
+                            <div class="stat-label">Морозная сила</div>
+                            <div class="stat-progress">
+                                <div class="stat-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-bar">
+                            <div class="stat-label">Скорость</div>
+                            <div class="stat-progress">
+                                <div class="stat-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-bar">
+                            <div class="stat-label">Человечность</div>
+                            <div class="stat-progress">
+                                <div class="stat-fill" style="width: 40%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>26 лет. Младший брат. Острослов.</p>
+                    <p>Двойные Glock 19. Морозное дыхание.</p>
+                    <p class="character-quote">"Морозня, опять телефон сдох!"</p>
+                </div>
+            </div>
+
+            <!-- Гордей -->
+            <div class="character-card fade-in">
+                <div class="character-image">
+                    <img src="gordey.png" alt="Гордей Морозов">
+                </div>
+                <div class="character-info">
+                    <h3 class="character-name">ГОРДЕЙ</h3>
+                    <div class="character-stats">
+                        <div class="stat-bar">
+                            <div class="stat-label">Морозная сила</div>
+                            <div class="stat-progress">
+                                <div class="stat-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-bar">
+                            <div class="stat-label">Защита</div>
+                            <div class="stat-progress">
+                                <div class="stat-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-bar">
+                            <div class="stat-label">Человечность</div>
+                            <div class="stat-progress">
+                                <div class="stat-fill" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>29 лет. Старший брат. Защитник.</p>
+                    <p>Секира Первого Мороза. Ледяная броня.</p>
+                    <p class="character-quote">"Док, хватит дурить. Работаем."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция союзников -->
+    <section class="allies-section" data-section="2">
+        <h2 class="section-title fade-in">СЕМЬЯ И СОЮЗНИКИ</h2>
+        
+        <div class="card-container">
+            <div class="ally-card fade-in">
+                <div class="ally-image">
+                    <img src="diad.png" alt="Дияд Морозов">
+                </div>
+                <div class="ally-info">
+                    <h3 class="ally-name">ДЕД МОРОЗ</h3>
+                    <p class="ally-description">
+                        Дияд Морозов. Глава рода, хранитель древней силы.
+                        Похищен Чернобогом в начале истории для ритуала "Великого Смешения".
+                        Ключ к первой печати мироздания.
+                    </p>
+                    <p class="ally-description">
+                        Воспитал братьев после смерти родителей. Учил контролировать проклятие,
+                        но скрывал его истинную природу.
+                    </p>
+                    <p class="ally-quote">
+                        "Мертвое должно оставаться мертвым. Это главное правило нашего рода."
+                    </p>
+                </div>
+            </div>
+
+            <div class="ally-card fade-in">
+                <div class="ally-image">
+                    <img src="rarog.png" alt="Рарог">
+                </div>
+                <div class="ally-info">
+                    <h3 class="ally-name">РАРОГ</h3>
+                    <p class="ally-description">
+                        Дух огня, 300+ лет. Хранитель кузни под усадьбой Морозовых.
+                        Единственный, кто может "согреть" братьев от проклятия.
+                    </p>
+                    <p class="ally-description">
+                        Ворчливый, но добрый. Готовит лучшие ребрышки в России.
+                        Привязан к вечному огню в кузне.
+                    </p>
+                    <p class="ally-quote">
+                        "Пацаны, ребрышки остынут! И хватит ломать технику!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция врагов -->
+    <section class="enemies-section" data-section="3">
+        <h2 class="section-title fade-in">СЛАВЯНСКАЯ НЕЧИСТЬ</h2>
+        
+        <div class="enemies-grid">
+            <div class="enemy-card fade-in">
+                <div class="enemy-image">
+                    <img src="e1.png" alt="Упырь">
+                </div>
+                <div class="enemy-info">
+                    <h3 class="enemy-name">УПЫРИ</h3>
+                    <p class="enemy-description">
+                        Заложные покойники, жаждущие крови. 
+                        Но что если упырь стал нежитью, защищая детей?
+                    </p>
+                    <p class="enemy-weakness">
+                        Слабость: осиновый кол, святая вода
+                    </p>
+                </div>
+            </div>
+
+            <div class="enemy-card fade-in">
+                <div class="enemy-image">
+                    <img src="e2.png" alt="Русалка">
+                </div>
+                <div class="enemy-info">
+                    <h3 class="enemy-name">РУСАЛКИ</h3>
+                    <p class="enemy-description">
+                        Души утопленниц в реках и озерах. 
+                        Топят рыбаков, но защищают воду от яда заводов.
+                    </p>
+                    <p class="enemy-weakness">
+                        Слабость: можно договориться
+                    </p>
+                </div>
+            </div>
+
+            <div class="enemy-card fade-in">
+                <div class="enemy-image">
+                    <img src="e3.png" alt="Мавка">
+                </div>
+                <div class="enemy-info">
+                    <h3 class="enemy-name">МАВКИ</h3>
+                    <p class="enemy-description">
+                        Души некрещеных детей. 
+                        Питаются жизненной силой, но тоскуют по материнской любви.
+                    </p>
+                    <p class="enemy-weakness">
+                        Слабость: детские игрушки, колыбельные
+                    </p>
+                </div>
+            </div>
+
+            <div class="enemy-card fade-in">
+                <div class="enemy-image">
+                    <img src="e4.png" alt="Зеркальная Мара">
+                </div>
+                <div class="enemy-info">
+                    <h3 class="enemy-name">ЗЕРКАЛЬНАЯ МАРА</h3>
+                    <p class="enemy-description">
+                        Генерал Чернобога. Живет в отражениях, 
+                        показывает худшие страхи.
+                    </p>
+                    <p class="enemy-weakness">
+                        Слабость: разбить все зеркала одновременно
+                    </p>
+                </div>
+            </div>
+
+            <div class="enemy-card fade-in">
+                <div class="enemy-image">
+                    <img src="e5.png" alt="Короун">
+                </div>
+                <div class="enemy-info">
+                    <h3 class="enemy-name">КОРОЧУН</h3>
+                    <p class="enemy-description">
+                        Древний дух, искажающий воспоминания. 
+                        Превращает счастливые моменты в кошмары.
+                    </p>
+                    <p class="enemy-weakness">
+                        Слабость: свежая боль, которую нельзя исказить
+                    </p>
+                </div>
+            </div>
+
+            <div class="enemy-card fade-in">
+                <div class="enemy-image">
+                    <img src="e6.png" alt="Чернобог">
+                </div>
+                <div class="enemy-info">
+                    <h3 class="enemy-name">ЧЕРНОБОГ</h3>
+                    <p class="enemy-description">
+                        Идеолог справедливости мертвых. 
+                        "Мертвых больше. Кто имеет больше прав на мир?"
+                    </p>
+                    <p class="enemy-weakness">
+                        Слабость: ???
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Навь секция -->
+    <section class="navh-section" data-section="4">
+        <div class="glitch-layer"></div>
+        <div class="distorted-text fade-in">
+            <h2>МИР МЁРТВЫХ ЖДЁТ</h2>
+            <p style="font-size: 1.5rem; margin-top: 2rem;">
+                Перевёрнутые дома<br>
+                Города-желудки<br>
+                Время течёт вспять<br>
+            </p>
+            <p style="font-size: 1.2rem; margin-top: 2rem; color: var(--blood-red); width: fit-content;
+    background: #0a0a0a8c;
+    display: block;
+    margin: 2rem auto;
+    padding: 5px 7px;
+    border-radius: 7px;">
+                "В Нави все врут. Даже правда."
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA секция -->
+    <section class="cta-section" data-section="5">
+        <div class="fire-container" id="fireContainer"></div>
+        
+        <div class="cta-content">
+            <h2 class="cta-title fade-in">ГОТОВ ВОЙТИ В НАВЬ?</h2>
+            <button class="cta-button fade-in">
+                <span>НАЧАТЬ ЧТЕНИЕ</span>
+            </button>
+            <p style="margin-top: 2rem; opacity: 0.6;" class="fade-in">
+                Кузня Рарога всегда открыта для своих
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Лоадер
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 1000);
+            }, 1000);
+        });
+
+        // Черный снег
+        function createBlackSnow() {
+            const container = document.getElementById('snowContainer');
+            const snowCount = 30;
+            
+            for (let i = 0; i < snowCount; i++) {
+                const snow = document.createElement('div');
+                snow.className = 'black-snow';
+                snow.style.left = Math.random() * 100 + '%';
+                snow.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                snow.style.animationDelay = Math.random() * 10 + 's';
+                snow.style.width = snow.style.height = (Math.random() * 10 + 5) + 'px';
+                container.appendChild(snow);
+            }
+        }
+        createBlackSnow();
+
+        // Навигация по секциям
+        const sections = document.querySelectorAll('section');
+        const navDots = document.querySelectorAll('.nav-dot');
+        
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionIndex = dot.dataset.section;
+                sections[sectionIndex].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Активная секция
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionIndex = entry.target.dataset.section;
+                    navDots.forEach(dot => dot.classList.remove('active'));
+                    if (navDots[sectionIndex]) {
+                        navDots[sectionIndex].classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => sectionObserver.observe(section));
+
+        // Анимация появления элементов
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // Огненные частицы - уменьшены
+        function createFireParticles() {
+            const container = document.getElementById('fireContainer');
+            const particleCount = 6; // Уменьшено на 20%
+            const types = ['fire-small', 'fire-medium', 'fire-large'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                const type = types[Math.floor(Math.random() * types.length)];
+                particle.className = 'fire-particle ' + type;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 7 + 's';
+                container.appendChild(particle);
+            }
+        }
+        createFireParticles();
+
+        // Пасхалка - тройной клик на огонь
+        let fireClicks = 0;
+        const fireContainer = document.getElementById('fireContainer');
+        
+        fireContainer.addEventListener('click', () => {
+            fireClicks++;
+            if (fireClicks >= 3) {
+                const message = document.createElement('div');
+                message.textContent = 'Пацаны, ребрышки остынут!';
+                message.style.cssText = `
+                    position: fixed;
+                    bottom: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0,0,0,0.9);
+                    padding: 20px 40px;
+                    border-radius: 10px;
+                    border: 2px solid var(--fire-orange);
+                    font-size: 1.2rem;
+                    z-index: 1000;
+                    animation: fadeIn 0.5s ease;
+                `;
+                document.body.appendChild(message);
+                
+                setTimeout(() => {
+                    message.style.opacity = '0';
+                    setTimeout(() => message.remove(), 500);
+                }, 3000);
+                
+                fireClicks = 0;
+            }
+        });
+
+        // CTA кнопки
+        document.querySelector('.cta-button').addEventListener('click', () => {
+            showFrostTransition();
+        });
+
+        document.querySelector('.read-button').addEventListener('click', () => {
+            showFrostTransition();
+        });
+
+        function showFrostTransition() {
+            // Анимация "замораживания" экрана перед переходом
+            const frost = document.createElement('div');
+            frost.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at center, transparent 0%, rgba(168, 213, 229, 0.8) 100%);
+                z-index: 10000;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 1s ease;
+            `;
+            document.body.appendChild(frost);
+            
+            setTimeout(() => frost.style.opacity = '1', 10);
+            
+            setTimeout(() => {
+                location.href = 'https://author.today/reader/469235';
+            }, 1000);
+        }
+
+        // Эффект "замерзания" при долгом нахождении
+        let freezeTimer;
+        let freezeEffect = document.createElement('div');
+        freezeEffect.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 10s ease;
+            background: radial-gradient(circle at center, transparent 50%, rgba(168, 213, 229, 0.2) 100%);
+            box-shadow: inset 0 0 200px rgba(168, 213, 229, 0.3);
+        `;
+        document.body.appendChild(freezeEffect);
+
+        function startFreezing() {
+            freezeTimer = setTimeout(() => {
+                freezeEffect.style.opacity = '1';
+            }, 60000); // 60 секунд
+        }
+
+        function resetFreezing() {
+            clearTimeout(freezeTimer);
+            freezeEffect.style.opacity = '0';
+            startFreezing();
+        }
+
+        document.addEventListener('mousemove', resetFreezing);
+        document.addEventListener('click', resetFreezing);
+        startFreezing();
+    </script>
+</body>
+</html>
