@@ -1305,8 +1305,8 @@
                 </div>
                 
                 <div class="book-actions">
-                    <button class="read-book-button primary">
-                        <span>Читать на Author.Today</span>
+                    <button class="read-book-button primary about-button">
+                        Читать на Author.Today
                     </button>
                 </div>
             </div>
@@ -1828,6 +1828,10 @@
         });
 
         document.querySelector('.read-button').addEventListener('click', () => {
+            showFrostTransition();
+        });
+
+        document.querySelector('.about-button').addEventListener('click', () => {
             showFrostTransition();
         });
 
