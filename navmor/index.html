@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>НАВМОР - Славянский urban horror</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Roboto:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Roboto:wght@300;400;700&family=Caveat:wght@400;700&display=swap');
 
         * {
             margin: 0;
@@ -23,6 +23,7 @@
             --card-brothers: #1a2332;
             --card-allies: #1a1f2e;
             --card-enemies: #0f1419;
+            --card-neutral: #1a1f2e;
         }
 
         html {
@@ -218,6 +219,15 @@
             box-shadow: 0 0 20px var(--ice-blue);
         }
 
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--ice-blue);
+            margin-bottom: 60px;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+        }
+
         /* Унифицированный стиль карточек */
         .card-container {
             display: flex;
@@ -385,6 +395,7 @@
             border-radius: 15px;
             overflow: hidden;
             transition: border-color 0.3s ease;
+            max-width: 400px;
         }
 
         .enemy-card:hover {
@@ -428,6 +439,131 @@
             font-size: 0.9rem;
         }
 
+        /* Секция Нейтральные силы */
+        .neutral-section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, var(--death-black) 0%, #1a1a1a 50%, var(--death-black) 100%);
+        }
+
+        .neutral-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .neutral-card {
+            background: var(--card-neutral);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+            position: relative;
+            max-width: 400px;
+        }
+
+        .neutral-card:hover {
+            border-color: #9b59b6;
+        }
+
+        .neutral-image {
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(155, 89, 182, 0.1) 0%, var(--card-neutral) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            opacity: 1;
+        }
+
+        .neutral-image img {
+            width: 100%;
+        }
+
+        .neutral-info {
+            padding: 25px;
+        }
+
+        .neutral-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #9b59b6;
+        }
+
+        .neutral-subtitle {
+            font-size: 1rem;
+            color: var(--ice-blue);
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .neutral-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .neutral-quote {
+            margin-top: 15px;
+            color: var(--ice-blue);
+            font-size: 0.9rem;
+            font-style: italic;
+            border-left: 3px solid #9b59b6;
+            padding-left: 15px;
+        }
+
+        /* Специальные стили для Гамаюн */
+        .special-gamayun {
+            position: relative;
+            overflow: visible;
+        }
+
+        .feathers-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 120px;
+            height: 80px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .feather {
+            position: absolute;
+            width: 45px;
+            height: 55px;
+            background: url('black-feather.png') no-repeat center;
+            background-size: contain;
+            filter: drop-shadow(0 0 10px rgba(155, 89, 182, 0.6));
+            animation: floatFeather 4s ease-in-out infinite;
+        }
+
+        .feather-1 {
+            top: 0;
+            right: 20px;
+            animation-delay: 0s;
+            transform: rotate(-15deg);
+        }
+
+        .feather-2 {
+            top: 15px;
+            right: 60px;
+            animation-delay: 2s;
+            transform: rotate(10deg);
+        }
+
+        @keyframes floatFeather {
+            0%, 100% { 
+                transform: translateY(0) rotate(var(--rotation, -5deg)); 
+            }
+            50% { 
+                transform: translateY(-10px) rotate(calc(var(--rotation, -5deg) + 10deg)); 
+            }
+        }
+
         /* Навь секция */
         .navh-section {
             min-height: 100vh;
@@ -468,6 +604,287 @@
             93%, 97% { opacity: 1; }
         }
 
+        /* Раздел микроисторий */
+        .evidence-section {
+            background: #1a1a1a;
+            padding: 100px 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Доска с уликами */
+        .evidence-board {
+            position: relative;
+            min-height: 800px;
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px;
+        }
+
+        /* Текстура пробковой доски */
+        .board-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    #2a2a2a,
+                    #2a2a2a 10px,
+                    #252525 10px,
+                    #252525 20px
+                );
+            opacity: 0.3;
+            border-radius: 10px;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Кнопки-булавки */
+        .pin {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff4444 40%, #cc0000 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.5),
+                inset -2px -2px 3px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .pin-1 { top: 120px; left: 250px; }
+        .pin-2 { top: 180px; right: 320px; }
+
+        /* Базовый полароид */
+        .polaroid {
+            position: absolute;
+            width: 300px;
+            height: 360px;
+            cursor: pointer;
+            transition: transform 0.3s ease, z-index 0s;
+            z-index: 1;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) !important;
+            z-index: 20;
+        }
+
+        /* Позиционирование полароидов */
+        .polaroid-1 {
+            top: 100px;
+            left: 150px;
+            transform: rotate(-5deg);
+        }
+
+        .polaroid-2 {
+            top: 140px;
+            right: 200px;
+            transform: rotate(8deg);
+        }
+
+        /* 3D контейнер для переворота */
+        .polaroid-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .polaroid:hover .polaroid-inner {
+            transform: scale(1.05);
+        }       
+
+        .polaroid.flipped .polaroid-inner {
+            transform: rotateY(180deg) scale(1.05);
+        }
+
+        /* Стороны полароида */
+        .polaroid-front,
+        .polaroid-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .polaroid-back {
+            transform: rotateY(180deg);
+            background: #f0f0e8;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.3),
+                0 1px 3px rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+        }
+
+        /* Контейнер для фото */
+        .polaroid-photo-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Фотография истории - под рамкой */
+        .photo-story {
+            position: absolute;
+            width: 76%;
+            top: 11%;
+            left: 11%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Рамка полароида - поверх фото */
+        .polaroid-frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none; /* Чтобы клики проходили сквозь */
+        }
+
+        /* Временная метка на фото */
+        .photo-timestamp {
+            position: absolute;
+            bottom: 95px;
+            right: 35px;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            text-shadow: 0 0 2px #000;
+            opacity: 0.8;
+            z-index: 3;
+        }
+
+        /* Текст под фото */
+        .photo-label {
+            position: absolute;
+            bottom: 35px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            color: #444;
+            z-index: 3;
+        }
+
+        /* Обратная сторона */
+        .back-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    #ddd,
+                    #ddd 1px,
+                    transparent 1px,
+                    transparent 20px
+                );
+        }
+
+        .handwritten-text {
+            padding: 40px 30px;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: #2c3e50;
+            line-height: 1.4;
+            transform: rotate(-2deg);
+        }
+
+        .handwritten-text p {
+            margin: 8px 0;
+        }
+
+        .text-distorted {
+            font-size: 26px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .text-red {
+            color: #8b0000;
+            font-weight: bold;
+        }
+
+        .text-blue {
+            color: #4682b4;
+            font-style: italic;
+        }
+
+        /* Штамп */
+        .evidence-stamp {
+            position: absolute;
+            bottom: 50px;
+            right: 20px;
+            transform: rotate(-35deg);
+            font-family: 'Impact', sans-serif;
+            font-size: 18px;
+            color: #ff0000;
+            border: 3px solid #ff0000;
+            padding: 5px 15px;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+
+        /* Записка */
+        .evidence-note {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            background: #fffef0;
+            padding: 20px 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-family: 'Caveat', cursive;
+            font-size: 20px;
+            color: #2c3e50;
+            max-width: 300px;
+        }
+
+        .note-signature {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Анимация появления */
+        @keyframes fadeInPhoto {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotate(0deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(var(--rotation));
+            }
+        }
+
+        .polaroid {
+            animation: fadeInPhoto 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .polaroid-1 { 
+            animation-delay: 0.2s;
+            --rotation: -5deg;
+        }
+        .polaroid-2 { 
+            animation-delay: 0.4s;
+            --rotation: 8deg;
+        }
+
         /* CTA секция с огнем */
         .cta-section {
             min-height: 100vh;
@@ -477,7 +894,6 @@
             position: relative;
             background: url('cta.png') no-repeat center bottom;
             background-size: cover;
-            /* , radial-gradient(circle at bottom, #1a0a0a 0%, var(--death-black) 100%)  */
             overflow: hidden;
             box-shadow: inset 0em 3em 3em var(--death-black);
         }
@@ -619,12 +1035,47 @@
                 max-width: 350px;
             }
 
-            .enemies-grid {
+            .enemies-grid,
+            .neutral-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .evidence-board {
+                min-height: 600px;
+                padding: 20px;
+            }
+            
+            .polaroid {
+                width: 200px;
+                height: 240px;
+                position: relative !important;
+                margin: 20px auto;
+                display: block;
+                transform: none !important;
+            }
+            
+            .photo-frame {
+                width: 170px;
+                height: 170px;
+            }
+            
+            .handwritten-text {
+                font-size: 18px;
+                padding: 20px;
+            }
+
+            .pin {
+                display: none;
+            }
+
+            .evidence-note {
+                position: relative;
+                transform: none;
+                margin: 20px auto;
             }
         }
     </style>
-    <link rel="icon" href="https://againte.gratis/navmor/favicon32.png" type="image/png">
+    <link rel="icon" href="favicon32.png" type="image/png">
 </head>
 <body>
     <!-- Лоадер -->
@@ -766,6 +1217,24 @@
                     </p>
                 </div>
             </div>
+
+            <div class="ally-card fade-in">
+                <div class="ally-image">
+                    <img src="stepanych.png" alt="Степаныч">
+                </div>
+                <div class="ally-info">
+                    <h3 class="ally-name">СТЕПАНЫЧ</h3>
+                    <p class="ally-description">
+                        Экскурсовод по миру мертвых
+                    </p>
+                    <p class="ally-description">
+                        Степан Степанович, погиб при Бородино в 1812 году. Двести лет водит живых дураков по Нави за умеренную плату — свежие истории из мира живых. Философ с бездонной флягой самопальной водки.
+                    </p>
+                    <p class="ally-quote">
+                        "А кто еще живым в Навь полезет? Нормальные люди дома сидят, детей растят, водку пьют. А вы вот приперлись."
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -840,7 +1309,7 @@
 
             <div class="enemy-card fade-in">
                 <div class="enemy-image">
-                    <img src="e5.png" alt="Короун">
+                    <img src="e5.png" alt="Корочун">
                 </div>
                 <div class="enemy-info">
                     <h3 class="enemy-name">КОРОЧУН</h3>
@@ -871,9 +1340,119 @@
             </div>
         </div>
     </section>
+    
+    <!-- Секция Нейтральные силы -->
+    <section class="neutral-section" data-section="4">
+        <h2 class="section-title fade-in">НЕЙТРАЛЬНЫЕ СИЛЫ</h2>
+        <p class="section-subtitle fade-in">Те, кто преследует свои цели</p>
+        
+        <div class="neutral-grid">
+            <div class="neutral-card special-gamayun fade-in">
+                <div class="feathers-container">
+                    <div class="feather feather-1" style="--rotation: -15deg;" title="Найдено в главе 1"></div>
+                    <div class="feather feather-2" style="--rotation: 10deg;" title="Найдено в главе 2"></div>
+                </div>
+                <div class="neutral-image">
+                    <img src="gamayun.png" alt="Гамаюн">
+                </div>
+                <div class="neutral-info">
+                    <h3 class="neutral-name">ГАМАЮН</h3>
+                    <p class="neutral-subtitle">Вестница богов</p>
+                    <p class="neutral-description">
+                        Птица с женской головой, записывает все истории мира. Продает информацию богам — Одину за глаз, Зевсу за молнию. Братья Морозовы для нее — самый горячий товар на божественном рынке.
+                    </p>
+                    <p class="neutral-quote">
+                        "Вы в эпосе, мальчики. А герои эпосов редко доживают до конца."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел микроисторий -->
+    <section id="micro-stories" class="section evidence-section" data-section="5">
+        <h2 class="section-title fade-in">АРХИВ СЛУЧАЕВ</h2>
+        <p class="section-subtitle fade-in">Найденные свидетельства паранормальной активности</p>
+        
+        <div class="evidence-board">
+            <!-- Декоративные элементы доски -->
+            <div class="board-texture"></div>
+            <div class="pin pin-1"></div>
+            <div class="pin pin-2"></div>
+            <div class="string-connection"></div>
+            
+            <!-- Полароид 1: Последний ужин -->
+            <div class="polaroid polaroid-1" data-chapter="2" data-rotation="-5">
+                <div class="polaroid-inner">
+                    <!-- Лицевая сторона -->
+                    <div class="polaroid-front">
+                        <div class="polaroid-photo-wrapper">
+                            <!-- Фотография истории (под рамкой) -->
+                            <img class="photo-story" src="alina-dinner.png" alt="Последний ужин">
+                            <!-- Рамка полароида (сверху) -->
+                            <img class="polaroid-frame" src="polaroid.png" alt="Рамка">
+                            <!-- Временная метка -->
+                            <div class="photo-timestamp">15.01.2024 19:47</div>
+                            <!-- Подпись -->
+                            <p class="photo-label">Случай #1:<br>Бутово</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Обратная сторона -->
+                    <div class="polaroid-back">
+                        <div class="back-texture"></div>
+                        <div class="handwritten-text">
+                            <p>Алина С., 28 лет</p>
+                            <p>Готовила ужин для гостя</p>
+                            <p>В зеркале прабабки увидела правду:</p>
+                            <p class="text-distorted">на тарелке черви</p>
+                            <p class="text-red">"Кушай, милый..."</p>
+                        </div>
+                        <div class="evidence-stamp">НЕОБЪЯСНИМО</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Полароид 2: Ночная смена -->
+            <div class="polaroid polaroid-2" data-chapter="3" data-rotation="8">
+                <div class="polaroid-inner">
+                    <div class="polaroid-front">
+                        <div class="polaroid-photo-wrapper">
+                            <!-- Фотография истории (под рамкой) -->
+                            <img class="photo-story" src="morgue-guard.png" alt="Дверь в морг">
+                            <!-- Рамка полароида (сверху) -->
+                            <img class="polaroid-frame" src="polaroid.png" alt="Рамка">
+                            <!-- Временная метка -->
+                            <div class="photo-timestamp">31.12.2023 23:15</div>
+                            <!-- Подпись -->
+                            <p class="photo-label">Случай #2:<br>Районная больница</p>
+                        </div>
+                    </div>
+                    
+                    <div class="polaroid-back">
+                        <div class="back-texture"></div>
+                        <div class="handwritten-text">
+                            <p>Василий П., охранник морга</p>
+                            <p>Стук из камеры №7</p>
+                            <p>Внутри - Дед Мороз</p>
+                            <p class="text-distorted">"Хо-хо-хо"</p>
+                            <p class="text-blue">мороз изнутри</p>
+                        </div>
+                        <div class="evidence-stamp">ЗАМОРОЖЕН</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Декоративная записка -->
+            <div class="evidence-note">
+                <p>Все случаи произошли в период появления черного снега. Связь очевидна.</p>
+                <span class="note-signature">- Д.М.</span>
+            </div>
+        </div>
+    </section>
 
     <!-- Навь секция -->
-    <section class="navh-section" data-section="4">
+    <section class="navh-section" data-section="6">
         <div class="glitch-layer"></div>
         <div class="distorted-text fade-in">
             <h2>МИР МЁРТВЫХ ЖДЁТ</h2>
@@ -894,7 +1473,7 @@
     </section>
 
     <!-- CTA секция -->
-    <section class="cta-section" data-section="5">
+    <section class="cta-section" data-section="7">
         <div class="fire-container" id="fireContainer"></div>
         
         <div class="cta-content">
@@ -1095,6 +1674,55 @@
         document.addEventListener('mousemove', resetFreezing);
         document.addEventListener('click', resetFreezing);
         startFreezing();
+
+        // Инициализация микроисторий
+        document.addEventListener('DOMContentLoaded', function() {
+            initMicroStories();
+        });
+
+        function initMicroStories() {
+            const polaroids = document.querySelectorAll('.polaroid');
+            
+            polaroids.forEach(polaroid => {
+                // Переворот при клике
+                polaroid.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('flipped');
+                });
+                
+                // Убираем конфликтующий код для наведения
+                polaroid.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '50';
+                });
+                
+                polaroid.addEventListener('mouseleave', function() {
+                    setTimeout(() => {
+                        this.style.zIndex = '';
+                    }, 300);
+                });
+            });
+            
+            // Клик вне полароидов переворачивает их обратно
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.polaroid')) {
+                    polaroids.forEach(p => p.classList.remove('flipped'));
+                }
+            });
+        }
+
+        // Дополнительная CSS анимация для hover эффекта
+        const hoverAnimation = `
+        @keyframes polaroidHover {
+            0%, 100% { transform: rotate(0deg) scale(1.05); }
+            25% { transform: rotate(1deg) scale(1.05); }
+            75% { transform: rotate(-1deg) scale(1.05); }
+        }
+        `;
+
+        // Добавляем стиль в head
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = hoverAnimation;
+        document.head.appendChild(styleSheet);
     </script>
 </body>
 </html>
