@@ -404,7 +404,7 @@
 
         .enemy-image {
             width: 100%;
-            background: linear-gradient(to bottom, rgba(139, 0, 0, 0.1) 0%, var(--card-enemies) 100%);
+            background: linear-gradient(to bottom, rgba(139, 0, 0, 0.2) 0%, var(--card-enemies) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1074,6 +1074,174 @@
                 margin: 20px auto;
             }
         }
+        /* Секция "О книге" */
+        .book-section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .book-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* Обложка книги */
+        .book-cover {
+            position: relative;
+            flex-shrink: 0;
+            width: 350px;
+            height: 500px;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(168, 213, 229, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Информация о книге */
+        .book-info {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .book-meta {
+            margin-bottom: 40px;
+        }
+
+        .book-title {
+            font-family: 'Russo One', sans-serif;
+            font-size: 2.5rem;
+            color: var(--ice-blue);
+            margin-bottom: 15px;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(168, 213, 229, 0.3);
+        }
+
+        .book-author {
+            font-size: 1.3rem;
+            color: var(--snow-white);
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .book-genre {
+            font-size: 1.1rem;
+            color: var(--ice-blue);
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Описание книги */
+        .book-description {
+            margin-bottom: 40px;
+        }
+
+        .main-hook {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: var(--snow-white);
+            font-weight: 400;
+        }
+
+        .world-hook {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            opacity: 0.85;
+            color: var(--ice-blue);
+        }
+
+
+        /* Действия с книгой */
+        .book-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .read-book-button {
+            font-size: 1.3rem;
+            padding: 18px 45px;
+            background: transparent;
+            color: var(--ice-blue);
+            border: 2px solid var(--ice-blue);
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .read-book-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(168, 213, 229, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .read-book-button:hover {
+            color: var(--snow-white);
+            border-color: var(--snow-white);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(168, 213, 229, 0.5);
+        }
+
+        .read-book-button:hover::before {
+            width: 440px;
+            height: 150px;
+        }
+
+        .read-book-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Мобильная адаптация для секции книги */
+        @media (max-width: 768px) {
+            .book-container {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .book-cover {
+                width: 280px;
+                height: 400px;
+            }
+            
+            .book-title {
+                font-size: 2rem;
+            }
+            
+            .book-actions {
+                align-items: center;
+            }
+        }
     </style>
     <link rel="icon" href="favicon32.png" type="image/png">
 </head>
@@ -1095,6 +1263,52 @@
             <p class="runic-text">ᚹ ᚾᚨᚹᛁ ᚹᛋᛖ ᚹᚱᚢᛏ ᛞᚨᛃᛖ ᛈᚱᚨᚹᛞᚨ</p>
             <div class="hero-button">
                 <button class="read-button">Читать книгу</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "О книге" -->
+    <section class="book-section" data-section="1">
+        <h2 class="section-title fade-in">О КНИГЕ</h2>
+        
+        <div class="book-container">
+            <div class="book-cover fade-in">
+                <img src="book-cover.png" alt="Обложка книги НАВМОР">
+            </div>
+            
+            <div class="book-info fade-in">
+                <div class="book-meta">
+                    <h3 class="book-title">Навмор</h3>
+                    <p class="book-author">Автор: <b>Агатис Интегра</b></p>
+                    <p class="book-genre">
+                        <span>Городское фэнтези,</span>
+                        <span>Мистика,</span>
+                        <span>Триллер</span>
+                    </p>
+                </div>
+                
+                <div class="book-description">
+                    <p class="main-hook">
+                        В каждом отражении живет память.<br>
+                        В каждой снежинке — чья-то последняя мысль.<br>
+                        В каждом выдохе на морозе — обещание, которое нельзя нарушить.
+                    </p>
+                    <p class="main-hook">
+                        Семья Морозовых хранит равновесие между мирами уже триста лет.
+                        Но когда древние силы просыпаются, а современный мир трещит по швам,
+                        двум братьям предстоит узнать настоящую цену своего наследия.
+                    </p>
+                    
+                    <p class="world-hook">
+                        В Москве выпал черный снег. Это только начало.
+                    </p>
+                </div>
+                
+                <div class="book-actions">
+                    <button class="read-book-button primary">
+                        <span>Читать на Author.Today</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
