@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html id="html-lang" lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="theme-color" content="#111111">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Агатис Интегра</title>
-    <meta name="description" id="meta-description" content="Официальный сайт автора Агатис Интегра. Книги, миры, тексты, проекты и симуляции: Δ.E.F.I.R., GG, Dev Build, Шай'ри и другие.">
-    <meta name="keywords" id="meta-keywords" content="Агатис Интегра, agaINTE GRAtis, книги, Δ.E.F.I.R., GG, Шай'ри, Dev Build, Роман, ЛитРПГ, Постапокалипсис, РеалРПГ, фантастика, авторский сайт">
+    <title id="page-title">Агатис Интегра — Официальный сайт автора | Книги Δ.E.F.I.R., Навмор</title>
+    <meta name="description" id="meta-description"
+        content="Официальный сайт автора Агатис Интегра. Книги, миры, тексты, проекты и симуляции: Δ.E.F.I.R., Навмор и другие.">
+    <meta name="keywords" id="meta-keywords"
+        content="Агатис Интегра, agaINTE GRAtis, книги, Δ.E.F.I.R., Навмор, Роман, ЛитРПГ, Постапокалипсис, РеалРПГ, фантастика, авторский сайт">
     <meta name="author" content="agaINTE GRAtis">
     <meta name="language" content="ru">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://againte.gratis/">
     <meta property="og:title" id="og-title" content="Агатис Интегра — Официальный сайт">
-    <meta property="og:description" id="og-description" content="Портал автора: миры Δ.E.F.I.R., GG, Шай'ри и другие проекты. Всё самое интересное — здесь.">
+    <meta property="og:description" id="og-description"
+        content="Портал автора: миры Δ.E.F.I.R., Навмор и другие проекты. Всё самое интересное — здесь.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://againte.gratis/">
-    <meta property="og:image" content="https://againte.gratis/cover.jpg">
+    <meta property="og:image" content="https://againte.gratis/author.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Агатис Интегра — Авторский портал">
-    <meta name="twitter:description" content="Фантастические книги, манифест, симуляции и миры от автора Агатис Интегра.">
-    <meta name="twitter:image" content="https://againte.gratis/cover.jpg">
+    <meta name="twitter:description"
+        content="Фантастические книги, манифест, симуляции и миры от автора Агатис Интегра.">
+    <meta name="twitter:image" content="https://againte.gratis/author.jpg">
     <link rel="icon" href="favicon32.png" type="image/png">
     <script type="application/ld+json" id="schema-data">
     {
@@ -119,8 +125,26 @@
         }
     ]
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Агатис Интегра — Официальный сайт автора",
+        "alternateName": "agaINTE GRAtis",
+        "url": "https://againte.gratis/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://againte.gratis/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -131,6 +155,7 @@
             -webkit-tap-highlight-color: transparent;
             position: relative;
         }
+
         body::before {
             content: '';
             position: fixed;
@@ -143,6 +168,7 @@
             opacity: 0.01;
             z-index: 1;
         }
+
         .section {
             display: flex;
             flex-direction: column;
@@ -156,6 +182,7 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
+
         #author-name {
             font-size: 2.5em;
             font-weight: bold;
@@ -163,15 +190,18 @@
             animation: pulse 2.5s infinite ease-in-out;
             margin-bottom: 10px;
         }
+
         #author-name::after {
             content: '_';
             animation: blink 1.2s step-start infinite;
         }
+
         #email {
             font-size: 1.2em;
             margin-top: 10px;
             color: #aaa;
         }
+
         #nav-container {
             max-width: 440px;
             display: flex;
@@ -181,6 +211,7 @@
             margin-top: 20px;
             min-height: 30px;
         }
+
         #history-log {
             font-size: 0.8em;
             color: #444;
@@ -199,6 +230,7 @@
             width: 100%;
             height: 50px;
         }
+
         #back-nav {
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -210,10 +242,14 @@
             text-align: left;
             flex: 0 0 auto;
         }
-        #back-nav:hover, #back-nav:active {
+
+        #back-nav:hover,
+        #back-nav:active,
+        #back-nav:focus {
             color: #fff;
             transform: translateX(-3px);
         }
+
         #error-message {
             color: #ff5555;
             font-size: 1em;
@@ -224,6 +260,7 @@
             padding-left: 20px;
             height: 22px;
         }
+
         #echo-line {
             font-size: 1em;
             margin-top: 15px;
@@ -238,25 +275,30 @@
             max-height: 60vh;
             text-align: center;
         }
+
         .hidden {
             display: none;
         }
+
         .clickable {
             cursor: pointer;
             text-decoration: underline;
         }
+
         .menu-container {
             width: 400px;
             max-width: 400px;
             margin: 0 auto;
             text-align: center;
         }
+
         .content-container {
             width: 400px;
             max-width: 400px;
             margin: 0 auto;
             text-align: left;
         }
+
         .menu-item {
             cursor: pointer;
             padding: 8px 5px;
@@ -264,55 +306,72 @@
             transition: all 0.2s ease;
             position: relative;
         }
-        .menu-item:hover, .menu-item:active {
+
+        .menu-item:hover,
+        .menu-item:active,
+        .menu-item:focus {
             color: #fff;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             transform: translateX(3px);
         }
+
         .book-item {
             cursor: pointer;
             padding: 5px;
             margin: 3px 0;
             transition: all 0.2s ease;
         }
-        .book-item:hover, .book-item:active {
+
+        .book-item:hover,
+        .book-item:active,
+        .book-item:focus {
             color: #fff;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             transform: translateX(3px);
         }
+
         .social-item {
             cursor: pointer;
             padding: 5px;
             margin: 3px 0;
             transition: all 0.2s ease;
         }
-        .social-item:hover, .social-item:active {
+
+        .social-item:hover,
+        .social-item:active,
+        .social-item:focus {
             color: #fff;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             transform: translateX(3px);
         }
+
         @keyframes blink {
             50% {
                 opacity: 0;
             }
         }
+
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 text-shadow: 0 0 4px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.15);
             }
+
             50% {
                 text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.4);
             }
         }
+
         @media (max-width: 600px) {
             #author-name {
                 font-size: 2em;
             }
-            
+
             #email {
                 font-size: 1em;
             }
-            
+
             #echo-line {
                 font-size: 0.9em;
                 margin-top: 10px;
@@ -320,23 +379,29 @@
                 max-width: 95%;
                 overflow-y: scroll;
             }
+
             .menu-container {
                 width: 95%;
                 max-width: 95%;
             }
+
             #nav-container {
                 width: 95%;
                 max-width: 95%;
             }
+
             .content-container {
                 width: 95%;
                 max-width: 95%;
             }
-            
-            .menu-item, .book-item, .social-item {
+
+            .menu-item,
+            .book-item,
+            .social-item {
                 padding: 10px 5px;
             }
         }
+
         @media (max-height: 500px) {
             #echo-line {
                 min-height: 100px;
@@ -346,12 +411,13 @@
         }
     </style>
 </head>
+
 <body>
     <div id="landing" class="section">
         <div id="author-name">agaINTE GRAtis</div>
         <div id="email">echo@againte.gratis</div>
         <div id="nav-container">
-            <div id="back-nav" onclick="handleBack()">↶ Назад</div>
+            <div id="back-nav" role="button" tabindex="0" aria-label="Вернуться назад">↶ Назад</div>
             <div id="error-message"></div>
         </div>
         <div id="echo-line"></div>
@@ -359,4 +425,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

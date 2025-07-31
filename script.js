@@ -136,24 +136,64 @@ function listSocials() {
     backNav.style.opacity = 1;
     
     let output = "<div class='content-container'><div style='margin-bottom: 10px'><strong># Соцсети:</strong></div>";
-    output += "<div class='social-item' onclick='showSocialError(\"ВКонтакте\")'>- ВКонтакте</div>";
-    output += "<div class='social-item' onclick='showSocialError(\"Telegram\")'>- Telegram</div>";
+    output += "<div class='social-item' data-social='ВКонтакте' role='button' tabindex='0' aria-label='Перейти в ВКонтакте'>- ВКонтакте</div>";
+    output += "<div class='social-item' data-social='Telegram' role='button' tabindex='0' aria-label='Перейти в Telegram'>- Telegram</div>";
     output += "</div>";
     
     echoLine.innerHTML = output;
     state = 12;
+    
+    // Добавляем обработчики событий для социальных сетей
+    document.querySelectorAll('.social-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const socialName = this.getAttribute('data-social');
+            showSocialError(socialName);
+        });
+        
+        item.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const socialName = this.getAttribute('data-social');
+                showSocialError(socialName);
+            }
+        });
+    });
     
     addToHistory('> открыт раздел: Соцсети');
 }
 
 function listMenu() {
     let menuHTML = "<div class='menu-container'>[ Выберите раздел ]<br><br>";
-    menuHTML += "<div class='menu-item' onclick='listBooks()'>↳ [ 1 ] Книги&nbsp;&nbsp;</div>";
-    menuHTML += "<div class='menu-item' onclick='listSocials()'>↳ [ 2 ] Соцсети</div>";
+    menuHTML += "<div class='menu-item' data-action='books' role='button' tabindex='0' aria-label='Перейти к разделу книг'>↳ [ 1 ] Книги&nbsp;&nbsp;</div>";
+    menuHTML += "<div class='menu-item' data-action='socials' role='button' tabindex='0' aria-label='Перейти к разделу соцсетей'>↳ [ 2 ] Соцсети</div>";
     menuHTML += "</div>";
     
     echoLine.innerHTML = menuHTML;
     state = 10;
+    
+    // Добавляем обработчики событий для пунктов меню
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            if (action === 'books') {
+                listBooks();
+            } else if (action === 'socials') {
+                listSocials();
+            }
+        });
+        
+        item.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const action = this.getAttribute('data-action');
+                if (action === 'books') {
+                    listBooks();
+                } else if (action === 'socials') {
+                    listSocials();
+                }
+            }
+        });
+    });
     
     if (initialSequenceComplete) {
         addToHistory('> отображено главное меню');
@@ -190,20 +230,36 @@ function listBooks() {
     
     booksMain.forEach(book => {
         const escapedBook = escapeHtml(book);
-        output += `<div class='book-item' onclick='openBookLink("${escapedBook}")'> - ${escapedBook}</div>`;
+        output += `<div class='book-item' data-book='${escapedBook}' role='button' tabindex='0' aria-label='Открыть книгу ${escapedBook}'> - ${escapedBook}</div>`;
     });
     
     output += "<div style='margin: 10px 0'><strong># В соавторстве с Антон Хорш:</strong></div>";
     
     booksCoauthor.forEach(book => {
         const escapedBook = escapeHtml(book);
-        output += `<div class='book-item' onclick='openBookLink("${escapedBook}")'> - ${escapedBook}</div>`;
+        output += `<div class='book-item' data-book='${escapedBook}' role='button' tabindex='0' aria-label='Открыть книгу ${escapedBook}'> - ${escapedBook}</div>`;
     });
     
     output += "</div>";
     
     echoLine.innerHTML = output;
     state = 11;
+    
+    // Добавляем обработчики событий для книг
+    document.querySelectorAll('.book-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const bookName = this.getAttribute('data-book');
+            openBookLink(bookName);
+        });
+        
+        item.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const bookName = this.getAttribute('data-book');
+                openBookLink(bookName);
+            }
+        });
+    });
     
     addToHistory('> открыт раздел: Книги');
 }
@@ -236,6 +292,9 @@ function initPage() {
         echoLine.style.opacity = 1;
         echoLine.textContent = ":: awaiting signal...";
     }, 1000);
+    
+    // Обработчик для кнопки "Назад"
+    backNav.addEventListener('click', handleBack);
     
     document.body.addEventListener("click", () => {
         if (state === 0 && !initialSequenceComplete) {
