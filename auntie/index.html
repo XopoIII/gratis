@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тетушка Агатис — Истории, которые нельзя забыть</title>
+
+  <!-- Современные шрифты с поддержкой кириллицы -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Forum&family=Manrope:wght@300;400&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="https://againte.gratis/favicon32.png" type="image/png">
+  <style>
+    /* CSS Reset и базовые переменные */
+    :root {
+      --primary-font: 'EB Garamond', serif;
+      --accent-font: 'Forum', cursive;
+      --ui-font: 'Manrope', sans-serif;
+
+      --gold: #C9A961;
+      --blood: #8B1A1A;
+      --darkness: #0A0A0A;
+      --mist: #1A1A1A;
+
+      --text-primary: #E8DCC4;
+      --text-secondary: #A89F91;
+
+      --transition-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+      --transition-text: cubic-bezier(0.43, 0.195, 0.02, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Современная типографика с fluid scaling */
+    html {
+      font-size: clamp(14px, 1.2vw, 20px);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--primary-font);
+      color: var(--text-primary);
+      background: var(--darkness);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Убираем скроллбар для чистоты */
+    body::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+
+    /* Основной контейнер с фоновой текстурой */
+    .narrative-space {
+      min-height: 100vh;
+      position: relative;
+      /* Слоистый фон: текстура + градиенты для атмосферы */
+      background:
+        /* Верхний слой - цветовые акценты */
+        radial-gradient(ellipse at 20% 0%, rgba(201, 169, 97, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(139, 26, 26, 0.08) 0%, transparent 50%),
+        /* Средний слой - ваша текстура */
+        url('images/texture-bg.jpg') center/cover,
+        /* Нижний слой - базовый цвет */
+        var(--darkness);
+      /* Режим смешивания для текстуры */
+      background-blend-mode: normal, normal, multiply, normal;
+    }
+
+    /* Убираем лишний псевдоэлемент, так как текстура уже есть в фоне */
+
+    /* Вступительная сцена - полное погружение */
+    .opening-scene {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Контейнер для портрета с изображением */
+    .agatis-portrait {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+      animation: portraitFadeIn 2s ease 0.5s forwards;
+      z-index: -1;
+    }
+
+    /* Главный текстовый блок с кинематографичной подачей */
+    .narrative-intro {
+      max-width: 850px;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Обращение - появляется построчно */
+    .greeting {
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: revealText 1.2s var(--transition-text) 0.5s forwards;
+    }
+
+    .greeting .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .greeting .line span {
+      display: inline-block;
+      transform: translateY(100%);
+      animation: slideUp 0.8s var(--transition-smooth) forwards;
+    }
+
+    .greeting .line:nth-child(1) span {
+      animation-delay: 0.6s;
+    }
+
+    .greeting .line:nth-child(2) span {
+      animation-delay: 0.8s;
+    }
+
+    .greeting .line:nth-child(3) span {
+      animation-delay: 1s;
+    }
+
+    @keyframes slideUp {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes revealText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Основной текст с эффектом печатной машинки */
+    .intro-text {
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      line-height: 1.6;
+      color: var(--text-secondary);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      animation: fadeInText 1.5s ease 2s forwards;
+    }
+
+    .intro-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-text em {
+      font-style: normal;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Секция книг - органично вплетена в повествование */
+    .books-revelation {
+      min-height: 100vh;
+      padding: 8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Контейнер для книг с эффектом появления */
+    .books-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 4rem;
+      max-width: 900px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s var(--transition-smooth);
+    }
+
+    .books-container.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Современная карточка книги */
+    .book-entity {
+      position: relative;
+      aspect-ratio: 2/3;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: none;
+      transition: transform 0.6s var(--transition-smooth);
+    }
+
+    /* Убираем кастомный курсор - оставляем стандартный */
+    .book-entity {
+      cursor: pointer;
+    }
+
+    .book-entity:hover {
+      transform: scale(1.02);
+    }
+
+    /* Обложки книг с реальными изображениями */
+    .book-cover {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Попаданцы - космическая эстетика */
+    .book-popadancy .book-cover {
+      background-image:
+        linear-gradient(135deg, rgba(201, 169, 97, 0.1) 0%, transparent 60%),
+        url('images/cover-popadancy.jpg');
+      background-size: cover, cover;
+      background-position: center, center;
+    }
+
+    /* Ужастики - мрачная эстетика */
+    .book-ujastiki .book-cover {
+      background-image:
+        linear-gradient(135deg, rgba(139, 26, 26, 0.1) 0%, transparent 60%),
+        url('images/cover-ujastiki.jpg');
+      background-size: cover, cover;
+      background-position: center, center;
+    }
+
+    /* Внутреннее содержимое книги */
+    .book-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 3rem;
+      position: relative;
+      z-index: 2;
+      /* Добавляем темный фон для читабельности текста поверх обложки */
+      background: linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0.5) 50%,
+          rgba(0, 0, 0, 0.8) 100%);
+    }
+
+    /* Заголовки книг */
+    .book-title {
+      font-family: var(--accent-font);
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .book-popadancy .book-title {
+      color: var(--gold);
+    }
+
+    .book-ujastiki .book-title {
+      color: var(--blood);
+    }
+
+    .book-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    /* Жанр книги */
+    .book-genre {
+      font-family: var(--ui-font);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: auto;
+      opacity: 0.6;
+    }
+
+    /* Описание при наведении */
+    .book-description {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 3rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.99) 0%, transparent 100%);
+      transform: translateY(100%);
+      transition: transform 0.5s var(--transition-smooth);
+    }
+
+    .book-entity:hover .book-description {
+      transform: translateY(0);
+    }
+
+    .book-description p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Ambient анимации для книг */
+    .book-ambient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+
+    .book-entity:hover .book-ambient {
+      opacity: 1;
+    }
+
+    /* Световые блики для попаданцев */
+    .light-particles {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: floatLight 10s infinite linear;
+    }
+
+    @keyframes floatLight {
+      0% {
+        transform: translateY(100%) translateX(0);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+      }
+    }
+
+    /* Тени для ужастиков */
+    .shadow-wisps {
+      position: absolute;
+      width: 100%;
+      height: 20%;
+      background: linear-gradient(to right, transparent, rgba(139, 26, 26, 0.1), transparent);
+      filter: blur(20px);
+      animation: shadowMove 8s infinite ease-in-out;
+    }
+
+    @keyframes shadowMove {
+
+      0%,
+      100% {
+        transform: translateX(-100%);
+      }
+
+      50% {
+        transform: translateX(100%);
+      }
+    }
+
+    /* Финальная подпись */
+    .farewell {
+      padding: 8rem 2rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .farewell.visible {
+      opacity: 1;
+    }
+
+    .signature {
+      font-family: var(--accent-font);
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .signature em {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--gold);
+      opacity: 0.8;
+    }
+
+    /* Мета-сообщение */
+    .meta-message {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      font-family: var(--ui-font);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      letter-spacing: 0.1em;
+      transition: opacity 0.5s ease;
+      max-width: 300px;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .meta-message.visible {
+      opacity: 0.5;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .books-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .greeting {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+      }
+
+      .book-title {
+        font-size: 2rem;
+      }
+    }
+
+    @keyframes shimmer {
+      to {
+        background-position: 200% center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Пространство повествования -->
+  <div class="narrative-space">
+    <!-- Вступительная сцена -->
+    <section class="opening-scene">
+      <!-- Портрет тетушки Агатис -->
+      <div class="agatis-portrait">
+      </div>
+
+      <div class="narrative-intro">
+        <h1 class="greeting">
+          <span class="line"><span>Знаете,</span></span>
+          <span class="line"><span>дорогие мои,</span></span>
+          <span class="line"><span>есть истории...</span></span>
+        </h1>
+
+        <div class="intro-text">
+          <p>которые <em>нельзя рассказывать</em>. Но я всё же рассказываю.</p>
+          <p>Потому что молчание — это тоже выбор. А я выбираю <em>шёпот в темноте</em>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Откровение книг -->
+    <section class="books-revelation">
+      <div class="books-container" id="booksContainer">
+        <!-- Книга попаданцев -->
+        <article class="book-entity book-popadancy" data-cursor-text="ЧИТАТЬ">
+          <div class="book-cover">
+            <div class="book-description">
+              <p>Истории о тех, кто попал не туда, не так и не вовремя. Где системные окна глючат, а героизм измеряется
+                в листах туалетной бумаги.</p>
+            </div>
+
+            <div class="book-ambient">
+              <!-- Генерируются JS -->
+            </div>
+          </div>
+        </article>
+
+        <!-- Книга ужастиков -->
+        <article class="book-entity book-ujastiki" data-cursor-text="ОТКРЫТЬ">
+          <div class="book-cover">
+            <div class="book-description">
+              <p>После этих историй вы будете проверять зеркала. И тени. И особенно — зеркала в тенях. Иногда отражение
+                моргает первым.</p>
+            </div>
+
+            <div class="book-ambient">
+              <div class="shadow-wisps"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Прощание -->
+    <section class="farewell" id="farewell">
+      <div class="signature">
+        С теплом и лёгким безумием,
+        <em>Ваша тетушка Агатис</em>
+      </div>
+    </section>
+  </div>
+
+  <!-- Мета-сообщение -->
+  <div class="meta-message" id="metaMessage">
+    А ты точно уверен, что это ты выбрал читать эти истории?
+  </div>
+
+  <script>
+    // Современный подход к интерактивности
+    class AgatisExperience {
+      constructor() {
+        this.initializeElements();
+        this.setupObservers();
+        this.initializeAnimations();
+        this.setupCursor();
+        this.createAmbientEffects();
+      }
+
+      initializeElements() {
+        this.booksContainer = document.getElementById('booksContainer');
+        this.farewell = document.getElementById('farewell');
+        this.metaMessage = document.getElementById('metaMessage');
+        this.books = document.querySelectorAll('.book-entity');
+      }
+
+      setupObservers() {
+        // Intersection Observer для плавного появления элементов
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -10% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (entry.target.id === 'booksContainer') {
+                entry.target.classList.add('revealed');
+                // Показываем мета-сообщение через некоторое время
+                setTimeout(() => {
+                  this.metaMessage.classList.add('visible');
+                }, 3000);
+              }
+              if (entry.target.id === 'farewell') {
+                entry.target.classList.add('visible');
+              }
+            }
+          });
+        }, observerOptions);
+
+        observer.observe(this.booksContainer);
+        observer.observe(this.farewell);
+      }
+
+      initializeAnimations() {
+        // Параллакс эффект при скролле
+        let ticking = false;
+        const handleScroll = () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const scrolled = window.scrollY;
+
+              // Subtle parallax для текста
+              document.querySelectorAll('.greeting, .intro-text').forEach((el, i) => {
+                el.style.transform = `translateY(${scrolled * 0.15 * (i + 1)}px)`;
+                el.style.opacity = Math.max(0, 1 - scrolled * 0.001);
+              });
+
+              ticking = false;
+            });
+            ticking = true;
+          }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+
+      setupCursor() {
+        // Простые эффекты при наведении на книги
+        this.books.forEach(book => {
+          // Smooth hover effect
+          book.addEventListener('mouseenter', () => {
+            book.style.transform = 'scale(1.02)';
+          });
+
+          book.addEventListener('mouseleave', () => {
+            book.style.transform = 'scale(1)';
+          });
+
+          // Клик на книгу
+          book.addEventListener('click', () => {
+            console.log(`Opening: ${book.classList.contains('book-popadancy') ? 'Попаданцы' : 'Ужастики'}`);
+            window.location.href = book.classList.contains('book-popadancy') ? 'https://author.today/reader/474714' : 'https://author.today/reader/472704';
+          });
+        });
+      }
+
+      createAmbientEffects() {
+        // Создаем световые частицы для книги попаданцев
+        const popadancyAmbient = document.querySelector('.book-popadancy .book-ambient');
+        if (popadancyAmbient) {
+          for (let i = 0; i < 15; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'light-particles';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            popadancyAmbient.appendChild(particle);
+          }
+        }
+      }
+    }
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+      new AgatisExperience();
+
+      // Плавное появление элементов
+      document.querySelectorAll('.line span').forEach((span, i) => {
+        span.style.animationDelay = (0.6 + i * 0.2) + 's';
+      });
+    });
+
+    // Эффект изменения мета-сообщения
+    let messageIndex = 0;
+    const messages = [
+      "А ты точно уверен, что это ты выбрал читать эти истории?",
+      "Иногда книги выбирают своих читателей.",
+      "Не все истории хотят быть прочитанными.",
+      "Ты всё ещё здесь? Интересно."
+    ];
+
+    setInterval(() => {
+      const metaMessage = document.getElementById('metaMessage');
+      if (metaMessage && metaMessage.classList.contains('visible')) {
+        metaMessage.style.opacity = '0';
+        setTimeout(() => {
+          messageIndex = (messageIndex + 1) % messages.length;
+          metaMessage.textContent = messages[messageIndex];
+          metaMessage.style.opacity = '0.5';
+        }, 500);
+      }
+    }, 8000);
+
+    // Эффект "дыхания" для фона
+    let breathPhase = 0;
+    function breatheBackground() {
+      breathPhase += 0.01;
+      const intensity = Math.sin(breathPhase) * 0.02 + 0.98;
+      document.querySelector('.narrative-space').style.opacity = intensity;
+      requestAnimationFrame(breatheBackground);
+    }
+    breatheBackground();
+  </script>
+</body>
+
+</html>
