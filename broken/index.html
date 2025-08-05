@@ -7,30 +7,33 @@
   <title>Сломанная Земля - Постапокалиптическая серия Агатиса Интегры</title>
   <meta name="description"
     content="Когда мир замерз, а потом сгорел. 10% выжили в холоде. Сколько переживут жару? Постапокалиптическая сага о выживании после климатической катастрофы.">
-  
+
   <!-- Open Graph теги для социальных сетей -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Сломанная Земля - Постапокалиптическая серия Агатиса Интегры">
-  <meta property="og:description" content="Когда мир замерз, а потом сгорел. 10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании в постапокалиптическом мире.">
+  <meta property="og:description"
+    content="Когда мир замерз, а потом сгорел. 10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании в постапокалиптическом мире.">
   <meta property="og:url" content="https://againte.gratis/broken/">
   <meta property="og:image" content="https://againte.gratis/broken/Hero%20Background.png">
   <meta property="og:image:alt" content="Сломанная Земля - постапокалиптический мир">
   <meta property="og:site_name" content="Агатис Интегра - Официальный сайт">
   <meta property="og:locale" content="ru_RU">
-  
+
   <!-- Twitter Card теги -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Сломанная Земля - Постапокалиптическая серия">
-  <meta name="twitter:description" content="10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании после климатической катастрофы.">
+  <meta name="twitter:description"
+    content="10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании после климатической катастрофы.">
   <meta name="twitter:image" content="https://againte.gratis/broken/Hero%20Background.png">
   <meta name="twitter:image:alt" content="Сломанная Земля - постапокалиптический мир">
-  
+
   <!-- Дополнительные мета-теги для SEO -->
-  <meta name="keywords" content="Сломанная Земля, постапокалипсис, Агатис Интегра, научная фантастика, выживание, климатическая катастрофа, русская фантастика">
+  <meta name="keywords"
+    content="Сломанная Земля, постапокалипсис, Агатис Интегра, научная фантастика, выживание, климатическая катастрофа, русская фантастика">
   <meta name="author" content="Агатис Интегра">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://againte.gratis/broken/">
-  
+
   <link rel="icon" href="/favicon32.png" type="image/png">
   <!-- Подключаем шрифты для постапокалиптической атмосферы -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -314,88 +317,6 @@
       margin-bottom: 1rem;
       font-family: var(--font-impact);
       text-transform: uppercase;
-    }
-
-    /* Точки на карте */
-    .map-point {
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      background: var(--color-ice);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      animation: pulsePoint 2s ease-in-out infinite;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .map-point:hover {
-      transform: scale(1.5);
-      background: var(--color-fire);
-    }
-
-    @keyframes pulsePoint {
-
-      0%,
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-      }
-
-      50% {
-        box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
-      }
-    }
-
-    .map-point[data-location="vladivostok"] {
-      top: 74%;
-      left: 79%;
-      background: var(--color-ice);
-    }
-
-    .map-point[data-location="novosibirsk"] {
-      top: 59%;
-      left: 51%;
-      background: var(--color-fire);
-    }
-
-    .map-point[data-location="space"] {
-      top: 21%;
-      left: 25%;
-      background: var(--color-space-light);
-    }
-
-    .map-point[data-location="unknown"] {
-      top: 73%;
-      left: 30%;
-      background: var(--color-ash);
-    }
-
-    /* Tooltip для точек */
-    .map-tooltip {
-      position: absolute;
-      background: rgba(0, 0, 0, 0.95);
-      color: white;
-      padding: 1.2rem;
-      border-radius: 4px;
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s ease;
-      min-width: 250px;
-      z-index: 100;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .map-tooltip.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .map-tooltip h4 {
-      font-family: var(--font-impact);
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.05em;
     }
 
     /* Секции книг */
@@ -828,7 +749,7 @@
     }
   }
   </script>
-  
+
   <!-- Дополнительная разметка для веб-страницы -->
   <script type="application/ld+json">
   {
@@ -925,17 +846,7 @@
       <p class="subtitle">Четыре истории. Одна катастрофа.</p>
     </div>
 
-    <div class="journey-map">
-      <div class="map-point" data-location="vladivostok" data-book="1"></div>
-      <div class="map-point" data-location="novosibirsk" data-book="2"></div>
-      <div class="map-point" data-location="space" data-book="3"></div>
-      <div class="map-point" data-location="unknown" data-book="4"></div>
-
-      <div class="map-tooltip" id="mapTooltip">
-        <h4></h4>
-        <p></p>
-      </div>
-    </div>
+    <div class="journey-map"></div>
   </section>
 
   <!-- Книга 1: 40 км во льду -->
@@ -1116,57 +1027,6 @@
       });
     }
 
-    // Интерактивная карта
-    function initMap() {
-      const mapPoints = document.querySelectorAll('.map-point');
-      const tooltip = document.getElementById('mapTooltip');
-
-      const locationData = {
-        vladivostok: {
-          title: 'Владивосток - 40 км во льду',
-          description: 'Семья Малковых начинает свой путь через ледяную пустыню'
-        },
-        novosibirsk: {
-          title: 'Новосибирск - 10 процентов',
-          description: 'Братья спасают детей из горящего города'
-        },
-        space: {
-          title: 'МКС - Последняя орбита',
-          description: 'Экипаж станции наблюдает за гибелью мира'
-        },
-        unknown: {
-          title: 'Неизвестная локация - Сквозь серые зубы',
-          description: 'Новая угроза из мёртвых городов'
-        }
-      };
-
-      mapPoints.forEach(point => {
-        point.addEventListener('mouseenter', (e) => {
-          const location = e.target.dataset.location;
-          const data = locationData[location];
-
-          tooltip.querySelector('h4').textContent = data.title;
-          tooltip.querySelector('p').textContent = data.description;
-
-          const rect = e.target.getBoundingClientRect();
-          const mapRect = e.target.parentElement.getBoundingClientRect();
-
-          tooltip.style.left = `${rect.left - mapRect.left + 30}px`;
-          tooltip.style.top = `${rect.top - mapRect.top - 10}px`;
-          tooltip.classList.add('active');
-        });
-
-        point.addEventListener('mouseleave', () => {
-          tooltip.classList.remove('active');
-        });
-
-        point.addEventListener('click', (e) => {
-          const bookNumber = e.target.dataset.book;
-          scrollToSection(`book${bookNumber}`);
-        });
-      });
-    }
-
     // Параллакс эффект для фонов
     function initParallax() {
       const parallaxElements = document.querySelectorAll('.parallax-bg');
@@ -1185,7 +1045,6 @@
     // Инициализация при загрузке
     document.addEventListener('DOMContentLoaded', () => {
       animatePreloader();
-      initMap();
       initParallax();
     });
   </script>
