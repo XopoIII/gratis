@@ -632,40 +632,6 @@
       }
     }
 
-    /* Эффект параллакса для фонов */
-    .parallax-bg {
-      position: absolute;
-      top: -20%;
-      left: 0;
-      width: 100%;
-      height: 120%;
-      opacity: 0.05;
-      z-index: -1;
-    }
-
-    /* Плавная прокрутка */
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Кастомный скроллбар */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--text-secondary);
-      border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-primary);
-    }
-
     /* Эффект шума для фона (постапокалиптическая атмосфера) */
     .noise-overlay {
       position: fixed;
@@ -674,7 +640,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      opacity: 0.03;
+      opacity: 0.07;
       z-index: 1;
       background-image:
         repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, .1) 2px, rgba(255, 255, 255, .1) 4px);
@@ -873,7 +839,6 @@
 
   <!-- Книга 2: 10 процентов -->
   <section class="book-section book-2" id="book2">
-    <div class="parallax-bg"></div>
     <div class="book-container">
       <div class="book-cover">
         <img src="./book2.jpg" alt="10 процентов">
@@ -895,7 +860,6 @@
 
   <!-- Книга 3: Последняя орбита -->
   <section class="book-section book-3" id="book3">
-    <div class="parallax-bg"></div>
     <div class="book-container">
       <div class="book-cover">
         <img src="./book3.jpg" alt="Последняя орбита">
@@ -917,7 +881,6 @@
 
   <!-- Книга 4: Сквозь серые зубы -->
   <section class="book-section book-4" id="book4">
-    <div class="parallax-bg"></div>
     <div class="book-container">
       <div class="book-cover">
         <img src="./book4.jpg" alt="Сквозь серые зубы">
@@ -984,14 +947,6 @@
       }, 30);
     }
 
-    // Плавная прокрутка к секции
-    function scrollToSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
     // Эффекты при скролле
     function initScrollEffects() {
       const tempIndicator = document.getElementById('tempIndicator');
@@ -1027,25 +982,9 @@
       });
     }
 
-    // Параллакс эффект для фонов
-    function initParallax() {
-      const parallaxElements = document.querySelectorAll('.parallax-bg');
-
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-
-        parallaxElements.forEach(el => {
-          const speed = 0.5;
-          const yPos = -(scrolled * speed);
-          el.style.transform = `translateY(${yPos}px)`;
-        });
-      });
-    }
-
     // Инициализация при загрузке
     document.addEventListener('DOMContentLoaded', () => {
       animatePreloader();
-      initParallax();
     });
   </script>
 </body>
