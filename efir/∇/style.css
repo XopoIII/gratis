@@ -2352,6 +2352,70 @@ body.corrupted .hero-subtitle {
     
     .character-card {
         min-width: 100%;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    .character-header {
+        padding: 15px;
+    }
+
+    .character-name {
+        font-size: 1.3rem;
+        line-height: 1.2;
+    }
+
+    .character-role {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .character-bio {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        padding: 0 15px 15px;
+    }
+
+    .character-quote {
+        font-size: 0.85rem;
+        line-height: 1.3;
+        padding: 15px;
+    }
+
+    .about-text,
+    .section-description {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .term-item {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .term-name {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .term-description {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .location-card {
+        padding: 20px 15px;
+    }
+
+    .location-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .location-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
     
     .footer-copyright {
@@ -2368,6 +2432,42 @@ body.corrupted .hero-subtitle {
     .nav-scan-line,
     .term-header-scan {
         display: none !important;
+    }
+
+    .character-card {
+        max-width: 280px;
+    }
+
+    .character-name {
+        font-size: 1.1rem;
+    }
+
+    .hero-title {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .section-title {
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
+
+    .about-text,
+    .section-description {
+        font-size: 0.85rem;
+    }
+
+    .term-name {
+        font-size: 1rem;
+    }
+
+    .term-description {
+        font-size: 0.8rem;
     }
 }
 @media (hover: none) {

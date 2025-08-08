@@ -1097,12 +1097,42 @@
 
             .card-container {
                 gap: 30px;
+                padding: 0 15px;
             }
 
             .character-card,
             .ally-card {
                 width: 100%;
                 max-width: 350px;
+                margin: 0 auto;
+            }
+
+            .character-info {
+                padding: 20px;
+            }
+
+            .character-name {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
+            }
+
+            .character-info p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+                margin-bottom: 10px;
+            }
+
+            .character-quote {
+                font-size: 0.85rem !important;
+                line-height: 1.3 !important;
+            }
+
+            .stat-bar {
+                margin: 12px 0;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
             }
 
             .enemies-grid,
@@ -1311,6 +1341,42 @@
 
             .book-actions {
                 align-items: center;
+            }
+        }
+
+        /* Дополнительная адаптация для очень маленьких экранов */
+        @media (max-width: 480px) {
+
+            .character-card,
+            .ally-card {
+                max-width: 300px;
+            }
+
+            .character-info {
+                padding: 15px;
+            }
+
+            .character-name {
+                font-size: 1.4rem;
+            }
+
+            .stat-progress {
+                height: 6px;
+            }
+
+            .ally-info {
+                padding: 15px;
+            }
+
+            .ally-name {
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+            }
+
+            .ally-description,
+            .ally-quote {
+                font-size: 0.85rem;
+                line-height: 1.3;
             }
         }
     </style>
@@ -2016,6 +2082,31 @@
         styleSheet.textContent = hoverAnimation;
         document.head.appendChild(styleSheet);
     </script>
+
+    <!-- Футер -->
+    <footer style="
+        background: #0a0a0a;
+        padding: 20px 0 10px 0;
+        text-align: center;
+        border-top: 1px solid #333;
+        color: #888;
+        font-size: 1em;
+    ">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="margin-bottom: 15px; display: flex; justify-content: space-between; flex-direction: row;">
+                <a href="https://againte.gratis/" style="
+                    color: var(--ice-blue, #A8D5E5);
+                    text-decoration: none;
+                    transition: color 0.3s ease;
+                " onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#A8D5E5'">
+                    ← Вернуться на главную
+                </a>
+                <span>
+                    © 2025 Агатис Интегра | agaINTE GRAtis
+                </span>
+            </p>
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -3,6 +3,7 @@ const bookLinks = {
     "Серия книг «Сломанная земля»": "https://againte.gratis/broken/",
     "Δ.E.F.I.R. Фаза 1: Замедление": "https://againte.gratis/efir/",
     "∇.E.F.I.R. Фаза 2: Фрактальный Разлом": "https://againte.gratis/efir/∇/",
+    "Тётушка Агатис": "https://againte.gratis/auntie/",
     "С ручкой поневоле": "https://author.today/work/432204",
     "Пропавшие вчера: Болото": "https://author.today/work/427953",
 };
@@ -28,7 +29,8 @@ const booksMain = [
     "Навмор",
     "Δ.E.F.I.R. Фаза 1: Замедление",
     "∇.E.F.I.R. Фаза 2: Фрактальный Разлом",
-    "Серия книг «Сломанная земля»"
+    "Серия книг «Сломанная земля»",
+    "Тётушка Агатис"
 ];
 
 const booksCoauthor = [
