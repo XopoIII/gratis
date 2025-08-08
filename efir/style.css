@@ -1232,6 +1232,7 @@ img {
 .character-portrait {
     position: relative;
     overflow: hidden;
+    aspect-ratio: 4 / 3;
 }
 
 .character-portrait-image {
@@ -2154,6 +2155,7 @@ body.corrupted .hero-subtitle {
 .antagonist-image {
     position: relative;
     overflow: hidden;
+    aspect-ratio: 4 / 3;
 }
 
 .antagonist-image-overlay {

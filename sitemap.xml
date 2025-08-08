@@ -12,7 +12,7 @@
   </url>
 
   <url>
-    <loc>https://againte.gratis/efir/archive</loc>
+    <loc>https://againte.gratis/efir/archive/</loc>
     <priority>0.8</priority>
   </url>
 
@@ -22,8 +22,13 @@
   </url>
 
   <url>
-    <loc>https://againte.gratis/efir/∇/archive</loc>
+    <loc>https://againte.gratis/efir/∇/archive/</loc>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://againte.gratis/efir/stories/</loc>
+    <priority>0.5</priority>
   </url>
 
   <url>
@@ -32,13 +37,13 @@
   </url>
 
   <url>
-    <loc>https://againte.gratis/gg/</loc>
-    <priority>0.9</priority>
+    <loc>https://againte.gratis/auntie/</loc>
+    <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://againte.gratis/gg/glossary/</loc>
-    <priority>0.8</priority>
+    <loc>https://againte.gratis/broken/</loc>
+    <priority>0.6</priority>
   </url>
 
 </urlset>

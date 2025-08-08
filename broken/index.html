@@ -14,9 +14,9 @@
   <meta property="og:description"
     content="Когда мир замерз, а потом сгорел. 10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании в постапокалиптическом мире.">
   <meta property="og:url" content="https://againte.gratis/broken/">
-  <meta property="og:image" content="https://againte.gratis/broken/Hero%20Background.png">
+  <meta property="og:image" content="https://againte.gratis/broken/herobackground.jpg">
   <meta property="og:image:alt" content="Сломанная Земля - постапокалиптический мир">
-  <meta property="og:site_name" content="Агатис Интегра - Официальный сайт">
+  <meta property="og:site_name" content="agaINTE GRAtis">
   <meta property="og:locale" content="ru_RU">
 
   <!-- Twitter Card теги -->
@@ -24,7 +24,7 @@
   <meta name="twitter:title" content="Сломанная Земля - Постапокалиптическая серия">
   <meta name="twitter:description"
     content="10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании после климатической катастрофы.">
-  <meta name="twitter:image" content="https://againte.gratis/broken/Hero%20Background.png">
+  <meta name="twitter:image" content="https://againte.gratis/broken/herobackground.jpg">
   <meta name="twitter:image:alt" content="Сломанная Земля - постапокалиптический мир">
 
   <!-- Дополнительные мета-теги для SEO -->
@@ -35,12 +35,36 @@
   <link rel="canonical" href="https://againte.gratis/broken/">
 
   <link rel="icon" href="/favicon32.png" type="image/png">
+  <link rel="alternate" hreflang="ru" href="https://againte.gratis/broken/">
   <!-- Подключаем шрифты для постапокалиптической атмосферы -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600&display=swap"
     rel="stylesheet">
+  <link rel="preload" href="./herobackground.jpg" as="image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "Сломанная Земля", "item": "https://againte.gratis/broken/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BookSeries",
+    "name": "Сломанная Земля",
+    "url": "https://againte.gratis/broken/",
+    "inLanguage": "ru",
+    "numberOfBooks": 4,
+    "author": { "@type": "Person", "name": "Агатис Интегра" },
+    "image": "https://againte.gratis/broken/herobackground.jpg"
+  }
+  </script>
 
   <style>
     /* Сброс стилей и базовые настройки */
@@ -298,8 +322,10 @@
 
     .journey-section img {
       width: 100%;
-      height: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
       object-fit: cover;
+      display: block;
     }
 
     .journey-title {
@@ -803,7 +829,7 @@
       <h2>География выживания</h2>
       <p class="subtitle">Четыре истории. Одна катастрофа.</p>
     </div>
-    <img src="./journeymap.jpg" alt="Карта путешествия">
+    <img loading="lazy" decoding="async" src="./journeymap.jpg" alt="Карта путешествия" width="1600" height="900">
   </section>
 
   <!-- Книга 1: 40 км во льду -->
@@ -811,7 +837,7 @@
     <div class="parallax-bg"></div>
     <div class="book-container">
       <div class="book-cover">
-        <img src="./book1.jpg" alt="40 км во льду">
+        <img loading="lazy" decoding="async" src="./book1.jpg" alt="40 км во льду" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга первая</p>
@@ -832,7 +858,7 @@
   <section class="book-section book-2" id="book2">
     <div class="book-container">
       <div class="book-cover">
-        <img src="./book2.jpg" alt="10 процентов">
+        <img loading="lazy" decoding="async" src="./book2.jpg" alt="10 процентов" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга вторая</p>
@@ -853,7 +879,7 @@
   <section class="book-section book-3" id="book3">
     <div class="book-container">
       <div class="book-cover">
-        <img src="./book3.jpg" alt="Последняя орбита">
+        <img loading="lazy" decoding="async" src="./book3.jpg" alt="Последняя орбита" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга третья</p>
@@ -874,7 +900,7 @@
   <section class="book-section book-4" id="book4">
     <div class="book-container">
       <div class="book-cover">
-        <img src="./book4.jpg" alt="Сквозь серые зубы">
+        <img loading="lazy" decoding="async" src="./book4.jpg" alt="Сквозь серые зубы" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга четвёртая</p>

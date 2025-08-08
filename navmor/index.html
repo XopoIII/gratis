@@ -16,14 +16,19 @@
     <meta property="og:description"
         content="Семья Морозовых хранит равновесие между мирами уже триста лет. Читать онлайн">
     <meta property="og:image" content="https://againte.gratis/navmor/book-cover.png">
+    <meta property="og:image:alt" content="Обложка НАВМОР">
     <meta property="og:url" content="https://againte.gratis/navmor/">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Агатис Интегра">
+    <meta property="og:site_name" content="agaINTE GRAtis">
+    <meta property="og:locale" content="ru_RU">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="НАВМОР - Морозовы не бросают своих. Даже в аду.">
     <meta name="twitter:description" content="Семья Морозовых хранит равновесие между мирами. Читать онлайн">
     <meta name="twitter:image" content="https://againte.gratis/navmor/book-cover.png">
+    <meta name="twitter:image:alt" content="Обложка НАВМОР">
     <link rel="icon" href="favicon32.png" type="image/png">
+    <link rel="preload" href="hero-bg1.png" as="image">
+    <link rel="alternate" hreflang="ru" href="https://againte.gratis/navmor/">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -43,6 +48,16 @@
             "name": "Author.Today"
         },
         "image": "https://againte.gratis/navmor/book-cover.png"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://againte.gratis/"},
+        {"@type": "ListItem", "position": 2, "name": "НАВМОР", "item": "https://againte.gratis/navmor/"}
+      ]
     }
     </script>
     <style>
@@ -309,6 +324,7 @@
             background: linear-gradient(to bottom, rgba(168, 213, 229, 0.1) 0%, var(--card-brothers) 100%);
             position: relative;
             overflow: hidden;
+            aspect-ratio: 4 / 3;
         }
 
         .character-image img {
@@ -395,6 +411,7 @@
             align-items: center;
             justify-content: center;
             font-size: 4rem;
+            aspect-ratio: 4 / 3;
         }
 
         .ally-image img {
@@ -1385,7 +1402,7 @@
 <body>
     <!-- Лоадер -->
     <div class="loader" id="loader">
-        <img class="loader-snowflake" src="logo100.png" alt="Лоадер">
+        <img class="loader-snowflake" src="logo100.png" alt="Лоадер" width="100" height="100">
     </div>
 
     <!-- Hero секция -->
@@ -1409,8 +1426,8 @@
         <h2 class="section-title fade-in">О КНИГЕ</h2>
 
         <div class="book-container">
-            <div class="book-cover fade-in">
-                <img src="book-cover.png" alt="Обложка книги НАВМОР">
+                <div class="book-cover fade-in">
+                    <img loading="lazy" decoding="async" src="book-cover.png" alt="Обложка книги НАВМОР" width="350" height="500">
             </div>
 
             <div class="book-info fade-in">
@@ -1458,7 +1475,7 @@
             <!-- Лазарь -->
             <div class="character-card fade-in">
                 <div class="character-image">
-                    <img src="lazarus2.png" alt="Лазарь Морозов">
+                    <img loading="lazy" decoding="async" src="lazarus2.png" alt="Лазарь Морозов">
                 </div>
                 <div class="character-info">
                     <h3 class="character-name">ЛАЗАРЬ</h3>
@@ -1491,7 +1508,7 @@
             <!-- Гордей -->
             <div class="character-card fade-in">
                 <div class="character-image">
-                    <img src="gordey.png" alt="Гордей Морозов">
+                    <img loading="lazy" decoding="async" src="gordey.png" alt="Гордей Морозов">
                 </div>
                 <div class="character-info">
                     <h3 class="character-name">ГОРДЕЙ</h3>
@@ -1530,7 +1547,7 @@
         <div class="card-container">
             <div class="ally-card fade-in">
                 <div class="ally-image">
-                    <img src="diad.png" alt="Дияд Морозов">
+                    <img loading="lazy" decoding="async" src="diad.png" alt="Дияд Морозов">
                 </div>
                 <div class="ally-info">
                     <h3 class="ally-name">ДЕД МОРОЗ</h3>
@@ -1551,7 +1568,7 @@
 
             <div class="ally-card fade-in">
                 <div class="ally-image">
-                    <img src="rarog.png" alt="Рарог">
+                    <img loading="lazy" decoding="async" src="rarog.png" alt="Рарог">
                 </div>
                 <div class="ally-info">
                     <h3 class="ally-name">РАРОГ</h3>
@@ -1571,7 +1588,7 @@
 
             <div class="ally-card fade-in">
                 <div class="ally-image">
-                    <img src="stepanych.png" alt="Степаныч">
+                    <img loading="lazy" decoding="async" src="stepanych.png" alt="Степаныч">
                 </div>
                 <div class="ally-info">
                     <h3 class="ally-name">СТЕПАНЫЧ</h3>
@@ -1598,7 +1615,7 @@
         <div class="enemies-grid">
             <div class="enemy-card fade-in">
                 <div class="enemy-image">
-                    <img src="e1.png" alt="Упырь">
+                    <img loading="lazy" decoding="async" src="e1.png" alt="Упырь">
                 </div>
                 <div class="enemy-info">
                     <h3 class="enemy-name">УПЫРИ</h3>
@@ -1614,7 +1631,7 @@
 
             <div class="enemy-card fade-in">
                 <div class="enemy-image">
-                    <img src="e2.png" alt="Русалка">
+                    <img loading="lazy" decoding="async" src="e2.png" alt="Русалка">
                 </div>
                 <div class="enemy-info">
                     <h3 class="enemy-name">РУСАЛКИ</h3>
@@ -1630,7 +1647,7 @@
 
             <div class="enemy-card fade-in">
                 <div class="enemy-image">
-                    <img src="e3.png" alt="Мавка">
+                    <img loading="lazy" decoding="async" src="e3.png" alt="Мавка">
                 </div>
                 <div class="enemy-info">
                     <h3 class="enemy-name">МАВКИ</h3>
@@ -1646,7 +1663,7 @@
 
             <div class="enemy-card fade-in">
                 <div class="enemy-image">
-                    <img src="e4.png" alt="Зеркальная Мара">
+                    <img loading="lazy" decoding="async" src="e4.png" alt="Зеркальная Мара">
                 </div>
                 <div class="enemy-info">
                     <h3 class="enemy-name">ЗЕРКАЛЬНАЯ МАРА</h3>
@@ -1662,7 +1679,7 @@
 
             <div class="enemy-card fade-in">
                 <div class="enemy-image">
-                    <img src="e5.png" alt="Корочун">
+                    <img loading="lazy" decoding="async" src="e5.png" alt="Корочун">
                 </div>
                 <div class="enemy-info">
                     <h3 class="enemy-name">КОРОЧУН</h3>
@@ -1678,7 +1695,7 @@
 
             <div class="enemy-card fade-in">
                 <div class="enemy-image">
-                    <img src="e6.png" alt="Чернобог">
+                    <img loading="lazy" decoding="async" src="e6.png" alt="Чернобог">
                 </div>
                 <div class="enemy-info">
                     <h3 class="enemy-name">ЧЕРНОБОГ</h3>
@@ -1706,7 +1723,7 @@
                     <div class="feather feather-2" style="--rotation: 10deg;" title="Найдено в главе 2"></div>
                 </div>
                 <div class="neutral-image">
-                    <img src="gamayun.png" alt="Гамаюн">
+                    <img loading="lazy" decoding="async" src="gamayun.png" alt="Гамаюн">
                 </div>
                 <div class="neutral-info">
                     <h3 class="neutral-name">ГАМАЮН</h3>
@@ -1742,9 +1759,9 @@
                     <div class="polaroid-front">
                         <div class="polaroid-photo-wrapper">
                             <!-- Фотография истории (под рамкой) -->
-                            <img class="photo-story" src="alina-dinner.png" alt="Последний ужин">
+                            <img loading="lazy" decoding="async" class="photo-story" src="alina-dinner.png" alt="Последний ужин">
                             <!-- Рамка полароида (сверху) -->
-                            <img class="polaroid-frame" src="polaroid.png" alt="Рамка">
+                            <img loading="lazy" decoding="async" class="polaroid-frame" src="polaroid.png" alt="Рамка">
                             <!-- Временная метка -->
                             <div class="photo-timestamp">15.01.2024 19:47</div>
                             <!-- Подпись -->
@@ -1773,9 +1790,9 @@
                     <div class="polaroid-front">
                         <div class="polaroid-photo-wrapper">
                             <!-- Фотография истории (под рамкой) -->
-                            <img class="photo-story" src="morgue-guard.png" alt="Дверь в морг">
+                            <img loading="lazy" decoding="async" class="photo-story" src="morgue-guard.png" alt="Дверь в морг">
                             <!-- Рамка полароида (сверху) -->
-                            <img class="polaroid-frame" src="polaroid.png" alt="Рамка">
+                            <img loading="lazy" decoding="async" class="polaroid-frame" src="polaroid.png" alt="Рамка">
                             <!-- Временная метка -->
                             <div class="photo-timestamp">31.12.2023 23:15</div>
                             <!-- Подпись -->
