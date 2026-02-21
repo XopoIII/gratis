@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сломанная Земля - Постапокалиптическая серия Агатиса Интегры</title>
   <meta name="description"
-    content="Когда мир замерз, а потом сгорел. 10% выжили в холоде. Сколько переживут жару? Постапокалиптическая сага о выживании после климатической катастрофы.">
+    content="10% выжили в холоде. Сколько выживут в новом мире? Четыре книги о выживании после климатической катастрофы.">
 
   <!-- Open Graph теги для социальных сетей -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Сломанная Земля - Постапокалиптическая серия Агатиса Интегры">
   <meta property="og:description"
-    content="Когда мир замерз, а потом сгорел. 10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании в постапокалиптическом мире.">
+    content="10% выжили в холоде. Сколько выживут в новом мире? Четыре книги. Три линии выживания. Один сломанный мир.">
   <meta property="og:url" content="https://againte.gratis/broken/">
   <meta property="og:image" content="https://againte.gratis/broken/herobackground.jpg">
   <meta property="og:image:alt" content="Сломанная Земля - постапокалиптический мир">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Сломанная Земля - Постапокалиптическая серия">
   <meta name="twitter:description"
-    content="10% выжили в холоде. Сколько переживут жару? Четыре книги о выживании после климатической катастрофы.">
+    content="10% выжили в холоде. Сколько выживут в новом мире? Четыре книги. Три линии выживания. Один сломанный мир.">
   <meta name="twitter:image" content="https://againte.gratis/broken/herobackground.jpg">
   <meta name="twitter:image:alt" content="Сломанная Земля - постапокалиптический мир">
 
@@ -31,11 +31,12 @@
   <meta name="keywords"
     content="Сломанная Земля, постапокалипсис, Агатис Интегра, научная фантастика, выживание, климатическая катастрофа, русская фантастика">
   <meta name="author" content="Агатис Интегра">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
   <link rel="canonical" href="https://againte.gratis/broken/">
 
   <link rel="icon" href="/favicon32.png" type="image/png">
   <link rel="alternate" hreflang="ru" href="https://againte.gratis/broken/">
+  <link rel="alternate" hreflang="x-default" href="https://againte.gratis/broken/">
   <!-- Подключаем шрифты для постапокалиптической атмосферы -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,26 +47,156 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://againte.gratis/"},
-      {"@type": "ListItem", "position": 2, "name": "Сломанная Земля", "item": "https://againte.gratis/broken/"}
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://againte.gratis/#author",
+        "name": "Агатис Интегра",
+        "url": "https://againte.gratis/"
+      },
+      {
+        "@type": "BookSeries",
+        "@id": "https://againte.gratis/broken/#series",
+        "name": "Сломанная Земля",
+        "url": "https://againte.gratis/broken/",
+        "inLanguage": "ru",
+        "genre": ["Научная фантастика", "Постапокалипсис", "Выживание"],
+        "numberOfBooks": 4,
+        "author": {
+          "@id": "https://againte.gratis/#author"
+        },
+        "hasPart": [
+          {
+            "@type": "Book",
+            "position": 1,
+            "name": "40 км во льду",
+            "description": "Семья Малковых покидает замерзающий Владивосток и проходит сорок километров через ледяной город. Это история о том, как выживание начинается с простого выбора: остаться человеком.",
+            "url": "https://author.today/work/457586",
+            "image": "https://againte.gratis/broken/book1.jpg",
+            "author": {
+              "@id": "https://againte.gratis/#author"
+            }
+          },
+          {
+            "@type": "Book",
+            "position": 2,
+            "name": "10 процентов",
+            "description": "Новосибирск горит. Братья Артём и Максим выносят детей из мира, где приказы ценятся выше жизни. Дорога к северу становится проверкой на цену каждого решения.",
+            "url": "https://author.today/work/464726",
+            "image": "https://againte.gratis/broken/book2.jpg",
+            "author": {
+              "@id": "https://againte.gratis/#author"
+            }
+          },
+          {
+            "@type": "Book",
+            "position": 3,
+            "name": "Последняя орбита",
+            "description": "Экипаж МКС первым видит гибель старой Земли. На орбите безопаснее, чем внизу, но вернуться всё равно придётся. Технический триллер о выборе без правильного ответа.",
+            "url": "https://author.today/work/467224",
+            "image": "https://againte.gratis/broken/book3.jpg",
+            "author": {
+              "@id": "https://againte.gratis/#author"
+            }
+          },
+          {
+            "@type": "Book",
+            "position": 4,
+            "name": "Сквозь серые зубы",
+            "description": "Пятый год после катастрофы. Три линии выживших — Приморье, Сибирь и северо-запад — сходятся в борьбе за путь к морю. Мир изменился, и теперь опасность приходит не только от климата.",
+            "url": "https://author.today/work/471553",
+            "image": "https://againte.gratis/broken/book4.jpg",
+            "author": {
+              "@id": "https://againte.gratis/#author"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://againte.gratis/broken/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Главная",
+            "item": "https://againte.gratis/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Сломанная Земля",
+            "item": "https://againte.gratis/broken/"
+          }
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://againte.gratis/broken/#webpage",
+        "name": "Сломанная Земля - Постапокалиптическая серия",
+        "description": "10% выжили в холоде. Сколько выживут в новом мире? Четыре книги. Три линии выживания. Один сломанный мир.",
+        "url": "https://againte.gratis/broken/",
+        "inLanguage": "ru",
+        "breadcrumb": {
+          "@id": "https://againte.gratis/broken/#breadcrumb"
+        },
+        "mainEntity": {
+          "@id": "https://againte.gratis/broken/#series"
+        },
+        "publisher": {
+          "@id": "https://againte.gratis/#author"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://againte.gratis/broken/#faq",
+        "inLanguage": "ru",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "С какой книги лучше начать серию?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Лучше начинать с первой книги «40 км во льду», чтобы последовательно пройти хронологию мира и развитие ключевых линий."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Сколько книг в серии «Сломанная Земля»?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "В серии четыре завершённые книги, объединённые общим миром и событийной логикой."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Нужно ли читать книги строго по порядку?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Рекомендуется читать по порядку от первой к четвёртой: так лучше раскрываются персонажи, ставки и взаимосвязь линий."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "О чём серия без спойлеров?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Это постапокалиптическая история о выживании после климатической катастрофы, где физическая опасность сочетается с моральным выбором."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Подходит ли серия любителям научной фантастики?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, серия сочетает научно-фантастический фундамент с survival-драмой и несколькими параллельными линиями выживших."
+            }
+          }
+        ]
+      }
     ]
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BookSeries",
-    "name": "Сломанная Земля",
-    "url": "https://againte.gratis/broken/",
-    "inLanguage": "ru",
-    "numberOfBooks": 4,
-    "author": { "@type": "Person", "name": "Агатис Интегра" },
-    "image": "https://againte.gratis/broken/herobackground.jpg"
-  }
-  </script>
-
   <style>
     /* Сброс стилей и базовые настройки */
     * {
@@ -116,7 +247,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 1s ease-out;
+      transition: opacity 0.6s ease-out;
     }
 
     .preloader.fade-out {
@@ -206,7 +337,7 @@
       opacity: 0;
       animation: fadeInScale 2s ease-out 0.5s forwards;
       font-family: var(--font-impact);
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
       color: #ffffff;
       margin: 0;
     }
@@ -309,6 +440,52 @@
       }
     }
 
+    .series-brief-section {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, #0b0b0b 0%, #121212 100%);
+    }
+
+    .series-brief-content {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .series-brief-content h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: var(--font-impact);
+      text-align: center;
+    }
+
+    .series-facts {
+      list-style: none;
+      display: grid;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .series-facts li {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 1rem 1.2rem;
+      font-family: var(--font-tech);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .series-facts strong {
+      color: var(--color-ice);
+      font-weight: 600;
+    }
+
     /* Интерактивная карта */
     .journey-section {
       min-height: 100vh;
@@ -318,6 +495,9 @@
       display: flex;
       flex-direction: column;
       gap: 3rem;
+      content-visibility: auto;
+      contain-intrinsic-size: 1000px;
+      contain: layout paint style;
     }
 
     .journey-section img {
@@ -349,6 +529,9 @@
       align-items: center;
       position: relative;
       overflow: hidden;
+      content-visibility: auto;
+      contain-intrinsic-size: 1200px;
+      contain: layout paint style;
     }
 
     .book-container {
@@ -365,21 +548,26 @@
       aspect-ratio: 2/3;
       max-width: 400px;
       margin: 0 auto;
-      transform: perspective(1000px) rotateY(-5deg);
-      transition: transform 0.6s ease;
-      cursor: pointer;
-    }
-
-    .book-cover:hover {
-      transform: perspective(1000px) rotateY(0deg) scale(1.05);
+      transition: transform 0.45s ease;
     }
 
     .book-cover img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
       border-radius: 2px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .book-cover {
+        transform: perspective(1000px) rotateY(-3deg);
+        cursor: pointer;
+      }
+
+      .book-cover:hover {
+        transform: perspective(1000px) rotateY(0deg) scale(1.03);
+      }
     }
 
     .book-info {
@@ -446,7 +634,7 @@
       letter-spacing: 0.2em;
       font-size: 1rem;
       font-family: var(--font-impact);
-      transition: all 0.3s ease;
+      transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
       position: relative;
       overflow: hidden;
     }
@@ -519,6 +707,9 @@
           var(--bg-dark) 100%);
       padding: 4rem 2rem;
       text-align: center;
+      content-visibility: auto;
+      contain-intrinsic-size: 800px;
+      contain: layout paint style;
     }
 
     .final-content {
@@ -559,7 +750,7 @@
       text-decoration: none;
       font-weight: 400;
       letter-spacing: 0.1em;
-      transition: all 0.3s ease;
+      transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
       border: 2px solid var(--text-primary);
       font-family: var(--font-impact);
       text-transform: uppercase;
@@ -578,7 +769,7 @@
       text-decoration: none;
       border: 2px solid var(--text-secondary);
       letter-spacing: 0.1em;
-      transition: all 0.3s ease;
+      transition: color 0.3s ease, border-color 0.3s ease;
       font-family: var(--font-impact);
       text-transform: uppercase;
       font-size: 1.1rem;
@@ -601,7 +792,8 @@
       opacity: 0;
       transition: opacity 0.5s ease;
       font-family: var(--font-tech);
-      mix-blend-mode: difference;
+      color: #F3F8FF;
+      text-shadow: 0 0 8px rgba(10, 25, 41, 0.9), 0 2px 10px rgba(0, 0, 0, 0.8);
     }
 
     .temperature-indicator.visible {
@@ -648,125 +840,120 @@
         right: 1rem;
         font-size: 1.2rem;
       }
+
+      .noise-overlay {
+        display: none;
+      }
     }
 
     /* Эффект шума для фона (постапокалиптическая атмосфера) */
     .noise-overlay {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 100vh;
       pointer-events: none;
-      opacity: 0.07;
-      z-index: 1;
+      opacity: 0.03;
+      z-index: 0;
       background-image:
         repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, .1) 2px, rgba(255, 255, 255, .1) 4px);
     }
-  </style>
-  <!-- Структурированные данные Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BookSeries",
-    "name": "Сломанная Земля",
-    "author": {
-      "@type": "Person",
-      "name": "Агатис Интегра",
-      "url": "https://againte.gratis"
-    },
-    "genre": ["Научная фантастика", "Постапокалипсис", "Выживание"],
-    "numberOfBooks": 4,
-    "hasPart": [
-      {
-        "@type": "Book",
-        "position": 1,
-        "name": "40 км во льду",
-        "description": "Семья Малковых покидает замерзающий Владивосток. Впереди — 40 километров смертельного холода.",
-        "url": "https://author.today/work/457586",
-        "image": "https://againte.gratis/broken/book1.jpg",
-        "author": {
-          "@type": "Person",
-          "name": "Агатис Интегра"
-        }
-      },
-      {
-        "@type": "Book",
-        "position": 2,
-        "name": "10 процентов",
-        "description": "Братья Артём и Максим бегут из горящего Новосибирска, спасая группу детей.",
-        "url": "https://author.today/work/464726",
-        "image": "https://againte.gratis/broken/book2.jpg",
-        "author": {
-          "@type": "Person",
-          "name": "Агатис Интегра"
-        }
-      },
-      {
-        "@type": "Book",
-        "position": 3,
-        "name": "Последняя орбита",
-        "description": "Экипаж МКС становится свидетелем конца цивилизации.",
-        "url": "https://author.today/work/467224",
-        "image": "https://againte.gratis/broken/book3.jpg",
-        "author": {
-          "@type": "Person",
-          "name": "Агатис Интегра"
-        }
-      },
-      {
-        "@type": "Book",
-        "position": 4,
-        "name": "Сквозь серые зубы",
-        "description": "Пять лет спустя. Города мертвы, но в их руинах родилось нечто новое.",
-        "image": "https://againte.gratis/broken/book4.jpg",
-        "author": {
-          "@type": "Person",
-          "name": "Агатис Интегра"
-        }
-      }
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "342"
-    }
-  }
-  </script>
 
-  <!-- Дополнительная разметка для веб-страницы -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Сломанная Земля - Постапокалиптическая серия",
-    "description": "Официальная страница книжной серии 'Сломанная Земля' автора Агатиса Интегры",
-    "url": "https://againte.gratis/broken/",
-    "inLanguage": "ru",
-    "publisher": {
-      "@type": "Person",
-      "name": "Агатис Интегра",
-      "url": "https://againte.gratis"
-    },
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Главная",
-          "item": "https://againte.gratis"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Сломанная Земля",
-          "item": "https://againte.gratis/broken/"
-        }
-      ]
+    .faq-section {
+      min-height: 70vh;
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, #141414 0%, #090909 100%);
+      display: flex;
+      align-items: center;
+      content-visibility: auto;
+      contain-intrinsic-size: 900px;
+      contain: layout paint style;
     }
-  }
-  </script>
+
+    .faq-content {
+      max-width: 980px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .faq-content h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: var(--font-impact);
+      text-align: center;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.9rem 1rem;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-family: var(--font-impact);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .faq-item p {
+      margin-top: 0.8rem;
+      font-family: var(--font-tech);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .series-title h1 {
+        animation: none;
+        opacity: 1;
+      }
+
+      .stat-block {
+        opacity: 1;
+        transform: none;
+      }
+
+      .stat-block.animate {
+        animation: none;
+      }
+
+      .book-cover,
+      .book-cta,
+      .cta-primary,
+      .cta-secondary,
+      .temperature-indicator,
+      .preloader {
+        transition: none;
+      }
+
+      .noise-overlay {
+        display: none;
+      }
+    }
+
+    .footer-link {
+      color: var(--ice-blue, #A8D5E5);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .footer-link:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
@@ -804,7 +991,7 @@
   <!-- Секция с центральным вопросом -->
   <section class="question-section" id="question">
     <div class="question-content">
-      <h2>10% выжили в холоде.<br>Сколько переживут жару?</h2>
+      <h2>10% выжили в холоде.<br>Сколько выживут в новом мире?</h2>
 
       <div class="stats-container">
         <div class="stat-block" data-animate>
@@ -812,14 +999,27 @@
           <span class="stat-label">Минимальная температура</span>
         </div>
         <div class="stat-block" data-animate>
-          <span class="stat-number">87</span>
-          <span class="stat-label">Дней катастрофы</span>
+          <span class="stat-number">1888</span>
+          <span class="stat-label">Дней после катастрофы</span>
         </div>
         <div class="stat-block" data-animate>
-          <span class="stat-number">+62°C</span>
-          <span class="stat-label">Максимальная температура</span>
+          <span class="stat-number">+65°C</span>
+          <span class="stat-label">Пиковая жара</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="series-brief-section" id="series-brief">
+    <div class="series-brief-content">
+      <h2>Кратко о серии «Сломанная Земля»</h2>
+      <ul class="series-facts">
+        <li><strong>Жанр:</strong> постапокалипсис и научная фантастика о выживании после климатической катастрофы.</li>
+        <li><strong>Формат:</strong> 4 завершённые книги, связанные одним миром и общей хронологией.</li>
+        <li><strong>Композиция:</strong> три параллельные линии выживших в разных регионах.</li>
+        <li><strong>Тон:</strong> напряжённый survival без героизации насилия, с акцентом на моральный выбор.</li>
+        <li><strong>Точка входа:</strong> начинать с книги 1 «40 км во льду»; книга 4 продолжает линии цикла.</li>
+      </ul>
     </div>
   </section>
 
@@ -827,29 +1027,29 @@
   <section class="journey-section" id="journey">
     <div class="journey-title">
       <h2>География выживания</h2>
-      <p class="subtitle">Четыре истории. Одна катастрофа.</p>
+      <p class="subtitle">Четыре книги. Три линии выживания. Один сломанный мир.</p>
     </div>
-    <img loading="lazy" decoding="async" src="./journeymap.jpg" alt="Карта путешествия" width="1600" height="900">
+    <img loading="lazy" decoding="async" src="./journeymap.jpg" srcset="./journeymap1400.jpg 1400w, ./journeymap.jpg 1600w"
+      sizes="100vw" alt="Карта путешествия" width="1600" height="900">
   </section>
 
   <!-- Книга 1: 40 км во льду -->
   <section class="book-section book-1" id="book1">
-    <div class="parallax-bg"></div>
     <div class="book-container">
       <div class="book-cover">
-        <img loading="lazy" decoding="async" src="./book1.jpg" alt="40 км во льду" width="400" height="600">
+        <img loading="lazy" fetchpriority="low" decoding="async" src="./book1.jpg" alt="40 км во льду" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга первая</p>
         <h3 class="book-title">40 км во льду</h3>
         <p class="book-description">
-          Семья Малковых покидает замерзающий Владивосток. Впереди — 40 километров смертельного холода, где температура
-          достигает -94°C. Каждый шаг может стать последним, но назад дороги нет.
+          Семья Малковых покидает замерзающий Владивосток и проходит сорок километров через ледяной город. Это история
+          о том, как выживание начинается с простого выбора: остаться человеком.
         </p>
         <blockquote class="book-quote">
           "Дом — это не место. Это люди рядом"
         </blockquote>
-        <a href="https://author.today/work/457586" target="_blank" class="book-cta">Начать путешествие</a>
+        <a href="https://author.today/work/457586" target="_blank" rel="noopener noreferrer" class="book-cta">Начать путешествие</a>
       </div>
     </div>
   </section>
@@ -858,19 +1058,19 @@
   <section class="book-section book-2" id="book2">
     <div class="book-container">
       <div class="book-cover">
-        <img loading="lazy" decoding="async" src="./book2.jpg" alt="10 процентов" width="400" height="600">
+        <img loading="lazy" fetchpriority="low" decoding="async" src="./book2.jpg" alt="10 процентов" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга вторая</p>
         <h3 class="book-title">10 процентов</h3>
         <p class="book-description">
-          Холод сменяется адской жарой. Братья Артём и Максим бегут из горящего Новосибирска, спасая группу детей. В
-          мире, где армия выполняет приказ "Выжженная земля", каждый выживший — это чудо, а каждый спасённый — подвиг.
+          Новосибирск горит. Братья Артём и Максим выносят детей из мира, где приказы ценятся выше жизни. Дорога к
+          северу становится проверкой на цену каждого решения.
         </p>
         <blockquote class="book-quote">
           "В аду нет героев. Есть только выжившие"
         </blockquote>
-        <a href="https://author.today/work/464726" target="_blank" class="book-cta">Пройти через огонь</a>
+        <a href="https://author.today/work/464726" target="_blank" rel="noopener noreferrer" class="book-cta">Пройти через огонь</a>
       </div>
     </div>
   </section>
@@ -879,19 +1079,19 @@
   <section class="book-section book-3" id="book3">
     <div class="book-container">
       <div class="book-cover">
-        <img loading="lazy" decoding="async" src="./book3.jpg" alt="Последняя орбита" width="400" height="600">
+        <img loading="lazy" fetchpriority="low" decoding="async" src="./book3.jpg" alt="Последняя орбита" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга третья</p>
         <h3 class="book-title">Последняя орбита</h3>
         <p class="book-description">
-          Экипаж МКС становится свидетелем конца цивилизации. За несколько часов Земля превращается в ледяную пустыню.
-          Восемь человек на орбите должны решить: остаться в безопасности космоса или вернуться на умирающую планету.
+          Экипаж МКС первым видит гибель старой Земли. На орбите безопаснее, чем внизу, но вернуться всё равно
+          придётся. Технический триллер о выборе без правильного ответа.
         </p>
         <blockquote class="book-quote">
           "Мы видели, как умирает планета. Теперь должны решить — умереть с ней или попытаться выжить"
         </blockquote>
-        <a href="https://author.today/work/467224" target="_blank" class="book-cta">Взгляд с орбиты</a>
+        <a href="https://author.today/work/467224" target="_blank" rel="noopener noreferrer" class="book-cta">Взгляд с орбиты</a>
       </div>
     </div>
   </section>
@@ -900,20 +1100,47 @@
   <section class="book-section book-4" id="book4">
     <div class="book-container">
       <div class="book-cover">
-        <img loading="lazy" decoding="async" src="./book4.jpg" alt="Сквозь серые зубы" width="400" height="600">
+        <img loading="lazy" fetchpriority="low" decoding="async" src="./book4.jpg" alt="Сквозь серые зубы" width="400" height="600">
       </div>
       <div class="book-info">
         <p class="book-number">Книга четвёртая</p>
         <h3 class="book-title">Сквозь серые зубы</h3>
         <p class="book-description">
-          Пять лет спустя. Города мертвы, но в их руинах родилось нечто новое. Крысы, пережившие катастрофу,
-          эволюционировали. Теперь выжившие люди — беженцы в собственном мире, а дети, рождённые после конца света,
-          видят то, чего не видят взрослые.
+          Пятый год после катастрофы. Три линии выживших — Приморье, Сибирь и северо-запад — сходятся в борьбе за путь
+          к морю. Мир изменился, и теперь опасность приходит не только от климата.
         </p>
         <blockquote class="book-quote">
           "Города мертвы. Но смерть породила новую жизнь"
         </blockquote>
-        <a href="#" class="book-cta">Встретить новый мир</a>
+        <a href="https://author.today/work/471553" target="_blank" rel="noopener noreferrer" class="book-cta">Читать четвертую книгу</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq">
+    <div class="faq-content">
+      <h2>FAQ без спойлеров</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>С какой книги лучше начать серию?</summary>
+          <p>Лучше начинать с первой книги «40 км во льду», чтобы последовательно пройти хронологию мира и развитие ключевых линий.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Сколько книг в серии «Сломанная Земля»?</summary>
+          <p>В серии четыре завершённые книги, объединённые общим миром и событийной логикой.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Нужно ли читать книги строго по порядку?</summary>
+          <p>Рекомендуется порядок от первой к четвёртой: так лучше раскрываются персонажи, ставки и взаимосвязь линий.</p>
+        </details>
+        <details class="faq-item">
+          <summary>О чём серия без спойлеров?</summary>
+          <p>Это история о выживании после климатической катастрофы, где физическая опасность сочетается с моральным выбором.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Подходит ли серия любителям научной фантастики?</summary>
+          <p>Да, серия сочетает научно-фантастический фундамент с survival-драмой и несколькими параллельными линиями выживших.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -926,42 +1153,76 @@
 
       <div class="cta-group">
         <a href="#book1" class="cta-primary">Начать с первой книги</a>
-        <a href="https://author.today/u/agatisintegra" target="_blank" class="cta-secondary">Присоединиться к
-          выжившим</a>
+        <a href="https://author.today/work/471553" target="_blank" rel="noopener noreferrer" class="cta-secondary">Читать четвертую книгу</a>
       </div>
     </div>
   </section>
 
   <script>
+    function formatTemperature(temp) {
+      return temp > 0 ? `+${temp}` : `${temp}`;
+    }
+
+    function getTemperatureColor(temp) {
+      if (temp < -30) {
+        return '#90CAF9';
+      }
+      if (temp < 0) {
+        return '#E3F2FD';
+      }
+      if (temp < 30) {
+        return '#FFC107';
+      }
+      return '#FF5722';
+    }
+
     // Функция анимации прелоадера
     function animatePreloader() {
       const preloader = document.getElementById('preloader');
       const tempCounter = document.getElementById('tempCounter');
-      let temp = -94;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const interval = setInterval(() => {
-        temp += 3;
-        if (temp > 62) {
-          clearInterval(interval);
-          preloader.classList.add('fade-out');
-          setTimeout(() => {
-            preloader.style.display = 'none';
-            initScrollEffects();
-          }, 1000);
-        } else {
-          tempCounter.textContent = temp > 0 ? `+${temp}` : temp;
-          // Меняем цвет в зависимости от температуры
-          if (temp < -30) {
-            tempCounter.style.color = '#90CAF9';
-          } else if (temp < 0) {
-            tempCounter.style.color = '#E3F2FD';
-          } else if (temp < 30) {
-            tempCounter.style.color = '#FFC107';
-          } else {
-            tempCounter.style.color = '#FF5722';
-          }
+      if (reducedMotion) {
+        tempCounter.textContent = '-94';
+        tempCounter.style.color = getTemperatureColor(-94);
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+          initScrollEffects();
+        }, 120);
+        return;
+      }
+
+      const startTemp = -94;
+      const endTemp = 65;
+      const duration = 1800;
+      const startTime = performance.now();
+      let lastTemp = null;
+
+      function frame(timestamp) {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const nextTemp = Math.round(startTemp + ((endTemp - startTemp) * progress));
+
+        if (nextTemp !== lastTemp) {
+          tempCounter.textContent = formatTemperature(nextTemp);
+          tempCounter.style.color = getTemperatureColor(nextTemp);
+          lastTemp = nextTemp;
         }
-      }, 30);
+
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+          return;
+        }
+
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+          initScrollEffects();
+        }, 650);
+      }
+
+      requestAnimationFrame(frame);
     }
 
     // Эффекты при скролле
@@ -969,34 +1230,66 @@
       const tempIndicator = document.getElementById('tempIndicator');
       const currentTemp = document.getElementById('currentTemp');
       const animateElements = document.querySelectorAll('[data-animate]');
+      let documentHeight = 1;
+      let lastScrollTemp = null;
+      let isIndicatorVisible = false;
+      let rafScheduled = false;
 
       // Наблюдатель для анимации элементов
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('animate');
-            }, index * 200);
+            entry.target.style.animationDelay = `${index * 120}ms`;
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target);
           }
         });
       }, { threshold: 0.3 });
 
       animateElements.forEach(el => observer.observe(el));
 
-      // Изменение температуры при скролле
-      window.addEventListener('scroll', () => {
-        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-        const temp = Math.round(-94 + (156 * scrollPercent)); // от -94 до +62
+      function updateDocumentHeight() {
+        documentHeight = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      }
 
-        currentTemp.textContent = temp > 0 ? `+${temp}` : temp;
+      function updateScrollState() {
+        rafScheduled = false;
+        const scrollY = window.scrollY;
+        const scrollPercent = Math.min(Math.max(scrollY / documentHeight, 0), 1);
+        const temp = Math.round(-94 + (159 * scrollPercent)); // от -94 до +65
 
-        // Показываем индикатор после скролла
-        if (window.scrollY > 100) {
-          tempIndicator.classList.add('visible');
-        } else {
-          tempIndicator.classList.remove('visible');
+        if (temp !== lastScrollTemp) {
+          currentTemp.textContent = formatTemperature(temp);
+          lastScrollTemp = temp;
         }
-      });
+
+        const shouldShowIndicator = scrollY > 100;
+        if (shouldShowIndicator !== isIndicatorVisible) {
+          isIndicatorVisible = shouldShowIndicator;
+          tempIndicator.classList.toggle('visible', shouldShowIndicator);
+        }
+      }
+
+      function onScroll() {
+        if (rafScheduled) {
+          return;
+        }
+        rafScheduled = true;
+        requestAnimationFrame(updateScrollState);
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => {
+        updateDocumentHeight();
+        onScroll();
+      }, { passive: true });
+      window.addEventListener('orientationchange', () => {
+        updateDocumentHeight();
+        onScroll();
+      }, { passive: true });
+
+      updateDocumentHeight();
+      updateScrollState();
     }
 
     // Инициализация при загрузке
@@ -1016,15 +1309,11 @@
     ">
     <div style="max-width: 800px; margin: 0 auto;">
       <p style="margin-bottom: 15px; display: flex; justify-content: space-between; flex-direction: row;">
-        <a href="https://againte.gratis/" style="
-                    color: var(--ice-blue, #A8D5E5);
-                    text-decoration: none;
-                    transition: color 0.3s ease;
-                " onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#A8D5E5'">
+        <a href="https://againte.gratis/" class="footer-link">
           ← Вернуться на главную
         </a>
         <span>
-          © 2025 Агатис Интегра | agaINTE GRAtis
+          © 2026 Агатис Интегра | agaINTE GRAtis
         </span>
       </p>
     </div>
