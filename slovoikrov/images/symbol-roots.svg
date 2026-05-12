@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Символ трёх корней">
+  <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 10 L60 58"/>
+    <circle cx="60" cy="58" r="3.5" fill="currentColor"/>
+    <path d="M60 58 C40 70, 30 92, 24 108"/>
+    <path d="M60 58 L60 110"/>
+    <path d="M60 58 C80 70, 90 92, 96 108"/>
+    <path d="M24 108 L18 112" stroke-width="1.5"/>
+    <path d="M60 110 L55 114" stroke-width="1.5"/>
+    <path d="M60 110 L65 114" stroke-width="1.5"/>
+    <path d="M96 108 L102 112" stroke-width="1.5"/>
+  </g>
+</svg>

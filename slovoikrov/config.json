@@ -1,0 +1,18 @@
+{
+  "series": {
+    "title": "Слово и Кровь",
+    "totalBooks": 7,
+    "currentBook": 1,
+    "stages": ["Пустота", "Имя", "Земля", "Память", "Цель", "Выбор", "Слово"]
+  },
+  "book1": {
+    "title": "Безродный",
+    "stageWord": "Пустота",
+    "epigraph": "Пустой сосуд — не бесполезен. Он ждёт.",
+    "totalChapters": 25,
+    "writtenChapters": 10,
+    "lastUpdate": "2026-04-18",
+    "status": "пишется",
+    "authorTodayUrl": "https://author.today/work/576243"
+  }
+}

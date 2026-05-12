@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence baseFrequency="0.8" numOctaves="2" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" scale="3"/>
+    </filter>
+  </defs>
+  <g filter="url(#ink)" opacity="0.72">
+    <circle cx="200" cy="200" r="180" fill="none" stroke="#8b2e1f" stroke-width="7"/>
+    <circle cx="200" cy="200" r="160" fill="none" stroke="#8b2e1f" stroke-width="3"/>
+    <circle cx="200" cy="200" r="90"  fill="none" stroke="#8b2e1f" stroke-width="3"/>
+    <g transform="translate(200 200)" fill="#8b2e1f" stroke="#8b2e1f" stroke-width="2">
+      <path d="M -30 -40 L 30 -40 L 20 20 L -20 20 Z" fill="none"/>
+      <circle r="18" fill="none"/>
+      <path d="M 0 -10 L 0 35 M -8 27 L 0 35 L 8 27" stroke-linecap="round" stroke-width="3"/>
+    </g>
+    <path id="top" d="M 50 200 A 150 150 0 0 1 350 200" fill="none"/>
+    <text font-family="Russo One, sans-serif" font-size="22" fill="#8b2e1f" letter-spacing="2">
+      <textPath href="#top" startOffset="50%" text-anchor="middle">УПРАВЛЕНИЕ УТИЛИЗАЦИИ БЕТОННИКА-7</textPath>
+    </text>
+    <path id="bot" d="M 50 220 A 150 150 0 0 0 350 220" fill="none"/>
+    <text font-family="Courier Prime, monospace" font-size="15" fill="#8b2e1f" letter-spacing="4">
+      <textPath href="#bot" startOffset="50%" text-anchor="middle">СТАНЦИЯ СБРОСА №7 · СБОРЩИКИ</textPath>
+    </text>
+  </g>
+  <text x="200" y="385" text-anchor="middle" font-family="monospace" font-size="10" fill="#8b2e1f" opacity="0.5">PLACEHOLDER · stamp-round</text>
+</svg>
