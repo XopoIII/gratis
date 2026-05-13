@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тётушка Агатис — Постапок. Рассказы про концы света</title>
+  <meta name="description"
+    content="Постапок от тётушки Агатис — рассказы о том, как мир гаснет по секторам. Вечная ночь, социальный коллапс, исчезновение звука. Автор Агатис Интегра." />
+  <meta name="keywords"
+    content="постапокалипсис, постапок, тётушка Агатис, Агатис Интегра, рассказы, концы света, вечная ночь, коллапс, русская фантастика, читать онлайн">
+  <meta name="author" content="Агатис Интегра">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://againte.gratis/auntie/">
+  <meta property="og:type" content="book">
+  <meta property="og:title" content="Постапок от тётушки Агатис — рассказы про концы света">
+  <meta property="og:description"
+    content="Ночь. Костёр. Рассказы о том, как мир гаснет — каждый раз по-другому. Автор Агатис Интегра." />
+  <meta property="og:url" content="https://againte.gratis/auntie/">
+  <meta property="og:image" content="https://againte.gratis/auntie/images/cover-postapok-new.png">
+  <meta property="og:image:alt" content="Обложка сборника — Постапок от тётушки Агатис">
+  <meta property="og:site_name" content="agaINTE GRAtis">
+  <meta property="og:locale" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Постапок от тётушки Агатис — рассказы про концы света">
+  <meta name="twitter:description" content="Ночь. Костёр. Рассказы о том, как мир гаснет — каждый раз по-другому.">
+  <meta name="twitter:image" content="https://againte.gratis/auntie/images/cover-postapok-new.png">
+  <meta name="twitter:image:alt" content="Обложка сборника — Постапок от тётушки Агатис">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "Постапок от тётушки Агатис",
+    "description": "Постапокалиптические рассказы от Агатис Интегра. Каждый — отдельный конец света. Мир не взрывается — он убывает.",
+    "author": {
+      "@type": "Person",
+      "name": "Агатис Интегра",
+      "url": "https://againte.gratis/",
+      "sameAs": [
+        "https://author.today/u/againtegratis",
+        "https://t.me/againtegratis"
+      ]
+    },
+    "genre": ["Постапокалипсис", "Научная фантастика", "Рассказы"],
+    "inLanguage": "ru",
+    "url": "https://againte.gratis/auntie/",
+    "image": "https://againte.gratis/auntie/images/cover-postapok-new.png",
+    "isAccessibleForFree": true,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Author.Today"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Forum&family=Manrope:wght@300;400&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="https://againte.gratis/favicon32.png" type="image/png">
+  <link rel="alternate" hreflang="ru" href="https://againte.gratis/auntie/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "Тётушка Агатис", "item": "https://againte.gratis/auntie/"}
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --primary-font: 'EB Garamond', serif;
+      --accent-font: 'Forum', cursive;
+      --ui-font: 'Manrope', sans-serif;
+
+      --ember: #B55A24;
+      --ember-glow: #D4783C;
+      --ember-dim: #8A3D15;
+      --ash: #4A3F35;
+      --darkness: #0A0A0A;
+      --mist: #141210;
+
+      --text-primary: #E8DCC4;
+      --text-secondary: #A89F91;
+      --text-dim: #6B6258;
+
+      --transition-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+      --transition-text: cubic-bezier(0.43, 0.195, 0.02, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: clamp(14px, 1.2vw, 20px);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--primary-font);
+      color: var(--text-primary);
+      background: var(--darkness);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+
+    .narrative-space {
+      min-height: 100vh;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(181, 90, 36, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 0%, rgba(74, 63, 53, 0.08) 0%, transparent 50%),
+        url('images/texture-bg.jpg') center/cover,
+        var(--darkness);
+      background-blend-mode: normal, normal, multiply, normal;
+    }
+
+    /* === OPENING SCENE === */
+    .opening-scene {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    .narrative-intro {
+      max-width: 850px;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .greeting {
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: revealText 1.2s var(--transition-text) 0.5s forwards;
+    }
+
+    .greeting .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .greeting .line span {
+      display: inline-block;
+      transform: translateY(100%);
+      animation: slideUp 0.8s var(--transition-smooth) forwards;
+    }
+
+    .greeting .line:nth-child(1) span {
+      animation-delay: 0.6s;
+    }
+
+    .greeting .line:nth-child(2) span {
+      animation-delay: 0.8s;
+    }
+
+    .greeting .line:nth-child(3) span {
+      animation-delay: 1s;
+    }
+
+    @keyframes slideUp {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes revealText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .intro-text {
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      line-height: 1.6;
+      color: var(--text-secondary);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      animation: fadeInText 1.5s ease 2s forwards;
+    }
+
+    .intro-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-text em {
+      font-style: normal;
+      color: var(--ember-glow);
+      font-weight: 500;
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* === HERO CTA === */
+    .hero-cta {
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeInText 1.5s ease 2.8s forwards;
+    }
+
+    .hero-cta a {
+      display: inline-block;
+      font-family: var(--ui-font);
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ember-glow);
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border: 1px solid rgba(212, 120, 60, 0.4);
+      border-radius: 2px;
+      transition: all 0.4s var(--transition-smooth);
+      position: relative;
+    }
+
+    .hero-cta a:hover {
+      color: var(--text-primary);
+      border-color: var(--ember-glow);
+      background: rgba(181, 90, 36, 0.1);
+    }
+
+    .hero-cta .cta-secondary {
+      margin-left: 1rem;
+      border-color: rgba(168, 159, 145, 0.25);
+      color: var(--text-secondary);
+    }
+
+    .hero-cta .cta-secondary:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-primary);
+      background: rgba(168, 159, 145, 0.08);
+    }
+
+    /* === BOOK SECTION === */
+    .books-revelation {
+      min-height: 100vh;
+      padding: 6rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .books-container {
+      display: flex;
+      justify-content: center;
+      max-width: 1100px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s var(--transition-smooth);
+    }
+
+    .books-container.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .book-entity {
+      position: relative;
+      aspect-ratio: 2/3;
+      width: 100%;
+      max-width: 420px;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.6s var(--transition-smooth);
+    }
+
+    .book-entity:hover {
+      transform: scale(1.02);
+    }
+
+    .book-cover {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background-image:
+        linear-gradient(135deg, rgba(181, 90, 36, 0.12) 0%, transparent 65%),
+        url('images/cover-postapok-new.png');
+      background-size: cover, cover;
+      background-position: center, center;
+      background-repeat: no-repeat;
+    }
+
+    .book-description {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 3rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.99) 0%, transparent 100%);
+      transform: translateY(100%);
+      transition: transform 0.5s var(--transition-smooth);
+    }
+
+    .book-entity:hover .book-description {
+      transform: translateY(0);
+    }
+
+    .book-description p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .book-description .read-cta {
+      font-family: var(--ui-font);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ember-glow);
+      opacity: 0.9;
+    }
+
+    .book-description .read-site {
+      display: block;
+      margin-top: .5rem;
+      color: #c4a070;
+      font-size: .8em;
+      text-decoration: none;
+      opacity: .7;
+      transition: opacity 0.3s ease;
+    }
+
+    .book-description .read-site:hover {
+      opacity: 1;
+    }
+
+    .book-ambient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+
+    .book-entity:hover .book-ambient {
+      opacity: 1;
+    }
+
+    .ember-particles {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--ember);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(181, 90, 36, 0.75);
+      animation: emberDrift 8s infinite ease-in-out;
+    }
+
+    @keyframes emberDrift {
+      0% {
+        transform: translateY(12px) translateX(0);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-70px) translateX(24px);
+        opacity: 0;
+      }
+    }
+
+    /* === STORIES SECTION === */
+    .stories-section {
+      padding: 2rem 2rem 6rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.2s var(--transition-smooth);
+    }
+
+    .stories-section.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stories-heading {
+      font-family: var(--ui-font);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .story-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(181, 90, 36, 0.1);
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.3s ease;
+    }
+
+    .story-item:first-child {
+      border-top: 1px solid rgba(181, 90, 36, 0.1);
+    }
+
+    a.story-item:hover {
+      background: rgba(181, 90, 36, 0.04);
+    }
+
+    a.story-item:hover .story-title {
+      color: var(--ember-glow);
+    }
+
+    .story-number {
+      font-family: var(--ui-font);
+      font-size: 0.7rem;
+      color: var(--ember-dim);
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+      min-width: 2rem;
+    }
+
+    .story-info {
+      flex: 1;
+    }
+
+    .story-title {
+      font-family: var(--accent-font);
+      font-size: 1.4rem;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+      transition: color 0.3s ease;
+    }
+
+    .story-hint {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .story-tag {
+      font-family: var(--ui-font);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ember-dim);
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    /* === AUTHOR SECTION === */
+    .author-section {
+      padding: 4rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.2s var(--transition-smooth);
+    }
+
+    .author-section.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .author-info {
+      flex: 1;
+    }
+
+    .author-name {
+      font-family: var(--accent-font);
+      font-size: 1.4rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .author-bio {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+
+    .author-links {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+    }
+
+    .author-links a {
+      font-family: var(--ui-font);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ember-dim);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .author-links a:hover {
+      color: var(--ember-glow);
+    }
+
+    /* === FAREWELL === */
+    .farewell {
+      padding: 6rem 2rem 8rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .farewell.visible {
+      opacity: 1;
+    }
+
+    .signature {
+      font-family: var(--accent-font);
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .signature em {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--ember);
+      opacity: 0.8;
+    }
+
+    /* === FIRE GLOW === */
+    .fire-glow {
+      position: fixed;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(181, 90, 36, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: fireBreath 4s infinite ease-in-out;
+      transition: opacity 0.5s ease;
+    }
+
+    .fire-glow.hidden-by-footer {
+      opacity: 0 !important;
+    }
+
+    @keyframes fireBreath {
+
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: translateX(-50%) scale(1);
+      }
+
+      50% {
+        opacity: 0.7;
+        transform: translateX(-50%) scale(1.1);
+      }
+    }
+
+    /* === META MESSAGE === */
+    .meta-message {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      font-family: var(--ui-font);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      letter-spacing: 0.1em;
+      transition: opacity 0.5s ease;
+      max-width: 300px;
+      text-align: right;
+      line-height: 1.4;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .meta-message.visible {
+      opacity: 0.5;
+    }
+
+    .meta-message.hidden-by-footer {
+      opacity: 0 !important;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .greeting {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .hero-cta .cta-secondary {
+        margin-left: 0;
+      }
+
+      .book-entity {
+        max-width: 320px;
+      }
+
+      .book-description {
+        transform: translateY(0);
+        padding: 1.5rem;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
+      }
+
+      .stories-section {
+        padding: 2rem 1.5rem 5rem;
+      }
+
+      .story-item {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      .story-tag {
+        align-self: flex-start;
+      }
+
+      .fire-glow {
+        width: 300px;
+      }
+
+      .meta-message {
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 0.6rem;
+        max-width: 180px;
+      }
+
+      .footer-inner {
+        flex-direction: column !important;
+        gap: 0.5rem;
+        align-items: center !important;
+      }
+
+      .author-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="narrative-space">
+    <!-- Вступительная сцена -->
+    <section class="opening-scene">
+      <div class="narrative-intro">
+        <h1 class="greeting">
+          <span class="line"><span>Садитесь</span></span>
+          <span class="line"><span>ближе к огню.</span></span>
+          <span class="line"><span>Я расскажу.</span></span>
+        </h1>
+
+        <div class="intro-text">
+          <p>Мир погас — по секторам. Свет, связь, тепло.</p>
+          <p>Но костёр ещё горит. И пока горит — <em>я рассказываю</em>.</p>
+        </div>
+
+        <div class="hero-cta">
+          <a href="https://author.today/work/556062">Читать на Author.Today</a>
+          <a href="read/" class="cta-secondary">Читать на сайте</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Книга -->
+    <section class="books-revelation">
+      <div class="books-container" id="booksContainer">
+        <article class="book-entity" data-cursor-text="ВЫЖИТЬ" data-book-title="Постапок от тётушки Агатис"
+          data-book-url="https://author.today/work/556062">
+          <div class="book-cover">
+            <div class="book-description">
+              <p>Рассказы про концы света. Вечная ночь. Социальный коллапс. Исчезновение звука. И люди — которые
+                всё ещё держатся.</p>
+              <span class="read-cta">Читать на Author.Today</span>
+              <a href="read/" class="read-site">Читать на сайте</a>
+            </div>
+
+            <div class="book-ambient">
+              <!-- Генерируются JS -->
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Список рассказов -->
+    <section class="stories-section" id="storiesSection">
+      <div class="stories-heading">Сигналы из темноты</div>
+
+      <a class="story-item" href="https://author.today/work/556062">
+        <span class="story-number">01</span>
+        <div class="story-info">
+          <div class="story-title">Рассвет</div>
+          <div class="story-hint">Солнце не встало. Москва остывает в темноте.</div>
+        </div>
+        <span class="story-tag">вечная ночь</span>
+      </a>
+
+      <a class="story-item" href="https://author.today/work/556062">
+        <span class="story-number">02</span>
+        <div class="story-info">
+          <div class="story-title">Маршрут</div>
+          <div class="story-hint">14 остановок. С каждым рейсом — меньше.</div>
+        </div>
+        <span class="story-tag">коллапс</span>
+      </a>
+
+      <a class="story-item" href="https://author.today/work/556062">
+        <span class="story-number">03</span>
+        <div class="story-info">
+          <div class="story-title">Кости</div>
+          <div class="story-hint">Земля помнит тех, кого мы не хоронили.</div>
+        </div>
+        <span class="story-tag">забвение</span>
+      </a>
+
+      <a class="story-item" href="https://author.today/work/556062">
+        <span class="story-number">04</span>
+        <div class="story-info">
+          <div class="story-title">Тишина</div>
+          <div class="story-hint">Сначала замолкли птицы. Потом — всё остальное.</div>
+        </div>
+        <span class="story-tag">исчезновение звука</span>
+      </a>
+
+      <a class="story-item" href="https://author.today/work/556062">
+        <span class="story-number">05</span>
+        <div class="story-info">
+          <div class="story-title">Молоко</div>
+          <div class="story-hint">Последнее, что связывает с жизнью до.</div>
+        </div>
+        <span class="story-tag">голод</span>
+      </a>
+
+      <a class="story-item" href="https://author.today/work/556062">
+        <span class="story-number">06</span>
+        <div class="story-info">
+          <div class="story-title">Счётчик</div>
+          <div class="story-hint">Цифры на экране растут. А людей — всё меньше.</div>
+        </div>
+        <span class="story-tag">радиация</span>
+      </a>
+    </section>
+
+    <!-- Об авторе -->
+    <section class="author-section" id="authorSection">
+      <div class="author-info">
+        <div class="author-name">Агатис Интегра</div>
+        <p class="author-bio">Мир не взрывается — он убывает. Я пишу про обычных людей в необычных концах света. Диспетчер, водитель, лесник, фельдшер — у каждого свой апокалипсис.</p>
+        <div class="author-links">
+          <a href="https://againte.gratis/">Все книги</a>
+          <a href="https://author.today/u/againtegratis">Author.Today</a>
+          <a href="https://t.me/againtegratis">Telegram</a>
+          <a href="https://max.ru/join/79EoJGLheB1vrY9dXu5tvObUDjask1U2-6gOG-9ZJNU">Max</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Прощание -->
+    <section class="farewell" id="farewell">
+      <div class="signature">
+        Костёр догорает. Но пока горит —
+        <em>тётушка Агатис рассказывает.</em>
+      </div>
+    </section>
+  </div>
+
+  <!-- Свечение костра -->
+  <div class="fire-glow"></div>
+
+  <!-- Мета-сообщение -->
+  <div class="meta-message" id="metaMessage">
+    Костёр не будет гореть вечно.
+  </div>
+
+  <script>
+    class AgatisExperience {
+      constructor() {
+        this.initializeElements();
+        this.setupObservers();
+        this.initializeAnimations();
+        this.setupCursor();
+        this.createAmbientEffects();
+      }
+
+      initializeElements() {
+        this.booksContainer = document.getElementById('booksContainer');
+        this.storiesSection = document.getElementById('storiesSection');
+        this.authorSection = document.getElementById('authorSection');
+        this.farewell = document.getElementById('farewell');
+        this.metaMessage = document.getElementById('metaMessage');
+        this.books = document.querySelectorAll('.book-entity');
+      }
+
+      setupObservers() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -10% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (entry.target.id === 'booksContainer') {
+                entry.target.classList.add('revealed');
+                setTimeout(() => {
+                  this.metaMessage.classList.add('visible');
+                }, 3000);
+              }
+              if (entry.target.id === 'storiesSection') {
+                entry.target.classList.add('revealed');
+              }
+              if (entry.target.id === 'authorSection') {
+                entry.target.classList.add('revealed');
+              }
+              if (entry.target.id === 'farewell') {
+                entry.target.classList.add('visible');
+              }
+            }
+          });
+        }, observerOptions);
+
+        observer.observe(this.booksContainer);
+        observer.observe(this.storiesSection);
+        observer.observe(this.authorSection);
+        observer.observe(this.farewell);
+      }
+
+      initializeAnimations() {
+        let ticking = false;
+        const handleScroll = () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const scrolled = window.scrollY;
+
+              const fadeRates = [0.001, 0.0015, 0.003];
+              document.querySelectorAll('.greeting, .intro-text, .hero-cta').forEach((el, i) => {
+                el.style.transform = `translateY(${scrolled * 0.15 * (i + 1)}px)`;
+                el.style.opacity = Math.max(0, 1 - scrolled * (fadeRates[i] || 0.001));
+              });
+
+              ticking = false;
+            });
+            ticking = true;
+          }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+
+      setupCursor() {
+        this.books.forEach(book => {
+          book.addEventListener('mouseenter', () => {
+            book.style.transform = 'scale(1.02)';
+          });
+
+          book.addEventListener('mouseleave', () => {
+            book.style.transform = 'scale(1)';
+          });
+
+          book.addEventListener('click', (e) => {
+            // Не перехватываем клики по ссылкам внутри обложки
+            if (e.target.closest('a')) return;
+            const bookUrl = book.dataset.bookUrl;
+            if (bookUrl) {
+              window.location.href = bookUrl;
+            }
+          });
+        });
+      }
+
+      createAmbientEffects() {
+        const ambient = document.querySelector('.book-ambient');
+        if (ambient) {
+          for (let i = 0; i < 15; i++) {
+            const ember = document.createElement('div');
+            ember.className = 'ember-particles';
+            ember.style.left = (10 + Math.random() * 80) + '%';
+            ember.style.bottom = (Math.random() * 30) + '%';
+            ember.style.animationDelay = Math.random() * 8 + 's';
+            ember.style.animationDuration = (6 + Math.random() * 6) + 's';
+            ambient.appendChild(ember);
+          }
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new AgatisExperience();
+
+      document.querySelectorAll('.line span').forEach((span, i) => {
+        span.style.animationDelay = (0.6 + i * 0.2) + 's';
+      });
+    });
+
+    // Мета-сообщения
+    let messageIndex = 0;
+    const messages = [
+      "Костёр не будет гореть вечно.",
+      "Каждая история — чей-то конец.",
+      "Ты слушаешь. Значит, ещё жив.",
+      "Тишина после рассказа — тоже часть истории."
+    ];
+
+    setInterval(() => {
+      const metaMessage = document.getElementById('metaMessage');
+      if (metaMessage && metaMessage.classList.contains('visible')) {
+        metaMessage.style.opacity = '0';
+        setTimeout(() => {
+          messageIndex = (messageIndex + 1) % messages.length;
+          metaMessage.textContent = messages[messageIndex];
+          metaMessage.style.opacity = '0.5';
+        }, 500);
+      }
+    }, 8000);
+
+    // Скрываем мета-сообщение когда футер виден
+    const footerEl = document.querySelector('footer');
+    if (footerEl) {
+      const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const metaMsg = document.getElementById('metaMessage');
+          const fireGlow = document.querySelector('.fire-glow');
+          if (entry.isIntersecting) {
+            if (metaMsg) metaMsg.classList.add('hidden-by-footer');
+            if (fireGlow) fireGlow.classList.add('hidden-by-footer');
+          } else {
+            if (metaMsg) metaMsg.classList.remove('hidden-by-footer');
+            if (fireGlow) fireGlow.classList.remove('hidden-by-footer');
+          }
+        });
+      }, { threshold: 0 });
+      footerObserver.observe(footerEl);
+    }
+
+    // Дыхание фона
+    let breathPhase = 0;
+    function breatheBackground() {
+      breathPhase += 0.01;
+      const intensity = Math.sin(breathPhase) * 0.02 + 0.98;
+      document.querySelector('.narrative-space').style.opacity = intensity;
+      requestAnimationFrame(breatheBackground);
+    }
+    breatheBackground();
+  </script>
+
+  <!-- Футер -->
+  <footer style="
+      background: #0a0a0a;
+      padding: 20px 0 10px 0;
+      text-align: center;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 1em;
+      position: relative;
+      z-index: 20;
+  ">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 1.5rem;">
+      <p class="footer-inner" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-direction: row; flex-wrap: wrap; gap: 0.5rem;">
+        <a href="https://againte.gratis/" style="
+                  color: #8B4513;
+                  text-decoration: none;
+                  font-weight: bold;
+                  transition: color 0.3s ease;
+              " onmouseover="this.style.color='#CD853F'" onmouseout="this.style.color='#8B4513'">
+          &larr; Вернуться на главную
+        </a>
+        <span style="font-family: 'Manrope', sans-serif; font-size: 0.7rem; color: #6B6258; letter-spacing: 0.05em;">
+          <a href="https://t.me/againtegratis" style="color: #8A3D15; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#D4783C'" onmouseout="this.style.color='#8A3D15'">Telegram</a>
+          &middot;
+          <a href="https://max.ru/join/79EoJGLheB1vrY9dXu5tvObUDjask1U2-6gOG-9ZJNU" style="color: #8A3D15; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#D4783C'" onmouseout="this.style.color='#8A3D15'">Max</a>
+        </span>
+        <span style="margin: 0; color: #666;">
+          &copy; 2026 Агатис Интегра | agaINTE GRAtis
+        </span>
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>
