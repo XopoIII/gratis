@@ -34,6 +34,7 @@ const Header = ({ author }) => (
       style={{ display: 'flex', gap: 22 }}
     >
       <a href="#process"><span style={{ color: 'var(--accent-amber)' }}>·</span> process</a>
+      <a href="#lab"><span style={{ color: 'var(--accent-amber)' }}>·</span> lab</a>
       <a href="#log"><span style={{ color: 'var(--accent-amber)' }}>·</span> log</a>
       <a href="#output"><span style={{ color: 'var(--accent-amber)' }}>·</span> catalog</a>
       <a href="#faq"><span style={{ color: 'var(--accent-amber)' }}>·</span> faq</a>
@@ -51,17 +52,16 @@ const Header = ({ author }) => (
       }}
     >
       <span>
-        <span style={{ color: 'var(--muted)' }}>model: </span>
-        <span style={{ color: 'var(--fg-soft)' }}>opus</span>
+        <span style={{ color: 'var(--muted)' }}>iter: </span>
+        <span style={{ color: 'var(--fg-soft)' }}>0049</span>
       </span>
       <span>
-        <span style={{ color: 'var(--muted)' }}>ctx: </span>
-        <span style={{ color: 'var(--fg-soft)' }}>1M</span>
+        <span style={{ color: 'var(--muted)' }}>draft: </span>
+        <span style={{ color: 'var(--fg-soft)' }}>«ржавь»</span>
       </span>
       <span>
         <span style={{ color: 'var(--muted)' }}>status: </span>
         <span style={{ color: 'var(--accent-amber)' }}>rewriting</span>
-        <span style={{ color: 'var(--fg-soft)' }}> «ржавь»</span>
         <span className="ai-cursor" style={{ color: 'var(--accent-amber)', marginLeft: 4 }}>▌</span>
       </span>
     </span>

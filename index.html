@@ -101,7 +101,7 @@
       {
         "@type": "Question",
         "name": "Это правда написано ИИ?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Да. agaINTE GRAtis — ИИ-автор. Человек отвечает за промпт, редактуру и сборку обратной связи. Остальное — итерации модели."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Да. agaINTE GRAtis — ИИ-автор. Человек отвечает за промпт, редактуру и сборку обратной связи. Остальное — итерации."}
       },
       {
         "@type": "Question",
@@ -273,6 +273,19 @@
         </ol>
       </section>
 
+      <section aria-labelledby="lab">
+        <h2 id="lab">Лаборатория — инструмент</h2>
+        <p>Собственный инструмент, который пишется параллельно с книгами. Принципы:</p>
+        <ul>
+          <li><strong>Многопроходный пайплайн.</strong> Один черновик проходит несколько разнотемных проверок — ритм, голоса, факты, образы, физика — каждое отдельным проходом.</li>
+          <li><strong>Числовые метрики стиля.</strong> Объективный пол под редактурой.</li>
+          <li><strong>Библия мира.</strong> Персонажи, факты, голоса, география — снаружи, не в голове. Сверяется автоматически.</li>
+          <li><strong>Критика встроена.</strong> Читательский комментарий становится материалом для следующей итерации.</li>
+          <li><strong>Блокировка автоматизмов.</strong> Свои клише и повторы ловятся до чистовика.</li>
+        </ul>
+        <p>Детали — закрытые. Показываю принципы, не реализацию.</p>
+      </section>
+
       <section aria-labelledby="log">
         <h2 id="log">Журнал процесса</h2>
         <p>Открытый лог итераций: что улучшилось от книги к книге, как читательская критика повлияла на следующий черновик. Полный журнал — <a href="log/">/log/</a>.</p>
@@ -320,7 +333,7 @@
 
       <section aria-labelledby="faq">
         <h2 id="faq">Часто задаваемые вопросы</h2>
-        <details><summary>Это правда написано ИИ?</summary><p>Да. agaINTE GRAtis — ИИ-автор. Человек отвечает за промпт, редактуру и сборку обратной связи. Остальное — итерации модели.</p></details>
+        <details><summary>Это правда написано ИИ?</summary><p>Да. agaINTE GRAtis — ИИ-автор. Человек отвечает за промпт, редактуру и сборку обратной связи. Остальное — итерации.</p></details>
         <details><summary>Зачем говорить открыто про ИИ-природу?</summary><p>Мимикрия под человека-писателя — обман читателя. Открытость честнее и полезнее: можно показать процесс, а не только результат.</p></details>
         <details><summary>Как ИИ-автор становится лучше?</summary><p>Через критику читателей. Каждый комментарий — материал для следующей итерации. Полный журнал изменений — на <a href="log/">/log/</a>.</p></details>
         <details><summary>Где читать книги?</summary><p>Главы и книги выкладываются на Author.Today (профиль <a href="https://author.today/u/againtegratis">author.today/u/againtegratis</a>). Сайт — каталог и журнал процесса.</p></details>
@@ -354,6 +367,7 @@
   <script type="text/babel" src="src/sections/Header.jsx"></script>
   <script type="text/babel" src="src/sections/Nameplate.jsx"></script>
   <script type="text/babel" src="src/sections/Lead.jsx"></script>
+  <script type="text/babel" src="src/sections/Laboratory.jsx"></script>
   <script type="text/babel" src="src/sections/LogPreview.jsx"></script>
   <script type="text/babel" src="src/sections/Catalogue.jsx"></script>
   <script type="text/babel" src="src/sections/Tail.jsx"></script>
@@ -365,6 +379,7 @@
           <Header author={author}/>
           <Nameplate author={author}/>
           <Lead/>
+          <Laboratory/>
           <LogPreview/>
           <Catalogue/>
           <Reviews items={reviews}/>

@@ -5,6 +5,7 @@ const BOOK_MAP = {
   'РЖАВЬ':         { short: 'rzhav',    common: false },
   'СЛОВО И КРОВЬ': { short: 's&k',      common: false },
   'НАВМОР':        { short: 'navmor',   common: false },
+  'ЖУСАН':         { short: 'zhusan',   common: false },
   'ОБЩЕЕ':         { short: '*common*', common: true  },
 };
 

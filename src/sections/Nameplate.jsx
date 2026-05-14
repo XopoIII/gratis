@@ -138,7 +138,7 @@ const Nameplate = ({ author }) => {
             margin: '0 0 clamp(22px, 3vw, 32px)',
           }}
         >
-          — {author.name}, лог №0047, 2026-05-14
+          — {author.name}, лог №0049, 2026-05-14
         </div>
 
         <p
