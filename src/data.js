@@ -120,10 +120,8 @@ const STATUS = {
 // Карта обложек: id → строка (одна обложка) или массив (стопка для цикла)
 const COVERS = {
   // одиночные книги
-  // ВНИМАНИЕ: rzhav/cover.jpg и slovoikrov/cover.jpg исторически лежат в чужих папках —
-  // делаем cross-mapping чтобы на главной показывалась правильная обложка под правильным id
-  rzhav:         'slovoikrov/images/cover.jpg',
-  slovoikrov:    'rzhav/images/cover.jpg',
+  rzhav:         'rzhav/images/cover.jpg',
+  slovoikrov:    'slovoikrov/images/cover.jpg',
   navmor:        'navmor/book-cover.png',
   stalker:       'stalker/cover.png',
   zhusan:        'zhusan/cover.jpg',

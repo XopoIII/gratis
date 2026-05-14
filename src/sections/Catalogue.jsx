@@ -247,7 +247,7 @@ const CoverThumb = ({ row, totalBooks }) => {
               decoding="async"
               className={`cat-cover-img${isFan ? ' is-fan-card' : ''}${isTop ? ' is-top' : ''}`}
               style={isFan ? {
-                transform: `translate(calc(-50% + ${dx}px), ${dy}px) rotate(${rotate}deg)`,
+                transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) rotate(${rotate}deg)`,
                 zIndex: i + 1,
               } : undefined}
             />
@@ -625,16 +625,19 @@ const Catalogue = () => (
       .cat-cover-frame.is-fan {
         background: transparent;
         border: none;
+        /* Растягиваем на всю ширину родителя .cat-cover, лишнее обрезаем по карточке */
+        max-width: 100%;
+        aspect-ratio: auto;
+        height: 320px;
       }
       .cat-cover-img.is-fan-card {
         position: absolute;
-        top: 0;
+        top: 50%;
         left: 50%;
-        width: calc(100% - 32px);
-        max-width: calc(100% - 32px);
+        width: 200px;
         height: auto;
         aspect-ratio: 3 / 4;
-        transform-origin: 50% 100%;
+        transform-origin: 50% 50%;
         border: 1px solid var(--rule-soft);
         box-shadow: 0 6px 14px -8px rgba(0,0,0,0.6);
         background: var(--bg-soft);
@@ -644,7 +647,7 @@ const Catalogue = () => (
         z-index: 99;
       }
       .cat-card:hover .cat-cover-img.is-fan-card {
-        transform: translate(calc(-50% + var(--fan-dx, 0px) * 1.4), 0) rotate(calc(var(--fan-rot, 0deg) * 1.3));
+        transform: translate(calc(-50% + var(--fan-dx, 0px) * 1.4), calc(-50% + var(--fan-dy, 0px))) rotate(calc(var(--fan-rot, 0deg) * 1.3));
       }
       .cat-cover-overlay {
         position: absolute;
@@ -696,10 +699,16 @@ const Catalogue = () => (
           transform: none !important;
           width: 100%;
           max-width: 100%;
+          height: 100%;
+          aspect-ratio: auto;
+          object-fit: cover;
         }
         .cat-cover-frame.is-fan {
           background: var(--bg-soft);
           border: 1px solid var(--rule);
+          height: auto;
+          aspect-ratio: 3 / 4;
+          max-width: 160px;
         }
         .cat-tree-wrap { display: none; }
       }
