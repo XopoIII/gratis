@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class="no-js">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -126,8 +126,20 @@
   }
   </script>
 
+  <!-- ═══ Preload critical fonts (LCP) ═══ -->
+  <link rel="preload" href="fonts/russo-one-cyrillic.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+  <link rel="preload" href="fonts/pt-mono-cyrillic.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
+  <!-- ═══ Preload локальных vendor-сборок и токенов ═══ -->
+  <link rel="preload" href="vendor/react.production.min.js" as="script" crossorigin="anonymous"/>
+  <link rel="preload" href="vendor/react-dom.production.min.js" as="script" crossorigin="anonymous"/>
+  <link rel="preload" href="vendor/babel.min.js" as="script" crossorigin="anonymous"/>
+  <link rel="preload" href="src/global.js" as="script"/>
+  <link rel="preload" href="src/data.js" as="script"/>
+
+  <!-- ═══ Критичный inline-CSS: фоны, шрифты, скрытие до готовности ═══ -->
   <style>
-    /* Шрифты Ржави */
+    /* Шрифты */
     @font-face{font-family:'PT Mono';font-style:normal;font-weight:400;font-display:swap;
       src:url('fonts/pt-mono-cyrillic.woff2') format('woff2');
       unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
@@ -146,9 +158,89 @@
     @font-face{font-family:'Russo One';font-style:normal;font-weight:400;font-display:swap;
       src:url('fonts/russo-one-latin.woff2') format('woff2');
       unicode-range:U+0000-00FF;}
+
+    /* База — чтобы первый кадр был ровного бумажного цвета без вспышки белого */
+    html, body {
+      margin: 0; padding: 0;
+      background: #ece1c4;
+      color: #2a1d18;
+      font-family: 'PT Mono', 'Courier New', monospace;
+      min-height: 100vh;
+    }
+
+    /* SEO-fallback в #root скрываем визуально, но оставляем для краулеров. */
+    #root { opacity: 0; transition: opacity 240ms ease-out; }
+    body.site-ready #root { opacity: 1; }
+
+    /* Полноэкранный лоадер. */
+    #site-loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #ece1c4;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 28px;
+      transition: opacity 360ms ease-out;
+      will-change: opacity;
+    }
+    body.site-ready #site-loader { opacity: 0; pointer-events: none; }
+    body.site-loaded #site-loader { display: none; }
+
+    #site-loader .sl-mark {
+      font-family: 'Russo One', 'Impact', 'Arial Black', sans-serif;
+      font-size: clamp(20px, 3vw, 28px);
+      letter-spacing: 0.04em;
+      color: #2a1d18;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    #site-loader .sl-mark em { font-style: normal; color: #8b2e1f; }
+    #site-loader .sl-track {
+      width: clamp(160px, 28vw, 240px);
+      height: 2px;
+      background: rgba(42,29,24,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    #site-loader .sl-bar {
+      position: absolute; top: 0; left: 0; height: 100%;
+      width: 40%;
+      background: #2a1d18;
+      animation: sl-slide 1.2s cubic-bezier(.45,0,.55,1) infinite;
+    }
+    #site-loader .sl-meta {
+      font-family: 'PT Mono', 'Courier New', monospace;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #6b5942;
+    }
+    @keyframes sl-slide {
+      0%   { left: -40%; }
+      100% { left: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #site-loader .sl-bar { animation: none; left: 0; width: 100%; opacity: 0.4; }
+      #root, #site-loader { transition: none; }
+    }
+
+    .no-js #site-loader { display: none; }
+    .no-js #root { opacity: 1; }
   </style>
+  <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       Лоадер: показывается сразу с первым кадром, скрывается когда:
+       1) загружены critical fonts (document.fonts.ready),
+       2) полностью загружены все скрипты (window load),
+       3) React успел сделать первый рендер (2× requestAnimationFrame).
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div id="site-loader" role="status" aria-live="polite" aria-label="Загрузка сайта">
+    <div class="sl-mark">aga<em>INTE</em> GRA<em>tis</em></div>
+    <div class="sl-track"><div class="sl-bar"></div></div>
+    <div class="sl-meta">загружаем · постапок · самиздат</div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════════════════════════
        Статический контент-fallback для AI-краулеров и поисковых ботов.
        React заменит этот контент в #root при загрузке.
@@ -313,6 +405,35 @@
       );
     }
     ReactDOM.createRoot(document.getElementById('root')).render(<AuthorPage/>);
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       Снимаем лоадер только когда всё реально готово.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      var revealed = false;
+      function reveal() {
+        if (revealed) return;
+        revealed = true;
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            document.body.classList.add('site-ready');
+            setTimeout(function () {
+              document.body.classList.add('site-loaded');
+            }, 500);
+          });
+        });
+      }
+      var loadPromise = (document.readyState === 'complete')
+        ? Promise.resolve()
+        : new Promise(function (r) { window.addEventListener('load', r, { once: true }); });
+      var fontsPromise = (document.fonts && document.fonts.ready)
+        ? document.fonts.ready
+        : Promise.resolve();
+      Promise.all([loadPromise, fontsPromise]).then(reveal);
+      setTimeout(reveal, 4000);
+    })();
   </script>
 </body>
 </html>
