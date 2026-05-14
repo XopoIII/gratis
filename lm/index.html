@@ -92,6 +92,13 @@
 </script>
 
 <style>
+/* === iPhone safety guards === */
+html, body { overflow-x: clip; max-width: 100vw; }
+* { min-width: 0; }
+img, video, iframe, svg { max-width: 100%; height: auto; }
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+}
 @font-face{font-family:RussoOne;src:url(../fonts/russo-one-cyrillic.woff2) format('woff2');font-display:swap}
 @font-face{font-family:PTMono;src:url(../fonts/pt-mono-cyrillic.woff2) format('woff2');font-display:swap}
 @font-face{font-family:Caveat;src:url(../fonts/caveat-cyrillic.woff2) format('woff2');font-display:swap}
@@ -158,7 +165,7 @@ html,body{background:var(--bg);color:var(--paper);font-family:'Times New Roman',
 .s0-content{position:relative;z-index:5;text-align:center;width:100%;padding:0 24px}
 .s0 .meta{font-family:PTMono,monospace;font-size:11px;letter-spacing:.4em;color:var(--copper);text-transform:uppercase;margin-bottom:48px}
 .s0 .meta span{padding:6px 14px;border:1px solid var(--copper-d);margin:0 4px;display:inline-block}
-.s0 h1{font-family:RussoOne,sans-serif;font-size:clamp(80px,16vw,260px);line-height:.82;letter-spacing:-.03em;color:var(--bone);text-transform:uppercase}
+.s0 h1{font-family:RussoOne,sans-serif;font-size:clamp(64px,16vw,260px);line-height:.82;letter-spacing:-.03em;color:var(--bone);text-transform:uppercase;overflow-wrap:anywhere}
 .s0 h1 .acc{color:var(--copper);font-style:italic;font-family:Georgia,serif;font-weight:normal;display:block;font-size:.42em;letter-spacing:0;margin-top:16px;text-transform:none}
 .s0 .strike{position:relative;display:inline-block}
 .s0 .strike::after{content:"";position:absolute;left:-2%;right:-2%;top:46%;height:6px;background:var(--blood);transform:rotate(-1.5deg);opacity:.85}
@@ -183,7 +190,7 @@ html,body{background:var(--bg);color:var(--paper);font-family:'Times New Roman',
 
 .s1-text{position:relative;background:var(--bg);padding:60px 64px;display:flex;align-items:center}
 .s1-text-wrap{max-width:1100px;margin:0 auto}
-.s1-text h2{font-family:RussoOne,sans-serif;font-size:clamp(56px,9vw,140px);line-height:.88;letter-spacing:-.02em;color:var(--bone);text-transform:uppercase}
+.s1-text h2{font-family:RussoOne,sans-serif;font-size:clamp(40px,9vw,140px);line-height:.88;letter-spacing:-.02em;color:var(--bone);text-transform:uppercase;overflow-wrap:anywhere}
 .s1-text h2 .red{color:var(--blood);position:relative;display:inline-block}
 .s1-text h2 .red::before{content:"";position:absolute;left:-8px;right:-8px;top:-4px;bottom:-4px;border:3px solid var(--blood);transform:rotate(-1deg)}
 .s1-text h2 em{font-style:italic;color:var(--copper);font-family:Georgia,serif;font-weight:normal}
@@ -194,6 +201,12 @@ html,body{background:var(--bg);color:var(--paper);font-family:'Times New Roman',
 /* ====== S2 — ДВОЕ ====== */
 .s2{background:linear-gradient(135deg,#0a0907 0%,#1a0e08 100%);padding:0}
 .s2-grid{display:grid;grid-template-columns:1fr 1fr;width:100%;min-height:100vh}
+@media(max-width:760px){
+  .s2-grid{grid-template-columns:1fr;min-height:auto}
+  .s2-half .name{font-size:clamp(44px,12vw,72px) !important;overflow-wrap:anywhere}
+  .s2-half .name em{display:block;line-height:1.05;margin-top:.1em}
+  .s2-half .vs{display:none}
+}
 .s2-half{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:60px 56px;cursor:pointer;transition:flex .4s}
 .s2-half::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(8,6,4,.95) 80%);z-index:1;transition:opacity .4s}
 .s2-half.left::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(201,152,106,.14),transparent 65%),radial-gradient(circle at 50% 30%,#3a2515,#0a0907 70%);transition:transform .6s;z-index:0}
@@ -243,7 +256,7 @@ html,body{background:var(--bg);color:var(--paper);font-family:'Times New Roman',
   .tri .pole .o{width:120px;height:120px}
 }
 .s4-left .e{font-family:PTMono,monospace;font-size:11px;letter-spacing:.3em;color:var(--copper);text-transform:uppercase;margin-bottom:14px}
-.s4-left h2{font-family:RussoOne,sans-serif;font-size:clamp(64px,8vw,112px);line-height:.9;color:var(--bone);text-transform:uppercase;letter-spacing:-.02em}
+.s4-left h2{font-family:RussoOne,sans-serif;font-size:clamp(44px,8vw,112px);line-height:.9;color:var(--bone);text-transform:uppercase;letter-spacing:-.02em;overflow-wrap:anywhere}
 .s4-left h2 em{font-style:italic;color:var(--copper);font-family:Georgia,serif;font-weight:normal}
 .s4-left .law{margin-top:32px;font-family:Georgia,serif;font-style:italic;font-size:19px;color:#bca890;line-height:1.5;max-width:34ch;padding-left:18px;border-left:2px solid var(--copper-d)}
 
@@ -261,6 +274,13 @@ html,body{background:var(--bg);color:var(--paper);font-family:'Times New Roman',
 .tri .pole.l .w{color:var(--ash)}
 .tri .pole .desc{font-size:13px;line-height:1.45;color:#a89070;font-family:Georgia,serif;max-width:200px}
 .tri .pole .cost{margin-top:8px;font-family:PTMono,monospace;font-size:9px;letter-spacing:.18em;color:var(--copper-d);text-transform:uppercase}
+@media(max-width:900px){
+  .tri{aspect-ratio:auto;display:flex;flex-direction:column;gap:32px;max-width:520px}
+  .tri svg{display:none}
+  .tri .pole{position:static;transform:none;width:100%;max-width:100%}
+  .tri .pole .o{width:120px;height:120px}
+  .tri .pole .desc{max-width:100%}
+}
 
 /* ====== S5 — КНИГА 1 ====== */
 .s5{background:var(--bg);padding:120px 64px}
@@ -453,9 +473,13 @@ footer a{color:var(--copper);text-decoration:none}
   .s-faq{padding:80px 24px}
   .modal{padding:32px 24px}
   .modal h3{font-size:42px}
-  .map-canvas{aspect-ratio:1/1.1}
-  .map-label{font-size:10px}
+  .map-canvas{aspect-ratio:1/1.1;overflow:hidden}
+  .map-label{font-size:9px;white-space:normal;max-width:36vw;padding:3px 6px;line-height:1.15}
+  .map-pin .pop{white-space:normal;max-width:60vw}
   footer{padding:24px}
+}
+@media(max-width:480px){
+  .map-label{display:none}
 }
 </style>
 
@@ -678,7 +702,7 @@ footer a{color:var(--copper);text-decoration:none}
   <div class="map-head">
     <div>
       <div class="e rv">— география цикла —</div>
-      <h2 class="rv rv-d2">Велиградье<br/><em>от&nbsp;севера&nbsp;к&nbsp;югу</em></h2>
+      <h2 class="rv rv-d2">Велиградье<br/><em>от севера к&nbsp;югу</em></h2>
     </div>
     <div class="legend rv rv-d2">
       <span><i class="start"></i>книга&nbsp;1&nbsp;·&nbsp;старт</span>

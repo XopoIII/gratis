@@ -1,746 +1,710 @@
-// Каталог — структурированная сетка с разными типами карточек по статусу.
-// Секции: Сейчас пишу · Опубликовано · Циклы · В разработке · Ещё на author.today
+// Catalogue — output: моно-сетка карточек.
+// Карточки с миниатюрными обложками в моно-обвязке (sumi/amber палитра).
+// Над каждой секцией — tree-сводка в стиле `ls --tree`.
 
 // ============================================================================
-// Утилиты / общие элементы
+// Утилиты
 // ============================================================================
 
-const StatusBadge = ({ status }) => (
-  <span style={{
-    display: 'inline-flex', alignItems: 'center', gap: 8,
-    padding: '5px 10px',
-    background: 'rgba(0,0,0,0.62)',
-    backdropFilter: 'blur(3px)',
-    border: `1px solid ${status.tone}`,
-    color: '#fff',
-    fontFamily: 'var(--ff-body)', fontSize: 9.5, letterSpacing: '0.28em',
-    textTransform: 'uppercase',
-    whiteSpace: 'nowrap',
-  }}>
-    <span style={{
-      width: 6, height: 6, borderRadius: '50%',
-      background: status.tone,
-      boxShadow: `0 0 0 2px rgba(0,0,0,0.4), 0 0 8px ${status.tone}`,
-    }}/>
-    {status.label}
-  </span>
-);
+const StatusDot = ({ status }) => {
+  const color = {
+    writing:   'var(--accent-amber)',
+    rewriting: 'var(--accent-amber)',
+    draft:     'var(--muted)',
+    paused:    'var(--accent-rose, #E08E79)',
+    published: 'var(--accent-moegi, #AACF53)',
+    cycle:     'var(--accent-cyan, #7DD3C0)',
+  }[status.k] || 'var(--fg-soft)';
 
-// Заполняемая обложка / fallback на текстовый глиф
-const CoverImage = ({ row, fit = 'cover', pad = 0 }) => {
-  const [errored, setErrored] = React.useState(false);
-  const hasCover = row.cover && !errored;
-  const fallbackBg = row.coverBg || 'linear-gradient(180deg, #1a1612 0%, #08070a 100%)';
-
-  if (hasCover) {
-    return (
-      <img
-        src={row.cover}
-        alt={`Обложка — ${row.title}`}
-        loading="lazy"
-        onError={(e) => {
-          // fallback на og-cover если основной не загрузился
-          if (row.coverFallback && e.target.src.indexOf(row.coverFallback) === -1) {
-            e.target.src = row.coverFallback;
-          } else {
-            setErrored(true);
-          }
-        }}
-        style={{
-          width: '100%', height: '100%',
-          objectFit: row.coverFit || fit,
-          padding: row.coverPad || pad,
-          display: 'block',
-          filter: 'saturate(.95) contrast(1.02)',
-        }}
-      />
-    );
-  }
+  const glow = (status.k === 'writing' || status.k === 'rewriting');
 
   return (
-    <div style={{
-      position: 'absolute', inset: 0,
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      background: fallbackBg,
-      color: row.accent || '#fff',
-      padding: 24, textAlign: 'center',
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 8,
+      fontFamily: 'var(--ff-mono)',
+      fontSize: 10,
+      letterSpacing: '0.22em',
+      textTransform: 'lowercase',
+      color: 'var(--muted)',
     }}>
-      <div style={{
-        fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.32em',
-        opacity: .55, marginBottom: 22, textTransform: 'uppercase',
-      }}>{row.universe}</div>
-      <div className="h-display" style={{
-        fontSize: 'clamp(36px, 6vw, 56px)', lineHeight: 1,
-        letterSpacing: '0.08em', textTransform: 'uppercase',
-        textShadow: '0 4px 24px rgba(0,0,0,.6)',
-      }}>{row.coverGlyph || row.title}</div>
-      <div style={{
-        fontFamily: 'var(--ff-body)', fontSize: 9, letterSpacing: '0.32em',
-        opacity: .45, marginTop: 24, textTransform: 'uppercase',
-      }}>обложка в работе</div>
-    </div>
+      <span
+        aria-hidden="true"
+        style={{
+          width: 6,
+          height: 6,
+          background: color,
+          flex: '0 0 auto',
+          boxShadow: glow ? '0 0 6px var(--accent-amber)' : 'none',
+        }}
+      />
+      {status.label}
+    </span>
   );
 };
 
-// Section heading с правилом сверху
-const SectionHead = ({ kicker, title, accent, sub, count }) => (
+const SectionHeading = ({ kicker, title, sub, count }) => (
   <div style={{ marginBottom: 'clamp(28px, 3.5vw, 44px)' }}>
-    <RuleRow label={kicker}/>
+    <div className="rule-row">
+      <span className="lbl">{kicker}</span>
+      <span className="ln"/>
+      {count != null && (
+        <span style={{
+          fontFamily: 'var(--ff-mono)',
+          fontSize: 10,
+          letterSpacing: '0.22em',
+          textTransform: 'lowercase',
+          color: 'var(--muted)',
+          whiteSpace: 'nowrap',
+        }}>n = {count}</span>
+      )}
+    </div>
     <div style={{
-      display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
-      flexWrap: 'wrap', gap: 16,
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 16,
     }}>
-      <h2 className="h-display" style={{
-        fontSize: 'clamp(36px, 5vw, 56px)', margin: 0, lineHeight: .95,
+      <h2 style={{
+        fontFamily: 'var(--ff-display)',
+        fontSize: 'clamp(24px, 3vw, 36px)',
+        margin: 0,
+        lineHeight: 1.05,
+        letterSpacing: '0.01em',
+        color: 'var(--fg)',
+        fontWeight: 400,
+        textTransform: 'lowercase',
       }}>
-        {title.split(' ').map((w, i, arr) =>
-          i === arr.length - 1
-            ? <span key={i} style={{ color: accent }}>{w}</span>
-            : <span key={i}>{w} </span>
-        )}
+        {title}
       </h2>
-      {(sub || count != null) && (
+      {sub && (
         <p style={{
-          margin: 0, fontSize: 13.5, color: 'var(--dim)',
-          maxWidth: 480, lineHeight: 1.55,
-        }}>
-          {count != null && (
-            <span style={{
-              display: 'inline-block', marginRight: 14, padding: '4px 9px',
-              background: 'var(--paper)', border: '1px solid var(--rule-dark)',
-              fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-              textTransform: 'uppercase', color: 'var(--ink)',
-            }}>{count}</span>
-          )}
-          {sub}
-        </p>
+          margin: 0,
+          fontSize: 13,
+          color: 'var(--muted)',
+          maxWidth: 480,
+          lineHeight: 1.6,
+        }}>{sub}</p>
       )}
     </div>
   </div>
 );
 
 // ============================================================================
-// CARD: «СЕЙЧАС ПИШУ» — большая, featured
+// CommandLine — `agatis@lab ~/works ❯ ls --tree --filter=…`
 // ============================================================================
-const WritingCard = ({ row }) => (
-  <a
-    href={row.href}
-    target="_blank"
-    rel="noopener"
-    className="cat-writing"
-    style={{
-      display: 'grid',
-      gridTemplateColumns: 'minmax(180px, 240px) 1fr',
-      background: 'var(--paper)',
-      border: '1px solid var(--rule-dark)',
-      borderTop: `3px solid ${row.accent}`,
-      textDecoration: 'none', color: 'inherit',
-      position: 'relative', overflow: 'hidden',
-      transition: 'transform .25s ease, box-shadow .25s ease',
-    }}
-  >
-    {/* «marker» полоска с прогрессом */}
-    <div style={{
-      position: 'absolute', top: 0, right: 0, padding: '10px 14px',
-      fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-      textTransform: 'uppercase', color: row.accent,
-      borderLeft: '1px solid var(--rule-dark)',
-      borderBottom: '1px solid var(--rule-dark)',
-      background: 'var(--bg)',
-      zIndex: 2,
-    }}>
-      № {row.n}
-    </div>
 
-    {/* Cover */}
-    <div style={{
-      position: 'relative',
-      aspectRatio: '2 / 3',
-      background: '#0a0a0a',
-      borderRight: '1px solid var(--rule-dark)',
+const CommandLine = ({ filter }) => (
+  <div style={{
+    fontFamily: 'var(--ff-mono)',
+    fontSize: 12,
+    letterSpacing: '0.04em',
+    color: 'var(--muted)',
+    marginBottom: 10,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }}>
+    <span style={{ color: 'var(--accent-amber)' }}>agatis@lab</span>
+    <span style={{ color: 'var(--muted)' }}> </span>
+    <span style={{ color: 'var(--fg-soft)' }}>~/works</span>
+    <span style={{ color: 'var(--muted)' }}> </span>
+    <span style={{ color: 'var(--accent-amber)' }}>❯</span>
+    <span style={{ color: 'var(--muted)' }}> ls --tree --filter=</span>
+    <span style={{ color: 'var(--fg-soft)' }}>{filter}</span>
+  </div>
+);
+
+// ============================================================================
+// TreeSummary — box-drawing «table of contents»
+// ============================================================================
+
+const TreeSummary = ({ folder, rows, getMeta }) => {
+  // строки tree: ├─ … / └─ …
+  const lines = rows.map((r, i) => {
+    const last = i === rows.length - 1;
+    const prefix = last ? '└─ ' : '├─ ';
+    const id = `${r.id}/`;
+    const meta = getMeta ? getMeta(r) : '';
+    return { prefix, id, meta };
+  });
+
+  return (
+    <pre className="cat-tree" style={{
+      margin: '0 0 clamp(20px, 2.4vw, 28px)',
+      padding: '14px 16px',
+      fontFamily: 'var(--ff-mono)',
+      fontSize: 12,
+      lineHeight: 1.65,
+      color: 'var(--fg-soft)',
+      background: 'transparent',
+      border: '1px dashed var(--rule-soft)',
       overflow: 'hidden',
     }}>
-      <CoverImage row={row}/>
-      <div style={{ position: 'absolute', top: 14, left: 14 }}>
-        <StatusBadge status={row.status}/>
-      </div>
-    </div>
+      <span style={{ color: 'var(--accent-amber)' }}>{folder}/</span>
+      {'\n'}
+      {lines.map((l, i) => (
+        <span key={i}>
+          <span style={{ color: 'var(--muted)' }}>{l.prefix}</span>
+          <span style={{ color: 'var(--fg)' }}>{l.id.padEnd(20, ' ')}</span>
+          {l.meta && (
+            <span style={{ color: 'var(--muted)' }}>  {l.meta}</span>
+          )}
+          {'\n'}
+        </span>
+      ))}
+    </pre>
+  );
+};
 
-    {/* Body */}
-    <div style={{
-      padding: 'clamp(22px, 2.5vw, 32px)',
-      display: 'flex', flexDirection: 'column', gap: 14,
-    }}>
+// ============================================================================
+// CoverThumb — миниатюра обложки (одна или стопка-веер) в box-drawing рамке
+// ============================================================================
+
+const CoverThumb = ({ row, totalBooks }) => {
+  const raw = (window.COVERS || {})[row.id];
+  const isFan = Array.isArray(raw);
+  const sources = isFan ? raw : (raw ? [raw] : []);
+  const label = isFan ? `${row.id}.series` : `${row.id}.cover`;
+  const extraBooks = isFan && totalBooks ? Math.max(0, totalBooks - sources.length) : 0;
+
+  const topRule = (
+    <div className="cat-cover-rule top" aria-hidden="true">
+      <span>╭─ </span>
+      <span style={{ color: 'var(--accent-amber)' }}>{label}</span>
+      <span> </span>
+      <span className="cat-cover-rule-fill"/>
+      <span>╮</span>
+    </div>
+  );
+
+  const botRule = (
+    <div className="cat-cover-rule bot" aria-hidden="true">
+      <span>╰</span>
+      <span className="cat-cover-rule-fill"/>
+      {extraBooks > 0 && (
+        <span style={{ color: 'var(--muted)', padding: '0 6px' }}>
+          +{extraBooks}
+        </span>
+      )}
+      <span className="cat-cover-rule-fill"/>
+      <span>╯</span>
+    </div>
+  );
+
+  // ASCII-плейсхолдер
+  if (sources.length === 0) {
+    return (
+      <div className="cat-cover" aria-hidden="true">
+        {topRule}
+        <div className="cat-cover-frame">
+          <pre className="cat-cover-ascii">
+{`▒▓░ ░▓▒ ▒▓░ ░▓▒ ▒▓░
+▓░ ░▓▒ ▒▓░ ░▓▒ ▒▓░ ░
+░ ░▓▒ ▒▓░ ░▓▒ ▒▓░ ░▓
+   ┌─────────────┐
+   │  ${(row.id || '').padEnd(11, ' ')}│
+   │  no cover   │
+   └─────────────┘
+░▓▒ ▒▓░ ░▓▒ ▒▓░ ░▓▒
+▒ ▒▓░ ░▓▒ ▒▓░ ░▓▒ ▒
+▓░ ░▓▒ ▒▓░ ░▓▒ ▒▓░ ░`}
+          </pre>
+          <span className="cat-cover-overlay" aria-hidden="true"/>
+        </div>
+        {botRule}
+      </div>
+    );
+  }
+
+  // Веер: задние карты сначала (rotate ±), верхняя — последняя
+  // Углы и смещения подбираем по количеству
+  const fanLayout = (i, total) => {
+    if (total === 1) return { rotate: 0, dx: 0, dy: 0 };
+    const center = (total - 1) / 2;
+    const k = i - center; // -1.5 … 1.5
+    const angle = k * 6;        // ±6° на карту
+    const dx = k * 14;          // 14px горизонтального смещения
+    const dy = Math.abs(k) * 4; // лёгкий «поднятый низ» по бокам
+    return { rotate: angle, dx, dy };
+  };
+
+  return (
+    <div className="cat-cover" aria-hidden="true">
+      {topRule}
+      <div className={`cat-cover-frame${isFan ? ' is-fan' : ''}`}>
+        {sources.map((src, i) => {
+          const { rotate, dx, dy } = fanLayout(i, sources.length);
+          const isTop = i === sources.length - 1;
+          return (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className={`cat-cover-img${isFan ? ' is-fan-card' : ''}${isTop ? ' is-top' : ''}`}
+              style={isFan ? {
+                transform: `translate(calc(-50% + ${dx}px), ${dy}px) rotate(${rotate}deg)`,
+                zIndex: i + 1,
+              } : undefined}
+            />
+          );
+        })}
+        <span className="cat-cover-overlay" aria-hidden="true"/>
+      </div>
+      {botRule}
+    </div>
+  );
+};
+
+// ============================================================================
+// Card — универсальная карточка книги/цикла
+// ============================================================================
+
+const Card = ({ row, variant = 'std' }) => {
+  const isDraft = variant === 'draft';
+  const isWriting = variant === 'writing';
+  const isCycle = variant === 'cycle';
+
+  return (
+    <a
+      href={row.href}
+      target="_self"
+      rel="noopener"
+      className={`cat-card${isDraft ? ' is-draft' : ''}`}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 14,
+        padding: 'clamp(20px, 2.4vw, 28px)',
+        border: '1px solid var(--rule-soft)',
+        borderStyle: isDraft ? 'dashed' : 'solid',
+        background: 'transparent',
+        color: 'var(--fg)',
+        textDecoration: 'none',
+        position: 'relative',
+        overflow: 'hidden',
+        transition: 'border-color .25s ease, transform .25s ease, background .25s ease, box-shadow .25s ease',
+      }}
+    >
+      {/* миниатюра обложки (или веер для циклов) в box-drawing рамке */}
+      <CoverThumb row={row} totalBooks={isCycle ? row.booksCount : undefined}/>
+
+
+      {/* шапка карточки: № + id + статус */}
       <div style={{
-        fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.26em',
-        textTransform: 'uppercase', color: 'var(--dim)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'baseline',
+        gap: 12,
+        fontFamily: 'var(--ff-mono)',
+        fontSize: 10,
+        letterSpacing: '0.22em',
+        textTransform: 'lowercase',
+        color: 'var(--muted)',
+        paddingBottom: 8,
+        borderBottom: '1px solid var(--rule)',
+      }}>
+        <span>
+          <span style={{ color: 'var(--dim)' }}>#</span>
+          {row.n}
+          <span style={{ color: 'var(--dim)', margin: '0 6px' }}>·</span>
+          <span>{row.id}/</span>
+        </span>
+        <StatusDot status={row.status}/>
+      </div>
+
+      {/* universe */}
+      <div style={{
+        fontFamily: 'var(--ff-mono)',
+        fontSize: 10,
+        letterSpacing: '0.22em',
+        textTransform: 'lowercase',
+        color: 'var(--muted)',
       }}>{row.universe}</div>
 
-      <h3 className="h-display" style={{
-        fontSize: 'clamp(26px, 3vw, 38px)', lineHeight: 1, margin: 0,
+      {/* title */}
+      <h3 style={{
+        margin: 0,
+        fontFamily: 'var(--ff-display)',
+        fontSize: isWriting ? 'clamp(22px, 2.4vw, 28px)' : 20,
+        lineHeight: 1.1,
+        letterSpacing: '0.01em',
+        color: 'var(--fg)',
+        fontWeight: 400,
         textWrap: 'balance',
       }}>{row.title}</h3>
 
       {row.subtitle && (
-        <div className="h-hand" style={{
-          fontSize: 22, color: row.accent, marginTop: -6,
+        <div style={{
+          marginTop: -8,
+          fontFamily: 'var(--ff-mono)',
+          fontSize: 12,
+          color: 'var(--fg-soft)',
+          letterSpacing: '0.04em',
         }}>{row.subtitle}</div>
       )}
 
+      {/* tagline */}
       <p style={{
-        margin: 0, fontSize: 14.5, lineHeight: 1.6, color: 'var(--ink-soft)',
+        margin: 0,
+        fontSize: 13,
+        lineHeight: 1.6,
+        color: 'var(--fg-soft)',
         textWrap: 'pretty',
+        flex: 1,
       }}>{row.tagline}</p>
 
-      {/* Progress bar */}
+      {/* progress (для writing/draft) */}
       {row.progress && (
-        <div style={{ marginTop: 6 }}>
-          <div style={{
-            fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-            textTransform: 'uppercase', color: 'var(--dim)',
-            display: 'flex', justifyContent: 'space-between', marginBottom: 6,
-          }}>
-            <span>{row.progress}</span>
-            <span style={{ color: row.accent }}>● в работе</span>
-          </div>
-          <div style={{
-            height: 3, background: 'var(--rule)',
-            position: 'relative', overflow: 'hidden',
-          }}>
-            <div style={{
-              position: 'absolute', top: 0, left: 0, height: '100%',
-              width: '38%',
-              background: row.accent,
-              boxShadow: `0 0 12px ${row.accent}`,
-            }}/>
-          </div>
+        <div style={{
+          fontFamily: 'var(--ff-mono)',
+          fontSize: 11,
+          letterSpacing: '0.06em',
+          color: 'var(--muted)',
+        }}>
+          <span style={{ color: 'var(--dim)' }}>progress: </span>
+          <span style={{ color: 'var(--fg-soft)' }}>{row.progress}</span>
         </div>
       )}
 
-      <div style={{
-        marginTop: 'auto', paddingTop: 18, borderTop: '1px dotted var(--rule-dark)',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        fontFamily: 'var(--ff-body)', fontSize: 10.5, letterSpacing: '0.16em',
-        textTransform: 'uppercase',
-      }}>
-        <span style={{ color: 'var(--dim)' }}>{row.genre}</span>
-        <span style={{ color: row.accent }}>читать лендинг →</span>
-      </div>
-    </div>
-  </a>
-);
-
-// ============================================================================
-// CARD: ОПУБЛИКОВАНО — стандартная
-// ============================================================================
-const StdCard = ({ row }) => (
-  <a
-    href={row.href}
-    target="_blank"
-    rel="noopener"
-    className="cat-card"
-    style={{
-      display: 'flex', flexDirection: 'column',
-      background: 'var(--paper)',
-      border: '1px solid var(--rule-dark)',
-      textDecoration: 'none', color: 'inherit',
-      position: 'relative', overflow: 'hidden',
-      transition: 'transform .25s ease, box-shadow .25s ease',
-    }}
-  >
-    <div style={{
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      padding: '10px 16px',
-      borderBottom: '1px solid var(--rule-dark)',
-      fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-      textTransform: 'uppercase', color: 'var(--dim)',
-    }}>
-      <span>№ {row.n} · {row.id}/</span>
-      <span style={{ color: row.accent }}>открыть ↗</span>
-    </div>
-
-    <div style={{
-      position: 'relative',
-      aspectRatio: '2 / 3',
-      background: row.coverBg || '#0a0a0a',
-      overflow: 'hidden',
-      borderBottom: '1px solid var(--rule-dark)',
-    }}>
-      <CoverImage row={row}/>
-      <div style={{ position: 'absolute', top: 12, left: 12 }}>
-        <StatusBadge status={row.status}/>
-      </div>
-    </div>
-
-    <div style={{
-      padding: '20px 18px 22px',
-      display: 'flex', flexDirection: 'column', gap: 10, flex: 1,
-    }}>
-      <div style={{
-        fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-        textTransform: 'uppercase', color: 'var(--dim)',
-      }}>{row.universe}</div>
-      <h3 className="h-display" style={{
-        fontSize: 24, lineHeight: 1.05, margin: 0, textWrap: 'balance',
-      }}>{row.title}</h3>
-      <p style={{
-        margin: 0, fontSize: 13.5, lineHeight: 1.55, color: 'var(--ink-soft)',
-        textWrap: 'pretty', flex: 1,
-      }}>{row.tagline}</p>
-
-      <div style={{
-        marginTop: 6, paddingTop: 14, borderTop: '1px dotted var(--rule-dark)',
-        display: 'grid', gridTemplateColumns: '1fr auto', gap: 8,
-        fontFamily: 'var(--ff-body)', fontSize: 10.5, letterSpacing: '0.14em',
-        textTransform: 'uppercase',
-      }}>
-        <span style={{ color: 'var(--dim)' }}>{row.genre}</span>
-        <span style={{ color: 'var(--ink)' }}>{row.volume}</span>
-      </div>
-    </div>
-  </a>
-);
-
-// ============================================================================
-// CARD: ЦИКЛ — веер обложек / стопка корешков
-// ============================================================================
-const CycleCard = ({ row }) => {
-  const hasCovers = row.covers && row.covers.length > 0;
-  return (
-    <a
-      href={row.href}
-      target="_blank"
-      rel="noopener"
-      className="cat-cycle"
-      style={{
-        display: 'flex', flexDirection: 'column',
-        background: 'var(--ink)', color: 'var(--bg)',
-        border: '1px solid var(--rule-dark)',
-        textDecoration: 'none',
-        position: 'relative', overflow: 'hidden',
-        transition: 'transform .25s ease, box-shadow .25s ease',
-      }}
-    >
-      {/* header */}
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '10px 16px',
-        borderBottom: '1px solid rgba(236,225,196,0.18)',
-        fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-        textTransform: 'uppercase', color: 'rgba(236,225,196,0.55)',
-      }}>
-        <span>№ {row.n} · цикл · {row.booksCount} {row.booksCount === 1 ? 'книга' : row.booksCount < 5 ? 'книги' : 'книг'}</span>
-        <span style={{ color: row.accent }}>{row.plannedLanding ? 'лендинг скоро' : 'открыть ↗'}</span>
-      </div>
-
-      {/* Fan of covers — крупная зона */}
-      <div style={{
-        position: 'relative',
-        aspectRatio: '16 / 11',
-        background: row.coverBg || `linear-gradient(135deg, ${row.tone} 0%, #000 100%)`,
-        overflow: 'hidden',
-        borderBottom: '1px solid rgba(236,225,196,0.18)',
-      }}>
-        {hasCovers ? (
-          <div className="cycle-fan" style={{
-            position: 'absolute', inset: 0,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: '8% 6%',
-          }}>
-            {row.covers.map((src, i, arr) => {
-              const center = (arr.length - 1) / 2;
-              const offset = i - center;
-              const rot = offset * 6; // degrees
-              const tx = offset * 18;  // % overlap
-              const ty = Math.abs(offset) * 4;
-              const z = arr.length - Math.abs(offset);
-              return (
-                <img
-                  key={src}
-                  src={src}
-                  alt={row.titles?.[i] || ''}
-                  loading="lazy"
-                  className="cycle-spine"
-                  style={{
-                    width: `${100 / Math.max(arr.length, 3) + 12}%`,
-                    aspectRatio: '2 / 3',
-                    objectFit: 'cover',
-                    border: '2px solid #1a1612',
-                    boxShadow: '0 8px 24px -10px rgba(0,0,0,.8), 0 2px 0 rgba(255,255,255,0.04) inset',
-                    transform: `translate(${tx * 0.6}%, ${ty}%) rotate(${rot}deg)`,
-                    transformOrigin: 'center bottom',
-                    transition: 'transform .5s cubic-bezier(.2,.7,.1,1)',
-                    zIndex: z,
-                    marginLeft: i === 0 ? 0 : -24,
-                    flexShrink: 0,
-                  }}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <div style={{
-            position: 'absolute', inset: 0,
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            color: row.accent, padding: 32, textAlign: 'center',
-          }}>
-            <div style={{
-              fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.32em',
-              opacity: .55, marginBottom: 24, textTransform: 'uppercase',
-            }}>{row.universe}</div>
-            <div className="h-display" style={{
-              fontSize: 'clamp(48px, 8vw, 88px)', lineHeight: 1,
-              letterSpacing: '0.06em',
-            }}>{row.coverGlyph}</div>
-            <div style={{
-              fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.32em',
-              opacity: .5, marginTop: 24, textTransform: 'uppercase',
-            }}>{row.booksCount} книг(и) · обложки скоро</div>
-          </div>
-        )}
-
-        {/* status badge */}
-        <div style={{ position: 'absolute', top: 12, left: 12, zIndex: 50 }}>
-          <StatusBadge status={row.status}/>
-        </div>
-      </div>
-
-      {/* body */}
-      <div style={{
-        padding: '20px 18px 22px',
-        display: 'flex', flexDirection: 'column', gap: 10, flex: 1,
-      }}>
-        <div style={{
-          fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-          textTransform: 'uppercase', color: 'rgba(236,225,196,0.55)',
-        }}>{row.universe}</div>
-        <h3 className="h-display" style={{
-          fontSize: 26, lineHeight: 1.02, margin: 0,
-          textWrap: 'balance', color: 'var(--bg)',
-        }}>{row.title}</h3>
-        <p style={{
-          margin: 0, fontSize: 13.5, lineHeight: 1.55, color: 'rgba(236,225,196,0.78)',
-          textWrap: 'pretty',
-        }}>{row.tagline}</p>
-
-        {/* Список книг внутри цикла */}
-        {row.titles && (
-          <ul style={{
-            margin: '8px 0 0', padding: 0, listStyle: 'none',
-            display: 'flex', flexDirection: 'column', gap: 6,
-            fontFamily: 'var(--ff-body)', fontSize: 11.5, letterSpacing: '0.05em',
-            color: 'rgba(236,225,196,0.7)',
-          }}>
-            {row.titles.map((t, i) => (
-              <li key={i} style={{
-                display: 'grid', gridTemplateColumns: '22px 1fr',
-                alignItems: 'baseline',
-                paddingTop: 6, borderTop: i === 0 ? 'none' : '1px dotted rgba(236,225,196,0.15)',
-              }}>
-                <span style={{ color: row.accent, fontSize: 10, letterSpacing: '0.16em' }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span>{t}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div style={{
-          marginTop: 'auto', paddingTop: 14,
-          borderTop: '1px dotted rgba(236,225,196,0.2)',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          fontFamily: 'var(--ff-body)', fontSize: 10.5, letterSpacing: '0.14em',
-          textTransform: 'uppercase',
+      {/* list of titles внутри цикла */}
+      {isCycle && row.titles && (
+        <ul style={{
+          margin: '4px 0 0',
+          padding: 0,
+          listStyle: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 4,
+          fontFamily: 'var(--ff-mono)',
+          fontSize: 11.5,
+          color: 'var(--fg-soft)',
         }}>
-          <span style={{ color: 'rgba(236,225,196,0.55)' }}>{row.genre}</span>
-          <span style={{ color: row.accent }}>{row.volume}</span>
-        </div>
+          {row.titles.map((t, i) => (
+            <li key={i} style={{
+              display: 'grid',
+              gridTemplateColumns: '24px 1fr',
+              gap: 4,
+              padding: '4px 0',
+              borderTop: i === 0 ? '1px dotted var(--rule)' : '1px dotted var(--rule)',
+            }}>
+              <span style={{ color: 'var(--muted)', fontSize: 10 }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* нижняя линия: жанр + объём */}
+      <div style={{
+        marginTop: 'auto',
+        paddingTop: 12,
+        borderTop: '1px solid var(--rule)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'baseline',
+        gap: 12,
+        flexWrap: 'wrap',
+        fontFamily: 'var(--ff-mono)',
+        fontSize: 10,
+        letterSpacing: '0.18em',
+        textTransform: 'lowercase',
+      }}>
+        <span style={{ color: 'var(--muted)' }}>{row.genre}</span>
+        <span style={{ color: 'var(--fg)' }}>
+          {row.volume}
+        </span>
+      </div>
+
+      <div style={{
+        fontFamily: 'var(--ff-mono)',
+        fontSize: 11,
+        letterSpacing: '0.14em',
+        textTransform: 'lowercase',
+        color: 'var(--fg)',
+      }}>
+        <span style={{ color: 'var(--accent-amber)' }}>❯</span> open
       </div>
     </a>
   );
 };
 
 // ============================================================================
-// CARD: ЧЕРНОВИК — приглушённая
+// Catalogue
 // ============================================================================
-const DraftCard = ({ row }) => (
-  <a
-    href={row.href}
-    target="_blank"
-    rel="noopener"
-    className="cat-draft"
-    style={{
-      display: 'flex', flexDirection: 'column',
-      background: 'var(--paper)',
-      border: '1px dashed var(--rule-dark)',
-      textDecoration: 'none', color: 'inherit',
-      position: 'relative', overflow: 'hidden',
-      opacity: .92,
-      transition: 'transform .25s ease, opacity .25s ease',
-    }}
-  >
-    {/* corner stamp */}
-    <div style={{
-      position: 'absolute', top: 14, right: -28,
-      transform: 'rotate(35deg)', transformOrigin: 'center',
-      padding: '4px 32px',
-      background: 'transparent',
-      border: '1.5px solid var(--dim)',
-      color: 'var(--dim)',
-      fontFamily: 'var(--ff-display)', fontSize: 10,
-      letterSpacing: '0.28em', textTransform: 'uppercase',
-      zIndex: 4, pointerEvents: 'none',
-    }}>черновик</div>
 
-    <div style={{
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      padding: '10px 16px',
-      borderBottom: '1px dashed var(--rule-dark)',
-      fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-      textTransform: 'uppercase', color: 'var(--dim)',
-    }}>
-      <span>№ {row.n}</span>
-      <span style={{ marginRight: 60 }}/>
-    </div>
-
-    <div style={{
-      position: 'relative',
-      aspectRatio: '2 / 3',
-      background: row.coverBg || '#0a0a0a',
-      overflow: 'hidden',
-      borderBottom: '1px dashed var(--rule-dark)',
-      filter: 'saturate(.78)',
-    }}>
-      <CoverImage row={row}/>
-    </div>
-
-    <div style={{
-      padding: '18px 18px 20px',
-      display: 'flex', flexDirection: 'column', gap: 8, flex: 1,
-    }}>
-      <div style={{
-        fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-        textTransform: 'uppercase', color: 'var(--dim)',
-      }}>{row.universe}</div>
-      <h3 className="h-display" style={{
-        fontSize: 22, lineHeight: 1.05, margin: 0, color: 'var(--ink-soft)',
-      }}>{row.title}</h3>
-      <p style={{
-        margin: 0, fontSize: 12.5, lineHeight: 1.55, color: 'var(--dim)',
-        textWrap: 'pretty', flex: 1,
-      }}>{row.tagline}</p>
-      <div style={{
-        marginTop: 6, paddingTop: 10, borderTop: '1px dotted var(--rule-dark)',
-        fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.16em',
-        textTransform: 'uppercase', color: 'var(--dim)',
-      }}>{row.progress}</div>
-    </div>
-  </a>
-);
-
-// ============================================================================
-// CARD: ТОЛЬКО НА AUTHOR.TODAY — компактная карточка с миниатюрной обложкой
-// ============================================================================
-const ATCard = ({ row }) => (
-  <a
-    href={row.at}
-    target="_blank"
-    rel="noopener"
-    className="cat-at"
-    style={{
-      display: 'grid',
-      gridTemplateColumns: '78px 1fr auto',
-      gap: 16, alignItems: 'stretch',
-      padding: 0,
-      background: 'transparent',
-      border: '1px solid var(--rule)',
-      borderLeft: `4px solid ${row.accent}`,
-      textDecoration: 'none', color: 'inherit',
-      overflow: 'hidden',
-      transition: 'background .2s ease, transform .2s ease',
-    }}
-  >
-    {/* mini cover */}
-    <div style={{
-      width: 78, aspectRatio: '2 / 3',
-      background: '#000',
-      overflow: 'hidden',
-      position: 'relative',
-    }}>
-      {row.cover ? (
-        <img
-          src={row.cover}
-          alt={`Обложка — ${row.title}`}
-          loading="lazy"
-          style={{
-            width: '100%', height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-          }}
-        />
-      ) : (
-        <div style={{
-          position: 'absolute', inset: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: row.accent + '18',
-          color: row.accent,
-          fontFamily: 'var(--ff-display)', fontSize: 22,
-        }}>{row.title.charAt(0)}</div>
-      )}
-    </div>
-
-    <div style={{
-      minWidth: 0,
-      display: 'flex', flexDirection: 'column', justifyContent: 'center',
-      padding: '14px 0',
-    }}>
-      <div className="h-display" style={{
-        fontSize: 17, lineHeight: 1.1, margin: 0, color: 'var(--ink)',
-        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-      }}>{row.title}</div>
-      <div style={{
-        marginTop: 4, fontSize: 12, color: 'var(--ink-soft)',
-        textWrap: 'pretty', lineHeight: 1.45,
-      }}>{row.tagline}</div>
-      <div style={{
-        marginTop: 6,
-        fontFamily: 'var(--ff-body)', fontSize: 9.5, letterSpacing: '0.22em',
-        textTransform: 'uppercase', color: 'var(--dim)',
-      }}>{row.genre}</div>
-    </div>
-
-    <div style={{
-      fontFamily: 'var(--ff-body)', fontSize: 10, letterSpacing: '0.22em',
-      textTransform: 'uppercase', color: row.accent,
-      whiteSpace: 'nowrap',
-      alignSelf: 'center',
-      paddingRight: 18,
-    }}>AT&nbsp;↗</div>
-  </a>
-);
-
-// ============================================================================
-// CATALOGUE: главный экспорт
-// ============================================================================
-const Catalogue = ({ works }) => {
-  const total =
-    (window.worksWriting?.length || 0) +
-    (window.worksPublished?.length || 0) +
-    (window.worksCycles?.length || 0) +
-    (window.worksDrafts?.length || 0);
-
-  return (
-    <section id="works" style={{ borderBottom: '1px solid var(--rule-dark)' }}>
-      {/* === 1. СЕЙЧАС ПИШУ === */}
-      <div className="pad" style={{ borderBottom: '1px solid var(--rule)', background: 'var(--paper)' }}>
-        <SectionHead
-          kicker="Каталог · сейчас за столом"
-          title="Сейчас пишу"
-          accent="var(--accent)"
-          count={window.worksWriting.length}
-          sub="Книги в активной разработке — главы выкладываются на author.today по мере готовности."
-        />
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 460px), 1fr))',
-          gap: 'clamp(20px, 2.5vw, 32px)',
-        }}>
-          {window.worksWriting.map((row) => <WritingCard key={row.id} row={row}/>)}
-        </div>
-      </div>
-
-      {/* === 2. ЦИКЛЫ === */}
-      <div className="pad">
-        <SectionHead
-          kicker="Книжные циклы"
-          title="Циклы и серии"
-          accent="var(--accent-2)"
-          count={window.worksCycles.length}
-          sub="Длинные истории на несколько книг. Каждый цикл — отдельный лендинг с веером обложек и сюжетной картой."
-        />
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: 'clamp(20px, 2.5vw, 32px)',
-        }}>
-          {window.worksCycles.map((row) => <CycleCard key={row.id} row={row}/>)}
-        </div>
-      </div>
-
-      {/* === 3. ОПУБЛИКОВАНО (одиночные романы) === */}
-      <div className="pad" style={{ borderTop: '1px solid var(--rule-dark)', background: 'var(--paper)' }}>
-        <SectionHead
-          kicker="Опубликовано · самостоятельные романы"
-          title="Отдельные романы"
-          accent="var(--accent)"
-          count={window.worksPublished.length}
-          sub="Завершённые книги вне циклов. Можно читать в любом порядке — миры не связаны."
-        />
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: 'clamp(20px, 2.5vw, 32px)',
-        }}>
-          {window.worksPublished.map((row) => <StdCard key={row.id} row={row}/>)}
-        </div>
-      </div>
-
-      {/* === 4. В РАЗРАБОТКЕ === */}
-      <div className="pad" style={{ borderTop: '1px solid var(--rule)' }}>
-        <SectionHead
-          kicker="В разработке · черновики"
-          title="Лежат на полке"
-          accent="var(--dim)"
-          count={window.worksDrafts.length}
-          sub="Книги, для которых есть лендинг и план, но активная работа ещё не началась. Можно почитать описание и подписаться."
-        />
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          gap: 'clamp(20px, 2.5vw, 32px)',
-        }}>
-          {window.worksDrafts.map((row) => <DraftCard key={row.id} row={row}/>)}
-        </div>
-      </div>
-
-      {/* === 5. ЕЩЁ НА AUTHOR.TODAY === */}
-      {window.worksOnAT && window.worksOnAT.length > 0 && (
-        <div className="pad" style={{ borderTop: '1px solid var(--rule-dark)', background: 'var(--paper)' }}>
-          <SectionHead
-            kicker="Без отдельного лендинга"
-            title="Ещё на author.today"
-            accent="var(--accent-2)"
-            count={window.worksOnAT.length}
-            sub="Старые книги и эксперименты, которые пока живут только на author.today. Лендинги — позже, по очереди."
-          />
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 380px), 1fr))',
-            gap: 12,
-          }}>
-            {window.worksOnAT.map((row, i) => <ATCard key={i} row={row}/>)}
-          </div>
-        </div>
-      )}
-
-      <style>{`
-        .cat-writing:hover { transform: translateY(-2px); box-shadow: 0 22px 44px -28px rgba(42,29,24,.55); }
-        .cat-card:hover { transform: translateY(-2px); box-shadow: 0 22px 44px -28px rgba(42,29,24,.55); }
-        .cat-card:hover img { transform: scale(1.02); transition: transform .5s ease; }
-        .cat-cycle:hover { transform: translateY(-2px); box-shadow: 0 22px 44px -28px rgba(0,0,0,.7); }
-        .cat-cycle:hover .cycle-spine:nth-child(1) { transform: translate(-58%, 0%) rotate(-14deg) !important; }
-        .cat-cycle:hover .cycle-spine:nth-child(2) { transform: translate(-28%, -3%) rotate(-7deg) !important; }
-        .cat-cycle:hover .cycle-spine:nth-child(3) { transform: translate(0%, -6%) rotate(0deg) !important; }
-        .cat-cycle:hover .cycle-spine:nth-child(4) { transform: translate(28%, -3%) rotate(7deg) !important; }
-        .cat-cycle:hover .cycle-spine:nth-child(5) { transform: translate(58%, 0%) rotate(14deg) !important; }
-        .cat-draft:hover { opacity: 1; transform: translateY(-2px); }
-        .cat-at:hover { background: var(--paper); transform: translateX(2px); }
-      `}</style>
-    </section>
-  );
+// helpers для tree-сводок
+const writingMeta = (r) => {
+  const status = r.status?.label || 'active';
+  const genre = r.genre || '';
+  return [status, genre].filter(Boolean).join(' · ');
 };
+const cycleMeta = (r) => {
+  const cnt = r.titles ? `${r.titles.length} bk` : '';
+  return [cnt, r.genre].filter(Boolean).join(' · ');
+};
+const stdMeta = (r) => [r.genre, r.volume].filter(Boolean).join(' · ');
+const draftMeta = (r) => `draft · ${r.genre || ''}`.trim();
+
+const Catalogue = () => (
+  <section id="output" style={{ borderBottom: '1px solid var(--rule)' }}>
+
+    {/* === 1. ACTIVE / СЕЙЧАС ПИШУ === */}
+    <div className="pad" style={{ borderBottom: '1px solid var(--rule)' }}>
+      <SectionHeading
+        kicker="output // active"
+        title="сейчас пишется"
+        count={window.worksWriting.length}
+        sub="книги в активной разработке. главы выкладываются на author.today по мере готовности."
+      />
+      <CommandLine filter="writing"/>
+      <div className="cat-tree-wrap">
+        <TreeSummary folder="writing" rows={window.worksWriting} getMeta={writingMeta}/>
+      </div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
+        gap: 'clamp(16px, 2vw, 24px)',
+      }}>
+        {window.worksWriting.map((row) => (
+          <Card key={row.id} row={row} variant="writing"/>
+        ))}
+      </div>
+    </div>
+
+    {/* === 2. CYCLES / ЦИКЛЫ === */}
+    <div className="pad" style={{ borderBottom: '1px solid var(--rule)' }}>
+      <SectionHeading
+        kicker="output // cycles"
+        title="циклы"
+        count={window.worksCycles.length}
+        sub="длинные истории на несколько книг. каждый цикл — отдельный лендинг."
+      />
+      <CommandLine filter="cycles"/>
+      <div className="cat-tree-wrap">
+        <TreeSummary folder="cycles" rows={window.worksCycles} getMeta={cycleMeta}/>
+      </div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gap: 'clamp(16px, 2vw, 24px)',
+      }}>
+        {window.worksCycles.map((row) => (
+          <Card key={row.id} row={row} variant="cycle"/>
+        ))}
+      </div>
+    </div>
+
+    {/* === 3. PUBLISHED / ОТДЕЛЬНЫЕ РОМАНЫ === */}
+    <div className="pad" style={{ borderBottom: '1px solid var(--rule)' }}>
+      <SectionHeading
+        kicker="output // published"
+        title="отдельные романы"
+        count={window.worksPublished.length}
+        sub="завершённые книги вне циклов. читать можно в любом порядке."
+      />
+      <CommandLine filter="published"/>
+      <div className="cat-tree-wrap">
+        <TreeSummary folder="published" rows={window.worksPublished} getMeta={stdMeta}/>
+      </div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+        gap: 'clamp(16px, 2vw, 24px)',
+      }}>
+        {window.worksPublished.map((row) => (
+          <Card key={row.id} row={row} variant="std"/>
+        ))}
+      </div>
+    </div>
+
+    {/* === 4. DRAFTS / В РАЗРАБОТКЕ === */}
+    <div className="pad">
+      <SectionHeading
+        kicker="output // drafts"
+        title="в разработке"
+        count={window.worksDrafts.length}
+        sub="есть план и лендинг, активная работа ещё не началась."
+      />
+      <CommandLine filter="drafts"/>
+      <div className="cat-tree-wrap">
+        <TreeSummary folder="drafts" rows={window.worksDrafts} getMeta={draftMeta}/>
+      </div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+        gap: 'clamp(16px, 2vw, 24px)',
+      }}>
+        {window.worksDrafts.map((row) => (
+          <Card key={row.id} row={row} variant="draft"/>
+        ))}
+      </div>
+    </div>
+
+    <style>{`
+      /* === card hover === */
+      .cat-card:hover {
+        border-color: var(--accent-amber) !important;
+        background: var(--bg-soft);
+        transform: translateY(-1px);
+        box-shadow:
+          0 0 0 1px var(--accent-amber),
+          0 4px 24px -8px rgba(255,180,84,0.15);
+      }
+      .cat-card.is-draft {
+        border-color: var(--rule-soft);
+        opacity: 0.92;
+      }
+      .cat-card.is-draft:hover {
+        opacity: 1;
+      }
+
+      /* === cover thumb === */
+      .cat-cover {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin: -4px 0 6px;
+        font-family: var(--ff-mono);
+        line-height: 1;
+      }
+      .cat-cover-rule {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        letter-spacing: 0;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .cat-cover-rule-fill {
+        flex: 1;
+        height: 1px;
+        background: repeating-linear-gradient(
+          to right,
+          var(--muted) 0,
+          var(--muted) 4px,
+          transparent 4px,
+          transparent 8px
+        );
+        opacity: 0.55;
+      }
+      .cat-cover-rule.bot .cat-cover-rule-fill {
+        background: linear-gradient(to right, var(--muted), var(--muted));
+        opacity: 0.45;
+      }
+      .cat-cover-frame {
+        position: relative;
+        width: 100%;
+        max-width: 220px;
+        margin: 0 auto;
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+        background: var(--bg-soft, rgba(255,255,255,0.02));
+        border: 1px solid var(--rule);
+      }
+      .cat-cover-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(1) contrast(1.05) brightness(0.85) sepia(0.18);
+        transition: filter .35s ease, transform .35s ease;
+      }
+      .cat-card:hover .cat-cover-img {
+        filter: grayscale(0.4) contrast(1) brightness(0.95) sepia(0.05);
+      }
+
+      /* === fan-mode (стопка обложек для циклов) === */
+      .cat-cover-frame.is-fan {
+        background: transparent;
+        border: none;
+      }
+      .cat-cover-img.is-fan-card {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: calc(100% - 32px);
+        max-width: calc(100% - 32px);
+        height: auto;
+        aspect-ratio: 3 / 4;
+        transform-origin: 50% 100%;
+        border: 1px solid var(--rule-soft);
+        box-shadow: 0 6px 14px -8px rgba(0,0,0,0.6);
+        background: var(--bg-soft);
+        transition: transform .4s ease, filter .35s ease;
+      }
+      .cat-cover-img.is-fan-card.is-top {
+        z-index: 99;
+      }
+      .cat-card:hover .cat-cover-img.is-fan-card {
+        transform: translate(calc(-50% + var(--fan-dx, 0px) * 1.4), 0) rotate(calc(var(--fan-rot, 0deg) * 1.3));
+      }
+      .cat-cover-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(180deg,
+            rgba(255,180,84,0.12),
+            rgba(235,97,1,0.08)),
+          repeating-linear-gradient(
+            0deg,
+            rgba(0,0,0,0.06) 0,
+            rgba(0,0,0,0.06) 1px,
+            transparent 1px,
+            transparent 3px
+          );
+        mix-blend-mode: multiply;
+      }
+      .cat-cover-ascii {
+        margin: 0;
+        padding: 10px;
+        height: 100%;
+        font-family: var(--ff-mono);
+        font-size: 9px;
+        line-height: 1.25;
+        color: var(--muted);
+        white-space: pre;
+        overflow: hidden;
+        text-align: center;
+        opacity: 0.7;
+      }
+
+      /* === tree summary === */
+      .cat-tree {
+        white-space: pre;
+        overflow-x: auto;
+      }
+
+      /* === mobile === */
+      @media (max-width: 640px) {
+        .cat-cover-rule { display: none; }
+        .cat-cover { margin-top: 0; }
+        .cat-cover-frame { max-width: 160px; }
+        /* Веер на мобиле: показываем только верхнюю карту, остальные прячем */
+        .cat-cover-img.is-fan-card { display: none; }
+        .cat-cover-img.is-fan-card.is-top {
+          display: block;
+          position: static;
+          transform: none !important;
+          width: 100%;
+          max-width: 100%;
+        }
+        .cat-cover-frame.is-fan {
+          background: var(--bg-soft);
+          border: 1px solid var(--rule);
+        }
+        .cat-tree-wrap { display: none; }
+      }
+    `}</style>
+  </section>
+);
 
 window.Catalogue = Catalogue;

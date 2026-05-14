@@ -63,6 +63,13 @@
   <meta property="og:locale" content="ru_RU"/>
 
   <style>
+    /* === iPhone safety guards === */
+    html, body { overflow-x: clip; max-width: 100vw; }
+    * { min-width: 0; }
+    img, video, iframe, svg { max-width: 100%; height: auto; }
+    @media (max-width: 480px) {
+      body { font-size: 15px; }
+    }
     /* ------------ FONTS ------------ */
     @font-face{font-family:'Unbounded';font-weight:400 800;font-style:normal;font-display:swap;
       src:url('../fonts/unbounded-cyrillic.woff2') format('woff2');
@@ -203,12 +210,15 @@
     .hero-meta{
       margin-top: clamp(40px, 5vw, 64px);
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
       gap: 1px;
       background: var(--rule);
       border: 1px solid var(--rule);
       max-width: 880px;
       margin-left:auto; margin-right:auto;
+    }
+    @media (max-width: 600px){
+      .hero-meta{ grid-template-columns: 1fr; }
     }
     .hero-meta .cell{
       background: var(--bg-2);
@@ -216,6 +226,8 @@
       font-family: var(--ff-tech); font-size: 11px;
       letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--dim);
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
     .hero-meta .cell strong{
       display:block; color: var(--ink);

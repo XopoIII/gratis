@@ -1,3 +1,11 @@
+/* === iPhone safety guards === */
+html, body { overflow-x: clip; max-width: 100vw; }
+* { min-width: 0; }
+img, video, iframe, svg { max-width: 100%; height: auto; }
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    Ржавь · Бланк Ф-47/Р · Управление Утилизации Бетонника-7
    Концепт: канцелярский бланк палача-бюрократа на пожелтевшей
@@ -1212,3 +1220,5 @@ body {
     letter-spacing: 0.18em;
   }
 }
+
+a { overflow-wrap: anywhere; }

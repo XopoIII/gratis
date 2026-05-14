@@ -59,13 +59,13 @@ const A_Hero = () => {
           </Cap>
 
           <h1 className="kanon-display" style={{
-            fontSize: 'clamp(56px, 9.4vw, 168px)',
+            fontSize: 'clamp(42px, 9.4vw, 168px)',
             margin: 0,
             color: 'var(--kanon-ink)',
             textWrap: 'balance',
           }}>
             {A.hero.headline.split(' ').map((w, i) => (
-              <span key={i} style={{ display: 'inline-block', marginRight: '0.18em' }}>{w}</span>
+              <span key={i} style={{ display: 'inline-block', marginRight: '0.18em', overflowWrap: 'anywhere' }}>{w}</span>
             ))}
           </h1>
 
@@ -385,7 +385,8 @@ const A_Map = () => {
               boxShadow: i === 0 ? '0 0 0 4px rgba(177,74,44,.25)' : 'none',
             }} className={i === 0 ? 'kanon-blink' : ''} />
             <div style={{
-              position: 'absolute', left: 22, top: -4, whiteSpace: 'nowrap',
+              position: 'absolute', top: -4, whiteSpace: 'nowrap',
+              ...(p.x > 60 ? { right: 22, textAlign: 'right' } : { left: 22 }),
               fontFamily: 'var(--kanon-mono)', fontSize: 11, letterSpacing: '.2em', textTransform: 'uppercase',
               color: 'var(--kanon-ink)',
             }}>

@@ -40,6 +40,13 @@
   <!-- Подключаем шрифты для постапокалиптической атмосферы -->
   <!-- Локальные шрифты: Oswald (cyr+lat), Bebas Neue + Barlow Condensed (latin + Cyrillic fallback) -->
   <style>
+    /* === iPhone safety guards === */
+    html, body { overflow-x: clip; max-width: 100vw; }
+    * { min-width: 0; }
+    img, video, iframe, svg { max-width: 100%; height: auto; }
+    @media (max-width: 480px) {
+      body { font-size: 15px; }
+    }
     @font-face{font-family:'Oswald';font-style:normal;font-weight:300;font-display:swap;src:url('../fonts/oswald-300.woff2') format('woff2');}
     @font-face{font-family:'Oswald';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/oswald-400.woff2') format('woff2');}
     @font-face{font-family:'Oswald';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/oswald-500.woff2') format('woff2');}
@@ -849,7 +856,7 @@
     @media (max-width: 768px) {
       .series-title h1 {
         font-size: clamp(3rem, 12vw, 5rem);
-        letter-spacing: 0.15em;
+        letter-spacing: 0.08em;
       }
 
       .prologue-text {
