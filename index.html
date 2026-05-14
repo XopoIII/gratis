@@ -405,6 +405,12 @@
       );
     }
     ReactDOM.createRoot(document.getElementById('root')).render(<AuthorPage/>);
+    // Сигнал, что React смонтировал DOM — нужен для скрытия лоадера.
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        window.dispatchEvent(new Event('app-rendered'));
+      });
+    });
   </script>
 
   <!-- ═══════════════════════════════════════════════════════════════════
@@ -431,8 +437,12 @@
       var fontsPromise = (document.fonts && document.fonts.ready)
         ? document.fonts.ready
         : Promise.resolve();
-      Promise.all([loadPromise, fontsPromise]).then(reveal);
-      setTimeout(reveal, 4000);
+      var appRenderedPromise = new Promise(function (r) {
+        window.addEventListener('app-rendered', r, { once: true });
+      });
+      var minVisiblePromise = new Promise(function (r) { setTimeout(r, 900); });
+      Promise.all([loadPromise, fontsPromise, appRenderedPromise, minVisiblePromise]).then(reveal);
+      setTimeout(reveal, 6000);
     })();
   </script>
 </body>

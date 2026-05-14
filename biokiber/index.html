@@ -1,8 +1,58 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class="no-js">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <!-- ═══ Анти-FOUC лоадер: показывается до загрузки шрифтов/CSS/скриптов ═══ -->
+  <style id="site-loader-styles">
+    html, body { background: #0a1a2a; margin: 0; }
+    html:not(.site-ready) body > *:not(#site-loader) { visibility: hidden; }
+    #site-loader {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #0a1a2a;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 28px;
+      transition: opacity 360ms ease-out;
+      will-change: opacity;
+    }
+    html.site-ready #site-loader { opacity: 0; pointer-events: none; }
+    html.site-loaded #site-loader { display: none; }
+    #site-loader .sl-mark {
+      font-family: 'Russo One', 'Impact', 'Arial Black', sans-serif;
+      font-size: clamp(20px, 3vw, 28px);
+      letter-spacing: 0.04em;
+      color: #ece1c4;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    #site-loader .sl-mark em { font-style: normal; color: #5fd0e8; }
+    #site-loader .sl-track {
+      width: clamp(160px, 28vw, 240px);
+      height: 2px;
+      background: rgba(255,255,255,0.12);
+      position: relative; overflow: hidden;
+    }
+    #site-loader .sl-bar {
+      position: absolute; top: 0; left: 0; height: 100%;
+      width: 40%;
+      background: #5fd0e8;
+      animation: sl-slide 1.2s cubic-bezier(.45,0,.55,1) infinite;
+    }
+    #site-loader .sl-meta {
+      font-family: 'PT Mono', 'Courier New', monospace;
+      font-size: 10px; letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(236,225,196,0.45);
+    }
+    @keyframes sl-slide { 0% {left: -40%} 100% {left: 100%} }
+    @media (prefers-reduced-motion: reduce) {
+      #site-loader .sl-bar { animation: none; left: 0; width: 100%; opacity: 0.4; }
+      #site-loader { transition: none; }
+    }
+    html.no-js body > *:not(#site-loader) { visibility: visible !important; }
+    html.no-js #site-loader { display: none; }
+  </style>
+  <script>document.documentElement.classList.remove('no-js');</script>
   <title>Биокибернетический ренессанс — научная фантастика — Агатис Интегра</title>
   <meta name="description" content="27 лет после Резонанса — слияния сети и биосферы. Алекс Кович ищет потерянную сестру в мире, где технологии стали частью природы."/>
   <meta name="theme-color" content="#0a1a2a"/>
@@ -244,6 +294,11 @@
   </script>
 </head>
 <body>
+  <div id="site-loader" role="status" aria-live="polite" aria-label="Загрузка сайта">
+    <div class="sl-mark">aga<em>INTE</em> GRA<em>tis</em></div>
+    <div class="sl-track"><div class="sl-bar"></div></div>
+    <div class="sl-meta">загрузка</div>
+  </div>
   <div class="topbar">
     <a href="../">← каталог</a>
     <span class="sig">Биокибернетический Ренессанс</span>
@@ -355,6 +410,28 @@
   <script>
     const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
     document.querySelectorAll('.section,.hero').forEach(el=>{el.classList.add('fade');io.observe(el);});
+  </script>
+  <script>
+    (function () {
+      var revealed = false;
+      function reveal() {
+        if (revealed) return;
+        revealed = true;
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            document.documentElement.classList.add('site-ready');
+            setTimeout(function () { document.documentElement.classList.add('site-loaded'); }, 500);
+          });
+        });
+      }
+      var loadPromise = (document.readyState === 'complete')
+        ? Promise.resolve()
+        : new Promise(function (r) { window.addEventListener('load', r, { once: true }); });
+      var fontsPromise = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+      var minVisiblePromise = new Promise(function (r) { setTimeout(r, 900); });
+      Promise.all([loadPromise, fontsPromise, minVisiblePromise]).then(reveal);
+      setTimeout(reveal, 4500);
+    })();
   </script>
 </body>
 </html>
