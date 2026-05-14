@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Эфир — Δ.E.F.I.R. / ∇.E.F.I.R. — Агатис Интегра</title>
+  <meta name="description" content="Δ∇ — киберпанк-постапок дилогия. Алекс может замедлить время. Но не может остановить выбор. Симуляция нестабильна. Глюки — не баг. Это предупреждение."/>
+  <meta name="theme-color" content="#050a14"/>
+
+  <meta property="og:title" content="Эфир — дилогия Δ.E.F.I.R. / ∇.E.F.I.R."/>
+  <meta property="og:description" content="Замедление. Фрактальный Разлом. Дилогия о человеке, ставшем носителем фрагмента Тьмы."/>
+  <meta property="og:type" content="book"/>
+  <meta property="og:locale" content="ru_RU"/>
+
+  <style>
+    /* ------------ FONTS ------------ */
+    @font-face{font-family:'Unbounded';font-weight:400 800;font-style:normal;font-display:swap;
+      src:url('../fonts/unbounded-cyrillic.woff2') format('woff2');
+      unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'Unbounded';font-weight:400 800;font-style:normal;font-display:swap;
+      src:url('../fonts/unbounded-latin.woff2') format('woff2');
+      unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+    @font-face{font-family:'PT Mono';font-weight:400;font-style:normal;font-display:swap;
+      src:url('../fonts/pt-mono-cyrillic.woff2') format('woff2');
+      unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'PT Mono';font-weight:400;font-style:normal;font-display:swap;
+      src:url('../fonts/pt-mono-latin.woff2') format('woff2');
+      unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+    @font-face{font-family:'Share Tech Mono';font-weight:400;font-style:normal;font-display:swap;
+      src:url('../fonts/share-tech-mono-latin.woff2') format('woff2');
+      unicode-range:U+0000-024F,U+1E00-1EFF;}
+    @font-face{font-family:'Russo One';font-weight:400;font-style:normal;font-display:swap;
+      src:url('../fonts/russo-one-cyrillic.woff2') format('woff2');
+      unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'Russo One';font-weight:400;font-style:normal;font-display:swap;
+      src:url('../fonts/russo-one-latin.woff2') format('woff2');
+      unicode-range:U+0000-00FF;}
+
+    /* ------------ TOKENS ------------ */
+    :root{
+      --bg: #050a14;
+      --bg-2: #0a1424;
+      --paper: #0e1b2e;
+      --ink: #d6e6f5;
+      --dim: #6a87a8;
+      --rule: #1a2c44;
+      --rule-bright: #2a4666;
+      --delta: #5fb8d4;     /* cyan — Δ phase 1 */
+      --nabla: #c87fff;     /* violet — ∇ phase 2 */
+      --glitch: #ff2a4a;
+      --warn: #ffc83a;
+      --ff-display: 'Unbounded', 'Arial Black', sans-serif;
+      --ff-mono: 'PT Mono', 'Courier New', monospace;
+      --ff-tech: 'Share Tech Mono', 'PT Mono', monospace;
+      --ff-russo: 'Russo One', 'Impact', sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{background:var(--bg);color:var(--ink);font-family:var(--ff-mono);line-height:1.5;}
+    a{color:inherit;text-decoration:none;}
+    img{max-width:100%;display:block;}
+
+    body{
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(95,184,212,0.06), transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(200,127,255,0.06), transparent 50%),
+        repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.012) 2px 3px);
+      min-height:100vh;
+    }
+
+    /* ------------ TOP BAR ------------ */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(5,10,20,0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+      padding: 10px clamp(20px, 4vw, 48px);
+      display:flex; justify-content:space-between; align-items:center;
+      font-family: var(--ff-tech); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .topbar a{color:var(--dim); transition: color .2s;}
+    .topbar a:hover{color:var(--delta);}
+    .topbar .sys{color:var(--delta);}
+    .topbar .sys::before{content:'●'; margin-right:8px; color:var(--delta); animation:blink 2s infinite;}
+    @keyframes blink {0%,49%{opacity:1;}50%,100%{opacity:.3;}}
+
+    /* ------------ HERO ------------ */
+    .hero{
+      min-height: 92vh;
+      padding: clamp(40px, 8vw, 120px) clamp(20px, 5vw, 64px);
+      display:flex; flex-direction:column; justify-content:center;
+      position:relative; overflow:hidden;
+    }
+    .hero::before{
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 30% 50%, rgba(95,184,212,0.08), transparent 35%),
+        radial-gradient(circle at 70% 50%, rgba(200,127,255,0.08), transparent 35%);
+      pointer-events:none;
+    }
+    .hero-symbols{
+      display:flex; align-items:center; justify-content:center;
+      gap: clamp(40px, 8vw, 120px);
+      margin-bottom: clamp(28px, 4vw, 56px);
+      position:relative;
+    }
+    .symbol{
+      font-family: var(--ff-russo);
+      font-size: clamp(120px, 22vw, 280px);
+      line-height:1; letter-spacing:-0.04em;
+      position:relative;
+    }
+    .symbol-delta{color:var(--delta); text-shadow: 0 0 60px rgba(95,184,212,0.4), 0 0 120px rgba(95,184,212,0.2);}
+    .symbol-nabla{color:var(--nabla); text-shadow: 0 0 60px rgba(200,127,255,0.4), 0 0 120px rgba(200,127,255,0.2);}
+    .symbol::after{
+      content: attr(data-glyph);
+      position:absolute; top:0; left:0;
+      color:var(--glitch); opacity:.0;
+      mix-blend-mode:screen;
+      animation: glitch 8s infinite;
+      pointer-events:none;
+    }
+    .symbol-nabla::after{animation-delay:4s;}
+    @keyframes glitch{
+      0%, 95%, 100% {opacity:0; transform:translate(0,0);}
+      96% {opacity:.7; transform:translate(-4px, 2px);}
+      97% {opacity:.5; transform:translate(3px, -1px);}
+      98% {opacity:.6; transform:translate(-2px, 1px);}
+    }
+
+    .hero-title{
+      font-family: var(--ff-russo);
+      font-size: clamp(56px, 13vw, 180px);
+      line-height: .85;
+      letter-spacing: 0.04em;
+      text-align:center; text-transform:uppercase;
+      background: linear-gradient(90deg, var(--delta) 0%, #ffffff 50%, var(--nabla) 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      margin-bottom: clamp(24px, 3vw, 40px);
+    }
+    .hero-pitch{
+      font-family: var(--ff-mono);
+      font-size: clamp(15px, 1.6vw, 20px);
+      text-align:center; max-width: 720px; margin: 0 auto;
+      color: var(--ink); opacity: .92;
+      letter-spacing: 0.02em;
+    }
+    .hero-pitch em{
+      color:var(--delta); font-style:normal;
+      font-family: var(--ff-tech);
+      letter-spacing: 0.04em;
+    }
+    .hero-meta{
+      margin-top: clamp(40px, 5vw, 64px);
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      max-width: 880px;
+      margin-left:auto; margin-right:auto;
+    }
+    .hero-meta .cell{
+      background: var(--bg-2);
+      padding: 18px 20px;
+      font-family: var(--ff-tech); font-size: 11px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .hero-meta .cell strong{
+      display:block; color: var(--ink);
+      font-family: var(--ff-mono); font-size: 14px;
+      letter-spacing: 0.04em; text-transform: none;
+      margin-top: 6px; font-weight:400;
+    }
+    .hero-meta .cell.accent-delta strong{color:var(--delta);}
+    .hero-meta .cell.accent-nabla strong{color:var(--nabla);}
+
+    /* ------------ SECTION HEADER ------------ */
+    .section{
+      padding: clamp(64px, 8vw, 120px) clamp(20px, 5vw, 64px);
+      border-top: 1px solid var(--rule);
+      position:relative;
+    }
+    .section-head{
+      max-width: 880px; margin: 0 auto clamp(40px, 5vw, 64px);
+    }
+    .section-kicker{
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--ff-tech); font-size: 11px;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--delta);
+      margin-bottom: 20px;
+    }
+    .section-kicker::before, .section-kicker::after{
+      content:''; height:1px; background: var(--rule-bright); flex:1;
+    }
+    .section-h{
+      font-family: var(--ff-russo);
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: .95; text-align:center;
+      letter-spacing: 0.02em; text-transform: uppercase;
+    }
+    .section-sub{
+      margin-top: 18px; text-align:center;
+      max-width: 640px; margin-left:auto; margin-right:auto;
+      color: var(--dim); font-size: 14px; line-height: 1.6;
+    }
+
+    /* ------------ PITCH BLOCK ------------ */
+    .pitch{
+      max-width: 880px; margin: 0 auto;
+      padding: clamp(40px, 5vw, 64px);
+      background: var(--paper);
+      border: 1px solid var(--rule-bright);
+      position:relative;
+    }
+    .pitch::before{
+      content:'⚠ ' attr(data-label);
+      position:absolute; top:-12px; left:24px;
+      background: var(--bg);
+      padding: 0 14px;
+      font-family: var(--ff-tech); font-size: 11px;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--warn);
+    }
+    .pitch-text{
+      font-family: var(--ff-mono);
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.65;
+      color: var(--ink);
+    }
+    .pitch-text p + p{margin-top: 1em;}
+    .pitch-text em{color: var(--delta); font-style: normal;}
+    .pitch-text strong{color: var(--nabla); font-weight: 400; font-family: var(--ff-russo); letter-spacing: 0.04em;}
+
+    /* ------------ TWO PHASES ------------ */
+    .phases{
+      display:grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--rule);
+      border: 1px solid var(--rule);
+      max-width: 1280px; margin: 0 auto;
+    }
+    @media (max-width: 880px) { .phases{grid-template-columns: 1fr;} }
+    .phase{
+      background: var(--paper);
+      padding: clamp(32px, 4vw, 56px);
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      position:relative;
+    }
+    .phase-cover{
+      aspect-ratio: 2/3;
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 4px;
+      border: 1px solid var(--rule-bright);
+      box-shadow: 0 22px 44px -22px rgba(0,0,0,.8), 0 0 80px -20px var(--delta);
+      transition: transform .4s;
+      object-fit: cover;
+      display: block;
+    }
+    .phase-2 .phase-cover{ box-shadow: 0 22px 44px -22px rgba(0,0,0,.8), 0 0 80px -20px var(--nabla);}
+    .phase:hover .phase-cover{ transform: translateY(-4px) scale(1.02);}
+    .phase-tag{
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: var(--ff-tech); font-size: 11px;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .phase-symbol{
+      font-family: var(--ff-russo);
+      font-size: clamp(72px, 12vw, 140px);
+      line-height:1; letter-spacing:-0.04em;
+    }
+    .phase-1 .phase-symbol, .phase-1 .phase-name{color:var(--delta);}
+    .phase-2 .phase-symbol, .phase-2 .phase-name{color:var(--nabla);}
+    .phase-1 .phase-tag::before{content:'01'; color: var(--delta); padding: 4px 8px; border: 1px solid var(--delta);}
+    .phase-2 .phase-tag::before{content:'02'; color: var(--nabla); padding: 4px 8px; border: 1px solid var(--nabla);}
+    .phase-code{
+      font-family: var(--ff-tech);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      color: var(--dim);
+    }
+    .phase-name{
+      font-family: var(--ff-russo);
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: .95; text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .phase-desc{
+      color: var(--ink); opacity: .9;
+      font-size: 14.5px; line-height: 1.65;
+    }
+    .phase-stats{
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; padding: 16px 0;
+      border-top: 1px dotted var(--rule-bright);
+      border-bottom: 1px dotted var(--rule-bright);
+      font-family: var(--ff-tech); font-size: 10.5px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .phase-stats div{display:flex; flex-direction:column; gap: 4px;}
+    .phase-stats .k{color: var(--dim);}
+    .phase-stats .v{color: var(--ink); font-family: var(--ff-mono); letter-spacing:0.04em; text-transform: none; font-size: 13px;}
+    .phase-quote{
+      font-family: var(--ff-mono);
+      font-style: italic;
+      font-size: 13px; line-height: 1.6;
+      color: var(--dim);
+      padding: 16px 18px;
+      border-left: 2px solid var(--rule-bright);
+      background: rgba(255,255,255,0.02);
+    }
+    .phase-1 .phase-quote{border-left-color: var(--delta);}
+    .phase-2 .phase-quote{border-left-color: var(--nabla);}
+    .phase-cta{
+      margin-top: auto;
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 16px 24px;
+      font-family: var(--ff-russo); font-size: 14px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      align-self: flex-start;
+      transition: all .2s;
+    }
+    .phase-1 .phase-cta{background: var(--delta); color: var(--bg);}
+    .phase-2 .phase-cta{background: var(--nabla); color: var(--bg);}
+    .phase-cta:hover{transform: translateY(-2px); filter: brightness(1.1);}
+    .phase-cta::after{content:'→'; transition: transform .2s;}
+    .phase-cta:hover::after{transform: translateX(4px);}
+
+    /* ------------ MECHANIC BLOCKS ------------ */
+    .mechanics{
+      max-width: 1280px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px; background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .mech{
+      background: var(--bg-2);
+      padding: 32px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .mech-glyph{
+      font-family: var(--ff-russo);
+      font-size: 56px; line-height: 1;
+      color: var(--delta);
+    }
+    .mech:nth-child(2) .mech-glyph{color: var(--nabla);}
+    .mech:nth-child(3) .mech-glyph{color: var(--warn);}
+    .mech:nth-child(4) .mech-glyph{color: var(--glitch);}
+    .mech-title{
+      font-family: var(--ff-russo);
+      font-size: 18px; text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .mech-text{
+      font-size: 13px; line-height: 1.65;
+      color: var(--ink); opacity: .82;
+    }
+
+    /* ------------ HERO CHARACTER ------------ */
+    .char{
+      max-width: 1280px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: clamp(32px, 5vw, 64px);
+      align-items: flex-start;
+    }
+    @media (max-width: 720px){ .char{grid-template-columns: 1fr;} }
+    .char-portrait{
+      aspect-ratio: 3/4;
+      background:
+        repeating-linear-gradient(0deg, transparent 0 4px, rgba(95,184,212,0.03) 4px 5px),
+        radial-gradient(circle at 50% 40%, rgba(95,184,212,0.15), transparent 60%),
+        var(--paper);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--rule-bright);
+      box-shadow: 0 0 60px -20px var(--delta);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-russo);
+      font-size: 96px;
+      color: var(--delta);
+      position: relative;
+    }
+    .char-portrait::before{
+      content: 'SUBJECT-01'; position: absolute; top: 12px; left: 12px;
+      font-family: var(--ff-tech); font-size: 10px; letter-spacing: 0.28em;
+      color: var(--dim);
+    }
+    .char-portrait::after{
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(180deg, transparent 0%, rgba(5,10,20,0.85) 100%);
+      pointer-events: none;
+    }
+    .char-info{display: flex; flex-direction: column; gap: 18px;}
+    .char-name{
+      font-family: var(--ff-russo);
+      font-size: clamp(32px, 4vw, 56px);
+      letter-spacing: 0.02em; text-transform: uppercase;
+      line-height: .95;
+    }
+    .char-name span{color: var(--delta);}
+    .char-fields{
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 6px 18px;
+      font-family: var(--ff-tech); font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    .char-fields dt{color: var(--dim); letter-spacing: 0.2em; text-transform: uppercase; font-size: 10.5px; padding-top: 3px;}
+    .char-fields dd{margin: 0; color: var(--ink);}
+
+    /* ------------ FOOTER ------------ */
+    .footer{
+      border-top: 1px solid var(--rule);
+      padding: 40px clamp(20px, 5vw, 64px);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+      font-family: var(--ff-tech); font-size: 11px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer a:hover{color: var(--delta);}
+
+    /* ------------ UTILS ------------ */
+    .stripe{
+      height: 3px;
+      background: linear-gradient(90deg, var(--delta) 0%, var(--nabla) 100%);
+      opacity: .6;
+    }
+
+    /* ------------ ANIMATE ON LOAD ------------ */
+    .fade-up{ opacity:0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease;}
+    .fade-up.in{ opacity:1; transform: translateY(0);}
+  
+    /* ---------- MOBILE POLISH ---------- */
+    html, body { overflow-x: hidden; }
+    @media (max-width: 520px) {
+      .topbar { padding: 8px 12px; gap: 6px; font-size: 10px; letter-spacing: 0.12em; flex-wrap: wrap; }
+      .topbar > span { display: none; }
+      .hero { padding: 32px 16px !important; gap: 24px !important; text-align: left; }
+      .hero-title { font-size: clamp(40px, 14vw, 64px) !important; }
+      .section { padding: 48px 16px !important; }
+      .footer { padding: 20px 14px !important; flex-direction: column; gap: 10px; font-size: 10px; }
+      .section-h, .hero-title { word-wrap: break-word; overflow-wrap: break-word; }
+      img { max-width: 100% !important; height: auto; }
+      .hero-cover { transform: none !important; }
+    }
+    @media (max-width: 380px) {
+      .topbar a { font-size: 9px; }
+    }
+  
+  </style>
+
+  <meta property="og:title" content="Эфир — дилогия Δ∇"/>
+  <meta property="og:description" content="Он может замедлить время. Но не может остановить выбор."/>
+  <meta property="og:type" content="book"/>
+  <meta property="og:image" content="covers/delta.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="covers/delta.jpg"/>
+
+  <!-- ═══ SEO-supplement (canonical, keywords, robots, JSON-LD) ═══ -->
+  <meta name="keywords" content="Эфир, Δ.E.F.I.R., ∇.E.F.I.R., Агатис Интегра, киберпанк, постапок, РеалРПГ, цикл, замедление времени, Фрактальный Разлом"/>
+  <meta name="author" content="Агатис Интегра"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
+  <link rel="canonical" href="https://againte.gratis/efir/"/>
+  <link rel="icon" href="../favicon32.png" type="image/png"/>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BookSeries",
+  "name": "Эфир",
+  "author": {
+    "@type": "Person",
+    "name": "Агатис Интегра",
+    "url": "https://againte.gratis/"
+  },
+  "genre": [
+    "Киберпанк",
+    "Постапокалипсис",
+    "РеалРПГ"
+  ],
+  "inLanguage": "ru",
+  "url": "https://againte.gratis/efir/",
+  "image": "https://againte.gratis/efir/covers/delta.jpg",
+  "description": "Δ∇ — киберпанк-постапок дилогия. «Он может замедлить время. Но не может остановить выбор.» Δ.E.F.I.R — феномен, переписывающий саму ткань мира."
+}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная — Агатис Интегра", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "Эфир (Δ∇)", "item": "https://againte.gratis/efir/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="../">← каталог</a>
+    <span class="sys">SYS: Δ∇ link · stable</span>
+    <a href="https://author.today/work/series/42163" target="_blank" rel="noopener">author.today ↗</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-symbols">
+      <span class="symbol symbol-delta" data-glyph="Δ">Δ</span>
+      <span class="symbol symbol-nabla" data-glyph="∇">∇</span>
+    </div>
+    <h1 class="hero-title">Эфир</h1>
+    <p class="hero-pitch">
+      «Он может замедлить время. <em>Но не может остановить выбор.</em>»
+      <br/><br/>
+      Δ.E.F.I.R — феномен, переписывающий ткань мира. ∇.E.F.I.R — то, что отвечает обратно.
+      Дилогия о человеке, чьё «Я» оказалось переменной в чужом уравнении.
+    </p>
+
+    <div class="hero-meta">
+      <div class="cell accent-delta">фаза 01 · Δ <strong>Замедление</strong></div>
+      <div class="cell accent-nabla">фаза 02 · ∇ <strong>Фрактальный Разлом</strong></div>
+      <div class="cell">общий объём <strong>~1,47 млн знаков</strong></div>
+      <div class="cell">жанр <strong>киберпанк / постапок / РеалРПГ</strong></div>
+    </div>
+  </section>
+
+  <div class="stripe"></div>
+
+  <!-- PITCH BLOCK -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">Симуляция нестабильна</div>
+      <h2 class="section-h">Глюки — <span style="color:var(--glitch);">не баг</span>.<br/>Это предупреждение.</h2>
+    </div>
+
+    <div class="pitch" data-label="warning · classified">
+      <div class="pitch-text">
+        <p>Мир начал распадаться. <em>Эфир</em> больше не просто аномалия — это разум, играющий с реальностью.</p>
+        <p>Алекс, бывший элитный боец, теперь — носитель фрагмента <strong>Тьмы</strong>. Он ищет сына. Он ищет Еву. Он не уверен, существуют ли они вообще, или это симуляция дорисовывает их по запросу.</p>
+        <p>Когда время можно замедлить, выбор только один. И его всё равно придётся сделать.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO PHASES -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">Структура цикла</div>
+      <h2 class="section-h">Две фазы.<br/>Одно <span style="color:var(--delta);">эхо</span>.</h2>
+      <p class="section-sub">
+        Каждая книга — отдельный финал. Вместе — одна история о том, что бывает, когда симуляция замечает наблюдателя.
+      </p>
+    </div>
+
+    <div class="phases">
+      <article class="phase phase-1">
+        <div class="phase-tag">Фаза первая</div>
+        <img class="phase-cover" src="covers/delta.jpg" alt="Δ.E.F.I.R. Фаза 1: Замедление — обложка" loading="lazy"/>
+        <div class="phase-code">Δ.E.F.I.R. — Phase 01</div>
+        <h3 class="phase-name">Замедление</h3>
+        <div class="phase-desc">
+          Мир на грани разрыва. Δ.E.F.I.R — таинственный феномен, вторгшийся в реальность, изменяет саму ткань мира.
+          Алекс, бывший элитный боец, теперь — беглец. Он просто хотел выжить. Но Эфир уже выбрал его.
+        </div>
+        <div class="phase-stats">
+          <div><span class="k">объём</span><span class="v">703 577 знаков</span></div>
+          <div><span class="k">статус</span><span class="v">завершено</span></div>
+          <div><span class="k">а.л.</span><span class="v">17,59</span></div>
+          <div><span class="k">формат</span><span class="v">роман</span></div>
+        </div>
+        <blockquote class="phase-quote">
+          🔻 Добро пожаловать в первую фазу эксперимента.<br/>
+          ⏳ Симуляция активна. Глюки неизбежны.
+        </blockquote>
+        <a class="phase-cta" href="https://author.today/work/436551" target="_blank" rel="noopener">
+          Читать на author.today
+        </a>
+      </article>
+
+      <article class="phase phase-2">
+        <div class="phase-tag">Фаза вторая</div>
+        <img class="phase-cover" src="covers/nabla.jpg" alt="∇.E.F.I.R. Фаза 2: Фрактальный Разлом — обложка" loading="lazy"/>
+        <div class="phase-code">∇.E.F.I.R. — Phase 02</div>
+        <h3 class="phase-name">Фрактальный Разлом</h3>
+        <div class="phase-desc">
+          Мир начал распадаться. ∇.E.F.I.R больше не просто аномалия — это разум, играющий с реальностью.
+          Алекс ищет сына. Он ищет Еву. Но кое-что внутри него уже нашло их обоих.
+        </div>
+        <div class="phase-stats">
+          <div><span class="k">объём</span><span class="v">766 314 знаков</span></div>
+          <div><span class="k">статус</span><span class="v">завершено</span></div>
+          <div><span class="k">а.л.</span><span class="v">19,16</span></div>
+          <div><span class="k">формат</span><span class="v">роман</span></div>
+        </div>
+        <blockquote class="phase-quote">
+          🔻 Фаза 2 активна.<br/>
+          ⏳ Симуляция нестабильна. Глюки — не баг. Это предупреждение.
+        </blockquote>
+        <a class="phase-cta" href="https://author.today/work/444799" target="_blank" rel="noopener">
+          Читать на author.today
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- MECHANICS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">Что внутри</div>
+      <h2 class="section-h">Механика <span style="color:var(--nabla);">Эфира</span></h2>
+      <p class="section-sub">
+        Это не магия. Не псайкер. Не «избранный». Это диагностика чужой системы изнутри.
+      </p>
+    </div>
+
+    <div class="mechanics">
+      <div class="mech">
+        <div class="mech-glyph">⏳</div>
+        <div class="mech-title">Замедление времени</div>
+        <div class="mech-text">Алекс может растянуть секунду до часов субъективного. Цена — кровь из носа, потерянная память и фрагменты чужих воспоминаний, которые остаются внутри.</div>
+      </div>
+      <div class="mech">
+        <div class="mech-glyph">▣</div>
+        <div class="mech-title">Фрагмент Тьмы</div>
+        <div class="mech-text">Внутри него — кусок того, что переписывает реальность. Он растёт. Он отвечает. Он начал делать выбор за носителя.</div>
+      </div>
+      <div class="mech">
+        <div class="mech-glyph">⚠</div>
+        <div class="mech-title">Глюки реальности</div>
+        <div class="mech-text">Лица сбрасывают модель. Голоса повторяются с задержкой. Город меняет планировку, когда никто не смотрит. И только Алекс это замечает.</div>
+      </div>
+      <div class="mech">
+        <div class="mech-glyph">◢◤</div>
+        <div class="mech-title">Поиск Евы</div>
+        <div class="mech-text">Жена. Сын. Или генерация, которую симуляция запустила, чтобы удержать его. Каждый раз, когда он подходит ближе — мир меняется.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARACTER -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">Subject · 01</div>
+      <h2 class="section-h">Носитель</h2>
+    </div>
+
+    <div class="char">
+      <div class="char-portrait" style="background-image: url('covers/delta.jpg'); background-size: cover; background-position: center 25%;"></div>
+      <div class="char-info">
+        <h3 class="char-name">Алекс. <span>Беглец.</span></h3>
+        <p style="color:var(--ink); opacity:.88; line-height:1.65; font-size:15px;">
+          Бывший элитный боец, чья биография стёрта системой ровно настолько, чтобы он не мог
+          доказать, что был ей нужен. Сейчас — носитель фрагмента Δ. Скоро — носитель ∇.
+          Между ними — выбор, который ему не оставили.
+        </p>
+        <dl class="char-fields">
+          <dt>статус</dt><dd>в розыске · приоритет ω</dd>
+          <dt>способность</dt><dd>замедление субъективного времени · до 1:600</dd>
+          <dt>симптомы</dt><dd>кровотечения, провалы памяти, чужие воспоминания</dd>
+          <dt>цель</dt><dd>найти Еву · найти сына · понять, реальны ли они</dd>
+          <dt>угроза</dt><dd>фрагмент внутри начинает выбирать вместо него</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- READ CTA -->
+  <section class="section" style="text-align:center;">
+    <div class="section-head" style="margin-bottom: clamp(28px, 3vw, 40px);">
+      <div class="section-kicker">Точки входа</div>
+      <h2 class="section-h">Читать <span style="color:var(--delta);">медленно</span>.<br/>Или <span style="color:var(--nabla);">сразу</span>.</h2>
+    </div>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a class="phase-cta" style="background:var(--delta); color:var(--bg);" href="https://author.today/work/436551" target="_blank" rel="noopener">Δ Фаза 1 · Замедление</a>
+      <a class="phase-cta" style="background:var(--nabla); color:var(--bg);" href="https://author.today/work/444799" target="_blank" rel="noopener">∇ Фаза 2 · Фрактальный Разлом</a>
+      <a class="phase-cta" style="background:transparent; color:var(--ink); border:1px solid var(--rule-bright);" href="https://author.today/work/series/42163" target="_blank" rel="noopener">Цикл целиком ↗</a>
+    </div>
+  </section>
+
+  <div class="stripe"></div>
+
+  <footer class="footer">
+    <a href="../">← к каталогу Агатис Интегра</a>
+    <span>SYS · v∇.2.0.26 · simulation active</span>
+    <a href="https://author.today/u/againtegratis" target="_blank" rel="noopener">все книги автора ↗</a>
+  </footer>
+
+  <script>
+    // fade up on scroll
+    const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:0.15});
+    document.querySelectorAll('.section, .phase, .mech').forEach(el => { el.classList.add('fade-up'); io.observe(el); });
+  </script>
+</body>
+</html>

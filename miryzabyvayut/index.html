@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Когда миры забывают моё имя — романтическое фэнтези — Агатис Интегра</title>
+  <meta name="description" content="Каждое её пробуждение — новая жизнь. Иногда богиня, иногда — шёпот ветра. Бесконечное романтическое фэнтези, где магия сплетается с тайнами."/>
+  <meta name="theme-color" content="#0a0d18"/>
+
+  <style>
+    @font-face{font-family:'Unbounded';font-weight:400 800;src:url('../fonts/unbounded-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'Unbounded';font-weight:400 800;src:url('../fonts/unbounded-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'PT Mono';src:url('../fonts/pt-mono-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'PT Mono';src:url('../fonts/pt-mono-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'PT Serif';font-weight:400;src:url('../fonts/pt-serif-regular-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'PT Serif';font-weight:400;src:url('../fonts/pt-serif-regular-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'PT Serif';font-weight:400;font-style:italic;src:url('../fonts/pt-serif-italic-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'PT Serif';font-weight:400;font-style:italic;src:url('../fonts/pt-serif-italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+
+    :root{
+      --bg:#0a0d18; --bg2:#10142a; --paper:#1a1f3a;
+      --ink:#e6e0e8; --ink-soft:#beb8c8; --dim:#8a83a0;
+      --rule:#22264a; --rule-bright:#3a3a6a;
+      --moon:#d0c8e8; --silver:#f0e8f4; --gold:#e8c878; --violet:#a888d4;
+      --ff-display:'Unbounded',serif;
+      --ff-mono:'PT Mono',monospace;
+      --ff-serif:'PT Serif',Georgia,serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{background:var(--bg);color:var(--ink);font-family:var(--ff-serif);line-height:1.65;}
+    body{
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(168,136,212,0.18),transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(232,200,120,0.06),transparent 50%);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    img{max-width:100%;display:block;}
+
+    /* Faint star field */
+    body::after{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      background-image:
+        radial-gradient(1px 1px at 23% 14%, rgba(255,255,255,0.5), transparent 50%),
+        radial-gradient(1px 1px at 67% 31%, rgba(255,255,255,0.4), transparent 50%),
+        radial-gradient(1px 1px at 13% 67%, rgba(255,255,255,0.3), transparent 50%),
+        radial-gradient(1px 1px at 81% 89%, rgba(255,255,255,0.5), transparent 50%),
+        radial-gradient(1px 1px at 47% 47%, rgba(255,255,255,0.2), transparent 50%),
+        radial-gradient(1px 1px at 91% 23%, rgba(255,255,255,0.4), transparent 50%);
+      opacity:.6;
+    }
+    .topbar, .hero, .section, .footer{position:relative;z-index:1;}
+
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(10,13,24,0.92);backdrop-filter:blur(8px);
+      border-bottom:1px solid var(--rule);
+      padding:10px clamp(20px,4vw,48px);
+      display:flex;justify-content:space-between;align-items:center;
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+    }
+    .topbar a{color:var(--dim);transition:color .2s;}
+    .topbar a:hover{color:var(--moon);}
+
+    .hero{
+      max-width:1200px;margin:0 auto;
+      padding:clamp(48px,8vw,120px) clamp(20px,5vw,64px);
+      display:grid;grid-template-columns:minmax(280px,360px) 1fr;
+      gap:clamp(32px,5vw,80px);align-items:center;
+    }
+    @media(max-width:760px){.hero{grid-template-columns:1fr;}}
+    .hero-cover{
+      aspect-ratio:2/3;position:relative;
+      border:1px solid var(--rule-bright);
+      box-shadow:0 30px 90px -20px rgba(0,0,0,.8), 0 0 120px -40px rgba(168,136,212,0.6);
+    }
+    .hero-cover img{width:100%;height:100%;object-fit:cover;}
+    .hero-kicker{
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.34em;text-transform:uppercase;
+      color:var(--moon);margin-bottom:24px;
+      display:flex;align-items:center;gap:14px;
+    }
+    .hero-kicker::after{content:'';flex:1;height:1px;background:var(--rule-bright);}
+    .hero-title{
+      font-family:var(--ff-display);font-weight:500;
+      font-size:clamp(36px,5.5vw,72px);line-height:1.04;
+      letter-spacing:0.01em;
+      margin-bottom:18px;
+      background:linear-gradient(180deg, var(--silver) 0%, var(--moon) 50%, var(--violet) 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero-sub{
+      font-family:var(--ff-serif);font-style:italic;
+      font-size:clamp(15px,1.7vw,18px);
+      color:var(--ink-soft);margin-bottom:24px;
+    }
+    .hero-pitch{
+      font-size:clamp(15.5px,1.6vw,18px);line-height:1.85;color:var(--ink-soft);max-width:560px;
+    }
+    .hero-pitch em{color:var(--moon);font-style:italic;}
+    .hero-pitch strong{
+      font-weight:400;color:var(--violet);
+      font-family:var(--ff-display);font-size:0.92em;letter-spacing:0.04em;
+    }
+
+    .section{
+      padding:clamp(56px,8vw,100px) clamp(20px,5vw,64px);
+      max-width:1100px;margin:0 auto;border-top:1px solid var(--rule);
+    }
+    .kicker{
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.32em;text-transform:uppercase;
+      color:var(--moon);margin-bottom:18px;display:flex;align-items:center;gap:14px;
+    }
+    .kicker::before,.kicker::after{content:'';flex:1;height:1px;background:var(--rule-bright);}
+    .section-h{
+      font-family:var(--ff-display);font-weight:500;
+      font-size:clamp(28px,4.2vw,48px);
+      line-height:1.05;letter-spacing:0.01em;text-align:center;
+    }
+    .section-h em{font-style:italic;color:var(--moon);}
+    .section-sub{
+      margin-top:18px;text-align:center;max-width:580px;margin-left:auto;margin-right:auto;
+      color:var(--dim);font-size:14.5px;line-height:1.7;font-style:italic;
+    }
+    .section-text{font-size:16.5px;line-height:1.85;color:var(--ink-soft);max-width:680px;margin:0 auto;}
+    .section-text p+p{margin-top:1em;}
+    .section-text em{color:var(--moon);font-style:italic;}
+
+    /* Worlds — list of lives */
+    .worlds{
+      max-width:880px;margin:48px auto 0;
+      display:grid;gap:0;
+    }
+    .world{
+      display:grid;grid-template-columns:80px 1fr;
+      gap:24px;padding:24px 0;
+      border-bottom:1px dotted var(--rule-bright);
+    }
+    @media(max-width:600px){.world{grid-template-columns:1fr;gap:6px;}}
+    .world:last-child{border-bottom:none;}
+    .world-n{
+      font-family:var(--ff-display);font-weight:300;
+      font-size:32px;letter-spacing:0.02em;color:var(--moon);
+      font-feature-settings:'tnum';
+    }
+    .world-body{display:flex;flex-direction:column;gap:6px;}
+    .world-name{
+      font-family:var(--ff-display);font-size:18px;color:var(--ink);
+      letter-spacing:0.01em;font-weight:500;
+    }
+    .world-text{font-size:14.5px;line-height:1.7;color:var(--ink-soft);font-style:italic;}
+
+    /* Quote */
+    .quote{
+      max-width:760px;margin:0 auto;
+      padding:clamp(28px,4vw,48px);
+      background:linear-gradient(180deg, var(--bg2) 0%, var(--paper) 100%);
+      border:1px solid var(--rule-bright);
+      text-align:center;
+      font-family:var(--ff-serif);font-style:italic;
+      font-size:clamp(18px,2vw,24px);line-height:1.55;
+      color:var(--ink);position:relative;
+    }
+    .quote::before{
+      content:'☾';position:absolute;top:14px;left:50%;transform:translateX(-50%);
+      font-size:24px;color:var(--moon);
+    }
+    .quote::after{
+      content:'';display:block;margin:18px auto 0;
+      width:60px;height:1px;background:var(--rule-bright);
+    }
+
+    /* Themes */
+    .themes{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1px;background:var(--rule);
+      border:1px solid var(--rule-bright);
+      max-width:1100px;margin:0 auto;
+    }
+    .theme{background:var(--bg2);padding:32px 24px;display:flex;flex-direction:column;gap:12px;}
+    .theme-glyph{
+      width:48px;height:48px;border:1px solid var(--moon);color:var(--moon);
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--ff-display);font-size:22px;font-weight:300;
+    }
+    .theme-name{font-family:var(--ff-display);font-size:16px;letter-spacing:0.02em;color:var(--ink);font-weight:500;}
+    .theme-text{font-size:13.5px;line-height:1.7;color:var(--ink-soft);font-style:italic;}
+
+    .stats{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:1px;background:var(--rule);border:1px solid var(--rule-bright);
+      max-width:880px;margin:32px auto 0;
+    }
+    .stat{background:var(--bg2);padding:18px 20px;}
+    .stat .k{font-family:var(--ff-mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
+    .stat .v{font-family:var(--ff-display);font-size:20px;color:var(--moon);font-weight:400;}
+
+    .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px;}
+    .btn{padding:18px 32px;font-family:var(--ff-display);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;transition:all .2s;font-weight:500;}
+    .btn-primary{background:var(--moon);color:var(--bg);}
+    .btn-primary:hover{background:var(--silver);transform:translateY(-2px);}
+    .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--rule-bright);}
+    .btn-ghost:hover{border-color:var(--moon);color:var(--moon);}
+
+    .footer{
+      border-top:1px solid var(--rule);padding:32px clamp(20px,5vw,64px);
+      display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+      color:var(--dim);max-width:1280px;margin:0 auto;
+    }
+    .footer a:hover{color:var(--moon);}
+    .fade{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
+    .fade.in{opacity:1;transform:translateY(0);}
+  
+    /* ---------- MOBILE POLISH ---------- */
+    html, body { overflow-x: hidden; }
+    @media (max-width: 520px) {
+      .topbar { padding: 8px 12px; gap: 6px; font-size: 10px; letter-spacing: 0.12em; flex-wrap: wrap; }
+      .topbar > span { display: none; }
+      .hero { padding: 32px 16px !important; gap: 24px !important; text-align: left; }
+      .hero-title { font-size: clamp(40px, 14vw, 64px) !important; }
+      .section { padding: 48px 16px !important; }
+      .footer { padding: 20px 14px !important; flex-direction: column; gap: 10px; font-size: 10px; }
+      .section-h, .hero-title { word-wrap: break-word; overflow-wrap: break-word; }
+      img { max-width: 100% !important; height: auto; }
+      .hero-cover { transform: none !important; }
+    }
+    @media (max-width: 380px) {
+      .topbar a { font-size: 9px; }
+    }
+  
+  </style>
+
+  <meta property="og:title" content="Когда миры забывают моё имя"/>
+  <meta property="og:description" content="Каждое её пробуждение — новая жизнь. Иногда богиня, иногда — шёпот ветра."/>
+  <meta property="og:type" content="book"/>
+  <meta property="og:image" content="../covers/miryzabyvayut.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="../covers/miryzabyvayut.jpg"/>
+
+  <!-- ═══ SEO-supplement (canonical, keywords, robots, JSON-LD) ═══ -->
+  <meta name="keywords" content="Когда миры забывают моё имя, Агатис Интегра, романтическое фэнтези, попаданцы, бесконечное фэнтези"/>
+  <meta name="author" content="Агатис Интегра"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
+  <link rel="canonical" href="https://againte.gratis/miryzabyvayut/"/>
+  <link rel="icon" href="../favicon32.png" type="image/png"/>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Когда миры забывают моё имя",
+  "author": {
+    "@type": "Person",
+    "name": "Агатис Интегра",
+    "url": "https://againte.gratis/"
+  },
+  "genre": [
+    "Романтическое фэнтези",
+    "Попаданцы"
+  ],
+  "inLanguage": "ru",
+  "url": "https://againte.gratis/miryzabyvayut/",
+  "image": "https://againte.gratis/covers/miryzabyvayut.jpg",
+  "description": "Каждое её пробуждение — новая жизнь. Иногда богиня, иногда — шёпот ветра. В каждом мире её ждёт кто-то, кто слишком хорошо знает её имя.",
+  "bookFormat": "EBook"
+}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная — Агатис Интегра", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "Когда миры забывают моё имя", "item": "https://againte.gratis/miryzabyvayut/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="topbar">
+    <a href="../">← каталог</a>
+    <span>Когда миры забывают моё имя</span>
+    <a href="https://author.today/work/427592" target="_blank" rel="noopener">author.today ↗</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-cover"><img src="../covers/miryzabyvayut.jpg" alt="Когда миры забывают моё имя — обложка"/></div>
+    <div>
+      <div class="hero-kicker">романтическое фэнтези · попаданцы во времени</div>
+      <h1 class="hero-title">Когда миры<br/>забывают моё имя</h1>
+      <div class="hero-sub">— осколок великого существа, потерянного во времени.</div>
+      <p class="hero-pitch">
+        Каждое её пробуждение — <em>это новая жизнь</em>. Иногда она — богиня, иногда — город,
+        а порой — лишь шёпот ветра. Она не помнит прошлого, но в каждом мире её ждёт
+        <strong>кто-то</strong>, кто слишком хорошо знает её имя.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">// синопсис // фрагменты</div>
+    <h2 class="section-h">Героиня — <em>осколок</em>.<br/>Великого. Потерянного.</h2>
+    <p class="section-sub">Её судьба — разгадывать тайны множества миров, искать ответы, сталкиваться с теми, кто был ей другом, врагом, любовником… или кем-то большим.</p>
+
+    <div class="section-text" style="margin-top:40px;">
+      <p>
+        Каждое её пробуждение — это новая жизнь. Каждая новая жизнь — это маленькая смерть предыдущей.
+        Она не помнит, кем была вчера. Не знает, кем станет завтра. Но кто-то знает. Кто-то
+        <em>всегда</em> знает.
+      </p>
+      <p>
+        Иногда это нежная встреча. Иногда — нож в темноте. Иногда — старая комната, где она когда-то
+        что-то оставила, и теперь это что-то ждёт её обратно.
+      </p>
+      <p>
+        Но когда память возвращается — приходит осознание: <em>что, если она не должна существовать?</em>
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="border-top:none;">
+    <div class="kicker">// эпизоды // несколько её жизней</div>
+    <h2 class="section-h" style="margin-bottom:24px;">Несколько <em>имён</em>.<br/>Один осколок.</h2>
+
+    <div class="worlds">
+      <div class="world"><div class="world-n">I</div><div class="world-body"><div class="world-name">Богиня</div><div class="world-text">Просыпается на алтаре. Внизу — храм, наверху — звёзды. Жрицы знают её имя. Она — нет.</div></div></div>
+      <div class="world"><div class="world-n">II</div><div class="world-body"><div class="world-name">Город</div><div class="world-text">Она — улицы, мосты, лампы, окна. Она чувствует каждого, кто идёт по ней домой. Один из них помнит её ещё до того, как у неё были стены.</div></div></div>
+      <div class="world"><div class="world-n">III</div><div class="world-body"><div class="world-name">Шёпот ветра</div><div class="world-text">Без тела. Без голоса. Только касание к чужим волосам, к чужой щеке, к чужой памяти. Этого хватает.</div></div></div>
+      <div class="world"><div class="world-n">IV</div><div class="world-body"><div class="world-name">Девочка с книгой</div><div class="world-text">Двенадцать лет. Учится читать. В книге, которую ей дали, — её собственное имя. И дата смерти.</div></div></div>
+      <div class="world"><div class="world-n">…</div><div class="world-body"><div class="world-name">Дальше</div><div class="world-text">Каждое пробуждение — новый мир, новое имя, новый «кто-то». Бесконечное фэнтези — потому что осколок не собирается обратно.</div></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <blockquote class="quote">
+      Что, если я не должна существовать?<br/>
+      А существую — потому что меня <em>помнят</em>?
+    </blockquote>
+  </section>
+
+  <section class="section" style="border-top:none;">
+    <div class="kicker">// темы // что внутри</div>
+    <h2 class="section-h" style="margin-bottom:36px;">Магия. <em>Любовь.</em> Вечность.</h2>
+
+    <div class="themes">
+      <div class="theme">
+        <div class="theme-glyph">☾</div>
+        <div class="theme-name">Бесконечное фэнтези</div>
+        <div class="theme-text">Жанр без финального тома. История течёт от мира к миру, не обязана сходиться.</div>
+      </div>
+      <div class="theme">
+        <div class="theme-glyph">♥</div>
+        <div class="theme-name">Любовь сквозь жизни</div>
+        <div class="theme-text">Не одна линия. Не один партнёр. Не одна история. Каждый раз — заново, но кого-то она уже узнаёт.</div>
+      </div>
+      <div class="theme">
+        <div class="theme-glyph">✶</div>
+        <div class="theme-name">Магия и тайны</div>
+        <div class="theme-text">Магия сплетается с тайнами, а тайны — с тем, что она забывает каждый раз, как засыпает.</div>
+      </div>
+      <div class="theme">
+        <div class="theme-glyph">∞</div>
+        <div class="theme-name">Время не линия</div>
+        <div class="theme-text">Это узор. И она путешествует по нему — не вперёд, а вглубь.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">// данные // формуляр</div>
+    <div class="stats">
+      <div class="stat"><div class="k">объём</div><div class="v">535 798</div></div>
+      <div class="stat"><div class="k">а.л.</div><div class="v">13,39</div></div>
+      <div class="stat"><div class="k">формат</div><div class="v">роман</div></div>
+      <div class="stat"><div class="k">статус</div><div class="v">завершён</div></div>
+      <div class="stat"><div class="k">жанр</div><div class="v">романт. фэнтези</div></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://author.today/work/427592" target="_blank" rel="noopener">Читать на author.today →</a>
+      <a class="btn btn-ghost" href="../">← к каталогу</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <a href="../">← Агатис Интегра</a>
+    <span>Когда миры забывают моё имя · 2024</span>
+    <a href="https://author.today/u/againtegratis" target="_blank" rel="noopener">все книги ↗</a>
+  </footer>
+
+  <script>
+    const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+    document.querySelectorAll('.section,.hero').forEach(el=>{el.classList.add('fade');io.observe(el);});
+  </script>
+</body>
+</html>

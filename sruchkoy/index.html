@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>С ручкой поневоле — юмор-фэнтези — Агатис Интегра</title>
+  <meta name="description" content="Геймер Саня находит ручку, которая воплощает написанное. Всегда с подвохом. Юмор-фэнтези после Суперкатаклизма."/>
+  <meta name="theme-color" content="#fdf6e3"/>
+
+  <style>
+    @font-face{font-family:'Russo One';src:url('../fonts/russo-one-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'Russo One';src:url('../fonts/russo-one-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'PT Mono';src:url('../fonts/pt-mono-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'PT Mono';src:url('../fonts/pt-mono-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'Caveat';font-weight:400 700;src:url('../fonts/caveat-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'Caveat';font-weight:400 700;src:url('../fonts/caveat-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'PT Serif';src:url('../fonts/pt-serif-regular-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'PT Serif';src:url('../fonts/pt-serif-regular-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+
+    :root{
+      --bg:#fdf6e3; --paper:#fffdf0; --paper-2:#f7eecf;
+      --ink:#2a1f17; --ink-soft:#5a4628; --dim:#8a7048;
+      --rule:#d4c89c; --rule-dark:#3a2a1c;
+      --yellow:#f5c948; --orange:#e88a3a; --punch:#d63a3a; --violet:#7a4a8a;
+      --ff-display:'Russo One','Impact',sans-serif;
+      --ff-mono:'PT Mono',monospace;
+      --ff-hand:'Caveat',cursive;
+      --ff-serif:'PT Serif',Georgia,serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{background:var(--bg);color:var(--ink);font-family:var(--ff-serif);line-height:1.55;}
+    body{
+      background-image:
+        radial-gradient(ellipse at 20% 10%, rgba(245,201,72,0.18), transparent 40%),
+        radial-gradient(ellipse at 80% 80%, rgba(122,74,138,0.10), transparent 50%);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    img{max-width:100%;display:block;}
+
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(253,246,227,0.92);backdrop-filter:blur(8px);
+      border-bottom:1px solid var(--rule-dark);
+      padding:10px clamp(20px,4vw,48px);
+      display:flex;justify-content:space-between;align-items:center;
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+    }
+    .topbar a{color:var(--dim);transition:color .2s;}
+    .topbar a:hover{color:var(--punch);}
+
+    .hero{
+      max-width:1200px;margin:0 auto;
+      padding:clamp(40px,7vw,90px) clamp(20px,5vw,64px);
+      display:grid;grid-template-columns:1fr minmax(280px,400px);
+      gap:clamp(32px,5vw,80px);align-items:center;
+    }
+    @media(max-width:760px){.hero{grid-template-columns:1fr;}}
+    .hero-kicker{
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;
+      color:var(--orange);margin-bottom:18px;display:flex;align-items:center;gap:14px;
+    }
+    .hero-kicker::after{content:'';flex:1;height:1px;background:var(--rule);}
+    .hero-title{
+      font-family:var(--ff-display);
+      font-size:clamp(48px,9vw,124px);line-height:.92;
+      letter-spacing:0.02em;text-transform:uppercase;margin-bottom:8px;
+      color:var(--ink);
+    }
+    .hero-title .accent{color:var(--punch);}
+    .hero-scribble{
+      font-family:var(--ff-hand);
+      font-size:clamp(32px,5vw,52px);
+      color:var(--violet);transform:rotate(-2deg);
+      margin:8px 0 24px;display:inline-block;
+    }
+    .hero-pitch{
+      font-size:clamp(16px,1.6vw,18px);line-height:1.7;color:var(--ink-soft);max-width:520px;
+    }
+    .hero-pitch em{
+      background:var(--yellow);color:var(--ink);
+      font-style:normal;padding:2px 6px;font-weight:600;
+    }
+    .hero-cover{
+      aspect-ratio:2/3;position:relative;
+      border:1px solid var(--rule-dark);
+      box-shadow:0 30px 80px -20px rgba(58,42,28,.45);
+      transform:rotate(2deg);transition:transform .4s;
+    }
+    .hero-cover:hover{transform:rotate(0);}
+    .hero-cover img{width:100%;height:100%;object-fit:cover;display:block;}
+    .hero-cover::before{
+      content:'#боярка #юмор #ручка';
+      position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-2deg);
+      background:var(--punch);color:var(--bg);
+      padding:6px 14px;font-family:var(--ff-mono);font-size:10px;letter-spacing:0.16em;
+      white-space:nowrap;
+    }
+
+    .section{
+      padding:clamp(48px,7vw,90px) clamp(20px,5vw,64px);
+      max-width:1100px;margin:0 auto;
+      border-top:1px solid var(--rule-dark);
+    }
+    .kicker{
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;
+      color:var(--orange);margin-bottom:18px;
+      display:flex;align-items:center;gap:14px;justify-content:center;
+    }
+    .kicker::before,.kicker::after{content:'';flex:0 0 24px;height:1px;background:var(--rule-dark);}
+    .section-h{
+      font-family:var(--ff-display);font-size:clamp(28px,4.5vw,48px);
+      text-transform:uppercase;letter-spacing:0.02em;line-height:.98;text-align:center;
+    }
+    .section-h .punch{color:var(--punch);}
+
+    .pitch-block{
+      max-width:780px;margin:32px auto 0;
+      padding:clamp(28px,4vw,44px);
+      background:var(--paper);
+      border:1px solid var(--rule-dark);
+      box-shadow:6px 8px 0 var(--rule-dark);
+      position:relative;
+    }
+    .pitch-block .marker{
+      position:absolute;top:-12px;left:24px;
+      background:var(--yellow);color:var(--ink);
+      padding:3px 12px;font-family:var(--ff-mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
+    }
+    .pitch-block p{font-size:16px;line-height:1.75;color:var(--ink-soft);}
+    .pitch-block p+p{margin-top:1em;}
+    .pitch-block em{
+      background:var(--yellow);color:var(--ink);font-style:normal;padding:1px 5px;
+    }
+
+    /* Notebook list */
+    .quirks{
+      max-width:880px;margin:0 auto;
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+    }
+    .quirk{
+      padding:24px;
+      background:var(--paper-2);
+      border:1px solid var(--rule-dark);
+      position:relative;
+    }
+    .quirk:nth-child(2n){transform:rotate(-1deg);}
+    .quirk:nth-child(3n){transform:rotate(0.7deg);}
+    .quirk-h{
+      font-family:var(--ff-hand);font-size:28px;color:var(--punch);
+      margin-bottom:8px;line-height:1;
+    }
+    .quirk-t{font-size:14px;line-height:1.6;color:var(--ink-soft);}
+
+    .stats{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:1px;background:var(--rule-dark);border:1px solid var(--rule-dark);
+      max-width:880px;margin:0 auto;
+    }
+    .stat{background:var(--paper);padding:16px 20px;}
+    .stat .k{font-family:var(--ff-mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;}
+    .stat .v{font-family:var(--ff-display);font-size:18px;letter-spacing:0.04em;}
+
+    .cta-row{
+      display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px;
+    }
+    .btn{padding:18px 32px;font-family:var(--ff-display);font-size:13px;letter-spacing:0.2em;text-transform:uppercase;transition:all .2s;}
+    .btn-primary{background:var(--punch);color:var(--bg);}
+    .btn-primary:hover{background:#a82c2c;transform:translateY(-2px);}
+    .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--rule-dark);}
+    .btn-ghost:hover{background:var(--paper);}
+
+    .footer{
+      border-top:1px solid var(--rule-dark);padding:32px clamp(20px,5vw,64px);
+      display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+      color:var(--dim);max-width:1280px;margin:0 auto;
+    }
+    .footer a:hover{color:var(--punch);}
+    .fade{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
+    .fade.in{opacity:1;transform:translateY(0);}
+  
+    /* ---------- MOBILE POLISH ---------- */
+    html, body { overflow-x: hidden; }
+    @media (max-width: 520px) {
+      .topbar { padding: 8px 12px; gap: 6px; font-size: 10px; letter-spacing: 0.12em; flex-wrap: wrap; }
+      .topbar > span { display: none; }
+      .hero { padding: 32px 16px !important; gap: 24px !important; text-align: left; }
+      .hero-title { font-size: clamp(40px, 14vw, 64px) !important; }
+      .section { padding: 48px 16px !important; }
+      .footer { padding: 20px 14px !important; flex-direction: column; gap: 10px; font-size: 10px; }
+      .section-h, .hero-title { word-wrap: break-word; overflow-wrap: break-word; }
+      img { max-width: 100% !important; height: auto; }
+      .hero-cover { transform: none !important; }
+    }
+    @media (max-width: 380px) {
+      .topbar a { font-size: 9px; }
+    }
+  
+  </style>
+
+  <meta property="og:title" content="С ручкой поневоле"/>
+  <meta property="og:description" content="Геймер с ручкой, которая воплощает написанное — всегда с подвохом."/>
+  <meta property="og:type" content="book"/>
+  <meta property="og:image" content="../covers/sruchkoy.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="../covers/sruchkoy.jpg"/>
+
+  <!-- ═══ SEO-supplement (canonical, keywords, robots, JSON-LD) ═══ -->
+  <meta name="keywords" content="С ручкой поневоле, Агатис Интегра, юмор-фэнтези, боярка, Суперкатаклизм, попаданец, ручка"/>
+  <meta name="author" content="Агатис Интегра"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
+  <link rel="canonical" href="https://againte.gratis/sruchkoy/"/>
+  <link rel="icon" href="../favicon32.png" type="image/png"/>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "С ручкой поневоле",
+  "author": {
+    "@type": "Person",
+    "name": "Агатис Интегра",
+    "url": "https://againte.gratis/"
+  },
+  "genre": [
+    "Юмор-фэнтези",
+    "Боярка"
+  ],
+  "inLanguage": "ru",
+  "url": "https://againte.gratis/sruchkoy/",
+  "image": "https://againte.gratis/covers/sruchkoy.jpg",
+  "description": "Геймер Саня находит ручку, которая буквально воплощает написанное. Но всегда с подвохом.",
+  "bookFormat": "EBook"
+}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная — Агатис Интегра", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "С ручкой поневоле", "item": "https://againte.gratis/sruchkoy/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="topbar">
+    <a href="../">← каталог</a>
+    <span>С ручкой поневоле · юмор-фэнтези</span>
+    <a href="https://author.today/work/432204" target="_blank" rel="noopener">author.today ↗</a>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="hero-kicker">бояръ-аниме · городское фэнтези · юмор</div>
+      <h1 class="hero-title">С ручкой<br/><span class="accent">поневоле.</span></h1>
+      <div class="hero-scribble">— и обратно бы не вернулся.</div>
+      <p class="hero-pitch">
+        Мир изменился после Суперкатаклизма, наделив людей странными, часто бесполезными суперспособностями.
+        <em>Саня</em>, обычный геймер, неожиданно оказывается в этом безумном мире с таинственной ручкой,
+        которая буквально воплощает написанное. <em>Но всегда с подвохом.</em>
+      </p>
+    </div>
+    <div class="hero-cover"><img src="../covers/sruchkoy.jpg" alt="С ручкой поневоле — обложка"/></div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">// логлайн // в двух абзацах</div>
+    <h2 class="section-h">Хочешь <span class="punch">невидимость</span>?<br/>Получишь. Но в трусах.</h2>
+
+    <div class="pitch-block">
+      <span class="marker">brief · 18+</span>
+      <p>
+        Теперь Сане предстоит разобраться с правилами нового мира, не создавая ещё больше проблем.
+        Это сложнее, чем кажется: ручка <em>исполнительная</em>, но <em>буквальная</em>. Напишешь
+        «удар молнии» — получишь молнию. Напишешь «удар молнии в врага» — получишь её в потолок. Напишешь
+        «удар молнии в врага точно» — попадёшь в себя.
+      </p>
+      <p>
+        А ещё в этом мире каждый второй — боярин с фамильным трактиром или родовым гербом, и каждый
+        первый смотрит на пришельца со старым нокиа в кармане как на возможность поднять статус.
+        Саня просто хотел вернуться домой. А может, и нет. Если, конечно, дома ещё есть свет.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="border-top:none;">
+    <div class="kicker">// правила пера // следствия суперкатаклизма</div>
+    <h2 class="section-h" style="margin-bottom:36px;">Что может пойти <span class="punch">не так</span>.</h2>
+
+    <div class="quirks">
+      <div class="quirk"><div class="quirk-h">Дерьмо какое-то</div><div class="quirk-t">Самая распространённая суперспособность после Суперкатаклизма. Полезна, если ты на ферме.</div></div>
+      <div class="quirk"><div class="quirk-h">Невидимость</div><div class="quirk-t">Тебя не видно. Твоей одежды — тоже. И того, что в кармане. Поздравляем, ты голый и без телефона.</div></div>
+      <div class="quirk"><div class="quirk-h">Засранец</div><div class="quirk-t">Способность не уточняется. Срабатывает в неожиданные моменты. Документируется свидетелями.</div></div>
+      <div class="quirk"><div class="quirk-h">Чистая одежда</div><div class="quirk-t">Любая твоя одежда всегда чистая. Любая. Даже чужая, если ты в ней постоял рядом.</div></div>
+      <div class="quirk"><div class="quirk-h">Ручка</div><div class="quirk-t">Пишет — сбывается. Не пишет — не сбывается. Орфография имеет значение. Запятые тоже.</div></div>
+      <div class="quirk"><div class="quirk-h">Старая нокиа</div><div class="quirk-t">Не работает. Но иногда вибрирует, когда рядом происходит что-то стрёмное. Эмпирически.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">// данные // формуляр</div>
+    <div class="stats">
+      <div class="stat"><div class="k">объём</div><div class="v">224 101</div></div>
+      <div class="stat"><div class="k">а.л.</div><div class="v">5,60</div></div>
+      <div class="stat"><div class="k">формат</div><div class="v">роман</div></div>
+      <div class="stat"><div class="k">статус</div><div class="v">завершён</div></div>
+      <div class="stat"><div class="k">жанр</div><div class="v">боярка / юмор</div></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://author.today/work/432204" target="_blank" rel="noopener">Читать на author.today →</a>
+      <a class="btn btn-ghost" href="../">← к каталогу</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <a href="../">← Агатис Интегра</a>
+    <span>С ручкой поневоле · 2024 · юмор-фэнтези</span>
+    <a href="https://author.today/u/againtegratis" target="_blank" rel="noopener">все книги ↗</a>
+  </footer>
+
+  <script>
+    const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+    document.querySelectorAll('.section,.hero').forEach(el=>{el.classList.add('fade');io.observe(el);});
+  </script>
+</body>
+</html>

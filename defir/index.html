@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Дэфир — survival horror, авторский постапок | Агатис Интегра</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="description" content="«Дэфир» — survival horror и авторский постапок Агатис Интегра. Туман поднялся в 2025-м. К утру моря не было видно. Через две недели Владивосток ушёл по самые крыши. Цикл в разработке (~32 главы)."/>
+<meta name="keywords" content="Дэфир, Агатис Интегра, survival horror, постапок, туман, Владивосток, авторский цикл"/>
+<meta name="author" content="Агатис Интегра"/>
+<meta name="robots" content="index, follow"/>
+<meta name="theme-color" content="#0e1b1e"/>
+<link rel="canonical" href="https://againte.gratis/defir/"/>
+<link rel="icon" href="../favicon32.png" type="image/png"/>
+
+<meta property="og:type" content="book"/>
+<meta property="og:site_name" content="agaINTE GRAtis"/>
+<meta property="og:locale" content="ru_RU"/>
+<meta property="og:url" content="https://againte.gratis/defir/"/>
+<meta property="og:title" content="Дэфир — survival horror | Агатис Интегра"/>
+<meta property="og:description" content="Туман поднялся в 2025-м. Через две недели Владивосток ушёл по самые крыши."/>
+<meta property="og:image" content="https://againte.gratis/assets/kanon-cover.jpg"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Дэфир — survival horror | Агатис Интегра"/>
+<meta name="twitter:description" content="Туман поднялся в 2025-м. Через две недели Владивосток ушёл по самые крыши."/>
+<meta name="twitter:image" content="https://againte.gratis/assets/kanon-cover.jpg"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Дэфир",
+  "author": {"@type": "Person", "name": "Агатис Интегра", "url": "https://againte.gratis/"},
+  "genre": ["Survival horror", "Постапокалипсис"],
+  "inLanguage": "ru",
+  "url": "https://againte.gratis/defir/",
+  "bookFormat": "EBook",
+  "description": "Туман поднялся в 2025-м. Через две недели Владивосток ушёл по самые крыши. Survival horror цикл."
+}
+</script>
+
+<link rel="stylesheet" href="src/base.css" />
+<!-- Локальные vendor-библиотеки (production-сборки) -->
+<script src="../vendor/react.production.min.js" crossorigin="anonymous"></script>
+<script src="../vendor/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="../vendor/babel.min.js" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная — Агатис Интегра", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "Дэфир", "item": "https://againte.gratis/defir/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="src/data.js"></script>
+<script type="text/babel" src="../design-canvas.jsx"></script>
+<script type="text/babel" src="src/tweaks-panel.jsx"></script>
+<script type="text/babel" src="src/A_primitives.jsx"></script>
+<script type="text/babel" src="src/A_sections1.jsx"></script>
+<script type="text/babel" src="src/A_sections2.jsx"></script>
+<script type="text/babel" src="src/A_sections3.jsx"></script>
+<script type="text/babel" src="src/VariantA.jsx"></script>
+
+<script type="text/babel">
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+function ArtShell({ children }) {
+  return <div className="df-art-shell">{children}</div>;
+}
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection
+        id="defir-landing"
+        title="ДЭФИР · лендинг автора"
+        subtitle="нео-брутализм · посадочная страница рабочего названия «ДЭФИР»"
+      >
+        <DCArtboard id="A" label="A · Нео-брутализм · детальная версия" width={1440} height={11400}>
+          <ArtShell><window.VariantA /></ArtShell>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

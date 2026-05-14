@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GG — путь киберспортсмена — Агатис Интегра</title>
+  <meta name="description" content="GG. MadMarks. Двадцать лет, калаш в руках, никаких друзей в офлайне. Только матчи, тренировки и дорога с нуба до про-игрока."/>
+  <meta name="theme-color" content="#08090d"/>
+
+  <style>
+    @font-face{font-family:'Russo One';src:url('../fonts/russo-one-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'Russo One';src:url('../fonts/russo-one-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'PT Mono';src:url('../fonts/pt-mono-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'PT Mono';src:url('../fonts/pt-mono-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+    @font-face{font-family:'Share Tech Mono';src:url('../fonts/share-tech-mono-latin.woff2') format('woff2');unicode-range:U+0000-024F;font-display:swap;}
+    @font-face{font-family:'Manrope';src:url('../fonts/manrope-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}
+    @font-face{font-family:'Manrope';src:url('../fonts/manrope-latin.woff2') format('woff2');unicode-range:U+0000-00FF;font-display:swap;}
+
+    :root{
+      --bg:#08090d; --bg2:#0d0f15; --paper:#13161e;
+      --ink:#e8e4d4; --ink-soft:#c4bca8; --dim:#7a7464;
+      --rule:#1d212c; --rule-bright:#2d3344;
+      --gold:#d4af5a; --gold-hot:#f0c878; --hud:#5fc8ff;
+      --ff-display:'Russo One','Impact',sans-serif;
+      --ff-mono:'Share Tech Mono','PT Mono',monospace;
+      --ff-body:'Manrope',-apple-system,sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{background:var(--bg);color:var(--ink);font-family:var(--ff-body);line-height:1.5;}
+    body{
+      background-image:
+        radial-gradient(ellipse at 50% -10%, rgba(212,175,90,0.10), transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(95,200,255,0.05), transparent 50%);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    img{max-width:100%;display:block;}
+
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(8,9,13,0.92);backdrop-filter:blur(8px);
+      border-bottom:1px solid var(--rule);
+      padding:10px clamp(20px,4vw,48px);
+      display:flex;justify-content:space-between;align-items:center;
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+    }
+    .topbar a{color:var(--dim);transition:color .2s;}
+    .topbar a:hover{color:var(--gold-hot);}
+    .topbar .live{color:var(--gold-hot);}
+    .topbar .live::before{content:'●';margin-right:6px;animation:blink 1.5s infinite;}
+    @keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:.2;}}
+
+    .hero{
+      min-height:88vh;
+      padding:clamp(48px,8vw,100px) clamp(20px,5vw,64px);
+      display:grid;grid-template-columns:1fr minmax(300px,440px);
+      gap:clamp(40px,5vw,80px);align-items:center;
+      max-width:1280px;margin:0 auto;
+    }
+    @media(max-width:880px){.hero{grid-template-columns:1fr;}}
+    .hero-meta{
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.32em;text-transform:uppercase;
+      color:var(--hud);margin-bottom:24px;display:flex;align-items:center;gap:12px;
+    }
+    .hero-meta::before{content:'';width:24px;height:1px;background:var(--hud);}
+    .hero-title{
+      font-family:var(--ff-display);
+      font-size:clamp(120px,22vw,260px);line-height:.85;
+      letter-spacing:0.04em;text-transform:uppercase;margin-bottom:8px;
+      background:linear-gradient(180deg, #ffffff 0%, var(--gold) 60%, #5a4a2a 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 0 80px rgba(212,175,90,0.4);
+    }
+    .hero-sub{
+      font-family:var(--ff-mono);font-size:clamp(13px,1.4vw,16px);
+      letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:32px;
+    }
+    .hero-pitch{
+      font-size:clamp(16px,1.6vw,19px);line-height:1.7;max-width:600px;
+      color:var(--ink);
+    }
+    .hero-pitch em{color:var(--gold-hot);font-style:normal;font-weight:600;}
+    .hero-cover{
+      aspect-ratio:2/3;position:relative;
+      border:1px solid var(--rule-bright);
+      box-shadow:0 30px 90px -20px rgba(0,0,0,.9), 0 0 120px -40px var(--gold);
+    }
+    .hero-cover img{width:100%;height:100%;object-fit:cover;display:block;}
+    .hero-cover::before{
+      content:'GG';position:absolute;top:-12px;left:-12px;
+      background:var(--gold);color:var(--bg);
+      padding:6px 14px;font-family:var(--ff-display);font-size:12px;letter-spacing:0.2em;
+      z-index:2;
+    }
+    .hero-cover::after{
+      content:'press F';position:absolute;bottom:-12px;right:-12px;
+      background:var(--bg);color:var(--hud);
+      padding:6px 14px;font-family:var(--ff-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+      border:1px solid var(--hud);
+      z-index:2;
+    }
+
+    /* HUD scoreboard */
+    .scoreboard{
+      max-width:1100px;margin:0 auto;
+      padding:0 clamp(20px,5vw,64px);
+    }
+    .scoreboard-inner{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:1px;background:var(--rule);
+      border:1px solid var(--rule-bright);
+    }
+    .stat-cell{
+      background:var(--paper);padding:18px 20px;
+      font-family:var(--ff-mono);
+    }
+    .stat-cell .k{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+    .stat-cell .v{font-size:22px;color:var(--gold);font-family:var(--ff-display);letter-spacing:0.04em;}
+    .stat-cell .sub{font-size:10px;color:var(--ink-soft);margin-top:4px;letter-spacing:0.04em;}
+
+    .section{
+      padding:clamp(56px,8vw,100px) clamp(20px,5vw,64px);
+      max-width:1100px;margin:0 auto;border-top:1px solid var(--rule);
+    }
+    .kicker{
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;
+      color:var(--hud);margin-bottom:20px;display:flex;align-items:center;gap:12px;
+    }
+    .kicker::before,.kicker::after{content:'';flex:1;height:1px;background:var(--rule-bright);}
+    .section-h{
+      font-family:var(--ff-display);
+      font-size:clamp(32px,5vw,56px);line-height:.95;
+      text-transform:uppercase;letter-spacing:0.02em;
+      text-align:center;
+    }
+    .section-h span{color:var(--gold);}
+    .section-sub{
+      margin-top:18px;text-align:center;max-width:640px;margin-left:auto;margin-right:auto;
+      color:var(--dim);font-size:14px;line-height:1.65;
+    }
+
+    .voice{
+      max-width:880px;margin:48px auto 0;
+      padding:clamp(28px,4vw,48px);
+      background:var(--paper);border:1px solid var(--rule-bright);
+      position:relative;
+    }
+    .voice::before{
+      content:'transcript · stream · 2025-04-12';
+      position:absolute;top:-12px;left:24px;background:var(--bg);padding:0 14px;
+      font-family:var(--ff-mono);font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);
+    }
+    .voice p{font-size:15.5px;line-height:1.75;color:var(--ink-soft);}
+    .voice p + p{margin-top:1em;}
+    .voice em{color:var(--gold-hot);font-style:normal;font-weight:600;}
+    .voice strong{color:var(--ink);font-weight:500;font-family:var(--ff-mono);letter-spacing:0.06em;}
+
+    .features{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1px;background:var(--rule);border:1px solid var(--rule-bright);
+      max-width:1100px;margin:0 auto;
+    }
+    .feature{
+      background:var(--paper);padding:28px 24px;
+      display:flex;flex-direction:column;gap:12px;
+    }
+    .feature-icon{
+      width:40px;height:40px;border:1px solid var(--gold);color:var(--gold);
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--ff-display);font-size:18px;
+    }
+    .feature-title{
+      font-family:var(--ff-display);font-size:16px;letter-spacing:0.06em;text-transform:uppercase;
+    }
+    .feature-text{
+      font-size:13.5px;line-height:1.65;color:var(--ink-soft);
+    }
+
+    .cta-row{
+      display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px;
+    }
+    .btn{
+      padding:18px 32px;
+      font-family:var(--ff-display);font-size:13px;letter-spacing:0.2em;text-transform:uppercase;
+      transition:all .2s;
+    }
+    .btn-primary{background:var(--gold);color:var(--bg);}
+    .btn-primary:hover{background:var(--gold-hot);transform:translateY(-2px);}
+    .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--rule-bright);}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold-hot);}
+
+    .footer{
+      border-top:1px solid var(--rule);padding:32px clamp(20px,5vw,64px);
+      display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+      font-family:var(--ff-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+      color:var(--dim);max-width:1280px;margin:0 auto;
+    }
+    .footer a:hover{color:var(--gold-hot);}
+    .age{padding:3px 8px;border:1px solid var(--gold);color:var(--gold);}
+    .fade{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
+    .fade.in{opacity:1;transform:translateY(0);}
+  
+    /* ---------- MOBILE POLISH ---------- */
+    html, body { overflow-x: hidden; }
+    @media (max-width: 520px) {
+      .topbar { padding: 8px 12px; gap: 6px; font-size: 10px; letter-spacing: 0.12em; flex-wrap: wrap; }
+      .topbar > span { display: none; }
+      .hero { padding: 32px 16px !important; gap: 24px !important; text-align: left; }
+      .hero-title { font-size: clamp(40px, 14vw, 64px) !important; }
+      .section { padding: 48px 16px !important; }
+      .footer { padding: 20px 14px !important; flex-direction: column; gap: 10px; font-size: 10px; }
+      .section-h, .hero-title { word-wrap: break-word; overflow-wrap: break-word; }
+      img { max-width: 100% !important; height: auto; }
+      .hero-cover { transform: none !important; }
+    }
+    @media (max-width: 380px) {
+      .topbar a { font-size: 9px; }
+    }
+  
+  </style>
+
+  <meta property="og:title" content="GG — путь киберспортсмена"/>
+  <meta property="og:description" content="MadMarks. 20 лет, калаш в руках, никаких друзей в офлайне."/>
+  <meta property="og:type" content="book"/>
+  <meta property="og:image" content="../covers/gg.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="../covers/gg.jpg"/>
+
+  <!-- ═══ SEO-supplement (canonical, keywords, robots, JSON-LD) ═══ -->
+  <meta name="keywords" content="GG, MadMarks, Агатис Интегра, РеалРПГ, киберспорт, юмор, Alt+F4, 18+"/>
+  <meta name="author" content="Агатис Интегра"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
+  <link rel="canonical" href="https://againte.gratis/gg/"/>
+  <link rel="icon" href="../favicon32.png" type="image/png"/>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "GG",
+  "author": {
+    "@type": "Person",
+    "name": "Агатис Интегра",
+    "url": "https://againte.gratis/"
+  },
+  "genre": [
+    "РеалРПГ",
+    "Киберспорт",
+    "Юмор"
+  ],
+  "inLanguage": "ru",
+  "url": "https://againte.gratis/gg/",
+  "image": "https://againte.gratis/covers/gg.jpg",
+  "description": "Alt+F4. MadMarks — 20 лет, калаш в руках, никаких друзей в офлайне. Путь с нуба до про-игрока. Жёсткий стёб, тактика и тиммейты.",
+  "bookFormat": "EBook"
+}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная — Агатис Интегра", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "GG", "item": "https://againte.gratis/gg/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="topbar">
+    <a href="../">← каталог</a>
+    <span class="live">GG · Alt+F4 · live</span>
+    <a href="https://author.today/work/430273" target="_blank" rel="noopener">author.today ↗</a>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="hero-meta">match · MadMarks · 20yo</div>
+      <h1 class="hero-title">GG</h1>
+      <div class="hero-sub">путь киберспортсмена · цикл Alt+F4 · 18+</div>
+      <p class="hero-pitch">
+        Эй, народ. Меня зовут Марк, но для вас — <em>MadMarks</em>. Говорят, из моей жизни
+        книгу сляпали. Двадцать лет, калаш в руках, и никаких друзей в офлайне — только
+        матчи, тренировки и дорога с нуба до про-игрока.
+      </p>
+    </div>
+    <div class="hero-cover"><img src="../covers/gg.jpg" alt="GG — обложка"/></div>
+  </section>
+
+  <!-- HUD stats -->
+  <section class="scoreboard">
+    <div class="scoreboard-inner">
+      <div class="stat-cell"><div class="k">объём</div><div class="v">134 884</div><div class="sub">знака</div></div>
+      <div class="stat-cell"><div class="k">а.л.</div><div class="v">3,37</div><div class="sub">авторских листов</div></div>
+      <div class="stat-cell"><div class="k">формат</div><div class="v">novel</div><div class="sub">роман</div></div>
+      <div class="stat-cell"><div class="k">статус</div><div class="v">DONE</div><div class="sub">весь текст</div></div>
+      <div class="stat-cell"><div class="k">цикл</div><div class="v">Alt+F4</div><div class="sub">книга 1</div></div>
+      <div class="stat-cell"><div class="k">rating</div><div class="v">18+</div><div class="sub">мат · кибермаразм</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">// brief // intro // нажмите старт</div>
+    <h2 class="section-h">Реальность — это когда я <span>между катками</span>.</h2>
+    <p class="section-sub">
+      Всё остальное время я там, где решают рефлексы и скилл, а не понты и мамкины деньги.
+    </p>
+
+    <div class="voice">
+      <p>
+        Что внутри? <em>Жёсткий стёб</em>, тактики на пределе, как я ору на тиммейтов, разношу
+        соперников и карабкаюсь по турнирной лестнице. Вы либо в теме и поржёте над каждой фразой,
+        либо наконец узнаете, почему мы часами пялимся в мониторы.
+      </p>
+      <p>
+        А если повезёт — поймёте, каково это, когда твои победы и фейлы смотрят тысячи людей.
+        <strong>GG, изи катка.</strong>
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="border-top:none;">
+    <div class="kicker">// loadout // в комплекте</div>
+    <h2 class="section-h" style="margin-bottom:40px;">Что <span>в этой книге</span> есть.</h2>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">⌘</div>
+        <div class="feature-title">Тактика на пределе</div>
+        <div class="feature-text">Не «они выстрелили — он увернулся», а как ты читаешь карту, считаешь экономику и держишь линию, когда тиммейт пушит без репорта.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">!</div>
+        <div class="feature-title">Тиммейты</div>
+        <div class="feature-text">На которых ты орёшь. Которые орут на тебя. С которыми ты делишь буст к титулу и пиццу в три ночи.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">∞</div>
+        <div class="feature-title">Турнирная лестница</div>
+        <div class="feature-text">От подвальной онлайн-кафешки до LAN с тысячами зрителей. Каждая ступенька — новая просадка нервов.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">@</div>
+        <div class="feature-title">Стрим</div>
+        <div class="feature-text">Когда твои фейлы смотрит десять человек — это разминка. Когда тысяча — это уже работа.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="text-align:center;">
+    <div class="kicker">// читать // gg.exe</div>
+    <h2 class="section-h">Изи <span>катка</span>.</h2>
+    <p class="section-sub">Полный роман на author.today, в свободном доступе. <span class="age">18+</span></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://author.today/work/430273" target="_blank" rel="noopener">Читать на author.today →</a>
+      <a class="btn btn-ghost" href="../">← к каталогу</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <a href="../">← Агатис Интегра</a>
+    <span>GG · Alt+F4 · book 01 · 2025</span>
+    <a href="https://author.today/u/againtegratis" target="_blank" rel="noopener">все книги ↗</a>
+  </footer>
+
+  <script>
+    const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+    document.querySelectorAll('.section,.hero,.scoreboard').forEach(el=>{el.classList.add('fade');io.observe(el);});
+  </script>
+</body>
+</html>

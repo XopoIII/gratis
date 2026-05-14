@@ -38,11 +38,21 @@
   <link rel="alternate" hreflang="ru" href="https://againte.gratis/broken/">
   <link rel="alternate" hreflang="x-default" href="https://againte.gratis/broken/">
   <!-- Подключаем шрифты для постапокалиптической атмосферы -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600&display=swap"
-    rel="stylesheet">
+  <!-- Локальные шрифты: Oswald (cyr+lat), Bebas Neue + Barlow Condensed (latin + Cyrillic fallback) -->
+  <style>
+    @font-face{font-family:'Oswald';font-style:normal;font-weight:300;font-display:swap;src:url('../fonts/oswald-300.woff2') format('woff2');}
+    @font-face{font-family:'Oswald';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/oswald-400.woff2') format('woff2');}
+    @font-face{font-family:'Oswald';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/oswald-500.woff2') format('woff2');}
+    @font-face{font-family:'Oswald';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/oswald-700.woff2') format('woff2');}
+    @font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/bebas-neue-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+    @font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/russo-one-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:300;font-display:swap;src:url('../fonts/barlow-condensed-300-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+    @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:300;font-display:swap;src:url('../fonts/manrope-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/barlow-condensed-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+    @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/manrope-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/barlow-condensed-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+    @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/manrope-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  </style>
   <link rel="preload" href="./herobackground.jpg" as="image">
   <script type="application/ld+json">
   {
@@ -1108,7 +1118,7 @@
           "Дом — это не место. Это люди рядом"
         </blockquote>
         <a href="https://author.today/work/457586" target="_blank" rel="noopener noreferrer" class="book-cta">Начать путешествие</a>
-        <a href="read/ch01.html" style="display:block;margin-top:.6rem;color:#8ab4c0;font-size:.8em;text-decoration:none;opacity:.6">Читать первые главы на сайте</a>
+        <a href="https://author.today/work/series/44532" target="_blank" rel="noopener" style="display:block;margin-top:.6rem;color:#8ab4c0;font-size:.8em;text-decoration:none;opacity:.6">Читать первые главы на сайте</a>
       </div>
     </div>
   </section>
@@ -1196,6 +1206,187 @@
     </div>
   </section>
 
+  <!-- Аудиоверсии -->
+  <section class="audio-section" id="audio" aria-labelledby="audio-title">
+    <style>
+      .audio-section {
+        padding: 6rem 2rem;
+        background: linear-gradient(180deg, var(--bg-dark) 0%, var(--color-space) 100%);
+        border-top: 1px solid rgba(144, 202, 249, 0.15);
+        border-bottom: 1px solid rgba(144, 202, 249, 0.15);
+      }
+      .audio-content { max-width: 1100px; margin: 0 auto; }
+      .audio-kicker {
+        text-align: center;
+        font-family: var(--font-tech);
+        font-size: 0.85rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--color-ice-dark);
+        margin-bottom: 1rem;
+        display: flex; align-items: center; justify-content: center; gap: 14px;
+      }
+      .audio-kicker::before, .audio-kicker::after {
+        content: ''; flex: 0 0 40px; height: 1px; background: rgba(144,202,249,0.25);
+      }
+      .audio-title {
+        text-align: center;
+        font-family: var(--font-impact);
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+      .audio-sub {
+        text-align: center;
+        font-family: var(--font-tech);
+        font-size: 1rem;
+        color: var(--text-secondary);
+        max-width: 580px;
+        margin: 0 auto 3rem;
+        line-height: 1.6;
+      }
+      .audio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      .audio-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(144, 202, 249, 0.2);
+        padding: 1.75rem;
+        display: flex; flex-direction: column; gap: 0.9rem;
+        transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        text-decoration: none; color: inherit;
+        position: relative;
+      }
+      .audio-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--color-ice);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .audio-card-head {
+        display: flex; justify-content: space-between; align-items: center;
+        padding-bottom: 0.8rem;
+        border-bottom: 1px dashed rgba(144,202,249,0.18);
+        font-family: var(--font-tech);
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+      .audio-icon {
+        width: 36px; height: 36px;
+        border: 1px solid var(--color-ice-dark);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--color-ice);
+        font-family: var(--font-impact);
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .audio-title-row { display: flex; align-items: center; gap: 12px; }
+      .audio-name {
+        font-family: var(--font-impact);
+        font-size: 1.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        line-height: 1.1;
+        color: var(--text-primary);
+      }
+      .audio-meta {
+        display: flex; gap: 14px;
+        font-family: var(--font-tech);
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        color: var(--text-secondary);
+      }
+      .audio-meta span { display: inline-flex; align-items: center; gap: 6px; }
+      .audio-meta span::before {
+        content: ''; width: 4px; height: 4px; border-radius: 50%;
+        background: var(--color-ice-dark);
+      }
+      .audio-meta span:first-child::before { display: none; }
+      .audio-desc {
+        font-family: var(--font-tech);
+        font-size: 0.92rem;
+        line-height: 1.65;
+        color: rgba(255,255,255,0.78);
+      }
+      .audio-cta {
+        margin-top: auto;
+        padding-top: 0.8rem;
+        border-top: 1px dotted rgba(144,202,249,0.15);
+        font-family: var(--font-impact);
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--color-ice);
+        display: flex; justify-content: space-between; align-items: center;
+      }
+      .audio-cta::after {
+        content: '→';
+        transition: transform 0.2s ease;
+      }
+      .audio-card:hover .audio-cta::after { transform: translateX(4px); }
+      @media (max-width: 600px) {
+        .audio-section { padding: 4rem 1rem; }
+      }
+    </style>
+    <div class="audio-content">
+      <div class="audio-kicker">аудиокниги · слушать</div>
+      <h2 id="audio-title" class="audio-title">Можно <span style="color:var(--color-ice);">слушать</span>.</h2>
+      <p class="audio-sub">
+        Три книги цикла озвучены и доступны на author.today. Удобно, если едете далеко
+        и хочется, чтобы кто-то рассказал, как кончается мир.
+      </p>
+      <div class="audio-grid">
+        <a class="audio-card" href="https://author.today/audiobook/478221" target="_blank" rel="noopener">
+          <div class="audio-card-head">
+            <span>аудио · книга 01</span>
+            <span>6 ч. 43 мин.</span>
+          </div>
+          <div class="audio-title-row">
+            <div class="audio-icon">▶</div>
+            <h3 class="audio-name">40 км во льду</h3>
+          </div>
+          <div class="audio-meta"><span>аудиокнига завершена</span><span>свободный доступ</span></div>
+          <p class="audio-desc">Новогодняя ночь во Владивостоке. Семья Малковых не подозревает, что это последний обычный вечер. Ледяной катаклизм превращает город в арктическую пустыню.</p>
+          <div class="audio-cta"><span>слушать на author.today</span></div>
+        </a>
+
+        <a class="audio-card" href="https://author.today/audiobook/480678" target="_blank" rel="noopener">
+          <div class="audio-card-head">
+            <span>аудио · книга 02</span>
+            <span>4 ч. 01 мин.</span>
+          </div>
+          <div class="audio-title-row">
+            <div class="audio-icon">▶</div>
+            <h3 class="audio-name">10 процентов</h3>
+          </div>
+          <div class="audio-meta"><span>аудиокнига завершена</span><span>свободный доступ</span></div>
+          <p class="audio-desc">Весна 2027. Новосибирск. Братья Кольцовы выбираются из военного бункера после месяцев ледяного ада, не зная, что испытания только начинаются. Город оттаивает.</p>
+          <div class="audio-cta"><span>слушать на author.today</span></div>
+        </a>
+
+        <a class="audio-card" href="https://author.today/audiobook/482447" target="_blank" rel="noopener">
+          <div class="audio-card-head">
+            <span>аудио · книга 03</span>
+            <span>4 ч. 15 мин.</span>
+          </div>
+          <div class="audio-title-row">
+            <div class="audio-icon">▶</div>
+            <h3 class="audio-name">Последняя орбита</h3>
+          </div>
+          <div class="audio-meta"><span>аудиокнига завершена</span><span>свободный доступ</span></div>
+          <p class="audio-desc">Декабрь 2026. МКС. Восемь космонавтов встречают Новый год на орбите, наблюдая за родной планетой. Над Тихим океаном появляется белая линия.</p>
+          <div class="audio-cta"><span>слушать на author.today</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section class="faq-section" id="faq" aria-labelledby="faq-title">
     <div class="faq-content">
       <h2 id="faq-title">Часто задаваемые вопросы</h2>
@@ -1226,7 +1417,7 @@
         </details>
         <details class="faq-item">
           <summary>Где читать серию «Сломанная Земля» онлайн?</summary>
-          <p>Все пять книг полностью опубликованы на Author.Today в профиле Агатис Интегра — ссылки на конкретные книги есть в карточках выше. На сайте автора доступно бесплатное превью первой книги: первые две главы «40 км во льду» на странице <a href="read/" style="color: var(--color-ice); text-decoration: underline;">againte.gratis/broken/read/</a>.</p>
+          <p>Все пять книг полностью опубликованы на Author.Today в профиле Агатис Интегра — ссылки на конкретные книги есть в карточках выше. На сайте автора доступно бесплатное превью первой книги: первые две главы «40 км во льду» на странице <a href="https://author.today/work/series/44532" target="_blank" rel="noopener" style="color: var(--color-ice); text-decoration: underline;">againte.gratis/broken/read/</a>.</p>
         </details>
         <details class="faq-item">
           <summary>Кто автор серии «Сломанная Земля»?</summary>
@@ -1245,7 +1436,7 @@
       <div class="cta-group">
         <a href="#book1" class="cta-primary">Начать с первой книги</a>
         <a href="https://author.today/work/570371" target="_blank" rel="noopener noreferrer" class="cta-secondary">Читать пятую книгу</a>
-        <a href="read/" style="display:block;margin-top:1rem;color:#8ab4c0;font-size:.85em;text-decoration:none;opacity:.7">Читать превью первой книги на сайте</a>
+        <a href="https://author.today/work/series/44532" target="_blank" rel="noopener" style="display:block;margin-top:1rem;color:#8ab4c0;font-size:.85em;text-decoration:none;opacity:.7">Читать превью первой книги на сайте</a>
       </div>
     </div>
   </section>

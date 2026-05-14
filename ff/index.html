@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Ф.Ф. — Я умер, подавившись начос. А очнулся... — Агатис Интегра</title>
+  <meta name="description" content="Цикл из 4 фанфиков: R.A.T. (Гарри Поттер), М.Т.С. (Метро), S.C.P. (Foundation), B.G.W. (Игра престолов). Каждая книга — отдельная смерть от начос и отдельное чужое тело."/>
+  <meta name="theme-color" content="#1a120c"/>
+
+  <meta property="og:title" content="Ф.Ф. — четыре раза подавился начос"/>
+  <meta property="og:description" content="R.A.T. · М.Т.С. · S.C.P. · B.G.W. — четыре фанфика про попаданство в чужие вселенные."/>
+  <meta property="og:type" content="book"/>
+
+  <style>
+    /* ------------ FONTS ------------ */
+    @font-face{font-family:'Russo One';font-weight:400;font-display:swap;
+      src:url('../fonts/russo-one-cyrillic.woff2') format('woff2');
+      unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'Russo One';font-weight:400;font-display:swap;
+      src:url('../fonts/russo-one-latin.woff2') format('woff2');
+      unicode-range:U+0000-00FF;}
+    @font-face{font-family:'PT Mono';font-weight:400;font-display:swap;
+      src:url('../fonts/pt-mono-cyrillic.woff2') format('woff2');
+      unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'PT Mono';font-weight:400;font-display:swap;
+      src:url('../fonts/pt-mono-latin.woff2') format('woff2');
+      unicode-range:U+0000-00FF;}
+    @font-face{font-family:'Caveat';font-weight:400 700;font-display:swap;
+      src:url('../fonts/caveat-cyrillic.woff2') format('woff2');
+      unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'Caveat';font-weight:400 700;font-display:swap;
+      src:url('../fonts/caveat-latin.woff2') format('woff2');
+      unicode-range:U+0000-00FF;}
+    @font-face{font-family:'PT Serif';font-weight:400;font-display:swap;
+      src:url('../fonts/pt-serif-regular-cyrillic.woff2') format('woff2');
+      unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+    @font-face{font-family:'PT Serif';font-weight:400;font-display:swap;
+      src:url('../fonts/pt-serif-regular-latin.woff2') format('woff2');
+      unicode-range:U+0000-00FF;}
+
+    /* ------------ TOKENS ------------ */
+    :root{
+      --bg: #ece1c4;
+      --paper: #f3eacf;
+      --paper-2: #faf3dd;
+      --ink: #2a1d18;
+      --ink-soft: #3a2a1c;
+      --dim: #6b5942;
+      --rule: #cdbe9c;
+      --rule-dark: #3a2a1c;
+      --stamp: #a52a1a;
+      --rat: #6b8a5a;     /* зелёный — Гарри Поттер */
+      --mtc: #3a6b8a;     /* синий — метро */
+      --scp: #b87a2a;     /* оранжевый — SCP */
+      --bgw: #8a3a5a;     /* бордо — Вестерос */
+      --ff-display: 'Russo One', 'Impact', sans-serif;
+      --ff-mono: 'PT Mono', 'Courier New', monospace;
+      --ff-hand: 'Caveat', cursive;
+      --ff-serif: 'PT Serif', Georgia, serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{background: var(--bg); color: var(--ink); font-family: var(--ff-serif); line-height: 1.6;}
+    a{color: inherit; text-decoration: none;}
+    img{max-width:100%; display:block;}
+
+    body{
+      background-image:
+        radial-gradient(ellipse at 25% 15%, rgba(165,42,26,0.06), transparent 50%),
+        radial-gradient(ellipse at 75% 85%, rgba(184,122,42,0.06), transparent 50%);
+      min-height: 100vh;
+    }
+
+    /* ----- TOPBAR ----- */
+    .topbar{
+      position: sticky; top:0; z-index: 50;
+      background: rgba(236,225,196,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule-dark);
+      padding: 10px clamp(20px, 4vw, 48px);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .topbar a{color: var(--dim); transition: color .2s;}
+    .topbar a:hover{color: var(--stamp);}
+
+    /* ----- HERO ----- */
+    .hero{
+      padding: clamp(48px, 8vw, 100px) clamp(20px, 5vw, 64px) clamp(40px, 6vw, 80px);
+      max-width: 1100px; margin: 0 auto;
+      position: relative;
+    }
+    .hero-kicker{
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--dim);
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 24px;
+    }
+    .hero-kicker::before, .hero-kicker::after{content:''; flex:1; height:1px; background: var(--rule-dark);}
+    .hero-title{
+      font-family: var(--ff-display);
+      font-size: clamp(64px, 13vw, 180px);
+      line-height: .9; text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .hero-title .dot{color: var(--stamp);}
+    .hero-sub{
+      font-family: var(--ff-hand);
+      font-size: clamp(28px, 4vw, 44px);
+      color: var(--stamp);
+      text-align: center;
+      transform: rotate(-1.5deg);
+      margin-bottom: clamp(32px, 4vw, 48px);
+    }
+    .hero-pitch{
+      max-width: 720px; margin: 0 auto;
+      font-family: var(--ff-serif);
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.7;
+      text-align: center;
+      color: var(--ink-soft);
+    }
+    .hero-pitch em{
+      font-family: var(--ff-mono);
+      font-style: normal;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 2px 8px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ----- DEATH CERTIFICATE ----- */
+    .cert{
+      max-width: 760px; margin: clamp(40px, 5vw, 64px) auto 0;
+      padding: clamp(32px, 4vw, 48px);
+      background: var(--paper-2);
+      border: 1px solid var(--rule-dark);
+      box-shadow: 0 2px 0 var(--rule-dark), 8px 14px 28px -16px rgba(58,42,28,.3);
+      position: relative;
+      transform: rotate(-0.5deg);
+    }
+    .cert::before{
+      content: ''; position: absolute; top:-1px; left:-1px; right:-1px; height:8px;
+      background: repeating-linear-gradient(90deg, var(--stamp) 0 12px, transparent 12px 18px);
+    }
+    .cert-header{
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 24px; padding-bottom: 16px;
+      border-bottom: 1px dashed var(--rule-dark);
+    }
+    .cert-title{
+      font-family: var(--ff-display);
+      font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .cert-id{
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.18em; color: var(--dim);
+      text-align: right;
+    }
+    .cert-stamp{
+      position: absolute; top: 28px; right: 28px;
+      width: 96px; height: 96px;
+      border: 3px solid var(--stamp);
+      border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: var(--ff-display); font-size: 11px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--stamp);
+      transform: rotate(-12deg);
+      opacity: .85;
+      line-height: 1.1;
+      text-align: center;
+    }
+    @media (max-width: 520px){
+      .cert-stamp{ width:64px; height:64px; top:16px; right:16px; font-size:8px; border-width:2px; }
+      .cert-stamp em{ font-size:10px !important; }
+      .cert{ transform: none; }
+      .cert-header{ padding-right: 60px; }
+    }
+    .cert-stamp em{font-style: normal; font-size: 13px;}
+    .cert-fields{
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 10px 24px;
+      font-family: var(--ff-mono); font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+    .cert-fields dt{
+      color: var(--dim); letter-spacing: 0.16em;
+      text-transform: uppercase; font-size: 10.5px;
+      padding-top: 4px;
+    }
+    .cert-fields dd{
+      margin: 0;
+      border-bottom: 1px dotted var(--rule-dark);
+      padding: 0 0 4px 0;
+    }
+    .cert-fields dd .hand{
+      font-family: var(--ff-hand);
+      font-size: 18px;
+      color: var(--stamp);
+    }
+
+    /* ----- SECTION ----- */
+    .section{
+      padding: clamp(56px, 8vw, 100px) clamp(20px, 5vw, 64px);
+      max-width: 1280px; margin: 0 auto;
+    }
+    .section-head{
+      max-width: 880px; margin: 0 auto clamp(40px, 5vw, 64px); text-align: center;
+    }
+    .section-kicker{
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--dim);
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .section-kicker::before, .section-kicker::after{content:''; flex:1; height:1px; background: var(--rule-dark);}
+    .section-h{
+      font-family: var(--ff-display);
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: .95; text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .section-sub{
+      margin-top: 18px;
+      color: var(--dim); font-size: 14px; line-height: 1.65;
+      max-width: 580px; margin-left: auto; margin-right: auto;
+    }
+
+    /* ----- TICKETS GRID ----- */
+    .tickets{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(20px, 2.5vw, 32px);
+      max-width: 1100px; margin: 0 auto;
+    }
+    @media (max-width: 720px) { .tickets{ grid-template-columns: 1fr; }}
+
+    .ticket{
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      background: var(--paper-2);
+      border: 1px solid var(--rule-dark);
+      position: relative;
+      transition: transform .3s, box-shadow .3s;
+      overflow: hidden;
+    }
+    .ticket:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 22px 44px -22px rgba(42,29,24,.55);
+    }
+    .ticket::before{
+      content:''; position: absolute; left:0; top:0; width:5px; height:100%;
+      background: var(--accent, var(--stamp));
+    }
+    .ticket-rat{ --accent: var(--rat);}
+    .ticket-mtc{ --accent: var(--mtc);}
+    .ticket-scp{ --accent: var(--scp);}
+    .ticket-bgw{ --accent: var(--bgw);}
+
+    .ticket-head{
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 18px 14px 24px;
+      border-bottom: 1px dashed var(--rule-dark);
+      font-family: var(--ff-mono); font-size: 10.5px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .ticket-head .num{color: var(--accent);}
+    .ticket-body{
+      padding: clamp(24px, 2.5vw, 36px) clamp(22px, 2.5vw, 32px) 18px;
+      padding-left: clamp(28px, 3vw, 40px);
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .ticket-cover{
+      position: relative;
+      aspect-ratio: 2 / 3;
+      overflow: hidden;
+      background: #fff;
+      border-bottom: 1px dashed var(--rule-dark);
+    }
+    .ticket-cover img{
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .ticket:hover .ticket-cover img{ transform: scale(1.03);}
+    .ticket-cover::after{
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.04) 100%);
+      pointer-events: none;
+    }
+    .ticket-glyph{
+      font-size: clamp(40px, 5vw, 56px);
+      line-height: 1;
+      position: absolute; top: 14px; right: 14px;
+      background: var(--paper-2);
+      width: 64px; height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--rule-dark);
+      border-radius: 50%;
+      box-shadow: 0 4px 12px -4px rgba(58,42,28,0.4);
+      z-index: 2;
+    }
+    .ticket-where{
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .ticket-code{
+      font-family: var(--ff-display);
+      font-size: clamp(40px, 5vw, 56px);
+      letter-spacing: 0.12em;
+      line-height: .95;
+    }
+    .ticket-title{
+      font-family: var(--ff-display);
+      font-size: clamp(20px, 2.4vw, 28px);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1.05;
+    }
+    .ticket-desc{
+      font-size: 14px; line-height: 1.65;
+      color: var(--ink-soft);
+    }
+    .ticket-meta{
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4px 16px;
+      padding: 14px 0;
+      border-top: 1px dotted var(--rule-dark);
+      border-bottom: 1px dotted var(--rule-dark);
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+    .ticket-meta dt{color: var(--dim); letter-spacing: 0.16em; text-transform: uppercase; font-size: 9.5px;}
+    .ticket-meta dd{margin: 0; color: var(--ink);}
+    .ticket-foot{
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 24px;
+      border-top: 1px solid var(--rule-dark);
+      background: rgba(0,0,0,0.04);
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    .ticket-foot .read{
+      color: var(--accent);
+      transition: transform .2s;
+    }
+    .ticket:hover .read{transform: translateX(4px);}
+    .ticket-foot .vol{color: var(--dim);}
+
+    /* perforation */
+    .ticket-perf{
+      height: 1px;
+      background-image: linear-gradient(90deg, var(--rule-dark) 50%, transparent 50%);
+      background-size: 8px 1px;
+      margin: 0 18px;
+    }
+
+    /* ----- FORMULA ----- */
+    .formula{
+      max-width: 880px; margin: 0 auto;
+      padding: clamp(32px, 4vw, 56px);
+      background: var(--ink); color: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .formula::before{
+      content: 'Ф · Ф';
+      position: absolute; top: -20px; right: -20px;
+      font-family: var(--ff-display);
+      font-size: clamp(180px, 22vw, 280px);
+      line-height: 1; color: rgba(236,225,196,0.04);
+      pointer-events: none;
+    }
+    .formula-label{
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--rat);
+      margin-bottom: 18px;
+    }
+    .formula-text{
+      font-family: var(--ff-serif);
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.5;
+      text-wrap: balance;
+    }
+    .formula-text em{
+      font-family: var(--ff-display);
+      font-style: normal;
+      color: var(--scp);
+      letter-spacing: 0.04em;
+    }
+    .formula-steps{
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: rgba(236,225,196,0.18);
+    }
+    .formula-step{
+      background: var(--ink); padding: 18px;
+      font-family: var(--ff-mono); font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .formula-step .n{
+      display: inline-block; padding: 2px 8px;
+      background: var(--bg); color: var(--ink);
+      font-family: var(--ff-display); font-size: 11px;
+      letter-spacing: 0.16em;
+      margin-bottom: 10px;
+    }
+    .formula-step strong{color: var(--bg); font-weight: 400;}
+
+    /* ----- ABOUT ----- */
+    .about{
+      max-width: 980px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(28px, 3vw, 48px);
+      align-items: flex-start;
+    }
+    @media (max-width: 720px) { .about{ grid-template-columns: 1fr; }}
+    .about-card{
+      padding: clamp(24px, 3vw, 36px);
+      background: var(--paper-2);
+      border: 1px solid var(--rule-dark);
+      position: relative;
+    }
+    .about-card h3{
+      font-family: var(--ff-display);
+      font-size: 22px; letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .about-card p{
+      font-size: 14.5px; line-height: 1.7;
+      color: var(--ink-soft);
+    }
+    .about-card p + p{margin-top: .8em;}
+    .about-card .note{
+      font-family: var(--ff-hand);
+      font-size: 22px;
+      color: var(--stamp);
+      transform: rotate(-1deg);
+      margin-top: 16px;
+    }
+
+    /* ----- FOOTER ----- */
+    .footer{
+      border-top: 1px solid var(--rule-dark);
+      padding: 32px clamp(20px, 5vw, 64px);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+      font-family: var(--ff-mono); font-size: 11px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer a:hover{color: var(--stamp);}
+
+    /* fade animation */
+    .fade{opacity:0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease;}
+    .fade.in{opacity:1; transform: translateY(0);}
+  
+    /* ---------- MOBILE POLISH ---------- */
+    html, body { overflow-x: hidden; }
+    @media (max-width: 520px) {
+      .topbar { padding: 8px 12px; gap: 6px; font-size: 10px; letter-spacing: 0.12em; flex-wrap: wrap; }
+      .topbar > span { display: none; }
+      .hero { padding: 32px 16px !important; gap: 24px !important; text-align: left; }
+      .hero-title { font-size: clamp(40px, 14vw, 64px) !important; }
+      .section { padding: 48px 16px !important; }
+      .footer { padding: 20px 14px !important; flex-direction: column; gap: 10px; font-size: 10px; }
+      .section-h, .hero-title { word-wrap: break-word; overflow-wrap: break-word; }
+      img { max-width: 100% !important; height: auto; }
+      .hero-cover { transform: none !important; }
+    }
+    @media (max-width: 380px) {
+      .topbar a { font-size: 9px; }
+    }
+  
+  </style>
+
+  <meta property="og:title" content="Ф.Ф. — Я умер, подавившись начос"/>
+  <meta property="og:description" content="Четыре фанфика: R.A.T. · М.Т.С. · S.C.P. · B.G.W."/>
+  <meta property="og:type" content="book"/>
+  <meta property="og:image" content="covers/rat.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="covers/rat.jpg"/>
+
+  <!-- ═══ SEO-supplement (canonical, keywords, robots, JSON-LD) ═══ -->
+  <meta name="keywords" content="Ф.Ф., фанфики, Агатис Интегра, R.A.T., M.T.C., S.C.P., B.G.W., Гарри Поттер, Метро, SCP Foundation, Игра престолов, попаданцы"/>
+  <meta name="author" content="Агатис Интегра"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
+  <link rel="canonical" href="https://againte.gratis/ff/"/>
+  <link rel="icon" href="../favicon32.png" type="image/png"/>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BookSeries",
+  "name": "Ф.Ф.",
+  "author": {
+    "@type": "Person",
+    "name": "Агатис Интегра",
+    "url": "https://againte.gratis/"
+  },
+  "genre": [
+    "Фанфики",
+    "Попаданцы",
+    "Цикл"
+  ],
+  "inLanguage": "ru",
+  "url": "https://againte.gratis/ff/",
+  "image": "https://againte.gratis/ff/covers/rat.jpg",
+  "description": "R.A.T. · M.T.C. · S.C.P. · B.G.W. — четыре раза подавился начос, четыре раза очнулся не там. Гарри Поттер, Метро, SCP, Игра престолов."
+}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная — Агатис Интегра", "item": "https://againte.gratis/"},
+      {"@type": "ListItem", "position": 2, "name": "Ф.Ф. — фанфики", "item": "https://againte.gratis/ff/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="../">← каталог</a>
+    <span>Ф.Ф. · цикл фанфиков · 4 книги</span>
+    <a href="https://author.today/work/series/43483" target="_blank" rel="noopener">author.today ↗</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-kicker">Ф · Ф · цикл · 4 книги · ~550 тыс. знаков</div>
+    <h1 class="hero-title">Я умер<span class="dot">.</span></h1>
+    <div class="hero-sub">…подавившись начос.</div>
+
+    <p class="hero-pitch">
+      Четыре книги. Четыре раза начос. Четыре чужих тела в чужих вселенных.
+      Без боярки, без гарема, без «избранности». Только <em>фанатская паника</em>,
+      пара поломанных артефактов из прошлой жизни и устойчивое подозрение,
+      что попасть сюда было не случайностью.
+    </p>
+
+    <!-- Death certificate -->
+    <div class="cert">
+      <div class="cert-stamp">причина:<br/><em>начос</em></div>
+      <div class="cert-header">
+        <div>
+          <div style="font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.22em; color: var(--dim); text-transform: uppercase;">Форма Ф.Ф. — 47</div>
+          <div class="cert-title">Свидетельство о&nbsp;смерти</div>
+        </div>
+        <div class="cert-id">№ 04 · серия начос<br/>тираж&nbsp;:&nbsp;4 экз.</div>
+      </div>
+      <dl class="cert-fields">
+        <dt>Имя</dt><dd><span class="hand">— [стёрто фанфиком] —</span></dd>
+        <dt>Возраст</dt><dd>от 20 до 40, в зависимости от чужого тела</dd>
+        <dt>Обстоятельства</dt><dd>чипс. большой. острый. один. вечер.</dd>
+        <dt>Что осталось</dt><dd>знание поп-культуры до 2025 года</dd>
+        <dt>Куда направлен</dt><dd style="max-width: 100%;"><span class="hand">см. ниже &nbsp;↓</span></dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- FORMULA -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">формула цикла</div>
+      <h2 class="section-h">Один <span style="color:var(--stamp);">баг</span>,<br/>четыре <span style="color:var(--stamp);">фанфика</span>.</h2>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">// f.f. — fanfic of fanfics</div>
+      <div class="formula-text">
+        Начос → горло → темнота → <em>чужое тело</em>.<br/>
+        Каждая книга — отдельная вселенная, отдельный канон, отдельный <em>чужой</em> канон, который автор любил в детстве.
+      </div>
+      <div class="formula-steps">
+        <div class="formula-step">
+          <div class="n">01</div>
+          <strong>Подавился.</strong><br/>Не успел сказать «не туда».
+        </div>
+        <div class="formula-step">
+          <div class="n">02</div>
+          <strong>Очнулся.</strong><br/>В теле, которому идёт квест.
+        </div>
+        <div class="formula-step">
+          <div class="n">03</div>
+          <strong>Паника.</strong><br/>Канон знает не всё. И ты — тоже.
+        </div>
+        <div class="formula-step">
+          <div class="n">04</div>
+          <strong>Финал.</strong><br/>Никто не вернулся домой. Кроме тебя?
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKETS — 4 destinations -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">точки реинкарнации</div>
+      <h2 class="section-h">Четыре <span style="color:var(--stamp);">билета</span>.<br/>Все в один конец.</h2>
+      <p class="section-sub">
+        Билет № 1 — в Хогвартс. Билет № 2 — в Метро. Билет № 3 — в Foundation.
+        Билет № 4 — в Вестерос. Кто выдаёт билеты — система или хаос — пока непонятно.
+      </p>
+    </div>
+
+    <div class="tickets">
+
+      <!-- R.A.T. -->
+      <a class="ticket ticket-rat" href="https://author.today/work/450714" target="_blank" rel="noopener">
+        <div class="ticket-head">
+          <span class="num">№ 01 · билет</span>
+          <span>R.A.T.</span>
+        </div>
+        <div class="ticket-cover">
+          <img src="covers/rat.jpg" alt="R.A.T. — обложка" loading="lazy"/>
+          <div class="ticket-glyph">🐁</div>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-where">мир · Хогвартс · 1981</div>
+          <div class="ticket-code">R · A · T</div>
+          <div class="ticket-title">Крыса в Гарри Поттере</div>
+          <div class="ticket-desc">
+            Очнулся в теле крысы. Не Питер. Не Короста. Просто… крыса с памятью фаната Гарри Поттера, Марвел и Джарвиса. В голове — голос. На шее — осколок Амулета Агамотто. В душе — огромное желание не дать Волдеморту победить (и не сдохнуть второй раз).
+          </div>
+          <dl class="ticket-meta">
+            <dt>объём</dt><dd>139 612 знаков</dd>
+            <dt>а.л.</dt><dd>3,49</dd>
+            <dt>фандом</dt><dd>Гарри Поттер + Marvel</dd>
+            <dt>статус</dt><dd>весь текст</dd>
+          </dl>
+        </div>
+        <div class="ticket-perf"></div>
+        <div class="ticket-foot">
+          <span class="vol">фанатские ошибки</span>
+          <span class="read">читать ↗</span>
+        </div>
+      </a>
+
+      <!-- М.Т.С. -->
+      <a class="ticket ticket-mtc" href="https://author.today/work/459588" target="_blank" rel="noopener">
+        <div class="ticket-head">
+          <span class="num">№ 02 · билет</span>
+          <span>М.Т.С.</span>
+        </div>
+        <div class="ticket-cover">
+          <img src="covers/mtc.jpg" alt="М.Т.С. — обложка" loading="lazy"/>
+          <div class="ticket-glyph">🚇</div>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-where">мир · Московское метро · 20XX</div>
+          <div class="ticket-code">М · Т · С</div>
+          <div class="ticket-title">Сталкер в метро</div>
+          <div class="ticket-desc">
+            Очнулся в туннелях. Теперь я Крот — сталкер без памяти, но с чужим знанием туннелей. На руке — поломанный ИИ из прошлой жизни. В голове — паника от того, что целые станции метро исчезают вместе с людьми. И никто этого не замечает.
+          </div>
+          <dl class="ticket-meta">
+            <dt>объём</dt><dd>151 651 знаков</dd>
+            <dt>а.л.</dt><dd>3,79</dd>
+            <dt>фандом</dt><dd>Метро 2033</dd>
+            <dt>статус</dt><dd>весь текст</dd>
+          </dl>
+        </div>
+        <div class="ticket-perf"></div>
+        <div class="ticket-foot">
+          <span class="vol">туннельные ошибки</span>
+          <span class="read">читать ↗</span>
+        </div>
+      </a>
+
+      <!-- S.C.P. -->
+      <a class="ticket ticket-scp" href="https://author.today/work/455518" target="_blank" rel="noopener">
+        <div class="ticket-head">
+          <span class="num">№ 03 · билет</span>
+          <span>S.C.P.</span>
+        </div>
+        <div class="ticket-cover">
+          <img src="covers/scp.jpg" alt="S.C.P. — обложка" loading="lazy"/>
+          <div class="ticket-glyph">🖥️</div>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-where">мир · Foundation · Site-19</div>
+          <div class="ticket-code">S · C · P</div>
+          <div class="ticket-title">Айтишник в Foundation</div>
+          <div class="ticket-desc">
+            Очнулся в теле системного администратора. Дэвид Кларк, IT в Foundation. В голове — голос TM-Δ. В руках — провод под напряжением. В душе — паника от того, что за дверью SCP-096. И это точно не баг игры. Это баг реальности.
+          </div>
+          <dl class="ticket-meta">
+            <dt>объём</dt><dd>160 310 знаков</dd>
+            <dt>а.л.</dt><dd>4,01</dd>
+            <dt>фандом</dt><dd>SCP Foundation + Δ.E.F.I.R.</dd>
+            <dt>статус</dt><dd>весь текст</dd>
+          </dl>
+        </div>
+        <div class="ticket-perf"></div>
+        <div class="ticket-foot">
+          <span class="vol">сбой системы</span>
+          <span class="read">читать ↗</span>
+        </div>
+      </a>
+
+      <!-- B.G.W. -->
+      <a class="ticket ticket-bgw" href="https://author.today/work/451745" target="_blank" rel="noopener">
+        <div class="ticket-head">
+          <span class="num">№ 04 · билет</span>
+          <span>B.G.W.</span>
+        </div>
+        <div class="ticket-cover">
+          <img src="covers/bgw.jpg" alt="B.G.W. — обложка" loading="lazy"/>
+          <div class="ticket-glyph">⚔️</div>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-where">мир · Вестерос · до Эйрис</div>
+          <div class="ticket-code">B · G · W</div>
+          <div class="ticket-title">Бастард в Игре престолов</div>
+          <div class="ticket-desc">
+            Очнулся в теле бастарда. Гаррен Уотерс — оруженосец из «Игры Престолов», но с памятью фаната HBO и Marvel. В голове — Домино. В руках — эффект бабочки. В душе — жажда переписать финал, который мы не заслужили. Или заслужили.
+          </div>
+          <dl class="ticket-meta">
+            <dt>объём</dt><dd>99 447 знаков</dd>
+            <dt>а.л.</dt><dd>2,49</dd>
+            <dt>фандом</dt><dd>ASOIAF + Marvel</dd>
+            <dt>статус</dt><dd>весь текст</dd>
+          </dl>
+        </div>
+        <div class="ticket-perf"></div>
+        <div class="ticket-foot">
+          <span class="vol">фанатские правки</span>
+          <span class="read">читать ↗</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">о цикле</div>
+      <h2 class="section-h">Что внутри.<br/>И <span style="color:var(--stamp);">чего</span> там нет.</h2>
+    </div>
+
+    <div class="about">
+      <div class="about-card">
+        <h3>Что есть</h3>
+        <p>
+          Чужие миры, любимые с детства. Канон, который автор знает наизусть. Паника носителя, который вспомнил, чем закончится канон — и не уверен, готов ли он его менять.
+        </p>
+        <p>
+          Самоирония. Лёгкость. Уважение к источнику. И отдельная вселенная за каждой обложкой — Хогвартс, метро, Site-19, Вестерос. Четыре разных тона. Один автор.
+        </p>
+        <div class="note">писалось ради удовольствия →</div>
+      </div>
+
+      <div class="about-card">
+        <h3>Чего нет</h3>
+        <p>
+          Боярки. Гарема. «Избранности». Чит-системы из прошлой жизни. Уровней, прокачки, гримуаров. Серьёзных лиц. Долгих перерождений с лекциями про «новый мир».
+        </p>
+        <p>
+          Один герой умер от начос — это всё, что нужно знать. Дальше — фан, паника, и тихая попытка не обосраться перед каноном, который ты годами обсуждал в комментах.
+        </p>
+        <div class="note">читать в любом порядке →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- READ -->
+  <section class="section" style="text-align: center;">
+    <div class="section-head">
+      <div class="section-kicker">точки входа</div>
+      <h2 class="section-h">Выбери <span style="color:var(--stamp);">билет</span>.</h2>
+      <p class="section-sub">Все четыре книги — на author.today, в свободном доступе. Можно начать с любой.</p>
+    </div>
+
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a class="ticket-foot" style="background: var(--rat); color: var(--bg); padding: 14px 22px; border:none; font-family: var(--ff-display); font-size: 13px;" href="https://author.today/work/450714" target="_blank" rel="noopener">🐁 R.A.T.</a>
+      <a class="ticket-foot" style="background: var(--mtc); color: var(--bg); padding: 14px 22px; border:none; font-family: var(--ff-display); font-size: 13px;" href="https://author.today/work/459588" target="_blank" rel="noopener">🚇 М.Т.С.</a>
+      <a class="ticket-foot" style="background: var(--scp); color: var(--bg); padding: 14px 22px; border:none; font-family: var(--ff-display); font-size: 13px;" href="https://author.today/work/455518" target="_blank" rel="noopener">🖥️ S.C.P.</a>
+      <a class="ticket-foot" style="background: var(--bgw); color: var(--bg); padding: 14px 22px; border:none; font-family: var(--ff-display); font-size: 13px;" href="https://author.today/work/451745" target="_blank" rel="noopener">⚔️ B.G.W.</a>
+      <a class="ticket-foot" style="background: transparent; color: var(--ink); border: 1px solid var(--rule-dark); padding: 14px 22px; font-family: var(--ff-display); font-size: 13px;" href="https://author.today/work/series/43483" target="_blank" rel="noopener">Цикл целиком ↗</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <a href="../">← к каталогу Агатис Интегра</a>
+    <span>Ф.Ф. · 4 фанфика · ~550 тыс. знаков · 2025</span>
+    <a href="https://author.today/u/againtegratis" target="_blank" rel="noopener">все книги автора ↗</a>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:0.1});
+    document.querySelectorAll('.section, .ticket, .cert, .about-card').forEach(el => { el.classList.add('fade'); io.observe(el); });
+  </script>
+</body>
+</html>
