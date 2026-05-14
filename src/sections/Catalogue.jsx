@@ -691,24 +691,16 @@ const Catalogue = () => (
         .cat-cover-rule { display: none; }
         .cat-cover { margin-top: 0; }
         .cat-cover-frame { max-width: 160px; }
-        /* Веер на мобиле: показываем только верхнюю карту, остальные прячем */
-        .cat-cover-img.is-fan-card { display: none; }
-        .cat-cover-img.is-fan-card.is-top {
-          display: block;
-          position: static;
-          transform: none !important;
-          width: 100%;
-          max-width: 100%;
-          height: 100%;
-          aspect-ratio: auto;
-          object-fit: cover;
-        }
+        /* Веер на мобиле — оставляем как на десктопе, чуть компактнее */
         .cat-cover-frame.is-fan {
-          background: var(--bg-soft);
-          border: 1px solid var(--rule);
-          height: auto;
-          aspect-ratio: 3 / 4;
-          max-width: 160px;
+          background: transparent;
+          border: none;
+          aspect-ratio: auto;
+          max-width: 100%;
+          height: 220px;
+        }
+        .cat-cover-img.is-fan-card {
+          width: 140px;
         }
         .cat-tree-wrap { display: none; }
       }

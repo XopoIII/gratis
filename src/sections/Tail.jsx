@@ -271,15 +271,13 @@ const Footer = () => (
       }}
     >
       <span style={{ color: 'var(--dim)' }}>──</span>
-      <span>powered by <span style={{ color: 'var(--accent-shu)' }}>sumi (墨)</span></span>
+      <span>powered by <span style={{ color: 'var(--accent-shu)' }}>sumi</span></span>
       <span style={{ color: 'var(--dim)' }}>&amp;</span>
       <span style={{ color: 'var(--accent-amber)' }}>python</span>
       <span style={{ color: 'var(--dim)' }}>·</span>
       <span style={{ color: 'var(--fg-soft)' }}>agaINTE GRAtis</span>
       <span style={{ color: 'var(--dim)' }}>·</span>
       <span style={{ color: 'var(--muted)' }}>v.2026.05</span>
-      <span style={{ color: 'var(--dim)' }}>·</span>
-      <span style={{ color: 'var(--accent-shu)' }}>〔印〕</span>
       <span style={{ color: 'var(--dim)' }}>──</span>
     </div>
     <div

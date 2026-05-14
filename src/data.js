@@ -301,7 +301,7 @@ const worksPublished = [
 
 const worksCycles = [
   {
-    id: 'broken', n: '12', title: 'Сломанная Земля',
+    id: 'broken', n: '12', title: 'Сломанная земля',
     universe: 'Климатический постапок',
     genre: 'постапок · цикл',
     status: STATUS.CYCLE,
@@ -313,7 +313,7 @@ const worksCycles = [
     at: 'https://author.today/work/series/44532',
   },
   {
-    id: 'auntie', n: '13', title: 'Постапок от тётушки',
+    id: 'auntie', n: '13', title: 'Пенсионный архив',
     universe: 'Пенсионный архив',
     genre: 'рассказы · 3 сборника',
     status: STATUS.CYCLE,
@@ -337,7 +337,7 @@ const worksCycles = [
     at: 'https://author.today/work/series/42163',
   },
   {
-    id: 'ff', n: '15', title: 'Ф.Ф. — фанфики',
+    id: 'ff', n: '15', title: 'Ф.Ф.',
     universe: '«Умер от начос. Очнулся в...»',
     genre: 'фанфик · цикл',
     status: STATUS.PUBLISHED,
